@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNetatmo24.AppHost", "MyNetatmo24.AppHost\MyNetatmo24.AppHost.csproj", "{C05FB18B-B480-4ED9-B413-B7E168606795}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNetatmo24.ServiceDefaults", "MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj", "{A4E66CB7-5F04-4667-ACBA-37EFEC52680A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C05FB18B-B480-4ED9-B413-B7E168606795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C05FB18B-B480-4ED9-B413-B7E168606795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C05FB18B-B480-4ED9-B413-B7E168606795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C05FB18B-B480-4ED9-B413-B7E168606795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E66CB7-5F04-4667-ACBA-37EFEC52680A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E66CB7-5F04-4667-ACBA-37EFEC52680A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E66CB7-5F04-4667-ACBA-37EFEC52680A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4E66CB7-5F04-4667-ACBA-37EFEC52680A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
