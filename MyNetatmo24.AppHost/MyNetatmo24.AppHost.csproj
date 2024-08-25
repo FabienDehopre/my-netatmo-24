@@ -13,4 +13,8 @@
         <PackageReference Include="Aspire.Hosting.AppHost" Version="8.1.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MyNetatmo24.Backend\MyNetatmo24.Backend.csproj" />
+    </ItemGroup>
+
 </Project>
