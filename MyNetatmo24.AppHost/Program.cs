@@ -9,7 +9,7 @@ var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("Backend");
 var frontend = builder.AddNpmApp("Frontend", "../MyNetatmo24.Frontend")
     .WithReference(backend)
     .WithReference(cache)
-    .WithHttpEndpoint(4200)
+    .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
 

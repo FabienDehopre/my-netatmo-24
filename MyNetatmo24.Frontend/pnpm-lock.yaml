@@ -70,6 +70,9 @@ devDependencies:
   karma-jasmine-html-reporter:
     specifier: ~2.1.0
     version: 2.1.0(jasmine-core@5.2.0)(karma-jasmine@5.1.0)(karma@6.4.4)
+  run-script-os:
+    specifier: ^1.1.6
+    version: 1.1.6
   typescript:
     specifier: ~5.5.2
     version: 5.5.4
@@ -6746,6 +6749,11 @@ packages:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
       queue-microtask: 1.2.3
+    dev: true
+
+  /run-script-os@1.1.6:
+    resolution: {integrity: sha512-ql6P2LzhBTTDfzKts+Qo4H94VUKpxKDFz6QxxwaUZN0mwvi7L3lpOI7BqPCq7lgDh3XLl0dpeXwfcVIitlrYrw==}
+    hasBin: true
     dev: true
 
   /rxjs@7.8.1:
