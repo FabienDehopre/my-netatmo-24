@@ -4,9 +4,9 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedis("cache");
 
-var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("Backend");
+var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend");
 
-var frontend = builder.AddNpmApp("Frontend", "../MyNetatmo24.Frontend")
+var frontend = builder.AddNpmApp("frontend", "../MyNetatmo24.Frontend")
     .WithReference(backend)
     .WithReference(cache)
     .WithHttpEndpoint(env: "PORT")
