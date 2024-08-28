@@ -16,6 +16,7 @@ var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend")
 
 var frontend = builder.AddNpmApp("frontend", "../MyNetatmo24.Frontend")
     .WithReference(backend)
+    .WithReference(keycloak)
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile();
