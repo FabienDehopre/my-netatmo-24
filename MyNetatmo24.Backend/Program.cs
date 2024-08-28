@@ -10,6 +10,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
+builder.Services.AddAuthentication()
+    .AddKeycloakJwtBearer("keycloak", realm: "my-netatmo-24", options =>
+    {
+        options.Audience = "backend.api";
+    });
+
 var app = builder.Build();
 
 // Configure Aspire default endpoints
