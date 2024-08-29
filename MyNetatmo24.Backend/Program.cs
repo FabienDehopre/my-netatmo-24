@@ -14,6 +14,7 @@ builder.Services.AddAuthentication()
     .AddKeycloakJwtBearer("keycloak", realm: "my-netatmo-24", options =>
     {
         options.Audience = "backend.api";
+        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
     });
 
 var app = builder.Build();
