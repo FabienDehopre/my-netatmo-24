@@ -16,6 +16,7 @@ builder.Services.AddAuthentication()
         options.Audience = "backend.api";
         options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
     });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -34,6 +35,8 @@ app.UseCors(static builder =>
     builder.AllowAnyMethod()
         .AllowAnyHeader()
         .AllowAnyOrigin());
+app.UseAuthentication();
+app.UseAuthorization();
 
 var summaries = new[]
 {
@@ -53,7 +56,8 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast")
-.WithOpenApi();
+.WithOpenApi()
+.RequireAuthorization();
 
 app.Run();
 

@@ -7,8 +7,8 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {HttpRequest, provideHttpClient} from "@angular/common/http";
-import {KeycloakService, KeycloakAngularModule } from "keycloak-angular";
+import {HTTP_INTERCEPTORS, HttpRequest, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import {KeycloakService, KeycloakAngularModule, KeycloakBearerInterceptor} from "keycloak-angular";
 
 interface KeycloakConfig {
   url?: string;
@@ -22,12 +22,14 @@ export function initKeycloak(keycloakService: KeycloakService): () => Promise<vo
     await keycloakService.init({
       config,
       initOptions: {
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+        onLoad: 'login-required',
+        // silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
+        scope: 'profile email',
+        enableLogging: true,
       },
       shouldAddToken: (request: HttpRequest<unknown>): boolean => {
         return request.url.startsWith('api/') || request.url.startsWith('/api/');
-      }
+      },
     });
   };
 }
@@ -36,11 +38,16 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     {
       provide: APP_INITIALIZER,
       useFactory: initKeycloak,
       deps: [KeycloakService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: KeycloakBearerInterceptor,
       multi: true
     },
     importProvidersFrom(KeycloakAngularModule)
