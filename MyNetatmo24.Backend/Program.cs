@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
@@ -10,13 +12,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
-builder.Services.AddAuthentication()
-    .AddKeycloakJwtBearer("keycloak", realm: "my-netatmo-24", options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = "https://auth.dehopre.dev/";
+    options.Audience = "https://my-netatmo24-api";
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ReadWeather", b =>
     {
-        options.Audience = "backend.api";
-        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+        b.RequireAuthenticatedUser()
+            .RequireClaim("permissions", "read:weatherdata");
     });
-builder.Services.AddAuthorization();
+});
 
 var app = builder.Build();
 
@@ -57,7 +69,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi()
-.RequireAuthorization();
+.RequireAuthorization("ReadWeather");
 
 app.Run();
 

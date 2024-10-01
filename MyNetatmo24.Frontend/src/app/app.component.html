@@ -57,6 +57,9 @@
       </svg>
       <h1>Hello, {{ title() }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
+      <app-auth-button />
+      <app-user-profile />
+      <button (click)="load()">Load weather data</button>
       <table>
         <thead>
         <tr>

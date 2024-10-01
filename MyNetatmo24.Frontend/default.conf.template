@@ -18,7 +18,7 @@ server {
         rewrite ^/api(/.*)$ $1 break;
     }
 
-    location /keycloak.json {
+    location /config.json {
         default_type application/json;
         return 200 '{"url":"${services__keycloak__https__0}","realm":"my-netatmo-24","clientId":"web-app"}';
     }
