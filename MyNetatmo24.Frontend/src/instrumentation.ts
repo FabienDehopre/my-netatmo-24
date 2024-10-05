@@ -4,7 +4,7 @@ import {
   SimpleSpanProcessor,
   WebTracerProvider
 } from "@opentelemetry/sdk-trace-web";
-import {OTLPTraceExporter} from "@opentelemetry/exporter-trace-otlp-http";
+import {OTLPTraceExporter} from "@opentelemetry/exporter-trace-otlp-proto";
 import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
 import {registerInstrumentations} from "@opentelemetry/instrumentation";
 import { ZoneContextManager } from '@opentelemetry/context-zone';
