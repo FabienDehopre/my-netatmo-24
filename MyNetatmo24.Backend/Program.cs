@@ -18,6 +18,7 @@ builder.Services
         {
             settings.Title = "My Netatmo 24 API";
             settings.Version = "v1";
+            settings.DocumentName = "My Netatmo 24 API (v1)";
         };
     });
 

@@ -41,15 +41,3 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
         await SendOkAsync(forecast, ct);
     }
 }
-
-/*
-
-   
-   app.MapGet("/weatherforecast", () =>
-   {
-       
-   })
-   .WithName("GetWeatherForecast")
-   .WithOpenApi()
-   .RequireAuthorization("ReadWeather");
-*/
