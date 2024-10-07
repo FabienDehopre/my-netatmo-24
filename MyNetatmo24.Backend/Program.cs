@@ -1,17 +1,30 @@
+using System.Security.Claims;
+using FastEndpoints;
+using FastEndpoints.ClientGen.Kiota;
+using FastEndpoints.Swagger;
+using Kiota.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
 builder.AddServiceDefaults();
 
+builder.Services
+    .AddFastEndpoints()
+    .SwaggerDocument(options =>
+    {
+        options.RemoveEmptyRequestSchema = true;
+        options.DocumentSettings = settings =>
+        {
+            settings.Title = "My Netatmo 24 API";
+            settings.Version = "v1";
+            settings.DocumentName = "My Netatmo 24 API (v1)";
+        };
+    });
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
-
+// Add authentication and authorization using Auth0
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -20,6 +33,10 @@ builder.Services.AddAuthentication(options =>
 {
     options.Authority = "https://auth.dehopre.dev/";
     options.Audience = "https://my-netatmo24-api";
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier,
+    };
 });
 builder.Services.AddAuthorization(options =>
 {
@@ -29,51 +46,48 @@ builder.Services.AddAuthorization(options =>
             .RequireClaim("permissions", "read:weatherdata");
     });
 });
+builder.Services.AddOutputCache();
 
 var app = builder.Build();
 
 // Configure Aspire default endpoints
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseHttpsRedirection();
-app.UseCors(static builder =>
-    builder.AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowAnyOrigin());
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseOutputCache();
+app.UseFastEndpoints()
+    .UseSwaggerGen();
 
-var summaries = new[]
+if (app.Environment.IsDevelopment())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi()
-.RequireAuthorization("ReadWeather");
+    app.MapApiClientEndpoint("/cs-client", client =>
+    {
+        client.SwaggerDocumentName = "My Netatmo 24 API (v1)";
+        client.Language = GenerationLanguage.CSharp;
+        client.ClientNamespaceName = "MyNetatmo24";
+        client.ClientClassName = "MyNetatmo24Client";
+    }, options =>
+    {
+        options.AllowAnonymous();
+        options.CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
+        options.ExcludeFromDescription();
+    });
+    app.MapApiClientEndpoint("/ts-client", client =>
+    {
+        client.SwaggerDocumentName = "My Netatmo 24 API (v1)";
+        client.Language = GenerationLanguage.TypeScript;
+        client.ClientNamespaceName = "MyNetatmo24";
+        client.ClientClassName = "MyNetatmo24Client";
+    }, options =>
+    {
+        options.AllowAnonymous();
+        options.CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
+        options.ExcludeFromDescription();
+    });
+}
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+

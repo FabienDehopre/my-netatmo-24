@@ -24,14 +24,6 @@ export class AppComponent {
   readonly title = signal('MyNetatmo24').asReadonly();
   readonly forecasts = signal<WeatherForecast[]>([]);
 
-  /*constructor() {
-    this.http.get<WeatherForecast[]>('api/WeatherForecast').subscribe({
-      next: (result) => {
-        this.forecasts.set(result);
-      },
-      error: (error) => console.error(error)
-    });
-  }*/
   load() {
     this.http.get<WeatherForecast[]>('/api/WeatherForecast').subscribe({
       next: (result) => {
