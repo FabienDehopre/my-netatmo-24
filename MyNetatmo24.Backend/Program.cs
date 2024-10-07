@@ -1,17 +1,17 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
 builder.AddServiceDefaults();
 
-
-// Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
 
+// Add authentication and authorization using Auth0
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -20,6 +20,10 @@ builder.Services.AddAuthentication(options =>
 {
     options.Authority = "https://auth.dehopre.dev/";
     options.Audience = "https://my-netatmo24-api";
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier,
+    };
 });
 builder.Services.AddAuthorization(options =>
 {
@@ -28,7 +32,7 @@ builder.Services.AddAuthorization(options =>
         b.RequireAuthenticatedUser()
             .RequireClaim("permissions", "read:weatherdata");
     });
-});
+});    
 
 var app = builder.Build();
 
@@ -43,10 +47,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors(static builder =>
-    builder.AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowAnyOrigin());
 app.UseAuthentication();
 app.UseAuthorization();
 
