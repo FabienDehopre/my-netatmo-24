@@ -14,7 +14,8 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
         Get("/weatherforecast");
         Policies("ReadWeather");
         Description(d => 
-            d.Produces<IEnumerable<WeatherForecast>>());
+            d.Produces<IEnumerable<WeatherForecast>>()
+                .WithName("GetWeatherForecast"));
         Summary(s =>
         {
             s.Summary = "Returns the weather forecast";

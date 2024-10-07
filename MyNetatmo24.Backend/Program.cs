@@ -11,11 +11,15 @@ builder.AddServiceDefaults();
 
 builder.Services
     .AddFastEndpoints()
-    .SwaggerDocument();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+    .SwaggerDocument(options =>
+    {
+        options.RemoveEmptyRequestSchema = true;
+        options.DocumentSettings = settings =>
+        {
+            settings.Title = "My Netatmo 24 API";
+            settings.Version = "v1";
+        };
+    });
 
 // Add authentication and authorization using Auth0
 builder.Services.AddAuthentication(options =>
