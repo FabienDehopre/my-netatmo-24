@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using FastEndpoints;
+using FastEndpoints.ClientGen.Kiota;
 using FastEndpoints.Swagger;
+using Kiota.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -43,7 +45,8 @@ builder.Services.AddAuthorization(options =>
         b.RequireAuthenticatedUser()
             .RequireClaim("permissions", "read:weatherdata");
     });
-});    
+});
+builder.Services.AddOutputCache();
 
 var app = builder.Build();
 
@@ -53,8 +56,37 @@ app.MapDefaultEndpoints();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseOutputCache();
 app.UseFastEndpoints()
     .UseSwaggerGen();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapApiClientEndpoint("/cs-client", client =>
+    {
+        client.SwaggerDocumentName = "My Netatmo 24 API (v1)";
+        client.Language = GenerationLanguage.CSharp;
+        client.ClientNamespaceName = "MyNetatmo24";
+        client.ClientClassName = "MyNetatmo24Client";
+    }, options =>
+    {
+        options.AllowAnonymous();
+        options.CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
+        options.ExcludeFromDescription();
+    });
+    app.MapApiClientEndpoint("/ts-client", client =>
+    {
+        client.SwaggerDocumentName = "My Netatmo 24 API (v1)";
+        client.Language = GenerationLanguage.TypeScript;
+        client.ClientNamespaceName = "MyNetatmo24";
+        client.ClientClassName = "MyNetatmo24Client";
+    }, options =>
+    {
+        options.AllowAnonymous();
+        options.CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
+        options.ExcludeFromDescription();
+    });
+}
 
 app.Run();
 
