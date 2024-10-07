@@ -3,9 +3,15 @@ using Microsoft.Extensions.Hosting;
 var builder = DistributedApplication.CreateBuilder(args);
 
 // var cache = builder.AddRedis("cache");
+var dbUser = builder.AddParameter("db_user", secret: true);
+var dbPass = builder.AddParameter("db_pass", secret: true);
 
-var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend");
-    //.WithReference(keycloak);
+var db = builder.AddPostgres("postgres", dbUser, dbPass)
+    .WithPgAdmin()
+    .AddDatabase("my-netatmo-24-db");
+
+var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend")
+    .WithReference(db);
 
 var frontend = builder.AddNpmApp("frontend", "../MyNetatmo24.Frontend")
     .WithReference(backend)

@@ -5,11 +5,13 @@ using FastEndpoints.Swagger;
 using Kiota.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MyNetatmo24.Backend.Data.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
 builder.AddServiceDefaults();
+builder.AddNpgsqlDbContext<MyNetatmo24DbContext>("my-netatmo-24-db");
 
 builder.Services
     .AddFastEndpoints()
