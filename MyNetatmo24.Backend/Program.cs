@@ -5,7 +5,7 @@ using FastEndpoints.Swagger;
 using Kiota.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using MyNetatmo24.Backend.Data.Entities;
+using MyNetatmo24.Backend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
