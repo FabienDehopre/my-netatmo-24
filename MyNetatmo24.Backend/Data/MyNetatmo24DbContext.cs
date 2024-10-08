@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using MyNetatmo24.Backend.Data.Entities;
 
-namespace MyNetatmo24.Backend.Data.Entities;
+namespace MyNetatmo24.Backend.Data;
 
 public partial class MyNetatmo24DbContext : DbContext
 {
