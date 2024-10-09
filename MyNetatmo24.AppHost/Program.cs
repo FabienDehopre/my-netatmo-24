@@ -7,10 +7,14 @@ var dbUser = builder.AddParameter("db_user", secret: true);
 var dbPass = builder.AddParameter("db_pass", secret: true);
 
 var db = builder.AddPostgres("postgres", dbUser, dbPass)
+    .WithDataVolume()
     .WithPgAdmin()
     .AddDatabase("my-netatmo-24-db");
 
 var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend")
+    .WithReference(db);
+
+builder.AddProject<Projects.MyNetatmo24_MigrationService>("migrations")
     .WithReference(db);
 
 var frontend = builder.AddNpmApp("frontend", "../MyNetatmo24.Frontend")

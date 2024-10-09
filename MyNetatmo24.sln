@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNetatmo24.ApplicationCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNetatmo24.Infrastructure", "MyNetatmo24.Infrastructure\MyNetatmo24.Infrastructure.csproj", "{17B8A7F8-DA07-414B-A305-D462142DBCEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNetatmo24.MigrationService", "MyNetatmo24.MigrationService\MyNetatmo24.MigrationService.csproj", "{74B5671C-04A2-45A6-A8D5-93066E57F126}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{17B8A7F8-DA07-414B-A305-D462142DBCEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17B8A7F8-DA07-414B-A305-D462142DBCEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17B8A7F8-DA07-414B-A305-D462142DBCEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B5671C-04A2-45A6-A8D5-93066E57F126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B5671C-04A2-45A6-A8D5-93066E57F126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B5671C-04A2-45A6-A8D5-93066E57F126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B5671C-04A2-45A6-A8D5-93066E57F126}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
