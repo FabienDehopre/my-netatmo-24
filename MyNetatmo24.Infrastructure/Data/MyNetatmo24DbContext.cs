@@ -4,12 +4,9 @@ using MyNetatmo24.ApplicationCore.Entities;
 
 namespace MyNetatmo24.Infrastructure.Data;
 
-public class MyNetatmo24DbContext : DbContext
+public class MyNetatmo24DbContext(DbContextOptions<MyNetatmo24DbContext> options) : DbContext(options)
 {
-    #pragma warning disable CS8618 // Required by Entity Framework
-    public MyNetatmo24DbContext(DbContextOptions<MyNetatmo24DbContext> options) : base(options) {}
-    
-    public DbSet<User> Users { get; set; }
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
