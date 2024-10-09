@@ -2,6 +2,8 @@ using System.Security.Claims;
 using FastEndpoints;
 using FastEndpoints.ClientGen.Kiota;
 using FastEndpoints.Swagger;
+using IdGen;
+using IdGen.DependencyInjection;
 using Kiota.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure Aspire services
 builder.AddServiceDefaults();
 builder.AddNpgsqlDbContext<MyNetatmo24DbContext>("my-netatmo-24-db");
+builder.Services.AddIdGen(1); // TODO: find a way to generate the generator id
 
 builder.Services
     .AddFastEndpoints()
