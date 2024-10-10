@@ -3,12 +3,11 @@ using Microsoft.Extensions.Hosting;
 var builder = DistributedApplication.CreateBuilder(args);
 
 // var cache = builder.AddRedis("cache");
-var dbUser = builder.AddParameter("db_user", secret: true);
-var dbPass = builder.AddParameter("db_pass", secret: true);
 
+var dbUser = builder.AddParameter("db-user", secret: true);
+var dbPass = builder.AddParameter("db-pass", secret: true);
 var db = builder.AddPostgres("postgres", dbUser, dbPass)
-    // .WithDataVolume()
-    .WithPgAdmin()
+    .WithDataVolume()
     .AddDatabase("my-netatmo-24-db");
 
 var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend")
