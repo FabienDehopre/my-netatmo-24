@@ -45,6 +45,10 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization(options =>
 {
+    options.AddPolicy("IsAuthenticated", b =>
+    {
+        b.RequireAuthenticatedUser();
+    });
     options.AddPolicy("ReadWeather", b =>
     {
         b.RequireAuthenticatedUser()
