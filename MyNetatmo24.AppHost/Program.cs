@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Hosting;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 // var cache = builder.AddRedis("cache");
@@ -16,11 +14,15 @@ var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend")
 builder.AddProject<Projects.MyNetatmo24_MigrationService>("migrations")
     .WithReference(db);
 
-var frontend = builder.AddNpmApp("frontend", "../MyNetatmo24.Frontend")
-    .WithReference(backend)
-    .WithHttpEndpoint(port: 4200, env: "PORT")
-    .WithExternalHttpEndpoints()
-    .PublishAsDockerFile();
+var frontend = builder.AddJavaScriptApp("frontend", "../MyNetatmo24.Frontend")
+    .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
+    .WithRunScript("start")
+    .WithHttpEndpoint(env: "PORT")
+    .WithEnvironment("APPLICATION", "sandbox-app")
+    .PublishAsDockerFile(configure: resource =>
+    {
+        resource.WithDockerfile("../", stage: "sandbox-app");
+    });
 
 var launchProfile = builder.Configuration["DOTNET_LAUNCH_PROFILE"] ??
                     builder.Configuration["AppHost:DefaultLaunchProfileName"]; // work around https://github.com/dotnet/aspire/issues/5093

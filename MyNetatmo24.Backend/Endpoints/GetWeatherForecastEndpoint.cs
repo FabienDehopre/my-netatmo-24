@@ -38,6 +38,6 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
                     summaries[Random.Shared.Next(summaries.Length)]
                 ))
             .ToArray();
-        await SendOkAsync(forecast, ct);
+        await Send.OkAsync(forecast, ct);
     }
 }
