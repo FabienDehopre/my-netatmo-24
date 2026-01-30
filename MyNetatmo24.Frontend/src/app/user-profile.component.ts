@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import {AsyncPipe, JsonPipe, NgIf, NgOptimizedImage} from "@angular/common";
+import { AsyncPipe, JsonPipe, NgOptimizedImage } from "@angular/common";
 
 @Component({
     selector: 'app-user-profile',
@@ -14,7 +14,7 @@ import {AsyncPipe, JsonPipe, NgIf, NgOptimizedImage} from "@angular/common";
         <img [ngSrc]="user.picture" width="100" height="100"/>
       }
     }`,
-    imports: [AsyncPipe, NgIf, JsonPipe, NgOptimizedImage]
+    imports: [AsyncPipe, JsonPipe, NgOptimizedImage]
 })
 export class UserProfileComponent {
   constructor(public auth: AuthService) {}

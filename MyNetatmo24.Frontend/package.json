@@ -12,14 +12,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.2.18",
-    "@angular/common": "^19.2.18",
-    "@angular/compiler": "^19.2.18",
-    "@angular/core": "^19.2.18",
-    "@angular/forms": "^19.2.18",
-    "@angular/platform-browser": "^19.2.18",
-    "@angular/platform-browser-dynamic": "^19.2.18",
-    "@angular/router": "^19.2.18",
+    "@angular/animations": "^20.3.16",
+    "@angular/common": "^20.3.16",
+    "@angular/compiler": "^20.3.16",
+    "@angular/core": "^20.3.16",
+    "@angular/forms": "^20.3.16",
+    "@angular/platform-browser": "^20.3.16",
+    "@angular/platform-browser-dynamic": "^20.3.16",
+    "@angular/router": "^20.3.16",
     "@auth0/auth0-angular": "^2.5.0",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-web": "^0.41.0",
@@ -39,9 +39,9 @@
   },
   "devDependencies": {
     "@angular-builders/custom-esbuild": "^18.0.0",
-    "@angular-devkit/build-angular": "^19.2.19",
-    "@angular/cli": "^19.2.19",
-    "@angular/compiler-cli": "^19.2.18",
+    "@angular/build": "^20.3.15",
+    "@angular/cli": "^20.3.15",
+    "@angular/compiler-cli": "^20.3.16",
     "@types/jasmine": "~5.1.15",
     "esbuild": "0.23.0",
     "jasmine-core": "~5.2.0",
@@ -51,7 +51,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "run-script-os": "^1.1.6",
-    "typescript": "~5.5.4"
+    "typescript": "~5.9.3"
   },
   "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
 }
