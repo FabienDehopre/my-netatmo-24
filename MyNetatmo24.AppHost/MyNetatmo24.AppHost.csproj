@@ -2,9 +2,6 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <UserSecretsId>97253a69-da24-469a-8d96-9588fc902c58</UserSecretsId>
     </PropertyGroup>
 
@@ -18,15 +15,5 @@
       <ProjectReference Include="..\MyNetatmo24.Backend\MyNetatmo24.Backend.csproj" />
       <ProjectReference Include="..\MyNetatmo24.MigrationService\MyNetatmo24.MigrationService.csproj" />
     </ItemGroup>
-
-<!--    <Target Name="RestoreNpm" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true' ">-->
-<!--        <ItemGroup>-->
-<!--            <PackageJsons Include="..\*\package.json" />-->
-<!--        </ItemGroup>-->
-
-<!--        &lt;!&ndash; Install npm packages if node_modules is missing &ndash;&gt;-->
-<!--        <Message Importance="Normal" Text="Installing npm packages for %(PackageJsons.RelativeDir)" Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules')" />-->
-<!--        <Exec Command="pnpm install &#45;&#45;frozen-lockfile" WorkingDirectory="%(PackageJsons.RootDir)%(PackageJsons.Directory)" Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules')" />-->
-<!--    </Target>-->
 
 </Project>
