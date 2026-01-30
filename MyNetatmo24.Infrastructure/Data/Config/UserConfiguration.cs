@@ -9,6 +9,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id)
             .IsRequired()

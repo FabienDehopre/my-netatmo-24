@@ -1,5 +1,6 @@
 using MyNetatmo24.Infrastructure.Data;
 using MyNetatmo24.MigrationService;
+using MyNetatmo24.ServiceDefaults;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.AddServiceDefaults();
