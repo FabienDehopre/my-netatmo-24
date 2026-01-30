@@ -3,8 +3,8 @@ import { AuthService } from '@auth0/auth0-angular';
 import {AsyncPipe, DOCUMENT, NgIf} from '@angular/common';
 
 @Component({
-  selector: 'app-auth-button',
-  template: `
+    selector: 'app-auth-button',
+    template: `
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
       <button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
         Log out
@@ -15,8 +15,7 @@ import {AsyncPipe, DOCUMENT, NgIf} from '@angular/common';
       <button (click)="auth.loginWithRedirect()">Log in</button>
     </ng-template>
   `,
-  imports: [AsyncPipe, NgIf],
-  standalone: true
+    imports: [AsyncPipe, NgIf]
 })
 export class AuthButtonComponent {
   constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService) {}
