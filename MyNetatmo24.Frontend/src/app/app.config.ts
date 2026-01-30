@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
       clientId: 'mNlNx1rQbJRMGW49fYrQWpBsuGrMe2RW',
       authorizationParams: {
         redirect_uri: window.location.origin,
-        // audience: 'https://fabdeh.eu.auth0.com/api/v2/',
+        // audience: 'https://auth.dehopre.dev/api/v2/',
         audience: 'https://my-netatmo24-api',
         scope: 'profile email read:weatherdata read:current_user',
       },
@@ -29,10 +29,10 @@ export const appConfig: ApplicationConfig = {
       httpInterceptor: {
         allowedList: [
           {
-            uri: 'https://fabdeh.eu.auth0.com/api/v2/*',
+            uri: 'https://auth.dehopre.dev/api/v2/*',
             tokenOptions: {
               authorizationParams: {
-                audience: 'https://fabdeh.eu.auth0.com/api/v2/',
+                audience: 'https://auth.dehopre.dev/api/v2/',
                 scope: 'read:current_user',
               }
             }
