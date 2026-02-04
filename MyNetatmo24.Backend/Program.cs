@@ -56,10 +56,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints()
-    .UseSwaggerGen(options =>
-    {
-        options.Path = "/openapi/{documentName}.yaml";
-    });
+    .UseSwaggerGen();
 
 app.Run();
 
