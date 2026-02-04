@@ -1,34 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <IsAspireHost>true</IsAspireHost>
         <UserSecretsId>97253a69-da24-469a-8d96-9588fc902c58</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.1" />
-        <PackageReference Include="Aspire.Hosting.NodeJs" Version="8.2.1" />
-        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.1" />
-        <PackageReference Include="Aspire.Hosting.Redis" Version="8.2.1" />
+        <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.1.0" />
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.1.0" />
+        <PackageReference Include="Aspire.Hosting.Redis" Version="13.1.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\MyNetatmo24.Backend\MyNetatmo24.Backend.csproj" />
       <ProjectReference Include="..\MyNetatmo24.MigrationService\MyNetatmo24.MigrationService.csproj" />
     </ItemGroup>
-
-    <Target Name="RestoreNpm" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true' ">
-        <ItemGroup>
-            <PackageJsons Include="..\*\package.json" />
-        </ItemGroup>
-
-        <!-- Install npm packages if node_modules is missing -->
-        <Message Importance="Normal" Text="Installing npm packages for %(PackageJsons.RelativeDir)" Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules')" />
-        <Exec Command="pnpm install --frozen-lockfile" WorkingDirectory="%(PackageJsons.RootDir)%(PackageJsons.Directory)" Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules')" />
-    </Target>
 
 </Project>

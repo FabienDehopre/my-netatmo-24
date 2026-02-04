@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import {AsyncPipe, JsonPipe, NgIf, NgOptimizedImage} from "@angular/common";
+import { AsyncPipe, NgOptimizedImage } from "@angular/common";
 
 @Component({
-  selector: 'app-user-profile',
-  template: `
+    selector: 'app-user-profile',
+    template: `
     @if (auth.user$ | async; as user) {
       <ul>
         <li>{{ user.nickname }}</li>
@@ -14,8 +14,7 @@ import {AsyncPipe, JsonPipe, NgIf, NgOptimizedImage} from "@angular/common";
         <img [ngSrc]="user.picture" width="100" height="100"/>
       }
     }`,
-  imports: [AsyncPipe, NgIf, JsonPipe, NgOptimizedImage],
-  standalone: true
+    imports: [AsyncPipe, NgOptimizedImage]
 })
 export class UserProfileComponent {
   constructor(public auth: AuthService) {}

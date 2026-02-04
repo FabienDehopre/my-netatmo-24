@@ -12,12 +12,11 @@ interface WeatherForecast {
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, AuthButtonComponent, UserProfileComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-root',
+    imports: [RouterOutlet, AuthButtonComponent, UserProfileComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   private readonly http = inject(HttpClient);

@@ -37,7 +37,7 @@ public class Worker : BackgroundService
         }
         catch (Exception ex)
         {
-            activity?.RecordException(ex);
+            activity?.AddException(ex);
             throw;
         }
 

@@ -2,12 +2,12 @@ using System.Security.Claims;
 using FastEndpoints;
 using FastEndpoints.ClientGen.Kiota;
 using FastEndpoints.Swagger;
-using IdGen;
 using IdGen.DependencyInjection;
 using Kiota.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MyNetatmo24.Infrastructure.Data;
+using MyNetatmo24.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -13,7 +13,7 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
     {
         Get("/weatherforecast");
         Policies("ReadWeather");
-        Description(d => 
+        Description(d =>
             d.Produces<IEnumerable<WeatherForecast>>()
                 .WithName("GetWeatherForecast"));
         Summary(s =>
@@ -34,10 +34,12 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
                 new WeatherForecast
                 (
                     DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+#pragma warning disable CA5394
                     Random.Shared.Next(-20, 55),
                     summaries[Random.Shared.Next(summaries.Length)]
+#pragma warning restore CA5394
                 ))
             .ToArray();
-        await SendOkAsync(forecast, ct);
+        await Send.OkAsync(forecast, ct);
     }
 }
