@@ -6,6 +6,7 @@ var dbUser = builder.AddParameter("db-user", secret: true);
 var dbPass = builder.AddParameter("db-pass", secret: true);
 var db = builder.AddPostgres("postgres", dbUser, dbPass)
     .WithDataVolume()
+    .WithPgWeb()
     .AddDatabase("my-netatmo-24-db");
 
 var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend")
