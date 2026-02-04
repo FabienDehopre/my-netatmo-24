@@ -1,4 +1,4 @@
-namespace MyNetatmo24.Backend.Endpoints;
+namespace MyNetatmo24.ApiService.Endpoints;
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {

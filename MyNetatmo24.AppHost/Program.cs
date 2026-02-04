@@ -2,7 +2,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 // var cache = builder.AddRedis("cache");
 
-var backend = builder.AddProject<Projects.MyNetatmo24_Backend>("backend");
+var backend = builder.AddProject<Projects.MyNetatmo24_ApiService>("backend");
 
 var frontend = builder.AddJavaScriptApp("frontend", "../MyNetatmo24.Frontend")
     .WithReference(backend)

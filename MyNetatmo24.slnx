@@ -1,5 +1,5 @@
 <Solution>
+  <Project Path="MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
   <Project Path="MyNetatmo24.AppHost/MyNetatmo24.AppHost.csproj" />
-  <Project Path="MyNetatmo24.Backend/MyNetatmo24.Backend.csproj" />
   <Project Path="MyNetatmo24.ServiceDefaults/MyNetatmo24.ServiceDefaults.csproj" />
 </Solution>

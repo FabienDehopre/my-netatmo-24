@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MyNetatmo24.Backend\MyNetatmo24.Backend.csproj" />
+      <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
     </ItemGroup>
 
 </Project>
