@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyNetatmo24.Backend\MyNetatmo24.Backend.csproj" />
-      <ProjectReference Include="..\MyNetatmo24.MigrationService\MyNetatmo24.MigrationService.csproj" />
     </ItemGroup>
 
 </Project>

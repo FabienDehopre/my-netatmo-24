@@ -1,5 +1,3 @@
-using FastEndpoints;
-
 namespace MyNetatmo24.Backend.Endpoints;
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

@@ -1,20 +1,11 @@
-using System.Security.Claims;
-using FastEndpoints;
-using FastEndpoints.ClientGen.Kiota;
-using FastEndpoints.Swagger;
-using IdGen.DependencyInjection;
-using Kiota.Builder;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using MyNetatmo24.Infrastructure.Data;
-using MyNetatmo24.ServiceDefaults;
+// using MyNetatmo24.Infrastructure.Data;
+
+using Auth0.AspNetCore.Authentication.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
 builder.AddServiceDefaults();
-builder.AddNpgsqlDbContext<MyNetatmo24DbContext>("my-netatmo-24-db");
-builder.Services.AddIdGen(1); // TODO: find a way to generate the generator id
 
 builder.Services
     .AddFastEndpoints()
@@ -30,17 +21,17 @@ builder.Services
     });
 
 // Add authentication and authorization using Auth0
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuth0ApiAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.Authority = "https://auth.dehopre.dev/";
-    options.Audience = "https://my-netatmo24-api";
-    options.TokenValidationParameters = new TokenValidationParameters
+    options.Domain = builder.Configuration["Auth0:Domain"];
+    options.JwtBearerOptions = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions
     {
-        NameClaimType = ClaimTypes.NameIdentifier,
+        Audience = builder.Configuration["Auth0:Audience"],
+        TokenValidationParameters = new()
+        {
+            NameClaimType = ClaimTypes.NameIdentifier,
+            RoleClaimType = "permissions",
+        }
     };
 });
 builder.Services.AddAuthorization(options =>
@@ -48,12 +39,15 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ReadWeather", b =>
     {
         b.RequireAuthenticatedUser()
-            .RequireClaim("permissions", "read:weatherdata");
+            .RequireRole("read:weatherdata");
+            // .RequireClaim("scope", "read:weatherdata");
     });
 });
 builder.Services.AddOutputCache();
 
 var app = builder.Build();
+
+app.UseOutputCache();
 
 // Configure Aspire default endpoints
 app.MapDefaultEndpoints();
@@ -61,37 +55,11 @@ app.MapDefaultEndpoints();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseOutputCache();
 app.UseFastEndpoints()
-    .UseSwaggerGen();
-
-if (app.Environment.IsDevelopment())
-{
-    app.MapApiClientEndpoint("/cs-client", client =>
+    .UseSwaggerGen(options =>
     {
-        client.SwaggerDocumentName = "My Netatmo 24 API (v1)";
-        client.Language = GenerationLanguage.CSharp;
-        client.ClientNamespaceName = "MyNetatmo24";
-        client.ClientClassName = "MyNetatmo24Client";
-    }, options =>
-    {
-        options.AllowAnonymous();
-        options.CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
-        options.ExcludeFromDescription();
+        options.Path = "/openapi/{documentName}.yaml";
     });
-    app.MapApiClientEndpoint("/ts-client", client =>
-    {
-        client.SwaggerDocumentName = "My Netatmo 24 API (v1)";
-        client.Language = GenerationLanguage.TypeScript;
-        client.ClientNamespaceName = "MyNetatmo24";
-        client.ClientClassName = "MyNetatmo24Client";
-    }, options =>
-    {
-        options.AllowAnonymous();
-        options.CacheOutput(p => p.Expire(TimeSpan.FromMinutes(5)));
-        options.ExcludeFromDescription();
-    });
-}
 
 app.Run();
 

@@ -7,11 +7,10 @@
 
     <ItemGroup>
         <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.1.0" />
+        <PackageReference Include="Auth0.AspNetCore.Authentication.Api" Version="1.0.0-beta.3" />
         <PackageReference Include="FastEndpoints" Version="7.2.0" />
-        <PackageReference Include="FastEndpoints.ClientGen.Kiota" Version="7.2.0" />
         <PackageReference Include="FastEndpoints.Security" Version="7.2.0" />
         <PackageReference Include="FastEndpoints.Swagger" Version="7.2.0" />
-        <PackageReference Include="IdGen.DependencyInjection" Version="3.0.7" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2">
           <PrivateAssets>all</PrivateAssets>
@@ -20,7 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MyNetatmo24.Infrastructure\MyNetatmo24.Infrastructure.csproj" />
       <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj" />
     </ItemGroup>
 
