@@ -1,7 +1,3 @@
-// using MyNetatmo24.Infrastructure.Data;
-
-using Auth0.AspNetCore.Authentication.Api;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
