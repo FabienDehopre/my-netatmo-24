@@ -108,42 +108,40 @@ redis
     .WithRedisInsight(p => p.WithParentRelationship(redis))
     .WithRedisCommander(p => p.WithParentRelationship(redis));
 
-var migrations = builder.AddProject<Projects.MyNetatmo24_Migrations>("migrations")
-    .WithReference(database)
-    .WithReference(redis)
-    .WaitFor(database)
-    .WithParentRelationship(database);
-
-if (builder.Environment.IsDevelopment())
-{
-    migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
-    {
-        IconName = "DatabaseLightning",
-        ConfirmationMessage = "Are you sure you want to reset the database?",
-    });
-
-    migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
-    {
-        IconName = "DatabaseLightning",
-        ConfirmationMessage = "Are you sure you want to reseed the database?",
-    });
-}
-
-
+// var migrations = builder.AddProject<Projects.MyNetatmo24_Migrations>("migrations")
+//     .WithReference(database)
+//     .WithReference(redis)
+//     .WaitFor(database)
+//     .WithParentRelationship(database);
+//
+// if (builder.Environment.IsDevelopment())
+// {
+//     migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
+//     {
+//         IconName = "DatabaseLightning",
+//         ConfirmationMessage = "Are you sure you want to reset the database?",
+//     });
+//
+//     migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
+//     {
+//         IconName = "DatabaseLightning",
+//         ConfirmationMessage = "Are you sure you want to reseed the database?",
+//     });
+// }
 
 var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice")
-    .WithHealthCheck("/health")
+    // .WithHealthCheck("/health")
     .WithReference(database)
     .WithReference(redis)
     .WaitFor(database)
-    .WaitFor(migrations)
+    // .WaitFor(migrations)
     .WaitFor(redis)
     .WithUrls(context =>
     {
         context.Urls.Add(new () { Url = "/swagger", DisplayText = "OpenAPI Documentation", Endpoint = context.GetEndpoint("http") });
     });
 
-var frontend = builder.AddJavaScriptApp("frontend", "../MyNetatmo24.Frontend")
+var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Frontend")
     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
     .WithRunScript("start")
     .WithHttpEndpoint(env: "PORT")
