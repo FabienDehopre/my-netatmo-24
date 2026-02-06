@@ -6,49 +6,46 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "MyNetatmo24.Frontend": {
+    "frontend-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "inlineStyle": true
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/frontend-app",
+      "sourceRoot": "projects/frontend-app/src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-esbuild:application",
+          "builder": "@angular/build:application",
           "options": {
-            "plugins": ["./esbuild/plugin.ts"],
-            "outputPath": "dist/my-netatmo24.frontend",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
+            "outputPath": "dist/frontend-app",
+            "index": "projects/frontend-app/src/index.html",
+            "browser": "projects/frontend-app/src/main.ts",
+            "tsConfig": "projects/frontend-app/tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "projects/frontend-app/public"
               }
             ],
             "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+              "projects/frontend-app/src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "750kB",
                   "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -62,71 +59,52 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-builders/custom-esbuild:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "MyNetatmo24.Frontend:build:production"
+              "buildTarget": "frontend-app:build:production"
             },
             "development": {
-              "buildTarget": "MyNetatmo24.Frontend:build:development"
+              "buildTarget": "frontend-app:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "proxyConfig": "proxy.conf.js"
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
+            "providersFile": "projects/frontend-app/src/test-providers.ts",
+            "runnerConfig": "projects/frontend-app/vitest.config.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/frontend-app/**/*.ts",
+              "projects/frontend-app/**/*.html",
+              "projects/frontend-app/**/*.css",
+              "projects/frontend-app/**/*.json"
             ],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "eslintConfig": "projects/frontend-app/eslint.config.mjs"
           }
         }
       }
-    }
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "type": "component"
     },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
+    "opentelemetry-lib": {
+      "projectType": "library",
+      "root": "projects/opentelemetry-lib",
+      "sourceRoot": "projects/opentelemetry-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/opentelemetry-lib/**/*.ts", "projects/opentelemetry-lib/**/*.html"],
+            "eslintConfig": "projects/opentelemetry-lib/eslint.config.mjs"
+          }
+        }
+      }
     }
   }
 }

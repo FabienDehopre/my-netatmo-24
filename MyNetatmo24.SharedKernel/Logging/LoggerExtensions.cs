@@ -5,6 +5,14 @@ namespace MyNetatmo24.SharedKernel.Logging;
 public static partial class LoggerExtensions
 {
     [LoggerMessage(
+        EventId = 1000,
+        Level = LogLevel.Debug,
+        Message = "Forwarding telemetry for {ResourceName} to the collector")]
+    public static partial void LogForwardingTelemetry(
+        this ILogger logger,
+        string resourceName);
+
+    [LoggerMessage(
         EventId = 2005,
         Level = LogLevel.Information,
         Message = "XSRF token added to response for request path: {RequestPath}")]
@@ -27,6 +35,22 @@ public static partial class LoggerExtensions
     public static partial void LogAddingBearerToken(
         this ILogger logger,
         string? requestPath);
+
+    [LoggerMessage(
+        EventId = 3000,
+        Level = LogLevel.Warning,
+        Message = "No {ResourceType} resource found")]
+    public static partial void LogResourceNotFound(
+        this ILogger logger,
+        string resourceType);
+
+    [LoggerMessage(
+        EventId = 3001,
+        Level = LogLevel.Warning,
+        Message = "No {EndpointName} endpoint for the collector")]
+    public static partial void LogEndpointNotFound(
+        this ILogger logger,
+        string endpointName);
 
     [LoggerMessage(
         EventId = 4000,

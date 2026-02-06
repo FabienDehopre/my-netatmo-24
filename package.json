@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "my-netatmo-24",
+  "packageManager": "pnpm@10.28.2",
+  "module": "true",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10"
+  }
+}
