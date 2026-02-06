@@ -68,10 +68,30 @@ internal static class Extensions
                     options.Scope.Add("openid");
                     options.Scope.Add("email");
                     options.Scope.Add("profile");
-                    options.Scope.Add("read:weather");
+                    options.Scope.Add("read:weatherdata");
 
                     // Add this scope if you want to receive refresh tokens
                     options.Scope.Add("offline_access");
+
+                    options.Events = new()
+                    {
+                        OnRedirectToIdentityProviderForSignOut = context =>
+                        {
+                            var logoutUri = $"https://{builder.Configuration.GetValue<string>("Auth0:Domain")}/oidc/logout?client_id={builder.Configuration.GetValue<string>("Auth0:ClientId")}";
+                            var redirectUri = context.HttpContext.BuildRedirectUrl(context.Properties.RedirectUri);
+                            logoutUri += $"&post_logout_redirect_uri={redirectUri}";
+
+                            context.Response.Redirect(logoutUri);
+                            context.HandleResponse();
+                            return Task.CompletedTask;
+                        },
+                        OnRedirectToIdentityProvider = context =>
+                        {
+                            // Auth0 specific parameter to specify the audience
+                            context.ProtocolMessage.SetParameter("audience", builder.Configuration.GetValue<string>("Auth0:Audience"));
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             builder.Services
