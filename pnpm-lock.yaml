@@ -101,6 +101,9 @@ catalogs:
     '@tailwindcss/postcss':
       specifier: ^4.1.12
       version: 4.1.18
+    daisyui:
+      specifier: ^5.5.18
+      version: 5.5.18
     postcss:
       specifier: ^8.5.3
       version: 8.5.6
@@ -228,6 +231,9 @@ importers:
       '@vitest/ui':
         specifier: catalog:vitest
         version: 4.0.17(vitest@4.0.17)
+      daisyui:
+        specifier: catalog:tailwindcss
+        version: 5.5.18
       eslint:
         specifier: catalog:eslint
         version: 9.39.2(jiti@2.6.1)
@@ -2812,6 +2818,9 @@ packages:
   cssstyle@5.3.7:
     resolution: {integrity: sha512-7D2EPVltRrsTkhpQmksIu+LxeWAIEk6wRDMJ1qljlv+CKHJM+cJLlfhWIzNA44eAsHXSNe3+vO6DW1yCYx8SuQ==}
     engines: {node: '>=20'}
+
+  daisyui@5.5.18:
+    resolution: {integrity: sha512-VVzjpOitMGB6DWIBeRSapbjdOevFqyzpk9u5Um6a4tyId3JFrU5pbtF0vgjXDth76mJZbueN/j9Ok03SPrh/og==}
 
   data-urls@6.0.1:
     resolution: {integrity: sha512-euIQENZg6x8mj3fO6o9+fOW8MimUI4PpD/fZBhJfeioZVy9TUpM4UY7KjQNVZFlqwJ0UdzRDzkycB997HEq1BQ==}
@@ -7540,6 +7549,8 @@ snapshots:
       '@csstools/css-syntax-patches-for-csstree': 1.0.26
       css-tree: 3.1.0
       lru-cache: 11.2.5
+
+  daisyui@5.5.18: {}
 
   data-urls@6.0.1:
     dependencies:
