@@ -1,3 +1,8 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+
 namespace MyNetatmo24.Gateway.UserModule;
 
 internal static partial class UserModule

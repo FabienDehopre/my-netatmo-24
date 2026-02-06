@@ -1,3 +1,5 @@
+using Aspire.Hosting.Lifecycle;
+
 namespace MyNetatmo24.AppHost.Extensions;
 
 internal static class OpenTelemetryCollectorExtensions

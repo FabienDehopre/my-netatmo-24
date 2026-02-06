@@ -5,4 +5,3 @@ global using FastEndpoints.Swagger;
 global using MyNetatmo24.ServiceDefaults;
 global using NSwag;
 global using Scalar.AspNetCore;
-global using OpenApiOAuthFlows = NSwag.OpenApiOAuthFlows;
