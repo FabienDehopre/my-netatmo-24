@@ -1,5 +1,11 @@
-import { defineWorkspaceConfig } from '@fabdeh/eslint-config';
+import { defineConfig } from '@fabdeh/eslint-config';
 
-export default defineWorkspaceConfig({
-  // formatters: true,
+export default defineConfig({
+  angular: {
+    banDeveloperPreviewApi: false,
+    banExperimentalApi: false,
+  },
+  tailwindcss: {
+    entryPoint: 'src/styles.css',
+  },
 });

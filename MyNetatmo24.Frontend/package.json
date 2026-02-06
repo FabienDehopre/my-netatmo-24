@@ -1,7 +1,20 @@
 {
-  "name": "my-netatmo-24.frontend",
+  "name": "frontend-app",
   "version": "0.0.0",
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
   "private": true,
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
     "ng": "ng",
     "start": "run-script-os",
@@ -10,9 +23,7 @@
     "build": "ng build frontend-app",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "pnpm run \"/^lint:.*/\"",
-    "lint:workspace": "eslint . --fix --ignore-pattern \"**/projects/**\"",
-    "lint:projects": "ng lint --fix"
+    "lint": "ng lint --fix"
   },
   "dependencies": {
     "@angular/common": "catalog:angular",

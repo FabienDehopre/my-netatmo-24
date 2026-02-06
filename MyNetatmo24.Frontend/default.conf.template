@@ -1,7 +1,13 @@
+map $sent_http_content_type $expires {
+  default 90d; # cache for 90 days by default
+  text/html epoch; # never cache the html documents (mainly the index.html file)
+}
+
 server {
     listen       ${PORT};
     listen  [::]:${PORT};
     server_name  localhost;
+    error_page 500 502 503 504 /50x.html;
 
     access_log  /var/log/nginx/server.access.log main;
 
@@ -17,11 +23,22 @@ server {
     add_header Referrer-Policy "same-origin" always;
     add_header Permissions-Policy "geolocation=()" always;
     add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header Cross-Origin-Embedder-Policy require-corp always;
+    add_header Cross-Origin-Opener-Policy same-origin always;
+    add_header Cross-Origin-Resource-Policy same-origin always;
+
 
     server_tokens off;
 
     location / {
         root /usr/share/nginx/html;
-        try_files $uri $uri/ /index.html;
+        index index.html;
+        try_files $uri $uri/ /index.html =404;
+        expires $expires; # cache everything (except text/html content) for 90 days (see $expires config above (line 1))
+    }
+
+    location = /50x.html {
+      expires max;
+      root /usr/share/nginx/html;
     }
 }

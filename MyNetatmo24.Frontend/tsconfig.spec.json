@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "outDir": "./out-tsc/spec"
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/test-setup.ts",
+    "src/test-providers.ts"
+  ]
+}

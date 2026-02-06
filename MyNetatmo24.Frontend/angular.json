@@ -13,25 +13,23 @@
           "inlineStyle": true
         }
       },
-      "root": "projects/frontend-app",
-      "sourceRoot": "projects/frontend-app/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/frontend-app",
-            "index": "projects/frontend-app/src/index.html",
-            "browser": "projects/frontend-app/src/main.ts",
-            "tsConfig": "projects/frontend-app/tsconfig.app.json",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/frontend-app/public"
+                "input": "public"
               }
             ],
             "styles": [
-              "projects/frontend-app/src/styles.css"
+              "src/styles.css"
             ]
           },
           "configurations": {
@@ -73,35 +71,20 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "providersFile": "projects/frontend-app/src/test-providers.ts",
-            "runnerConfig": "projects/frontend-app/vitest.config.ts"
+            "providersFile": "src/test-providers.ts",
+            "runnerConfig": "vitest.config.mjs"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/frontend-app/**/*.ts",
-              "projects/frontend-app/**/*.html",
-              "projects/frontend-app/**/*.css",
-              "projects/frontend-app/**/*.json"
+              "**/*.ts",
+              "**/*.html",
+              "**/*.css",
+              "**/*.json"
             ],
-            "eslintConfig": "projects/frontend-app/eslint.config.mjs"
-          }
-        }
-      }
-    },
-    "opentelemetry-lib": {
-      "projectType": "library",
-      "root": "projects/opentelemetry-lib",
-      "sourceRoot": "projects/opentelemetry-lib/src",
-      "prefix": "lib",
-      "architect": {
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["projects/opentelemetry-lib/**/*.ts", "projects/opentelemetry-lib/**/*.html"],
-            "eslintConfig": "projects/opentelemetry-lib/eslint.config.mjs"
+            "eslintConfig": "eslint.config.mjs"
           }
         }
       }

@@ -13,11 +13,11 @@ export class Authentication {
 
   readonly user = computed(() => this.userResource.value());
 
-  login(redirectUrl: string) {
+  login(redirectUrl: string): void {
     this.document.location.href = `/bff/login?returnUrl=${encodeURIComponent(redirectUrl)}`;
   }
 
-  logout(redirectUrl: string) {
+  logout(redirectUrl: string): void {
     this.document.location.href = `/bff/logout?returnUrl=${encodeURIComponent(redirectUrl)}`;
   }
 }

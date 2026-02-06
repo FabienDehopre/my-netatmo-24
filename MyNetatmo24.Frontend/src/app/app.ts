@@ -1,20 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { Anonymous } from './authentication/anonymous';
-import { Authenticated } from './authentication/authenticated';
-import { Authentication } from './authentication/authentication';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Authentication } from '~domains/authentication/authentication';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Anonymous, Authenticated],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -23,11 +14,11 @@ export class App {
   protected readonly title = signal('MyNetatmo24').asReadonly();
   protected readonly user = this.authentication.user;
 
-  protected login() {
+  protected login(): void {
     this.authentication.login('/');
   }
 
-  protected logout() {
+  protected logout(): void {
     this.authentication.logout('/');
   }
 }
