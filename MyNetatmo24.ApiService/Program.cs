@@ -8,11 +8,36 @@ builder.Services
     .SwaggerDocument(options =>
     {
         options.RemoveEmptyRequestSchema = true;
+        options.EnableJWTBearerAuth = false;
         options.DocumentSettings = settings =>
         {
             settings.Title = "My Netatmo 24 API";
-            settings.Version = "v1";
-            settings.DocumentName = "My Netatmo 24 API (v1)";
+            settings.Description = "An API to access weather data from Netatmo devices.";
+            settings.MarkNonNullablePropsAsRequired();
+            settings.AddAuth("Auth0", new()
+            {
+                Type = OpenApiSecuritySchemeType.OAuth2,
+                BearerFormat =  "JWT",
+                Scheme = "Bearer",
+                In =  OpenApiSecurityApiKeyLocation.Header,
+                Flows = new OpenApiOAuthFlows
+                {
+                    AuthorizationCode = new()
+                    {
+                        // AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize?audience={builder.Configuration["Auth0:Audience"]}",
+                        AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize",
+                        TokenUrl = $"https://{builder.Configuration["Auth0:Domain"]}/oauth/token",
+                        Scopes = new Dictionary<string, string>
+                        {
+                            { "openid", "OpenID Connect scope" },
+                            { "profile", "Access to your profile information" },
+                            { "email", "Access to your email address" },
+                            { "offline_access", "Access to refresh tokens" },
+                            { "read:weatherdata", "Read access to weather data" }
+                        }
+                    }
+                }
+            });
         };
     });
 
@@ -36,7 +61,6 @@ builder.Services.AddAuthorization(options =>
     {
         b.RequireAuthenticatedUser()
             .RequireRole("read:weatherdata");
-            // .RequireClaim("scope", "read:weatherdata");
     });
 });
 builder.Services.AddOutputCache();
@@ -51,8 +75,24 @@ app.MapDefaultEndpoints();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseFastEndpoints()
-    .UseSwaggerGen();
+app.UseFastEndpoints();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
+    app.MapScalarApiReference(options =>
+    {
+        options.AddPreferredSecuritySchemes("Auth0");
+        options.AddAuthorizationCodeFlow("Auth0", flow =>
+        {
+            flow.ClientId = builder.Configuration["Auth0:ClientId"];
+            flow.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
+            flow.Pkce = Pkce.Sha256;
+            flow.SelectedScopes = ["openid", "profile", "email", "offline_access", "read:weatherdata"];
+            flow.AddQueryParameter("audience", app.Configuration["Auth0:Audience"]!);
+        });
+    });
+}
 
 app.Run();
 

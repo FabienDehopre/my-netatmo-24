@@ -1,5 +1,3 @@
-using Aspire.Hosting.Azure;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", secret: false);
@@ -133,12 +131,14 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     // .WithHealthCheck("/health")
     .WithReference(database)
     .WithReference(redis)
+    .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
+    .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
     .WaitFor(database)
     // .WaitFor(migrations)
     .WaitFor(redis)
     .WithUrls(context =>
     {
-        context.Urls.Add(new () { Url = "/swagger", DisplayText = "OpenAPI Documentation", Endpoint = context.GetEndpoint("http") });
+        context.Urls.Add(new () { Url = "/scalar", DisplayText = "OpenAPI Documentation", Endpoint = context.GetEndpoint("http") });
     });
 
 var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Frontend")

@@ -1,8 +1,3 @@
-using Duende.AccessTokenManagement.OpenIdConnect;
-using MyNetatmo24.Gateway;
-using MyNetatmo24.Gateway.UserModule;
-using MyNetatmo24.ServiceDefaults;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options =>

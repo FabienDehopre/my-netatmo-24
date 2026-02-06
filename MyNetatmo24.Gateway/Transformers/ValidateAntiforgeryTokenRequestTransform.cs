@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Antiforgery;
-using MyNetatmo24.SharedKernel.Logging;
-using Yarp.ReverseProxy.Transforms;
-
 namespace MyNetatmo24.Gateway.Transformers;
 
 internal sealed class ValidateAntiforgeryTokenRequestTransform(IAntiforgery antiforgery, ILogger<ValidateAntiforgeryTokenRequestTransform> logger) : RequestTransform

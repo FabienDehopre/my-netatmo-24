@@ -1,8 +1,3 @@
-using Aspire.Hosting.Eventing;
-using Aspire.Hosting.Lifecycle;
-using Microsoft.Extensions.Logging;
-using MyNetatmo24.SharedKernel.Logging;
-
 namespace MyNetatmo24.AppHost.Extensions;
 
 internal sealed class OltpEndpointVariableLifecycle(ILogger<OltpEndpointVariableLifecycle> logger) : IDistributedApplicationEventingSubscriber

@@ -1,0 +1,16 @@
+global using System.Net.Http.Headers;
+global using System.Security.Claims;
+global using System.Threading.RateLimiting;
+global using Duende.AccessTokenManagement.OpenIdConnect;
+global using Microsoft.AspNetCore.Antiforgery;
+global using Microsoft.AspNetCore.Authentication;
+global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+global using MyNetatmo24.Gateway;
+global using MyNetatmo24.Gateway.Transformers;
+global using MyNetatmo24.Gateway.UserModule;
+global using MyNetatmo24.ServiceDefaults;
+global using MyNetatmo24.SharedKernel.Logging;
+global using Yarp.ReverseProxy.Transforms;

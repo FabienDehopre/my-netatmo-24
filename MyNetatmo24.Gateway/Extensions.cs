@@ -1,12 +1,3 @@
-using System.Security.Claims;
-using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using MyNetatmo24.Gateway.Transformers;
-using Yarp.ReverseProxy.Transforms;
-
 namespace MyNetatmo24.Gateway;
 
 internal static class Extensions
