@@ -16,14 +16,13 @@
   "private": true,
   "packageManager": "pnpm@10.28.2",
   "scripts": {
-    "ng": "ng",
-    "start": "run-script-os",
-    "start:win32": "ng serve %APPLICATION% --port %PORT%",
-    "start:default": "ng serve $APPLICATION --port $PORT",
-    "build": "ng build frontend-app",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint --fix"
+    "dev": "run-script-os",
+    "dev:win32": "vite --port %PORT%",
+    "dev:default": "vite --port $PORT",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@angular/common": "catalog:angular",
@@ -45,11 +44,13 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "catalog:angular",
     "@angular/build": "catalog:angular",
     "@angular/cli": "catalog:angular",
     "@angular/compiler-cli": "catalog:angular",
     "@fabdeh/eslint-config": "catalog:eslint",
     "@tailwindcss/postcss": "catalog:tailwindcss",
+    "@tailwindcss/vite": "catalog:tailwindcss",
     "@testing-library/angular": "catalog:testing-library",
     "@testing-library/jest-dom": "catalog:testing-library",
     "@testing-library/user-event": "catalog:testing-library",
@@ -68,6 +69,8 @@
     "run-script-os": "catalog:",
     "tailwindcss": "catalog:tailwindcss",
     "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-tsconfig-paths": "catalog:",
     "vitest": "catalog:vitest"
   }
 }
