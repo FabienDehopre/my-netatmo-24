@@ -143,13 +143,19 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
 
 var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Frontend")
     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
-    .WithRunScript("start")
+    .WithRunScript("dev")
     .WithHttpEndpoint(env: "PORT")
-    .WithEnvironment("APPLICATION", "frontend-app")
     .PublishAsDockerFile(configure: resource =>
     {
         resource.WithDockerfile("../", stage: "frontend-app");
     });
+// var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
+//     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
+//     .WithHttpEndpoint(env: "PORT")
+//     .PublishAsDockerFile(configure: resource =>
+//     {
+//         resource.WithDockerfile("../", stage: "frontend-app");
+//     });
 
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
     .WithReference(apiService)
