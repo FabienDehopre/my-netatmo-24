@@ -1,2 +1,12 @@
+/* Moved the `--radialprogress` property definition out of the daisayui plugin to avoid unnecessary warning during build */
+@property --radialprogress {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  /* Removed the "properties" file from daisyui plugin to avoid unnecessary warning during build */
+  exclude: properties;
+}

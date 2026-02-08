@@ -70,6 +70,7 @@
     "tailwindcss": "catalog:tailwindcss",
     "typescript": "catalog:",
     "vite": "catalog:",
+    "vite-plugin-node-polyfills": "catalog:",
     "vite-tsconfig-paths": "catalog:",
     "vitest": "catalog:vitest"
   }
