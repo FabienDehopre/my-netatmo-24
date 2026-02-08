@@ -5,7 +5,6 @@ catalog:
   '@types/node': 24.10.7
   dotenv: 17.2.3
   jsdom: 27.4.0
-  memfs: ^4.56.10
   run-script-os: 1.1.6
   rxjs: ~7.8.2
   tslib: ^2.8.1
@@ -47,10 +46,8 @@ catalogs:
     '@playwright/test': 1.57.0
     playwright: 1.57.0
   tailwindcss:
-    '@tailwindcss/postcss': ^4.1.12
     '@tailwindcss/vite': ^4.1.18
     daisyui: ^5.5.18
-    postcss: ^8.5.3
     tailwindcss: ^4.1.12
   testing-library:
     '@testing-library/angular': 19.0.0
