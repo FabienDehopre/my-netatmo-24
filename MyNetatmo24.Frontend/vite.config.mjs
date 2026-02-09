@@ -55,6 +55,9 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    include: ['node:module'],
+  },
   test: {
     setupFiles: ['./src/setup-angular.ts', './src/test-setup.ts'],
     browser: {
