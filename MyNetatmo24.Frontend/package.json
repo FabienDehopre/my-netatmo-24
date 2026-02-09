@@ -60,7 +60,6 @@
     "eslint-plugin-erasable-syntax-only": "catalog:eslint",
     "eslint-plugin-format": "catalog:eslint",
     "jsdom": "catalog:",
-    "ng-packagr": "catalog:angular",
     "tailwindcss": "catalog:tailwindcss",
     "typescript": "catalog:",
     "vite": "catalog:vite",
