@@ -2,95 +2,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", secret: false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", secret: true);
-var minioUser = builder.AddParameter("MinioUser", secret: false);
-var minioPassword = builder.AddParameter("MinioPassword", secret: true);
 
-var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
-    .WithEnvironment("MINIO_PROMETHEUS_AUTH_TYPE", "public")
-    .WithDataVolume();
-minioUser.WithParentRelationship(minio);
-minioPassword.WithParentRelationship(minio);
-
-var minioBucketCreator = builder
-    .AddContainer("minio-bucket-creator", "minio/mc")
-    .WaitFor(minio)
-    .WithEnvironment("MinioUser", minioUser)
-    .WithEnvironment("MinioPassword", minioPassword)
-    .WithEntrypoint("/bin/sh")
-    .WithArgs("-c", $" /usr/bin/mc alias set myminio http://{minio.Resource.Name}:9000 $MinioUser $MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;");
-minioBucketCreator.WithParentRelationship(minio);
-
-var loki = builder.AddContainer("loki", "grafana/loki")
-    .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
-    .WithVolume("loki-data", "/loki")
-    .WithArgs("--config.file=/etc/loki/loki.yml", "--config.expand-env=true")
-    .WithEnvironment("MINIO_USER", minioUser)
-    .WithEnvironment("MINIO_PASSWORD", minioPassword)
-    .WithHttpEndpoint(targetPort: 3100, name: "http")
-    .WithUrlForEndpoint("http", url =>
-    {
-        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
-    })
-    .WaitFor(minio)
-    .WaitForCompletion(minioBucketCreator);
-
-var tempo = builder
-    .AddContainer("tempo", "grafana/tempo")
-    .WithBindMount("../config/tempo", "/etc/tempo", isReadOnly: true)
-    .WithVolume("tempo-data", "/var/tempo")
-    .WithArgs("--config.file=/etc/tempo/tempo.yml", "--config.expand-env=true", "chown 10001:10001 /var/tempo")
-    .WithEnvironment("MINIO_USER", minioUser)
-    .WithEnvironment("MINIO_PASSWORD", minioPassword)
-    .WithEndpoint(targetPort: 4317, port: 4007, name: "otlp", scheme: "http")
-    .WithUrlForEndpoint("otlp", url =>
-    {
-        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
-    })
-    .WithEndpoint(targetPort: 3200, port: 3200, name: "http", scheme: "http")
-    .WithUrlForEndpoint("http", url =>
-    {
-        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
-    })
-    .WaitFor(minio)
-    .WaitForCompletion(minioBucketCreator);
-
-var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
-    .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
-    .WithArgs("--web.enable-otlp-receiver", "--web.enable-remote-write-receiver", "--enable-feature=native-histograms", "--config.file=/etc/prometheus/prometheus.yml")
-    .WithHttpEndpoint(targetPort: 9090, name: "http");
-
-var blackbox = builder
-    .AddContainer("blackbox", "prom/blackbox-exporter")
-    .WithBindMount("../config/blackbox", "/etc/blackbox/")
-    .WithArgs("--config.file=/etc/blackbox/blackbox.yml")
-    .WithEndpoint(targetPort: 9115, port: 9115, name: "http", scheme: "http");
-
-var grafanaContainer = builder.AddContainer("grafana", "grafana/grafana");
-var grafana = grafanaContainer
-    .WithBindMount("../config/grafana/config", "/etc/grafana", isReadOnly: true)
-    .WithBindMount("../config/grafana/dashboards", "/var/lib/grafana/dashboards", isReadOnly: true)
-    .WithEnvironment("PROMETHEUS_ENDPOINT", prometheus.GetEndpoint("http"))
-    .WithEnvironment("LOKI_ENDPOINT", loki.GetEndpoint("http"))
-    .WithEnvironment("TEMPO_URL", tempo.GetEndpoint("http"))
-    .WithEnvironment("GF_AUTH_ANONYMOUS_ENABLED", "true")
-    .WithEnvironment("GF_AUTH_ANONYMOUS_ORG_ROLE", "Admin")
-    .WithEnvironment("GF_AUTH_DISABLE_LOGIN_FORM", "true")
-    .WithVolume(VolumeNameGenerator.Generate(grafanaContainer, "data"), "/var/lib/grafana")
-    .WithHttpEndpoint(targetPort: 3000, name: "http")
-    .WithUrlForEndpoint("http", url =>
-    {
-        url.DisplayText = "Open Grafana Dashboard";
-    });
-
-loki.WithParentRelationship(grafana);
-tempo.WithParentRelationship(grafana);
-prometheus.WithParentRelationship(grafana);
-blackbox.WithParentRelationship(grafana);
-
-var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
-    .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp")
-    .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp")
-    .WithEnvironment("TEMPO_URL", $"{tempo.GetEndpoint("otlp")}");
+var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume();
@@ -128,7 +41,6 @@ redis
 // }
 
 var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice")
-    // .WithHealthCheck("/health")
     .WithReference(database)
     .WithReference(redis)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
@@ -136,10 +48,8 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     .WaitFor(database)
     // .WaitFor(migrations)
     .WaitFor(redis)
-    .WithUrls(context =>
-    {
-        context.Urls.Add(new () { Url = "/scalar", DisplayText = "OpenAPI Documentation", Endpoint = context.GetEndpoint("http") });
-    });
+    .WithUrlForEndpoint("http", u => u.DisplayText = "API Documentation")
+    .WithUrlForEndpoint("https", u => u.DisplayText = "API Documentation");
 
 var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
@@ -157,10 +67,8 @@ var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
     .WaitFor(apiService)
     .WaitFor(frontend)
     .WaitFor(openTelemetryCollector)
-    .WithUrlForEndpoint("https", url =>
-    {
-        url.DisplayText = "Open Application";
-    })
+    .WithUrlForEndpoint("http", u => u.DisplayText = "Open Application")
+    .WithUrlForEndpoint("https", u => u.DisplayText = "Open Application")
     .WithExternalHttpEndpoints();
 
 apiService.WithParentRelationship(gateway);
