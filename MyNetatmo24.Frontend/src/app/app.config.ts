@@ -1,53 +1,38 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import type { ApplicationConfig } from '@angular/core';
 
-import { routes } from './app.routes';
-import {provideHttpClient, withInterceptors} from "@angular/common/http";
-import {authHttpInterceptorFn, provideAuth0} from "@auth0/auth0-angular";
-import {provideInstrumentation} from "../instrumentation";
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
+import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 
-declare const OTEL_EXPORTER_OTLP_ENDPOINT: string;
-declare const OTEL_EXPORTER_OTLP_HEADERS: string;
-declare const OTEL_RESOURCE_ATTRIBUTES: string;
-declare const OTEL_SERVICE_NAME: string;
+import { provideEventPlugins } from '~domains/shared/event-managers';
+import { provideOpenTelemetryInstrumentation } from '~domains/shared/opentelemetry';
 
-export const appConfig: ApplicationConfig = {
+import { ROUTES } from './app.routes';
+
+export const APP_CONFIG: ApplicationConfig = {
   providers: [
-    provideInstrumentation(OTEL_EXPORTER_OTLP_ENDPOINT, OTEL_EXPORTER_OTLP_HEADERS, OTEL_RESOURCE_ATTRIBUTES, OTEL_SERVICE_NAME),
-    provideRouter(routes),
-    provideHttpClient(withInterceptors([authHttpInterceptorFn])),
-    provideAuth0({
-      domain: 'auth.dehopre.dev',
-      clientId: 'mNlNx1rQbJRMGW49fYrQWpBsuGrMe2RW',
-      authorizationParams: {
-        redirect_uri: window.location.origin,
-        // audience: 'https://auth.dehopre.dev/api/v2/',
-        audience: 'https://my-netatmo24-api',
-        scope: 'profile email read:weatherdata read:current_user',
-      },
-      cacheLocation: 'localstorage',
-      httpInterceptor: {
-        allowedList: [
-          {
-            uri: 'https://auth.dehopre.dev/api/v2/*',
-            tokenOptions: {
-              authorizationParams: {
-                audience: 'https://auth.dehopre.dev/api/v2/',
-                scope: 'read:current_user',
-              }
-            }
-          },
-          {
-            uri: '/api/*',
-            tokenOptions: {
-              authorizationParams: {
-                audience: 'https://my-netatmo24-api',
-                scope: 'read:weatherdata',
-              },
-            }
-          }
-        ]
-      }
-    })
-  ]
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(
+      ROUTES,
+      withComponentInputBinding(),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      })
+    ),
+    provideHttpClient(
+      withXsrfConfiguration({
+        cookieName: '__MyNetatmo24-X-XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN',
+      }),
+      withFetch()
+    ),
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: { dateFormat: 'dd-MM-yyyy' },
+    },
+    provideEventPlugins(),
+    provideOpenTelemetryInstrumentation(),
+  ],
 };

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)/documentation</OpenApiDocumentsDirectory>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Auth0.AspNetCore.Authentication.Api" />
+        <PackageReference Include="FastEndpoints" />
+        <PackageReference Include="FastEndpoints.Security" />
+        <PackageReference Include="FastEndpoints.Swagger" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="Scalar.AspNetCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>

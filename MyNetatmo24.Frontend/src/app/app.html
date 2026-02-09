@@ -1,0 +1,85 @@
+<div class="md:flex md:items-center md:justify-between">
+  <div class="min-w-0 flex-1">
+    <h2 class="
+      text-2xl/7 font-bold text-gray-900
+      sm:truncate sm:text-3xl sm:tracking-tight
+      dark:text-white
+    ">
+      {{ title() }}
+    </h2>
+  </div>
+  <div class="
+    mt-4 flex
+    md:mt-0 md:ml-4
+  ">
+    <button *appAnonymous class="btn btn-outline btn-neutral" type="button" (click)="login()">Login</button>
+    <button
+      *appAuthenticated
+      class="btn btn-outline btn-neutral"
+      type="button"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </div>
+</div>
+<div *appAuthenticated
+     class="
+       px-4
+       sm:px-6
+       lg:px-8
+     ">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="
+        text-base font-semibold text-gray-900
+        dark:text-white
+      ">Weather Forecast</h1>
+      <p class="
+        mt-2 text-sm text-gray-700
+        dark:text-gray-300
+      ">
+        The weather for the next few days.
+      </p>
+    </div>
+    <div class="
+      mt-4
+      sm:mt-0 sm:ml-16 sm:flex-none
+    ">
+      <button
+        class="btn btn-primary"
+        type="button"
+        (click)="loadWeatherForecast()"
+      >
+        Load Forecast
+      </button>
+    </div>
+  </div>
+  <div class="mt-8 flow-root">
+    <div class="
+      overflow-x-auto rounded-box border border-base-content/5 bg-base-100
+    ">
+        <table class="table table-zebra">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Temp. (C)</th>
+              <th>Temp. (F)</th>
+              <th>Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+          @for (forecast of weatherForecasts.value(); track $index) {
+            <tr>
+              <td>{{ forecast.date | date }}</td>
+              <td>{{ forecast.temperatureC }}</td>
+              <td>{{ forecast.temperatureF }}</td>
+              <td>{{ forecast.summary }}</td>
+            </tr>
+          }
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+<router-outlet />

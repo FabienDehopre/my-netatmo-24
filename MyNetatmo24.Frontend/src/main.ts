@@ -1,7 +1,11 @@
-import { provideZoneChangeDetection } from "@angular/core";
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
 
-bootstrapApplication(AppComponent, {...appConfig, providers: [provideZoneChangeDetection(), ...appConfig.providers]})
-  .catch((err) => console.error(err));
+import { App } from './app/app';
+import { APP_CONFIG } from './app/app.config';
+
+if (navigator.userAgent.includes('iPhone')) {
+  document.querySelector('[name="viewport"]')?.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0');
+}
+
+bootstrapApplication(App, APP_CONFIG)
+  .catch(console.error);
