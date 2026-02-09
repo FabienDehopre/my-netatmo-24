@@ -38,6 +38,9 @@ export default defineConfig({
   server: {
     port: 4200,
     open: false,
+    hmr: {
+      protocol: 'ws',
+    },
   },
   build: {
     sourceMap: true,
