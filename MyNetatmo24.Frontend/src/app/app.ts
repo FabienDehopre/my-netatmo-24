@@ -25,7 +25,7 @@ type WeatherForecast = z.infer<typeof WEATHER_FORECAST_SCHEMA>;
 })
 export class App {
   private readonly authentication = inject(Authentication);
-  protected readonly title = signal('MyNetatmo24').asReadonly();
+  protected readonly title = signal('My Netatmo 24').asReadonly();
   protected readonly user = this.authentication.user;
   protected readonly weatherForecasts = httpResource<WeatherForecast[]>(
     () => '/api/weatherforecast',
