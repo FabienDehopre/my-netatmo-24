@@ -16,9 +16,7 @@
   "private": true,
   "packageManager": "pnpm@10.28.2",
   "scripts": {
-    "dev": "run-script-os",
-    "dev:win32": "vite --port %PORT%",
-    "dev:default": "vite --port $PORT",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
@@ -63,7 +61,6 @@
     "eslint-plugin-format": "catalog:eslint",
     "jsdom": "catalog:",
     "ng-packagr": "catalog:angular",
-    "run-script-os": "catalog:",
     "tailwindcss": "catalog:tailwindcss",
     "typescript": "catalog:",
     "vite": "catalog:vite",
