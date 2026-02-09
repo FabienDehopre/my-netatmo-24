@@ -141,21 +141,12 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
         context.Urls.Add(new () { Url = "/scalar", DisplayText = "OpenAPI Documentation", Endpoint = context.GetEndpoint("http") });
     });
 
-var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Frontend")
+var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
-    .WithRunScript("dev")
-    .WithHttpEndpoint(env: "PORT")
     .PublishAsDockerFile(configure: resource =>
     {
         resource.WithDockerfile("../", stage: "frontend-app");
     });
-// var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
-//     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
-//     .WithHttpEndpoint(env: "PORT")
-//     .PublishAsDockerFile(configure: resource =>
-//     {
-//         resource.WithDockerfile("../", stage: "frontend-app");
-//     });
 
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
     .WithReference(apiService)
