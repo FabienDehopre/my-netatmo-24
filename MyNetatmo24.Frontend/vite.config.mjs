@@ -1,5 +1,7 @@
+/// <reference types="vitest/config" />
 import angular from '@analogjs/vite-plugin-angular';
 import tailwindcss from '@tailwindcss/vite';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
@@ -51,6 +53,20 @@ export default defineConfig({
 
         handler(level, log);
       },
+    },
+  },
+  test: {
+    setupFiles: ['./src/setup-angular.ts', './src/test-setup.ts'],
+    environment: 'jsdom',
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
+      headless: true,
+    },
+    coverage: {
+      provider: 'v8',
+      reporter: ['json-summary', 'json'],
     },
   },
 });

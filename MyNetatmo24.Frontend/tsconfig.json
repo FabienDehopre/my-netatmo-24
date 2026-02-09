@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "baseUrl": "./",
     "module": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "~i18n/*": ["public/assets/i18n/*"],
       "~domains/*": ["src/app/domains/*"]
