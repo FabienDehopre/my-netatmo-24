@@ -57,7 +57,6 @@ export default defineConfig({
   },
   test: {
     setupFiles: ['./src/setup-angular.ts', './src/test-setup.ts'],
-    environment: 'jsdom',
     browser: {
       enabled: true,
       provider: playwright(),
