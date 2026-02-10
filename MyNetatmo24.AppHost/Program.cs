@@ -107,10 +107,10 @@ frontend.WithParentRelationship(gateway);
 //     .WaitFor(migrations);
 
 builder.AddDockerComposeEnvironment("MyNetatmo24")
-    .WithDashboard(false);
+    .WithDashboard();
 
-#pragma warning disable ASPIREAZURE001
-builder.AddAzureEnvironment();
-#pragma warning restore ASPIREAZURE001
+// #pragma warning disable ASPIREAZURE001
+// builder.AddAzureEnvironment();
+// #pragma warning restore ASPIREAZURE001
 
 await builder.Build().RunAsync();
