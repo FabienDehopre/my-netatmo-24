@@ -36,7 +36,9 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
       instrumentations: [
         getWebAutoInstrumentations({
           '@opentelemetry/instrumentation-document-load': {},
-          '@opentelemetry/instrumentation-user-interaction': {},
+          '@opentelemetry/instrumentation-user-interaction': {
+            eventNames: ['click', 'submit'],
+          },
           '@opentelemetry/instrumentation-fetch': {},
           '@opentelemetry/instrumentation-xml-http-request': {},
         }),
