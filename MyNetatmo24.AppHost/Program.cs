@@ -1,16 +1,23 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+builder.AddAzureContainerAppEnvironment("my-netatmo24-env");
+
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", secret: false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", secret: true);
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
-var postgres = builder.AddPostgres("postgres")
-    .WithDataVolume();
-postgres
-    .WithPgWeb(p => p.WithParentRelationship(postgres));
+#pragma warning disable ASPIRECOSMOSDB001
+var cosmos = builder.AddAzureCosmosDB("cosmos-db")
+    .RunAsPreviewEmulator(emulator =>
+    {
+        emulator.WithDataVolume();
+        emulator.WithDataExplorer();
+    });
+#pragma warning restore ASPIRECOSMOSDB001
 
-var database = postgres.AddDatabase("my-netatmo24-db");
+var database = cosmos.AddCosmosDatabase("my-netatmo24-db");
+var container = database.AddContainer("my-netatmo24-container", "/id");
 
 var redis = builder.AddRedis("cache")
     .WithDataVolume();
@@ -18,32 +25,32 @@ redis
     .WithRedisInsight(p => p.WithParentRelationship(redis));
 
 // var migrations = builder.AddProject<Projects.MyNetatmo24_Migrations>("migrations")
-//     .WithReference(database)
+//     .WithReference(container)
 //     .WithReference(redis)
-//     .WaitFor(database)
-//     .WithParentRelationship(database);
+//     .WaitFor(container)
+//     .WithParentRelationship(container);
 //
 // if (builder.Environment.IsDevelopment())
 // {
 //     migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
 //     {
 //         IconName = "DatabaseLightning",
-//         ConfirmationMessage = "Are you sure you want to reset the database?",
+//         ConfirmationMessage = "Are you sure you want to reset the cosmos db container?",
 //     });
 //
 //     migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
 //     {
 //         IconName = "DatabaseLightning",
-//         ConfirmationMessage = "Are you sure you want to reseed the database?",
+//         ConfirmationMessage = "Are you sure you want to reseed the cosmos db container?",
 //     });
 // }
 
 var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice")
-    .WithReference(database)
+    .WithReference(container)
     .WithReference(redis)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
-    .WaitFor(database)
+    .WaitFor(container)
     // .WaitFor(migrations)
     .WaitFor(redis)
     .WithUrlForEndpoint("http", u => u.DisplayText = "API Documentation")
@@ -102,15 +109,8 @@ frontend.WithParentRelationship(gateway);
 //     .WithOtlpExporter()
 //     .WithHttpHealthCheck("/")
 //     .WithEnvironment("DAB_ENVIRONMENT", builder.Environment.IsDevelopment() ? "development" : "production")
-//     .WithEnvironment("ConnectionString", database)
-//     .WaitFor(database)
+//     .WithEnvironment("ConnectionString", container)
+//     .WaitFor(container)
 //     .WaitFor(migrations);
-
-builder.AddDockerComposeEnvironment("MyNetatmo24")
-    .WithDashboard();
-
-// #pragma warning disable ASPIREAZURE001
-// builder.AddAzureEnvironment();
-// #pragma warning restore ASPIREAZURE001
 
 await builder.Build().RunAsync();
