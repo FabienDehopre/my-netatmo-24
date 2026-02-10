@@ -5,7 +5,7 @@ builder.AddAzureContainerAppEnvironment("my-netatmo24-env");
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", secret: false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", secret: true);
 
-var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
+var openTelemetryCollector = builder.AddOpenTelemetryCollector("../otel.yml");
 
 #pragma warning disable ASPIRECOSMOSDB001
 var cosmos = builder.AddAzureCosmosDB("cosmos-db")
