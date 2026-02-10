@@ -82,7 +82,7 @@ frontend.WithParentRelationship(gateway);
 // if (builder.Environment.IsDevelopment())
 // {
 //     var playwright = builder
-//         .AddJavaScriptApp("playwright", "../Sandbox.EndToEndTests")
+//         .AddJavaScriptApp("playwright", "../MyNetatmo24.EndToEndTests")
 //         .WithPnpm(install: false)
 //         .WithRunScript("test")
 //         .WithExplicitStart()

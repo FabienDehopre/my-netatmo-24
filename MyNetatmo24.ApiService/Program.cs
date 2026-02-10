@@ -4,7 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services
-    .AddFastEndpoints()
+    .AddFastEndpoints(options =>
+    {
+        options.AssemblyFilter = asm => asm.FullName?.StartsWith("MyNetatmo24.", StringComparison.Ordinal) ?? false;
+    })
     .SwaggerDocument(options =>
     {
         options.RemoveEmptyRequestSchema = true;
@@ -65,14 +68,13 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddOutputCache();
 
+builder.AddModules();
+
 var app = builder.Build();
 
 app.UseOutputCache();
 
-// Configure Aspire default endpoints
-app.MapDefaultEndpoints();
-
-app.UseHttpsRedirection();
+app.UseStatusCodePages();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseFastEndpoints();
@@ -93,6 +95,9 @@ if (app.Environment.IsDevelopment())
         });
     });
 }
+
+// Configure Aspire default endpoints
+app.MapDefaultEndpoints();
 
 app.Run();
 

@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.Cosmos" />
         <PackageReference Include="Auth0.AspNetCore.Authentication.Api" />
         <PackageReference Include="FastEndpoints" />
         <PackageReference Include="FastEndpoints.Security" />
@@ -16,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" />
     </ItemGroup>
 
 </Project>

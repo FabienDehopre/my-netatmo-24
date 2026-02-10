@@ -3,5 +3,6 @@ global using Auth0.AspNetCore.Authentication.Api;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
 global using MyNetatmo24.ServiceDefaults;
+global using MyNetatmo24.SharedKernel.Modules;
 global using NSwag;
 global using Scalar.AspNetCore;
