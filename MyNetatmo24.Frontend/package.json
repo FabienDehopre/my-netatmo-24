@@ -1,20 +1,12 @@
 {
   "name": "frontend-app",
   "version": "0.0.0",
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
-  },
   "private": true,
   "packageManager": "pnpm@10.28.2",
+  "files": [
+    ".",
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

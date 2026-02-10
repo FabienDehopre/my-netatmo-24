@@ -12,11 +12,11 @@ COPY pnpm-workspace.yaml /usr/src/app
 WORKDIR /usr/src/app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prefer-offline
 RUN pnpm run -r build
-RUN pnpm deploy --filter=./MyNetatmo24.Frontend --prod /prod/frontend-app
+RUN pnpm deploy --filter=frontend-app --prod /prod/frontend-app
 RUN ls /prod/frontend-app
 
 FROM nginx:alpine@sha256:b0f7830b6bfaa1258f45d94c240ab668ced1b3651c8a222aefe6683447c7bf55 AS frontend-app
 COPY --from=build /prod/frontend-app/default.conf.template /etc/nginx/templates/default.conf.template
-COPY --from=build /prod/frontend-app/dist/frontend-app/browser /usr/share/nginx/html
+COPY --from=build /prod/frontend-app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
