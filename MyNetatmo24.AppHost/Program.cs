@@ -8,7 +8,6 @@ var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.y
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume();
 postgres
-    .WithPgAdmin(p => p.WithParentRelationship(postgres))
     .WithPgWeb(p => p.WithParentRelationship(postgres));
 
 var database = postgres.AddDatabase("my-netatmo24-db");
@@ -16,8 +15,7 @@ var database = postgres.AddDatabase("my-netatmo24-db");
 var redis = builder.AddRedis("cache")
     .WithDataVolume();
 redis
-    .WithRedisInsight(p => p.WithParentRelationship(redis))
-    .WithRedisCommander(p => p.WithParentRelationship(redis));
+    .WithRedisInsight(p => p.WithParentRelationship(redis));
 
 // var migrations = builder.AddProject<Projects.MyNetatmo24_Migrations>("migrations")
 //     .WithReference(database)
