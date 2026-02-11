@@ -14,7 +14,8 @@ internal sealed class AspireOtelCollectorRequestTransform(IConfiguration configu
             {
                 var (headerName, headerValue) = header;
                 logger.LogAppendAspireOtelCollectorHeaders(headerName, headerValue);
-                context.ProxyRequest.Headers.Add(headerName, headerValue);
+                context.ProxyRequest.Headers.Remove(headerName);
+                context.ProxyRequest.Headers.TryAddWithoutValidation(headerName, headerValue);
             }
         }
 
