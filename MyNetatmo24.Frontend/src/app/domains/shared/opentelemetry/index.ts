@@ -27,7 +27,7 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
     const resource = resourceFromAttributes({
       [ATTR_SERVICE_NAME]: 'angular-frontend',
       [ATTR_SERVICE_VERSION]: '1.0.0',
-      ...parseDelimitedValues(import.meta.env.OTEL_RESOURCE_ATTRIBUTES ?? ''),
+      ...parseDelimitedValues(import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES ?? ''),
     });
 
     const provider = new WebTracerProvider({
@@ -36,7 +36,7 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
         new BatchSpanProcessor(
           new OTLPTraceExporter({
             url: `${window.origin}/v1/traces`,
-            headers: parseDelimitedValues(import.meta.env.OTEL_EXPORTER_OTLP_HEADERS ?? ''),
+            headers: parseDelimitedValues(import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS ?? ''),
           })
         ),
       ],
