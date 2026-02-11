@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Yarp.ReverseProxy.Transforms;
 using MyNetatmo24.SharedKernel.Logging;
 
@@ -12,7 +13,7 @@ internal sealed class AspireOtelCollectorRequestTransform(IConfiguration configu
             var headers = configuration["OTEL_EXPORTER_OTLP_HEADERS"]?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) ?? [];
             foreach (var header in headers)
             {
-                if (header.TryDeconstruct(out var headerName, out var headerValue))
+                if (TryParse(header, out var headerName, out var headerValue))
                 {
                     logger.LogAppendAspireOtelCollectorHeaders(headerName);
                     context.ProxyRequest.Headers.Remove(headerName);
@@ -23,14 +24,11 @@ internal sealed class AspireOtelCollectorRequestTransform(IConfiguration configu
 
         return ValueTask.CompletedTask;
     }
-}
 
-internal static class HeaderSplitDeconstruct
-{
-    public static bool TryDeconstruct(this string header, out string headerName, out string headerValue)
+    private static bool TryParse(string header, [NotNullWhen(true)] out string? headerName, [NotNullWhen(true)] out string? headerValue)
     {
-        headerName = string.Empty;
-        headerValue = string.Empty;
+        headerName = null;
+        headerValue = null;
 
         var parts = header.Split('=', 2, StringSplitOptions.TrimEntries);
         if (parts.Length != 2)
@@ -43,3 +41,4 @@ internal static class HeaderSplitDeconstruct
         return true;
     }
 }
+
