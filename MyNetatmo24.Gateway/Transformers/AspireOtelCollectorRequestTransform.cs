@@ -26,13 +26,13 @@ internal static class HeaderSplitDeconstruct
 {
     public static void Deconstruct(this string header, out string headerName, out string headerValue)
     {
-        var parts = header.Split('=');
+        var parts = header.Split('=', 2);
         if (parts.Length != 2)
         {
             throw new ArgumentException($"Invalid header: {header}");
         }
 
-        headerName = parts[0];
-        headerValue = parts[1];
+        headerName = parts[0].Trim();
+        headerValue = parts[1].Trim();
     }
 }
