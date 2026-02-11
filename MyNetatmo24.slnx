@@ -14,7 +14,6 @@
   <Project Path="MyNetatmo24.AppHost/MyNetatmo24.AppHost.csproj" />
   <Project Path="MyNetatmo24.Gateway/MyNetatmo24.Gateway.csproj" />
   <Project Path="MyNetatmo24.Migrations/MyNetatmo24.Migrations.csproj" />
-  <Project Path="MyNetatmo24.Modules.AccountManagement/MyNetatmo24.Modules.AccountManagement.csproj" />
   <Project Path="MyNetatmo24.ServiceDefaults/MyNetatmo24.ServiceDefaults.csproj" />
   <Project Path="MyNetatmo24.SharedKernel/MyNetatmo24.SharedKernel.csproj" />
 </Solution>
