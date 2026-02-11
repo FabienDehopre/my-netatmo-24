@@ -82,6 +82,10 @@ if (builder.Environment.IsDevelopment())
         gateway.WithEnvironment("services__otelcollector__http__0", otlpHttpEndpoint);
     }
 }
+// else
+// {
+//     // TODO: set services__otelcollector__http__0 with the actual OTLP endpoint URL in production
+// }
 
 apiService.WithParentRelationship(gateway);
 frontend.WithParentRelationship(gateway);
