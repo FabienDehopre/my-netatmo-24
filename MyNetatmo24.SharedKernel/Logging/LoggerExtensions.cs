@@ -15,7 +15,7 @@ public static partial class LoggerExtensions
     [LoggerMessage(
         EventId = 1001,
         Level = LogLevel.Debug,
-        Message = "Appending header {HeaderName} with value {HeaderValue} to request for Aspire Open Telemetry collector")]
+        Message = "Appending header {HeaderName} to request for Aspire Open Telemetry collector")]
     public static partial void LogAppendAspireOtelCollectorHeaders(
         this ILogger logger,
         string headerName,
