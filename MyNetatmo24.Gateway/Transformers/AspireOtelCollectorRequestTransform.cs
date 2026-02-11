@@ -9,13 +9,15 @@ internal sealed class AspireOtelCollectorRequestTransform(IConfiguration configu
     {
         if (context.HttpContext.Request.Path == "/v1/traces")
         {
-            var headers = configuration["OTEL_EXPORTER_OTLP_HEADERS"]?.Split(',') ?? [];
+            var headers = configuration["OTEL_EXPORTER_OTLP_HEADERS"]?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) ?? [];
             foreach (var header in headers)
             {
-                var (headerName, headerValue) = header;
-                logger.LogAppendAspireOtelCollectorHeaders(headerName, headerValue);
-                context.ProxyRequest.Headers.Remove(headerName);
-                context.ProxyRequest.Headers.TryAddWithoutValidation(headerName, headerValue);
+                if (header.TryDeconstruct(out var headerName, out var headerValue))
+                {
+                    logger.LogAppendAspireOtelCollectorHeaders(headerName);
+                    context.ProxyRequest.Headers.Remove(headerName);
+                    context.ProxyRequest.Headers.TryAddWithoutValidation(headerName, headerValue);
+                }
             }
         }
 
@@ -25,15 +27,19 @@ internal sealed class AspireOtelCollectorRequestTransform(IConfiguration configu
 
 internal static class HeaderSplitDeconstruct
 {
-    public static void Deconstruct(this string header, out string headerName, out string headerValue)
+    public static bool TryDeconstruct(this string header, out string headerName, out string headerValue)
     {
-        var parts = header.Split('=', 2);
+        headerName = string.Empty;
+        headerValue = string.Empty;
+
+        var parts = header.Split('=', 2, StringSplitOptions.TrimEntries);
         if (parts.Length != 2)
         {
-            throw new ArgumentException($"Invalid header: {header}");
+            return false;
         }
 
-        headerName = parts[0].Trim();
-        headerValue = parts[1].Trim();
+        headerName = parts[0];
+        headerValue = parts[1];
+        return true;
     }
 }
