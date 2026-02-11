@@ -18,8 +18,7 @@ public static partial class LoggerExtensions
         Message = "Appending header {HeaderName} to request for Aspire Open Telemetry collector")]
     public static partial void LogAppendAspireOtelCollectorHeaders(
         this ILogger logger,
-        string headerName,
-        string headerValue);
+        string headerName);
 
     [LoggerMessage(
         EventId = 2005,
