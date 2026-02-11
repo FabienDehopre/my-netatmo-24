@@ -18,6 +18,10 @@ internal static class Extensions
             builder.Services.AddSingleton<AddBearerTokenToHeadersTransform>();
             builder.Services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
             builder.Services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddSingleton<AspireOtelCollectorRequestTransform>();
+            }
 
             builder.Services
                 .AddReverseProxy()
@@ -31,6 +35,11 @@ internal static class Extensions
                     if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
                     {
                         builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<AddBearerTokenToHeadersTransform>());
+                    }
+
+                    if (builder.Environment.IsDevelopment())
+                    {
+                        builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<AspireOtelCollectorRequestTransform>());
                     }
                 })
                 .AddServiceDiscoveryDestinationResolver();

@@ -1,11 +1,11 @@
+using Microsoft.Extensions.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddAzureContainerAppEnvironment("my-netatmo24-env");
 
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", secret: false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", secret: true);
-
-var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
 #pragma warning disable ASPIRECOSMOSDB001
 var cosmos = builder.AddAzureCosmosDB("cosmos-db")
@@ -66,15 +66,22 @@ var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
     .WithReference(apiService)
     .WithReference(frontend)
-    .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
     .WaitFor(apiService)
     .WaitFor(frontend)
-    .WaitFor(openTelemetryCollector)
     .WithUrlForEndpoint("http", u => u.DisplayText = "Open Application")
     .WithUrlForEndpoint("https", u => u.DisplayText = "Open Application")
     .WithExternalHttpEndpoints();
+
+if (builder.Environment.IsDevelopment())
+{
+    var otlpHttpEndpoint = builder.Configuration["ASPIRE_DASHBOARD_OTLP_HTTP_ENDPOINT_URL"];
+    if (!string.IsNullOrEmpty(otlpHttpEndpoint))
+    {
+        gateway.WithEnvironment("services__otelcollector__http__0", otlpHttpEndpoint);
+    }
+}
 
 apiService.WithParentRelationship(gateway);
 frontend.WithParentRelationship(gateway);

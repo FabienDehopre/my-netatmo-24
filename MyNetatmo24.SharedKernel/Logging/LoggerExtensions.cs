@@ -13,6 +13,14 @@ public static partial class LoggerExtensions
         string resourceName);
 
     [LoggerMessage(
+        EventId = 1001,
+        Level = LogLevel.Debug,
+        Message = "Appending header {HeaderName} to request for Aspire Open Telemetry collector")]
+    public static partial void LogAppendAspireOtelCollectorHeaders(
+        this ILogger logger,
+        string headerName);
+
+    [LoggerMessage(
         EventId = 2005,
         Level = LogLevel.Information,
         Message = "XSRF token added to response for request path: {RequestPath}")]

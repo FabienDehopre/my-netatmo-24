@@ -1,36 +1,4 @@
 <Solution>
-  <Folder Name="/config/">
-    <File Path="config\otel.yml" />
-  </Folder>
-  <Folder Name="/config/blackbox/">
-    <File Path="config\blackbox\blackbox.yml" />
-  </Folder>
-  <Folder Name="/config/grafana/" />
-  <Folder Name="/config/grafana/config/">
-    <File Path="config\grafana\config\grafana.ini" />
-  </Folder>
-  <Folder Name="/config/grafana/config/provisioning/" />
-  <Folder Name="/config/grafana/config/provisioning/dashboards/">
-    <File Path="config\grafana\config\provisioning\dashboards\default.yml" />
-  </Folder>
-  <Folder Name="/config/grafana/config/provisioning/datasources/">
-    <File Path="config\grafana\config\provisioning\datasources\default.yml" />
-  </Folder>
-  <Folder Name="/config/grafana/dashboards/">
-    <File Path="config\grafana\dashboards\aspnetcore-endpoint.json" />
-    <File Path="config\grafana\dashboards\aspnetcore.json" />
-    <File Path="config\grafana\dashboards\blackbox.json" />
-    <File Path="config\grafana\dashboards\minio-dashboard.json" />
-  </Folder>
-  <Folder Name="/config/loki/">
-    <File Path="config\loki\loki.yml" />
-  </Folder>
-  <Folder Name="/config/prometheus/">
-    <File Path="config\prometheus\prometheus.yml" />
-  </Folder>
-  <Folder Name="/config/tempo/">
-    <File Path="config\tempo\tempo.yml" />
-  </Folder>
   <Folder Name="/root/">
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
