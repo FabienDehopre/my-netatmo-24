@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddAzureContainerAppEnvironment("my-netatmo24-env");
@@ -66,12 +68,20 @@ var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
     .WithReference(frontend)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
-    .WithEnvironment("services__otelcollector__http__0", builder.Configuration["ASPIRE_DASHBOARD_OTLP_HTTP_ENDPOINT_URL"])
     .WaitFor(apiService)
     .WaitFor(frontend)
     .WithUrlForEndpoint("http", u => u.DisplayText = "Open Application")
     .WithUrlForEndpoint("https", u => u.DisplayText = "Open Application")
     .WithExternalHttpEndpoints();
+
+if (builder.Environment.IsDevelopment())
+{
+    var otlpHttpEndpoint = builder.Configuration["ASPIRE_DASHBOARD_OTLP_HTTP_ENDPOINT_URL"];
+    if (!string.IsNullOrEmpty(otlpHttpEndpoint))
+    {
+        gateway.WithEnvironment("services__otelcollector__http__0", otlpHttpEndpoint);
+    }
+}
 
 apiService.WithParentRelationship(gateway);
 frontend.WithParentRelationship(gateway);
