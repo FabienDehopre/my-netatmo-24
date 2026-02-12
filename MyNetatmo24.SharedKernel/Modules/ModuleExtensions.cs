@@ -1,9 +1,12 @@
 using System.Reflection;
+using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 
 namespace MyNetatmo24.SharedKernel.Modules;
 
+#pragma warning disable CA1708
 public static class ModuleExtensions
+#pragma warning restore CA1708
 {
     private static readonly IModule[] s_modules = DiscoverModules();
 
@@ -17,6 +20,15 @@ public static class ModuleExtensions
             }
 
             return builder;
+        }
+    }
+
+    extension(EndpointDiscoveryOptions options)
+    {
+        public EndpointDiscoveryOptions AddEndpointsAssemblies()
+        {
+            options.Assemblies = s_modules.Select(m => m.GetType().Assembly).ToArray();
+            return options;
         }
     }
 

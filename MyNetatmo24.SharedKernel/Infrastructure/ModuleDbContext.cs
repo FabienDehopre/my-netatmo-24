@@ -9,6 +9,8 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
     private static readonly MethodInfo s_setGlobalQueryForSoftDeleteMethod =
         typeof(ModuleDbContext).GetMethod(nameof(SetGlobalQueryForSoftDelete), BindingFlags.NonPublic | BindingFlags.Static)!;
 
+    public abstract string Schema { get; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         ArgumentNullException.ThrowIfNull(optionsBuilder);
@@ -22,6 +24,7 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
         ArgumentNullException.ThrowIfNull(modelBuilder);
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.HasDefaultSchema(Schema);
         ConfigureSoftDeleteQueryFilters(modelBuilder);
     }
 

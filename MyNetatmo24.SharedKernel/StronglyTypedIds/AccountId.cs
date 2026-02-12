@@ -3,9 +3,9 @@ using Vogen;
 namespace MyNetatmo24.SharedKernel.StronglyTypedIds;
 
 [ValueObject<Guid>(conversions: Conversions.SystemTextJson | Conversions.EfCoreValueConverter)]
-public readonly partial struct UserId
+public readonly partial struct AccountId
 {
-    public static UserId New() => From(Guid.CreateVersion7());
+    public static AccountId New() => From(Guid.CreateVersion7());
 
     private static Guid NormalizeInput(Guid input)
     {

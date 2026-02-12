@@ -1,3 +1,5 @@
+using MyNetatmo24.SharedKernel.Infrastructure;
+
 namespace MyNetatmo24.ApiService.Endpoints;
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
@@ -10,7 +12,7 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
     public override void Configure()
     {
         Get("/weatherforecast");
-        Policies("ReadWeather");
+        Policies(Constants.Policies.Authenticated);
         Description(d =>
             d.Produces<IEnumerable<WeatherForecast>>()
                 .WithName("GetWeatherForecast"));

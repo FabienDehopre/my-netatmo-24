@@ -1,3 +1,9 @@
+using System.Text.Json;
+using MyNetatmo24.SharedKernel.Infrastructure;
+using Wolverine;
+using Wolverine.EntityFrameworkCore;
+using Wolverine.Postgresql;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
@@ -6,7 +12,7 @@ builder.AddServiceDefaults();
 builder.Services
     .AddFastEndpoints(options =>
     {
-        options.AssemblyFilter = asm => asm.FullName?.StartsWith("MyNetatmo24.", StringComparison.Ordinal) ?? false;
+        options.AddEndpointsAssemblies();
     })
     .SwaggerDocument(options =>
     {
@@ -60,13 +66,33 @@ builder.Services.AddAuth0ApiAuthentication(options =>
 });
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("ReadWeather", b =>
+    options.AddPolicy(Constants.Policies.Authenticated, b =>
     {
         b.RequireAuthenticatedUser()
             .RequireRole("read:weatherdata");
     });
+    options.AddPolicy(Constants.Policies.Authenticated, b =>
+    {
+        b.RequireAuthenticatedUser();
+    });
 });
 builder.Services.AddOutputCache();
+
+builder.Host.UseWolverine(options =>
+{
+    // Required to generate the OpenAPI document, otherwise this exception is thrown
+    if (Environment.GetCommandLineArgs().Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
+    {
+        return;
+    }
+
+    var connectionString = builder.Configuration.GetConnectionString(Constants.DatabaseName) ?? throw new InvalidOperationException($"Connection string '{Constants.DatabaseName}' not found.");
+    options.PersistMessagesWithPostgresql(connectionString, "wolverine");
+    options.UseEntityFrameworkCoreTransactions();
+    options.MultipleHandlerBehavior = MultipleHandlerBehavior.Separated;
+    options.Policies.UseDurableLocalQueues();
+    options.Policies.AutoApplyTransactions();
+});
 
 builder.AddModules();
 
@@ -74,10 +100,12 @@ var app = builder.Build();
 
 app.UseOutputCache();
 
-app.UseStatusCodePages();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseFastEndpoints();
+app.UseFastEndpoints(config =>
+{
+    config.Errors.UseProblemDetails();
+});
 
 if (app.Environment.IsDevelopment())
 {

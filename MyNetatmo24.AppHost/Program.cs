@@ -1,23 +1,16 @@
 using Microsoft.Extensions.Hosting;
+using MyNetatmo24.SharedKernel.Infrastructure;
 
 var builder = DistributedApplication.CreateBuilder(args);
-
-builder.AddAzureContainerAppEnvironment("my-netatmo24-env");
 
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", secret: false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", secret: true);
 
-#pragma warning disable ASPIRECOSMOSDB001
-var cosmos = builder.AddAzureCosmosDB("cosmos-db")
-    .RunAsPreviewEmulator(emulator =>
-    {
-        emulator.WithDataVolume();
-        emulator.WithDataExplorer();
-    });
-#pragma warning restore ASPIRECOSMOSDB001
+var postgres = builder.AddPostgres("postgres")
+    .WithDataVolume();
+postgres.WithPgWeb(p => p.WithParentRelationship(postgres));
 
-var database = cosmos.AddCosmosDatabase("my-netatmo24-db");
-var container = database.AddContainer("my-netatmo24-container", "/id");
+var database = postgres.AddDatabase(Constants.DatabaseName);
 
 var redis = builder.AddRedis("cache")
     .WithDataVolume();
@@ -46,11 +39,11 @@ redis
 // }
 
 var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice")
-    .WithReference(container)
+    .WithReference(database)
     .WithReference(redis)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
-    .WaitFor(container)
+    .WaitFor(database)
     // .WaitFor(migrations)
     .WaitFor(redis)
     .WithUrlForEndpoint("http", u => u.DisplayText = "API Documentation")
