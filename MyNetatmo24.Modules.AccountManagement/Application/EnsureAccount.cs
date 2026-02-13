@@ -15,60 +15,67 @@ using Wolverine.EntityFrameworkCore;
 
 namespace MyNetatmo24.Modules.AccountManagement.Application;
 
-public class EnsureAccount(IDbContextOutbox<AccountDbContext> outbox, IQueryable<Account> accounts, IUserInfoService userInfoService)
-    : Ep.NoReq.Res<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>>
+public static class EnsureAccount
 {
-    private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
-    private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
-    private readonly IUserInfoService _userInfoService = userInfoService.ThrowIfNull();
-
-    public override void Configure()
+    public class Endpoint(
+        IDbContextOutbox<AccountDbContext> outbox,
+        IQueryable<Account> accounts,
+        IUserInfoService userInfoService)
+        : Ep.NoReq.Res<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>>
     {
-        Post("/account/ensure");
-        Policies(Constants.Policies.Authenticated);
-    }
+        private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
+        private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
+        private readonly IUserInfoService _userInfoService = userInfoService.ThrowIfNull();
 
-    public override async Task<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>> ExecuteAsync(CancellationToken ct)
-    {
-        var auth0Id = User.FindFirstValue("sub");
-        if (string.IsNullOrWhiteSpace(auth0Id))
+        public override void Configure()
         {
-            return TypedResults.Unauthorized();
+            Post("/account/ensure");
+            Policies(Constants.Policies.Authenticated);
         }
 
-        var existingAccount = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
-        if (existingAccount is not null)
+        public override async Task<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>>
+            ExecuteAsync(CancellationToken ct)
         {
-            return TypedResults.Ok(existingAccount.Id);
+            var auth0Id = User.FindFirstValue("sub");
+            if (string.IsNullOrWhiteSpace(auth0Id))
+            {
+                return TypedResults.Unauthorized();
+            }
+
+            var existingAccount = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
+            if (existingAccount is not null)
+            {
+                return TypedResults.Ok(existingAccount.Id);
+            }
+
+            var result = await _userInfoService.GetUserInfoAsync(ct);
+            return result switch
+            {
+                { IsSuccess: true } userInfoResult => await CreateUser(userInfoResult.Value, auth0Id, ct),
+                { IsFailure: true, Error: NotFoundError } => TypedResults.NotFound(),
+                _ => throw new InvalidOperationException("Unexpected error while retrieving user info."),
+            };
         }
 
-        var result = await _userInfoService.GetUserInfoAsync(ct);
-        return result switch
+        private async Task<Created<AccountId>> CreateUser(UserInfo userInfo, string auth0Id, CancellationToken ct)
         {
-            { IsSuccess: true } userInfoResult => await CreateUser(userInfoResult.Value, auth0Id, ct),
-            { IsFailure: true, Error: NotFoundError } => TypedResults.NotFound(),
-            _ => throw new InvalidOperationException("Unexpected error while retrieving user info."),
-        };
-    }
+            var newAccount = Account.Create(
+                AccountId.New(),
+                auth0Id,
+                userInfo.Nickname,
+                FullName.From(userInfo.GivenName, userInfo.FamilyName));
 
-    private async Task<Created<AccountId>> CreateUser(UserInfo userInfo, string auth0Id, CancellationToken ct)
-    {
-        var newAccount = Account.Create(
-            AccountId.New(),
-            auth0Id,
-            userInfo.Nickname,
-            FullName.From(userInfo.GivenName, userInfo.FamilyName));
+            if (userInfo.Picture is not null)
+            {
+                newAccount.SetAvatarUrl(userInfo.Picture);
+            }
 
-        if (userInfo.Picture is not null)
-        {
-            newAccount.SetAvatarUrl(userInfo.Picture);
+            await _outbox.DbContext.AddAsync(newAccount, ct);
+            await _outbox.PublishAsync(new AccountCreated(newAccount.Id, newAccount.Name.FirstName,
+                newAccount.Name.LastName));
+            await _outbox.SaveChangesAndFlushMessagesAsync(ct);
+
+            return TypedResults.Created("/api/account/me", newAccount.Id);
         }
-
-        await _outbox.DbContext.AddAsync(newAccount, ct);
-        await _outbox.PublishAsync(new AccountCreated(newAccount.Id, newAccount.Name.FirstName,
-            newAccount.Name.LastName));
-        await _outbox.SaveChangesAndFlushMessagesAsync(ct);
-
-        return TypedResults.Created("/api/account/me", newAccount.Id);
     }
 }
