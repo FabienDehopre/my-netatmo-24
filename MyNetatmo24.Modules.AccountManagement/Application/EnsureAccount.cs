@@ -28,14 +28,15 @@ public static class EnsureAccount
         {
             Summary = "Ensures that the authenticated user has an account.";
             Description =
-                "This endpoint checks if the authenticated user already has an account. " +
-                "If they do, a 200 OK response is returned. " +
-                "If they don't, a new account is created for them and a 201 Created response is returned. " +
-                "If the user's information cannot be retrieved from Auth0, a 404 Not Found response is returned. " +
-                "If the user is not authenticated, a 401 Unauthorized response is returned.";
-            Response(StatusCodes.Status200OK, "The user already has an account.");
+                    "This endpoint checks if the authenticated user already has an account. " +
+                    "If they do, a 204 No Content response is returned. " +
+                    "If they don't, a new account is created for them and a 201 Created response is returned. " +
+                    "If the user's information cannot be retrieved from Auth0, a 404 Not Found response is returned. " +
+                    "If the user is not authenticated, a 401 Unauthorized response is returned. " +
+                    "If an account exists but is marked as deleted, a 409 Conflict response is returned.";
             Response(StatusCodes.Status201Created,
                 "A new account was created for the user.");
+            Response(StatusCodes.Status204NoContent, "The user already has an account.");
             Response(StatusCodes.Status401Unauthorized,
                 "The user is not authenticated, so an account cannot be ensured.");
             Response(StatusCodes.Status404NotFound,
@@ -49,7 +50,7 @@ public static class EnsureAccount
         IDbContextOutbox<AccountDbContext> outbox,
         IQueryable<Account> accounts,
         IUserInfoService userInfoService)
-        : Ep.NoReq.Res<Results<Ok, Created, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
+        : Ep.NoReq.Res<Results<Created, NoContent, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
     {
         private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
         private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
@@ -57,7 +58,7 @@ public static class EnsureAccount
 
         public override void Configure() => Post("/account/ensure");
 
-        public override async Task<Results<Ok, Created, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
+        public override async Task<Results<Created, NoContent, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
             ExecuteAsync(CancellationToken ct)
         {
             var auth0Id = User.FindFirstValue("sub");
@@ -74,7 +75,7 @@ public static class EnsureAccount
                     return TypedResults.Conflict(new ConflictResponse(existingAccount.DeletedAt.Value));
                 }
 
-                return TypedResults.Ok();
+                return TypedResults.NoContent();
             }
 
             var result = await _userInfoService.GetUserInfoAsync(ct);
