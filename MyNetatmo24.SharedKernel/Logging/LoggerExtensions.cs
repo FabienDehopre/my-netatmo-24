@@ -21,6 +21,20 @@ public static partial class LoggerExtensions
         string headerName);
 
     [LoggerMessage(
+        EventId = 2003,
+        Level = LogLevel.Information,
+        Message = "Database initialization completed after {ElapsedMilliseconds}ms")]
+    public static partial void LogDatabaseInitializationCompleted(
+        this ILogger logger,
+        long elapsedMilliseconds);
+
+    [LoggerMessage(
+        EventId = 2004,
+        Level = LogLevel.Information,
+        Message = "Seeding database")]
+    public static partial void LogSeedingDatabase(this ILogger logger);
+
+    [LoggerMessage(
         EventId = 2005,
         Level = LogLevel.Information,
         Message = "XSRF token added to response for request path: {RequestPath}")]

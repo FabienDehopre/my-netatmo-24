@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj"/>
     <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.Modules.AccountManagement\MyNetatmo24.Modules.AccountManagement.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
