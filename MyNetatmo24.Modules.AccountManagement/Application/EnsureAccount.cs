@@ -17,7 +17,7 @@ namespace MyNetatmo24.Modules.AccountManagement.Application;
 
 public static class EnsureAccount
 {
-    public class Endpoint(
+    public sealed class Endpoint(
         IDbContextOutbox<AccountDbContext> outbox,
         IQueryable<Account> accounts,
         IUserInfoService userInfoService)
