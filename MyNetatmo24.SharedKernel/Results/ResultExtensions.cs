@@ -11,8 +11,8 @@ public static class ResultExtensions
         ArgumentNullException.ThrowIfNull(mapper);
 
         return result.IsSuccess
-            ? Result<TOut>.Success(mapper(result.Value))
-            : Result<TOut>.Failure(result.Error);
+            ? Result.Success(mapper(result.Value))
+            : Result.Failure<TOut>(result.Error);
     }
 
     // Chain operations that return Results
@@ -25,7 +25,7 @@ public static class ResultExtensions
 
         return result.IsSuccess
             ? binder(result.Value)
-            : Result<TOut>.Failure(result.Error);
+            : Result.Failure<TOut>(result.Error);
     }
 
     // Handle both success and failure cases
@@ -65,7 +65,7 @@ public static class ResultExtensions
         ArgumentNullException.ThrowIfNull(result);
 
         return result.IsSuccess
-            ? Result<T>.Success(value)
-            : Result<T>.Failure(result.Error);
+            ? Result.Success(value)
+            : Result.Failure<T>(result.Error);
     }
 }

@@ -23,7 +23,9 @@ public class Result
     public Error Error { get; }
 
     public static Result Success() => new(true, Error.None);
+    public static Result<TValue> Success<TValue>(TValue value) => new(value);
     public static Result Failure(Error error) => new(false, error);
+    public static Result<TValue> Failure<TValue>(Error error) => new(error);
 
     // Implicit conversions for cleaner syntax
 #pragma warning disable CA2225
@@ -35,22 +37,17 @@ public class Result<TValue> : Result
 {
     private readonly TValue? _value;
 
-    private Result(TValue value) : base(true, Error.None) => _value = value;
+    protected internal Result(TValue value) : base(true, Error.None) => _value = value;
 
-    private Result(Error error) : base(false, error) => _value = default;
+    protected internal  Result(Error error) : base(false, error) => _value = default;
 
     public TValue Value => IsSuccess
         ? _value!
         : throw new InvalidOperationException("Cannot access the value of a failed result.");
 
-#pragma warning disable CA1000
-    public static Result<TValue> Success(TValue value) => new(value);
-    public static new Result<TValue> Failure(Error error) => new(error);
-#pragma warning restore CA1000
-
     // Implicit conversions for cleaner syntax
 #pragma warning disable CA2225
     public static implicit operator Result<TValue>(TValue value) => Success(value);
-    public static implicit operator Result<TValue>(Error error) => Failure(error);
+    public static implicit operator Result<TValue>(Error error) => Failure<TValue>(error);
 #pragma warning restore CA2225
 }
