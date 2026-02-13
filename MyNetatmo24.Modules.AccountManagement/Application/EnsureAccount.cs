@@ -17,23 +17,31 @@ namespace MyNetatmo24.Modules.AccountManagement.Application;
 
 public static class EnsureAccount
 {
+    /// <param name="DeletedAt">
+    /// The date and time when the account was marked as deleted.
+    /// </param>
+    public sealed record ConflictResponse(DateTimeOffset DeletedAt);
+
     public sealed class EndpointSummary : Summary<Endpoint>
     {
         public EndpointSummary()
         {
             Summary = "Ensures that the authenticated user has an account.";
             Description =
-                "This endpoint checks if the authenticated user already has an account. If they do, it returns a 200 OK response." +
-                "If they don't, it attempts to create a new account using the user's information from Auth0." +
-                "If the account creation is successful, it returns a 201 Created response. If the user's information cannot be retrieved from Auth0, it returns a 404 Not Found response." +
-                "If the user is not authenticated, it returns a 401 Unauthorized response.";
+                "This endpoint checks if the authenticated user already has an account. " +
+                "If they do, a 200 OK response is returned. " +
+                "If they don't, a new account is created for them and a 201 Created response is returned. " +
+                "If the user's information cannot be retrieved from Auth0, a 404 Not Found response is returned. " +
+                "If the user is not authenticated, a 401 Unauthorized response is returned.";
             Response(StatusCodes.Status200OK, "The user already has an account.");
             Response(StatusCodes.Status201Created,
                 "A new account was created for the user.");
-            Response(StatusCodes.Status404NotFound,
-                "The user's information could not be retrieved from Auth0, so an account could not be created.");
             Response(StatusCodes.Status401Unauthorized,
                 "The user is not authenticated, so an account cannot be ensured.");
+            Response(StatusCodes.Status404NotFound,
+                "The user's information could not be retrieved from Auth0, so an account could not be created.");
+            Response<ConflictResponse>(StatusCodes.Status409Conflict,
+                "An account for the user already exists but is marked as deleted.");
         }
     }
 
@@ -41,18 +49,15 @@ public static class EnsureAccount
         IDbContextOutbox<AccountDbContext> outbox,
         IQueryable<Account> accounts,
         IUserInfoService userInfoService)
-        : Ep.NoReq.Res<Results<Ok, Created, NotFound, UnauthorizedHttpResult>>
+        : Ep.NoReq.Res<Results<Ok, Created, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
     {
         private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
         private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
         private readonly IUserInfoService _userInfoService = userInfoService.ThrowIfNull();
 
-        public override void Configure()
-        {
-            Post("/account/ensure");
-        }
+        public override void Configure() => Post("/account/ensure");
 
-        public override async Task<Results<Ok, Created, NotFound, UnauthorizedHttpResult>>
+        public override async Task<Results<Ok, Created, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
             ExecuteAsync(CancellationToken ct)
         {
             var auth0Id = User.FindFirstValue("sub");
@@ -64,6 +69,11 @@ public static class EnsureAccount
             var existingAccount = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
             if (existingAccount is not null)
             {
+                if (existingAccount.DeletedAt.HasValue)
+                {
+                    return TypedResults.Conflict(new ConflictResponse(existingAccount.DeletedAt.Value));
+                }
+
                 return TypedResults.Ok();
             }
 
