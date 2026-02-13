@@ -17,11 +17,31 @@ namespace MyNetatmo24.Modules.AccountManagement.Application;
 
 public static class EnsureAccount
 {
+    public sealed class EndpointSummary : Summary<Endpoint>
+    {
+        public EndpointSummary()
+        {
+            Summary = "Ensures that the authenticated user has an account.";
+            Description =
+                "This endpoint checks if the authenticated user already has an account. If they do, it returns a 200 OK response." +
+                "If they don't, it attempts to create a new account using the user's information from Auth0." +
+                "If the account creation is successful, it returns a 201 Created response. If the user's information cannot be retrieved from Auth0, it returns a 404 Not Found response." +
+                "If the user is not authenticated, it returns a 401 Unauthorized response.";
+            Response(StatusCodes.Status200OK, "The user already has an account.");
+            Response(StatusCodes.Status201Created,
+                "A new account was created for the user.");
+            Response(StatusCodes.Status404NotFound,
+                "The user's information could not be retrieved from Auth0, so an account could not be created.");
+            Response(StatusCodes.Status401Unauthorized,
+                "The user is not authenticated, so an account cannot be ensured.");
+        }
+    }
+
     public sealed class Endpoint(
         IDbContextOutbox<AccountDbContext> outbox,
         IQueryable<Account> accounts,
         IUserInfoService userInfoService)
-        : Ep.NoReq.Res<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>>
+        : Ep.NoReq.Res<Results<Ok, Created, NotFound, UnauthorizedHttpResult>>
     {
         private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
         private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
@@ -30,10 +50,9 @@ public static class EnsureAccount
         public override void Configure()
         {
             Post("/account/ensure");
-            Policies(Constants.Policies.Authenticated);
         }
 
-        public override async Task<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>>
+        public override async Task<Results<Ok, Created, NotFound, UnauthorizedHttpResult>>
             ExecuteAsync(CancellationToken ct)
         {
             var auth0Id = User.FindFirstValue("sub");
@@ -45,7 +64,7 @@ public static class EnsureAccount
             var existingAccount = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
             if (existingAccount is not null)
             {
-                return TypedResults.Ok(existingAccount.Id);
+                return TypedResults.Ok();
             }
 
             var result = await _userInfoService.GetUserInfoAsync(ct);
@@ -57,7 +76,7 @@ public static class EnsureAccount
             };
         }
 
-        private async Task<Created<AccountId>> CreateUser(UserInfo userInfo, string auth0Id, CancellationToken ct)
+        private async Task<Created> CreateUser(UserInfo userInfo, string auth0Id, CancellationToken ct)
         {
             var newAccount = Account.Create(
                 AccountId.New(),
@@ -75,7 +94,7 @@ public static class EnsureAccount
                 newAccount.Name.LastName));
             await _outbox.SaveChangesAndFlushMessagesAsync(ct);
 
-            return TypedResults.Created("/api/account/me", newAccount.Id);
+            return TypedResults.Created(new Uri("/api/account/me"));
         }
     }
 }

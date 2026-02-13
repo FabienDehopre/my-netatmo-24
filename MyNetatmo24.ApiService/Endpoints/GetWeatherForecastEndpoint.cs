@@ -12,7 +12,7 @@ public static class GetWeatherForecastEndpoint
         public override void Configure()
         {
             Get("/weatherforecast");
-            Policies(Constants.Policies.Authenticated);
+            Policies(Constants.Policies.ReadWeather);
             Description(d =>
                 d.Produces<IEnumerable<WeatherForecast>>()
                     .WithName("GetWeatherForecast"));

@@ -7,7 +7,6 @@ public static class Constants
 
     public static class Policies
     {
-        public const string Authenticated = "Authenticated";
         public const string ReadWeather = "ReadWeather";
     }
 }

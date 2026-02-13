@@ -56,12 +56,11 @@ builder.Services.AddAuth0ApiAuthentication(options =>
 });
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy(Constants.Policies.Authenticated, b =>
+    options.AddPolicy(Constants.Policies.ReadWeather, b =>
     {
         b.RequireAuthenticatedUser()
             .RequireRole("read:weatherdata");
     });
-    options.AddPolicy(Constants.Policies.Authenticated, b => { b.RequireAuthenticatedUser(); });
 });
 builder.Services.AddOutputCache();
 
