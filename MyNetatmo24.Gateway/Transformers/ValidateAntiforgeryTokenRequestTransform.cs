@@ -4,7 +4,9 @@ using Yarp.ReverseProxy.Transforms;
 
 namespace MyNetatmo24.Gateway.Transformers;
 
-internal sealed class ValidateAntiforgeryTokenRequestTransform(IAntiforgery antiforgery, ILogger<ValidateAntiforgeryTokenRequestTransform> logger) : RequestTransform
+internal sealed class ValidateAntiforgeryTokenRequestTransform(
+    IAntiforgery antiforgery,
+    ILogger<ValidateAntiforgeryTokenRequestTransform> logger) : RequestTransform
 {
     public override async ValueTask ApplyAsync(RequestTransformContext context)
     {

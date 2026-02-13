@@ -80,7 +80,7 @@ public static partial class LoggerExtensions
         string? error);
 
     [LoggerMessage(
-        EventId =  4002,
+        EventId = 4002,
         Level = LogLevel.Error,
         Message = "Failed to retrieve user info from Auth0.")]
     public static partial void LogCannotRetrieveUserInfo(

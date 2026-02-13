@@ -23,8 +23,8 @@ public static class EnsureAccount
         IUserInfoService userInfoService)
         : Ep.NoReq.Res<Results<Ok<AccountId>, Created<AccountId>, NotFound, UnauthorizedHttpResult>>
     {
-        private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
         private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
+        private readonly IDbContextOutbox<AccountDbContext> _outbox = outbox.ThrowIfNull();
         private readonly IUserInfoService _userInfoService = userInfoService.ThrowIfNull();
 
         public override void Configure()
@@ -53,7 +53,7 @@ public static class EnsureAccount
             {
                 { IsSuccess: true } userInfoResult => await CreateUser(userInfoResult.Value, auth0Id, ct),
                 { IsFailure: true, Error: NotFoundError } => TypedResults.NotFound(),
-                _ => throw new InvalidOperationException("Unexpected error while retrieving user info."),
+                _ => throw new InvalidOperationException("Unexpected error while retrieving user info.")
             };
         }
 

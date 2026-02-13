@@ -11,12 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
-    <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Tasks.Core" />
-    <PackageReference Include="Respawn" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core"/>
+    <PackageReference Include="Respawn"/>
   </ItemGroup>
 </Project>

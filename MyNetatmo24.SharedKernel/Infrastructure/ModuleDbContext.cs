@@ -7,7 +7,8 @@ namespace MyNetatmo24.SharedKernel.Infrastructure;
 public abstract class ModuleDbContext(DbContextOptions options, TimeProvider timeProvider) : DbContext(options)
 {
     private static readonly MethodInfo s_setGlobalQueryForSoftDeleteMethod =
-        typeof(ModuleDbContext).GetMethod(nameof(SetGlobalQueryForSoftDelete), BindingFlags.NonPublic | BindingFlags.Static)!;
+        typeof(ModuleDbContext).GetMethod(nameof(SetGlobalQueryForSoftDelete),
+            BindingFlags.NonPublic | BindingFlags.Static)!;
 
     public abstract string Schema { get; }
 
@@ -36,7 +37,7 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
     }
 
     /// <summary>
-    /// Configures global query filters to automatically exclude soft deleted entities.
+    ///     Configures global query filters to automatically exclude soft deleted entities.
     /// </summary>
     private void ConfigureSoftDeleteQueryFilters(ModelBuilder modelBuilder)
     {
@@ -50,8 +51,6 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
         }
     }
 
-    private static void SetGlobalQueryForSoftDelete<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete
-    {
+    private static void SetGlobalQueryForSoftDelete<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete =>
         modelBuilder.Entity<T>().HasQueryFilter(Constants.SoftDeleteFilter, e => e.DeletedAt == null);
-    }
 }

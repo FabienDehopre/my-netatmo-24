@@ -24,13 +24,16 @@ internal static class Extensions
                 .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
                 .AddTransforms(builderContext =>
                 {
-                    builderContext.ResponseTransforms.Add(builderContext.Services.GetRequiredService<AddAntiforgeryTokenResponseTransform>());
-                    builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
+                    builderContext.ResponseTransforms.Add(builderContext.Services
+                        .GetRequiredService<AddAntiforgeryTokenResponseTransform>());
+                    builderContext.RequestTransforms.Add(builderContext.Services
+                        .GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
                     builderContext.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
 
                     if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
                     {
-                        builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<AddBearerTokenToHeadersTransform>());
+                        builderContext.RequestTransforms.Add(builderContext.Services
+                            .GetRequiredService<AddBearerTokenToHeadersTransform>());
                     }
                 })
                 .AddServiceDiscoveryDestinationResolver();
@@ -73,11 +76,12 @@ internal static class Extensions
                     // Add this scope if you want to receive refresh tokens
                     options.Scope.Add("offline_access");
 
-                    options.Events = new()
+                    options.Events = new OpenIdConnectEvents
                     {
                         OnRedirectToIdentityProviderForSignOut = context =>
                         {
-                            var logoutUri = $"https://{builder.Configuration.GetValue<string>("Auth0:Domain")}/oidc/logout?client_id={builder.Configuration.GetValue<string>("Auth0:ClientId")}";
+                            var logoutUri =
+                                $"https://{builder.Configuration.GetValue<string>("Auth0:Domain")}/oidc/logout?client_id={builder.Configuration.GetValue<string>("Auth0:ClientId")}";
                             var redirectUri = context.HttpContext.BuildRedirectUrl(context.Properties.RedirectUri);
                             logoutUri += $"&post_logout_redirect_uri={redirectUri}";
 
@@ -88,7 +92,8 @@ internal static class Extensions
                         OnRedirectToIdentityProvider = context =>
                         {
                             // Auth0 specific parameter to specify the audience
-                            context.ProtocolMessage.SetParameter("audience", builder.Configuration.GetValue<string>("Auth0:Audience"));
+                            context.ProtocolMessage.SetParameter("audience",
+                                builder.Configuration.GetValue<string>("Auth0:Audience"));
                             return Task.CompletedTask;
                         }
                     };
@@ -114,8 +119,8 @@ internal static class Extensions
                         : httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
                     return RateLimitPartition.GetFixedWindowLimiter(
-                        partitionKey: partitionKey,
-                        factory: _ => new FixedWindowRateLimiterOptions
+                        partitionKey,
+                        _ => new FixedWindowRateLimiterOptions
                         {
                             PermitLimit = 100,
                             Window = TimeSpan.FromMinutes(1),
@@ -139,10 +144,13 @@ internal static class Extensions
             {
                 redirectUrl = "/";
             }
+
             if (redirectUrl.StartsWith('/'))
             {
-                redirectUrl = context.Request.Scheme + "://" + context.Request.Host + context.Request.PathBase + redirectUrl;
+                redirectUrl =
+                    $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}{redirectUrl}";
             }
+
             return redirectUrl;
         }
     }

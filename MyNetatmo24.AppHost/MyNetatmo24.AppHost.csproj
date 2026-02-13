@@ -1,23 +1,23 @@
 <Project Sdk="Aspire.AppHost.Sdk/13.1.0">
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <UserSecretsId>97253a69-da24-469a-8d96-9588fc902c58</UserSecretsId>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>97253a69-da24-469a-8d96-9588fc902c58</UserSecretsId>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost" />
-        <PackageReference Include="Aspire.Hosting.JavaScript" />
-        <PackageReference Include="Aspire.Hosting.PostgreSQL" />
-        <PackageReference Include="Aspire.Hosting.Redis" />
-        <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost"/>
+    <PackageReference Include="Aspire.Hosting.JavaScript"/>
+    <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
+    <PackageReference Include="Aspire.Hosting.Redis"/>
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
-      <ProjectReference Include="..\MyNetatmo24.Gateway\MyNetatmo24.Gateway.csproj" />
-      <ProjectReference Include="..\MyNetatmo24.Migrations\MyNetatmo24.Migrations.csproj" />
-      <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" IsAspireProjectResource="false" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.Gateway\MyNetatmo24.Gateway.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.Migrations\MyNetatmo24.Migrations.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" IsAspireProjectResource="false"/>
+  </ItemGroup>
 
 </Project>

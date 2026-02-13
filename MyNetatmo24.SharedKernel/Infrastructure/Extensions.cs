@@ -18,7 +18,8 @@ internal static class Extensions
 
             foreach (var type in types)
             {
-                if (IsVogenValueObject(type) && TryGetEfValueConverter(type, out var efCoreConverterType))
+                if (ModelConfigurationBuilder.IsVogenValueObject(type) &&
+                    ModelConfigurationBuilder.TryGetEfValueConverter(type, out var efCoreConverterType))
                 {
                     configurationBuilder
                         .Properties(type)
@@ -33,7 +34,8 @@ internal static class Extensions
 
             foreach (var innerType in inner)
             {
-                if (!typeof(ValueConverter).IsAssignableFrom(innerType) || !"EfCoreValueConverter".Equals(innerType.Name, StringComparison.Ordinal))
+                if (!typeof(ValueConverter).IsAssignableFrom(innerType) ||
+                    !"EfCoreValueConverter".Equals(innerType.Name, StringComparison.Ordinal))
                 {
                     continue;
                 }

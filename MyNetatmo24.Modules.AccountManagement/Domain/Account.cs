@@ -19,24 +19,10 @@ public class Account : ISoftDelete
 
     public DateTimeOffset? DeletedAt { get; set; }
 
-    public static Account Create(AccountId id, string auth0Id, string nickName, FullName fullName)
-    {
-        return new Account
-        {
-            Id = id,
-            Auth0Id = auth0Id,
-            NickName = nickName,
-            Name = fullName,
-        };
-    }
+    public static Account Create(AccountId id, string auth0Id, string nickName, FullName fullName) =>
+        new() { Id = id, Auth0Id = auth0Id, NickName = nickName, Name = fullName };
 
-    public void SetAvatarUrl(Uri avatarUrl)
-    {
-        AvatarUrl = avatarUrl;
-    }
+    public void SetAvatarUrl(Uri avatarUrl) => AvatarUrl = avatarUrl;
 
-    public void SetNetatmoAuthInfo(NetatmoAuthInfo authInfo)
-    {
-        NetatmoAuthInfo = authInfo;
-    }
+    public void SetNetatmoAuthInfo(NetatmoAuthInfo authInfo) => NetatmoAuthInfo = authInfo;
 }

@@ -11,6 +11,7 @@ using MyNetatmo24.SharedKernel.Modules;
 using Wolverine.Attributes;
 
 [assembly: WolverineModule]
+
 namespace MyNetatmo24.Modules.AccountManagement;
 
 public sealed class AccountManagementModule : IModule
@@ -19,17 +20,15 @@ public sealed class AccountManagementModule : IModule
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.Services.AddDbContext<AccountDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString(Constants.DatabaseName)));
-        builder.EnrichNpgsqlDbContext<AccountDbContext>(config =>
-        {
-            config.DisableRetry = true;
-        });
+        builder.Services.AddDbContext<AccountDbContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString(Constants.DatabaseName)));
+        builder.EnrichNpgsqlDbContext<AccountDbContext>(config => config.DisableRetry = true);
         builder.Services.AddTransient(sp => sp.GetRequiredService<AccountDbContext>().Set<Account>().AsNoTracking());
 
-        builder.Services.AddHttpClient<IUserInfoService, UserInfoService>("Auth0", client =>
-        {
-            client.BaseAddress = new Uri("https://auth.dehopre.dev/");
-        }).AddHeaderPropagation();
+        builder.Services
+            .AddHttpClient<IUserInfoService, UserInfoService>("Auth0",
+                client => client.BaseAddress = new Uri("https://auth.dehopre.dev/"))
+            .AddHeaderPropagation();
 
         return builder;
     }

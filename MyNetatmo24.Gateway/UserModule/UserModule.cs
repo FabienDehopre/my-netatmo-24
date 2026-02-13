@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace MyNetatmo24.Gateway.UserModule;
 
-internal static partial class UserModule
+internal static class UserModule
 {
     internal static IEndpointRouteBuilder MapUserEndpoints(this IEndpointRouteBuilder builder)
     {
@@ -17,13 +17,9 @@ internal static partial class UserModule
                 {
                     IsAuthenticated = true,
                     Name = principal.FindFirstValue("name"),
-                    Claims = principal.Claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value }),
+                    Claims = principal.Claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value })
                 },
-                _ => new User
-                {
-                    IsAuthenticated = false,
-                    Name = null
-                }
+                _ => new User { IsAuthenticated = false, Name = null }
             };
 
             return TypedResults.Ok(user);
@@ -31,10 +27,7 @@ internal static partial class UserModule
 
         builder.MapGet("login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
         {
-            var properties = new AuthenticationProperties
-            {
-                RedirectUri = context.BuildRedirectUrl(returnUrl),
-            };
+            var properties = new AuthenticationProperties { RedirectUri = context.BuildRedirectUrl(returnUrl) };
 
             if (claimsChallenge != null)
             {
@@ -47,12 +40,10 @@ internal static partial class UserModule
 
         builder.MapGet("logout", (string? redirectUrl, HttpContext context) =>
         {
-            var properties = new AuthenticationProperties
-            {
-                RedirectUri = context.BuildRedirectUrl(redirectUrl),
-            };
+            var properties = new AuthenticationProperties { RedirectUri = context.BuildRedirectUrl(redirectUrl) };
 
-            return TypedResults.SignOut(properties, [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
+            return TypedResults.SignOut(properties,
+                [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
         });
 
         return builder;

@@ -68,5 +68,4 @@ public static class ResultExtensions
             ? Result<T>.Success(value)
             : Result<T>.Failure(result.Error);
     }
-
 }

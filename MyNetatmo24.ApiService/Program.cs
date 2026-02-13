@@ -1,19 +1,10 @@
-using System.Text.Json;
-using MyNetatmo24.SharedKernel.Infrastructure;
-using Wolverine;
-using Wolverine.EntityFrameworkCore;
-using Wolverine.Postgresql;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Aspire services
 builder.AddServiceDefaults();
 
 builder.Services
-    .AddFastEndpoints(options =>
-    {
-        options.AddEndpointsAssemblies();
-    })
+    .AddFastEndpoints(options => options.AddEndpointsAssemblies())
     .SwaggerDocument(options =>
     {
         options.RemoveEmptyRequestSchema = true;
@@ -23,15 +14,15 @@ builder.Services
             settings.Title = "My Netatmo 24 API";
             settings.Description = "An API to access weather data from Netatmo devices.";
             settings.MarkNonNullablePropsAsRequired();
-            settings.AddAuth("Auth0", new()
+            settings.AddAuth("Auth0", new OpenApiSecurityScheme
             {
                 Type = OpenApiSecuritySchemeType.OAuth2,
-                BearerFormat =  "JWT",
+                BearerFormat = "JWT",
                 Scheme = "Bearer",
-                In =  OpenApiSecurityApiKeyLocation.Header,
+                In = OpenApiSecurityApiKeyLocation.Header,
                 Flows = new OpenApiOAuthFlows
                 {
-                    AuthorizationCode = new()
+                    AuthorizationCode = new OpenApiOAuthFlow
                     {
                         // AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize?audience={builder.Configuration["Auth0:Audience"]}",
                         AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize",
@@ -54,13 +45,12 @@ builder.Services
 builder.Services.AddAuth0ApiAuthentication(options =>
 {
     options.Domain = builder.Configuration["Auth0:Domain"];
-    options.JwtBearerOptions = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions
+    options.JwtBearerOptions = new JwtBearerOptions
     {
         Audience = builder.Configuration["Auth0:Audience"],
-        TokenValidationParameters = new()
+        TokenValidationParameters = new TokenValidationParameters
         {
-            NameClaimType = ClaimTypes.NameIdentifier,
-            RoleClaimType = "permissions",
+            NameClaimType = ClaimTypes.NameIdentifier, RoleClaimType = "permissions"
         }
     };
 });
@@ -71,22 +61,22 @@ builder.Services.AddAuthorization(options =>
         b.RequireAuthenticatedUser()
             .RequireRole("read:weatherdata");
     });
-    options.AddPolicy(Constants.Policies.Authenticated, b =>
-    {
-        b.RequireAuthenticatedUser();
-    });
+    options.AddPolicy(Constants.Policies.Authenticated, b => { b.RequireAuthenticatedUser(); });
 });
 builder.Services.AddOutputCache();
 
 builder.Host.UseWolverine(options =>
 {
     // Required to generate the OpenAPI document, otherwise this exception is thrown
-    if (Environment.GetCommandLineArgs().Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
+    if (Environment.GetCommandLineArgs()
+        .Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
     {
         return;
     }
 
-    var connectionString = builder.Configuration.GetConnectionString(Constants.DatabaseName) ?? throw new InvalidOperationException($"Connection string '{Constants.DatabaseName}' not found.");
+    var connectionString = builder.Configuration.GetConnectionString(Constants.DatabaseName) ??
+                           throw new InvalidOperationException(
+                               $"Connection string '{Constants.DatabaseName}' not found.");
     options.PersistMessagesWithPostgresql(connectionString, "wolverine");
     options.UseEntityFrameworkCoreTransactions();
     options.MultipleHandlerBehavior = MultipleHandlerBehavior.Separated;
@@ -102,10 +92,7 @@ app.UseOutputCache();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseFastEndpoints(config =>
-{
-    config.Errors.UseProblemDetails();
-});
+app.UseFastEndpoints(config => config.Errors.UseProblemDetails());
 
 if (app.Environment.IsDevelopment())
 {
@@ -128,5 +115,3 @@ if (app.Environment.IsDevelopment())
 app.MapDefaultEndpoints();
 
 app.Run();
-
-

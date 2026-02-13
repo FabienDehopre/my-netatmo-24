@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <ItemGroup>
-      <PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect" />
-      <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" />
-      <PackageReference Include="Yarp.ReverseProxy" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect"/>
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp"/>
+    <PackageReference Include="Yarp.ReverseProxy"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj" />
-      <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj"/>
+  </ItemGroup>
 
 </Project>

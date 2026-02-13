@@ -4,7 +4,9 @@ using Yarp.ReverseProxy.Transforms;
 
 namespace MyNetatmo24.Gateway.Transformers;
 
-internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforgery, ILogger<AddAntiforgeryTokenResponseTransform> logger) : ResponseTransform
+internal sealed class AddAntiforgeryTokenResponseTransform(
+    IAntiforgery antiforgery,
+    ILogger<AddAntiforgeryTokenResponseTransform> logger) : ResponseTransform
 {
     public override ValueTask ApplyAsync(ResponseTransformContext context)
     {
@@ -24,12 +26,8 @@ internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforg
 
         var tokenSet = antiforgery.GetAndStoreTokens(context.HttpContext);
         ArgumentNullException.ThrowIfNull(tokenSet.RequestToken);
-        context.HttpContext.Response.Cookies.Append("__MyNetatmo24-X-XSRF-TOKEN", tokenSet.RequestToken, new CookieOptions
-        {
-            HttpOnly = false,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-        });
+        context.HttpContext.Response.Cookies.Append("__MyNetatmo24-X-XSRF-TOKEN", tokenSet.RequestToken,
+            new CookieOptions { HttpOnly = false, Secure = true, SameSite = SameSiteMode.Strict });
         logger.LogXsrfTokenAdded(context.HttpContext.Request.Path.Value);
         return ValueTask.CompletedTask;
     }

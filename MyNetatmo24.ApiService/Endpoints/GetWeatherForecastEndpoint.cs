@@ -1,5 +1,3 @@
-using MyNetatmo24.SharedKernel.Infrastructure;
-
 namespace MyNetatmo24.ApiService.Endpoints;
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
@@ -30,7 +28,7 @@ public class GetWeatherForecastEndpoint : Ep.NoReq.Res<IEnumerable<WeatherForeca
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-        var forecast =  Enumerable.Range(1, 5).Select(index =>
+        var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast
                 (
                     DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

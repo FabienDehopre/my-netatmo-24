@@ -10,6 +10,19 @@ public static class ModuleExtensions
 {
     private static readonly IModule[] s_modules = DiscoverModules();
 
+    private static IModule[] DiscoverModules() =>
+    [
+        .. Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+            .Where(filePath => Path.GetFileName(filePath).StartsWith("MyNetatmo24.", StringComparison.Ordinal))
+            .Select(Assembly.LoadFrom)
+            .SelectMany(assembly => assembly.GetTypes()
+                .Where(type => typeof(IModule).IsAssignableFrom(type) &&
+                               type is { IsInterface: false, IsAbstract: false }))
+            .Select(type => (IModule)Activator.CreateInstance(type)!)
+            .ToList()
+            .AsReadOnly()
+    ];
+
     extension(WebApplicationBuilder builder)
     {
         public WebApplicationBuilder AddModules()
@@ -30,18 +43,5 @@ public static class ModuleExtensions
             options.Assemblies = s_modules.Select(m => m.GetType().Assembly).ToArray();
             return options;
         }
-    }
-
-    private static IModule[] DiscoverModules()
-    {
-        return [.. Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
-            .Where(filePath => Path.GetFileName(filePath).StartsWith("MyNetatmo24.", StringComparison.Ordinal))
-            .Select(Assembly.LoadFrom)
-            .SelectMany(assembly => assembly.GetTypes()
-                .Where(type => typeof(IModule).IsAssignableFrom(type) &&
-                               type is { IsInterface: false, IsAbstract: false }))
-            .Select(type => (IModule)Activator.CreateInstance(type)!)
-            .ToList()
-            .AsReadOnly()];
     }
 }

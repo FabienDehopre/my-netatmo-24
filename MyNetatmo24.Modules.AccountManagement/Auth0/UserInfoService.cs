@@ -14,7 +14,6 @@ public class UserInfoService(HttpClient httpClient, ILogger<UserInfoService> log
 
     public async Task<Result<UserInfo>> GetUserInfoAsync(CancellationToken cancellationToken)
     {
-
         var userInfo = await _httpClient.GetFromJsonAsync<UserInfo>("userinfo", cancellationToken);
         if (userInfo is null)
         {
