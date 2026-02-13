@@ -14,26 +14,26 @@ var redis = builder.AddRedis("cache")
 redis
     .WithRedisInsight(p => p.WithParentRelationship(redis));
 
-// var migrations = builder.AddProject<Projects.MyNetatmo24_Migrations>("migrations")
-//     .WithReference(container)
-//     .WithReference(redis)
-//     .WaitFor(container)
-//     .WithParentRelationship(container);
-//
-// if (builder.Environment.IsDevelopment())
-// {
-//     migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
-//     {
-//         IconName = "DatabaseLightning",
-//         ConfirmationMessage = "Are you sure you want to reset the cosmos db container?",
-//     });
-//
-//     migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
-//     {
-//         IconName = "DatabaseLightning",
-//         ConfirmationMessage = "Are you sure you want to reseed the cosmos db container?",
-//     });
-// }
+var migrations = builder.AddProject<Projects.MyNetatmo24_Migrations>("migrations")
+    .WithReference(database)
+    .WithReference(redis)
+    .WaitFor(database)
+    .WithParentRelationship(database);
+
+if (builder.Environment.IsDevelopment())
+{
+    migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
+    {
+        IconName = "DatabaseLightning",
+        ConfirmationMessage = "Are you sure you want to reset the cosmos db container?",
+    });
+
+    migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
+    {
+        IconName = "DatabaseLightning",
+        ConfirmationMessage = "Are you sure you want to reseed the cosmos db container?",
+    });
+}
 
 var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice")
     .WithReference(database)
@@ -41,7 +41,7 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
     .WaitFor(database)
-    // .WaitFor(migrations)
+    .WaitFor(migrations)
     .WaitFor(redis)
     .WithUrlForEndpoint("http", u => u.DisplayText = "API Documentation")
     .WithUrlForEndpoint("https", u => u.DisplayText = "API Documentation");
