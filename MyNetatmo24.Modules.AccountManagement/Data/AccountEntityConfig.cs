@@ -12,6 +12,9 @@ internal sealed class AccountEntityConfig : IEntityTypeConfiguration<Account>
         builder.HasKey(x => x.Id);
         builder.HasIndex(p => p.Auth0Id).IsUnique();
 
+        builder.Property(p => p.Auth0Id).IsRequired();
+        builder.Property(p => p.NickName).IsRequired();
+
         builder.ComplexProperty(p => p.Name, o =>
         {
             o.Property(p => p.FirstName).HasMaxLength(255);
