@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj"/>
     <ProjectReference Include="..\MyNetatmo24.Gateway\MyNetatmo24.Gateway.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.MigrationService\MyNetatmo24.MigrationService.csproj" />
     <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" IsAspireProjectResource="false"/>
   </ItemGroup>
 

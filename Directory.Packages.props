@@ -34,5 +34,6 @@
     <PackageVersion Include="WolverineFx.Postgresql" Version="5.15.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <UserSecretsId>dotnet-MyNetatmo24.MigrationService-75be89d3-ab02-496b-94c5-d41c088197b1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyNetatmo24.Modules.AccountManagement\MyNetatmo24.Modules.AccountManagement.csproj" />
+    <ProjectReference Include="..\MyNetatmo24.ServiceDefaults\MyNetatmo24.ServiceDefaults.csproj" />
+  </ItemGroup>
+</Project>
