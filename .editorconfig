@@ -11,7 +11,7 @@ trim_trailing_whitespace = true
 charset = utf-8
 
 # Generated code
-[MyNetatmo24.MigrationService/Migrations/*]
+[MyNetatmo24.Modules.*/Migrations/*]
 generated_code = true
 
 # C# files
