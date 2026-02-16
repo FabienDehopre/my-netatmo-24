@@ -1,7 +1,4 @@
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using MyNetatmo24.Modules.AccountManagement.Data;
-using MyNetatmo24.SharedKernel.Infrastructure;
 
 namespace MyNetatmo24.MigrationService;
 
