@@ -52,7 +52,7 @@ public static class MyAccount
         public override async Task<Results<Ok<Response>, UnauthorizedHttpResult, NotFound>> ExecuteAsync(
             CancellationToken ct)
         {
-            var auth0Id = User.FindFirstValue("sub");
+            var auth0Id = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(auth0Id))
             {
                 return TypedResults.Unauthorized();

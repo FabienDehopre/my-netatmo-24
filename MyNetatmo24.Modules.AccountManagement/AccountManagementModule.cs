@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +26,19 @@ public sealed class AccountManagementModule : IModule
         builder.EnrichNpgsqlDbContext<AccountDbContext>(config => config.DisableRetry = true);
         builder.Services.AddTransient(sp => sp.GetRequiredService<AccountDbContext>().Set<Account>().AsNoTracking());
 
+        builder.Services.AddHttpContextAccessor();
         builder.Services
-            .AddHttpClient<IUserInfoService, UserInfoService>("Auth0",
-                client => client.BaseAddress = new Uri("https://auth.dehopre.dev/"))
-            .AddHeaderPropagation();
+            .AddHttpClient<IUserInfoService, UserInfoService>("Auth0", (sp, client) =>
+            {
+                var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+                var token = httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+
+                client.BaseAddress = new Uri("https://auth.dehopre.dev/");
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", token);
+                }
+            });
 
         return builder;
     }

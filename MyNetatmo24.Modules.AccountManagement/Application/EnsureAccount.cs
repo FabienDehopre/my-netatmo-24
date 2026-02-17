@@ -61,7 +61,7 @@ public static class EnsureAccount
         public override async Task<Results<Created, NoContent, UnauthorizedHttpResult, NotFound, Conflict<ConflictResponse>>>
             ExecuteAsync(CancellationToken ct)
         {
-            var auth0Id = User.FindFirstValue("sub");
+            var auth0Id = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(auth0Id))
             {
                 return TypedResults.Unauthorized();

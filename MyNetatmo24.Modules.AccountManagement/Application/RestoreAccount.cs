@@ -42,7 +42,7 @@ public static class RestoreAccount
 
         public override async Task<Results<NoContent, UnauthorizedHttpResult, NotFound>> ExecuteAsync(CancellationToken ct)
         {
-            var auth0Id = User.FindFirstValue("sub");
+            var auth0Id = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(auth0Id))
             {
                 return TypedResults.Unauthorized();

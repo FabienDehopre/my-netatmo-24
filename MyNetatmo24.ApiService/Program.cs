@@ -106,6 +106,7 @@ if (app.Environment.IsDevelopment())
             flow.Pkce = Pkce.Sha256;
             flow.SelectedScopes = ["openid", "profile", "email", "offline_access", "read:weatherdata"];
             flow.AddQueryParameter("audience", app.Configuration["Auth0:Audience"]!);
+            flow.RedirectUri = "https://localhost:7115/scalar/";
         });
     });
 }
