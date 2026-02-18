@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace MyNetatmo24.Modules.AccountManagement.Domain;
+namespace MyNetatmo24.SharedKernel.Domain;
 
 public readonly record struct NetatmoAuthInfo(string AccessToken, string RefreshToken, DateTimeOffset ExpiresAt)
 {
