@@ -5,7 +5,8 @@ var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSetti
 
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume();
-postgres.WithPgWeb(p => p.WithParentRelationship(postgres));
+postgres.WithPgWeb(p => p.WithParentRelationship(postgres))
+    .WithPgAdmin(p => p.WithParentRelationship(postgres));
 
 var database = postgres.AddDatabase(Constants.DatabaseName);
 
