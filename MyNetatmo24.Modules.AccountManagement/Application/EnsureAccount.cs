@@ -92,8 +92,8 @@ public static class EnsureAccount
                         case { StatusCode: 404 }:
                             await Send.NotFoundAsync(ct);
                             break;
-                        case { StatusCode: 409, Metadata: { } metadata }
-                            when metadata.TryGetValue("DeletedAt", out var deletedAtValue) && deletedAtValue is DateTimeOffset deletedAt:
+                        case { StatusCode: 409 } conflictError
+                            when conflictError.GetDeletedAt() is { } deletedAt:
                             await Send.ConflictAsync(new ConflictResponse(deletedAt), ct);
                             break;
                     }
