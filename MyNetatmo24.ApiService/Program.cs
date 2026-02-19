@@ -91,7 +91,8 @@ app.UseOutputCache();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseFastEndpoints(config => config.Errors.UseProblemDetails());
+app.UseDefaultExceptionHandler()
+    .UseFastEndpoints(config => config.Errors.UseProblemDetails());
 
 if (app.Environment.IsDevelopment())
 {
