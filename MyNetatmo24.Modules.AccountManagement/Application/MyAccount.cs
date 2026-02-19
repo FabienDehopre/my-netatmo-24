@@ -58,7 +58,7 @@ public static class MyAccount
                 return TypedResults.Unauthorized();
             }
 
-            var account = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id && a.DeletedAt == null, ct);
+            var account = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
             if (account is null)
             {
                 return TypedResults.NotFound();

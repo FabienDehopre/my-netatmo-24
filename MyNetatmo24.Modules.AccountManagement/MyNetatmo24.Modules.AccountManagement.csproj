@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -9,6 +9,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL"/>
     <PackageReference Include="FastEndpoints"/>
+    <PackageReference Include="FluentResults" />
     <PackageReference Include="WolverineFx"/>
     <PackageReference Include="WolverineFx.EntityFrameworkCore"/>
     <PackageReference Include="WolverineFx.Postgresql"/>

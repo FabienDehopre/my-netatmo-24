@@ -1,9 +1,8 @@
-using MyNetatmo24.Modules.AccountManagement.Auth0.Dtos;
-using MyNetatmo24.SharedKernel.Results;
+using FluentResults;
 
-namespace MyNetatmo24.Modules.AccountManagement.Auth0;
+namespace MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 
 public interface IUserInfoService
 {
-    Task<Result<UserInfo>> GetUserInfoAsync(CancellationToken cancellationToken);
+    Task<Result<UserInfoDto>> GetUserInfoAsync(CancellationToken cancellationToken);
 }

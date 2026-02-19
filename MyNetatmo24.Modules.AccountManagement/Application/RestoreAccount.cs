@@ -50,6 +50,7 @@ public static class RestoreAccount
 
             var existingAccount = await _outbox.DbContext
                 .Set<Account>()
+                .IgnoreQueryFilters([Constants.SoftDeleteFilter])
                 .SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
             if (existingAccount is null)
             {

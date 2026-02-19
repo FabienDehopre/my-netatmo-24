@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0.Dtos;
+namespace MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 
 public record UserInfoDto(
     string Nickname,
