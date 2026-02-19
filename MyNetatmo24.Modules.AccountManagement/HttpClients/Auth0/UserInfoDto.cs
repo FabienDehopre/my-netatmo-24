@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace MyNetatmo24.Modules.AccountManagement.Auth0.Dtos;
+namespace MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0.Dtos;
 
-public record UserInfo(
+public record UserInfoDto(
     string Nickname,
     Uri? Picture,
     [property: JsonPropertyName("auth0.given_name")] string GivenName,
