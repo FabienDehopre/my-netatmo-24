@@ -18,5 +18,7 @@ internal static class Errors
     {
         public bool IsUserExistsError() => reason is IError error && error.Metadata.TryGetValue(UserExistsMarker, out var value) && value is true;
         public DateTimeOffset? GetDeletedAt() => reason is IError error && error.Metadata.TryGetValue(DeletedAtName, out var value) && value is DateTimeOffset deletedAt ? deletedAt : null;
+        public bool IsUserInfoNotFound() => reason is FastEndpointsError { StatusCode: StatusCodes.Status404NotFound };
+        public bool IsUserNotAuthenticated() => reason is FastEndpointsError { StatusCode: StatusCodes.Status401Unauthorized };
     }
 }

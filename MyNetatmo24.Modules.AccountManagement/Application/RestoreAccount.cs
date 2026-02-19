@@ -1,5 +1,6 @@
-using System.Security.Claims;
 using FastEndpoints;
+using FluentResults;
+using FluentResults.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -42,26 +43,40 @@ public static class RestoreAccount
 
         public override async Task<Results<NoContent, UnauthorizedHttpResult, NotFound>> ExecuteAsync(CancellationToken ct)
         {
-            var auth0Id = User.Identity?.Name;
-            if (string.IsNullOrWhiteSpace(auth0Id))
+            var result = await GetAuth0Id()
+                .Bind(auth0Id => GetExistingAccount(auth0Id, ct))
+                .Bind(account => RestoreAccountAndPublishEvent(account, ct));
+            return result switch
             {
-                return TypedResults.Unauthorized();
-            }
+                { IsSuccess: true } => TypedResults.NoContent(),
+                { IsSuccess: false } when result.Reasons.Any(r => r.IsUserInfoNotFound()) => TypedResults.NotFound(),
+                { IsSuccess: false } when result.Reasons.Any(r => r.IsUserNotAuthenticated()) => TypedResults.Unauthorized(),
+                _ => throw new InvalidOperationException("This should not happen because all possible case have been handled.")
+            };
+        }
 
+        private Result<string> GetAuth0Id() =>
+            User.Identity?.Name is { } auth0Id && !string.IsNullOrWhiteSpace(auth0Id)
+                ? auth0Id
+                : Errors.UserNotAuthenticated;
+
+        private async Task<Result<Account>> GetExistingAccount(string auth0Id, CancellationToken ct)
+        {
             var existingAccount = await _outbox.DbContext
                 .Set<Account>()
                 .IgnoreQueryFilters([Constants.SoftDeleteFilter])
                 .SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
-            if (existingAccount is null)
-            {
-                return TypedResults.NotFound();
-            }
+            return existingAccount is not null
+                ? existingAccount
+                : Errors.UserInfoNotFound;
+        }
 
-            ((ISoftDelete)existingAccount).Undo();
-            await _outbox.PublishAsync(new AccountRestored(existingAccount.Id));
+        private async Task<Result> RestoreAccountAndPublishEvent(Account account, CancellationToken ct)
+        {
+            ((ISoftDelete)account).Undo();
+            await _outbox.PublishAsync(new AccountRestored(account.Id));
             await _outbox.SaveChangesAndFlushMessagesAsync(ct);
-
-            return TypedResults.NoContent();
+            return Result.Ok();
         }
     }
 }
