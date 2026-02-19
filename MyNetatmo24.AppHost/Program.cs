@@ -33,7 +33,7 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     .WithUrlForEndpoint("https", u => u.DisplayText = "API Documentation");
 
 var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
-    .WithPnpm(installArgs: ["--frozen-lockfile"])
+    .WithPnpm(installArgs: ["--workspace-root", "--recursive", "--frozen-lockfile"])
     .PublishAsDockerFile(resource => resource.WithDockerfile("../", stage: "frontend-app"));
 
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
