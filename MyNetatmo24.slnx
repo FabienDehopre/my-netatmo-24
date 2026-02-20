@@ -1,4 +1,13 @@
 <Solution>
+  <Folder Name="/.github/">
+    <File Path=".github\copilot-instructions.md" />
+  </Folder>
+  <Folder Name="/.github/agents/">
+    <File Path=".github\agents\codebase-analyzer.md" />
+  </Folder>
+  <Folder Name="/.github/prompts/">
+    <File Path=".github\prompts\create-architectural-decision-record.prompt.md" />
+  </Folder>
   <Folder Name="/root/">
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
