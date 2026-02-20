@@ -10,9 +10,11 @@
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL"/>
     <PackageReference Include="FastEndpoints"/>
     <PackageReference Include="FluentResults" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
     <PackageReference Include="WolverineFx"/>
     <PackageReference Include="WolverineFx.EntityFrameworkCore"/>
     <PackageReference Include="WolverineFx.Postgresql"/>
+    <PackageReference Include="ZiggyCreatures.FusionCache" />
   </ItemGroup>
 
   <ItemGroup>

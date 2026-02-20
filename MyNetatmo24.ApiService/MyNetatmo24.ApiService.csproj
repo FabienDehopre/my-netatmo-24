@@ -6,12 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.StackExchange.Redis" />
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
     <PackageReference Include="Auth0.AspNetCore.Authentication.Api"/>
     <PackageReference Include="FastEndpoints"/>
     <PackageReference Include="FastEndpoints.Security"/>
     <PackageReference Include="FastEndpoints.Swagger"/>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+    <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
+    <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" />
     <PackageReference Include="Scalar.AspNetCore"/>
+    <PackageReference Include="ZiggyCreatures.FusionCache" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.SystemTextJson" />
   </ItemGroup>
 
   <ItemGroup>

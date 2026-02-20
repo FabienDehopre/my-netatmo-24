@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using JetBrains.Annotations;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,11 +11,13 @@ using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 using MyNetatmo24.SharedKernel.Infrastructure;
 using MyNetatmo24.SharedKernel.Modules;
 using Wolverine.Attributes;
+using ZiggyCreatures.Caching.Fusion;
 
 [assembly: WolverineModule]
 
 namespace MyNetatmo24.Modules.AccountManagement;
 
+[UsedImplicitly]
 public sealed class AccountManagementModule : IModule
 {
     public WebApplicationBuilder AddModule(WebApplicationBuilder builder)
@@ -25,6 +28,11 @@ public sealed class AccountManagementModule : IModule
             options.UseNpgsql(builder.Configuration.GetConnectionString(Constants.DatabaseName)));
         builder.EnrichNpgsqlDbContext<AccountDbContext>(config => config.DisableRetry = true);
         builder.Services.AddTransient(sp => sp.GetRequiredService<AccountDbContext>().Set<Account>().AsNoTracking());
+
+        builder.Services.AddFusionCache("Account")
+            .TryWithAutoSetup()
+            .WithCacheKeyPrefixByCacheName()
+            .AsKeyedHybridCacheByCacheName();
 
         builder.Services.AddHttpContextAccessor();
         builder.Services

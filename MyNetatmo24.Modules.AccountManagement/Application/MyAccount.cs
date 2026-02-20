@@ -4,6 +4,9 @@ using FluentResults.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.DependencyInjection;
+using MyNetatmo24.Modules.AccountManagement.Data;
 using MyNetatmo24.Modules.AccountManagement.Domain;
 using MyNetatmo24.SharedKernel.Infrastructure;
 using MyNetatmo24.SharedKernel.Results;
@@ -44,29 +47,37 @@ public static class MyAccount
         }
     }
 
-    public sealed class Endpoint(IQueryable<Account> accounts)
+    public sealed class Endpoint(IQueryable<Account> accounts, [FromKeyedServices("Account")] HybridCache cache)
         : Ep.NoReq.Res<Results<Ok<UserInfoDto>, UnauthorizedHttpResult, NotFound>>
     {
         private readonly IQueryable<Account> _accounts = accounts.ThrowIfNull();
+        private readonly HybridCache _cache = cache.ThrowIfNull();
 
         public override void Configure() => Get("/account/me");
 
         public override async Task<Results<Ok<UserInfoDto>, UnauthorizedHttpResult, NotFound>> ExecuteAsync(
             CancellationToken ct)
         {
-            var result = await GetAuth0Id()
-                .Bind(auth0Id => GetExistingAccount(auth0Id, ct))
-                .Map(account => new UserInfoDto(account.NickName, account.Name.FirstName, account.Name.LastName,
-                    account.AvatarUrl));
-            return result switch
+            var auth0IdResult = GetAuth0Id();
+            if (auth0IdResult.IsFailed)
             {
-                { IsSuccess: true, Value: { } userInfo } => TypedResults.Ok(userInfo),
-                { IsSuccess: false } => result.Reasons.OfType<FastEndpointsError>().SingleOrDefault() switch
-                {
-                    { StatusCode: StatusCodes.Status401Unauthorized } => TypedResults.Unauthorized(),
-                    { StatusCode: StatusCodes.Status404NotFound } => TypedResults.NotFound(),
-                    _ => throw new InvalidOperationException("This should not happen because all error response are handled above.")
-                }
+                return TypedResults.Unauthorized();
+            }
+
+            var auth0Id = auth0IdResult.Value;
+            var cached = await _cache.GetOrCreateAccountAsync(
+                auth0Id,
+                async cancel => await GetExistingAccount(auth0Id, cancel)
+                    .Map(account => new UserInfoDto(
+                        account.NickName,
+                        account.Name.FirstName,
+                        account.Name.LastName,
+                        account.AvatarUrl)),
+                ct);
+            return cached switch
+            {
+                { Result.IsSuccess: true, Result.Value: { } userInfo } => TypedResults.Ok(userInfo),
+                _ => TypedResults.NotFound()
             };
         }
 
@@ -80,7 +91,7 @@ public static class MyAccount
             var account = await _accounts.SingleOrDefaultAsync(a => a.Auth0Id == auth0Id, ct);
             return account is not null
                 ? account
-                : Errors.UserInfoNotFound;
+                : Errors.AccountNotFound;
         }
     }
 }
