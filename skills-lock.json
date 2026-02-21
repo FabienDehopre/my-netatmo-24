@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "skills": {
+    "angular-di": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "4d3dd9ecceec5642eea118aede824501bdec537b6b8735564a68787ec9617b75"
+    },
+    "angular-directives": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "b8ce636215ec0792839fe57c3632b475957bed1ebc404e9a1c54222e0e506bfa"
+    },
+    "angular-forms": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "cc16f3b4c6303e10ee0247cbe7e14480ca829a7460d7263129a800ed19dba864"
+    },
+    "angular-http": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "ad8821177929ea09eb94e7fc386d842c76c7f39b6c4d7aa3176ba3596dbabecc"
+    },
+    "angular-routing": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "e54b8803da246042525e67effe7ea2a9dc26d5a50e857125793f579c7027aef3"
+    },
+    "angular-signals": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "ddedef1232295f200b966778bc36d16fc07d2113ad1dbc73d75d14eb544953bc"
+    },
+    "angular-testing": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "650cd0019ad00eb6102e8ed31492992ae65fc7c6e3bc3d55fb3e82d6332a9e60"
+    },
+    "angular-tooling": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "computedHash": "1f8f79cd0f7a4a6c99fe57af0cd4357228af2f621a72b4c3779805962de03249"
+    },
+    "aspire": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "aa502e4ff4c9cb28baa2c9ebd14b48fe7ed572fd291a9e24cda5226654413903"
+    },
+    "doc-coauthoring": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "b964e4c3ffe13f66f76dd7919073e60c7aec622cd8a8363bb36323188100cf8e"
+    },
+    "git-commit": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "2607fc60629b82b257136dd2a7a373f0a4466c0b49df7746d845d59313c99b21"
+    },
+    "github-issues": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "8d31978128b593461c2b8e73eb517526b67dafe71a833773774fe4cc1cbdec05"
+    },
+    "mermaid-diagrams": {
+      "source": "softaworks/agent-toolkit",
+      "sourceType": "github",
+      "computedHash": "6d36e69adad781f106a2fb4b19ebc22bf0c211babdc0d1ae5822fa65abb48bd8"
+    },
+    "nuget-manager": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "9081279ef0313a18766c8f03422de9ef31765212d31b13a513e66f39427b4e38"
+    },
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
+      "sourceType": "github",
+      "computedHash": "7075ab30f588019197a2f1518bb4c9d33d69d33352af079b5f9c60303ad3886e"
+    },
+    "pnpm": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "318f9fca2441a3e06fedc336e195dd18be5dbe901064e4fa71b76b40b096ab3a"
+    },
+    "vite": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "0293c251e4d6ff4818e8d2faed2a92f98d8d73c2f4819bd754faf93ca134d6fe"
+    },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "669c7275f7e1379b06b2bcfa593603aead4c983b951c7e8edbc09640aa38d0a1"
+    }
+  }
+}
