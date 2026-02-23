@@ -1,10 +1,52 @@
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Aspire.Hosting.JavaScript;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace MyNetatmo24.AppHost;
+namespace MyNetatmo24.AppHost.Extensions;
 
-internal static class CustomPnpmExtensions
+internal static partial class CustomPnpmExtensions
 {
-    public static IResourceBuilder<TResource> WithPnpmWithWorkspaceRoot<TResource>(this IResourceBuilder<TResource> resource, bool install = true, string[]? installArgs = null, string workspaceRootPathRelativeToProject = "..") where TResource : JavaScriptAppResource
+    public static IResourceBuilder<JavaScriptAppResource> WithPlaywrightRepeatCommand(this IResourceBuilder<JavaScriptAppResource> resource, int repeatCount = 25)
+    {
+        ArgumentNullException.ThrowIfNull(resource);
+
+        var commandOptions = new CommandOptions
+        {
+            IconName = "ArrowRepeatAll",
+            IsHighlighted = true,
+        };
+
+        resource.WithCommand(
+            name: "repeat-playwright-tests",
+            displayName: "Repeat Playwright Tests",
+            executeCommand: async (context) =>
+            {
+#pragma warning disable ASPIREINTERACTION001
+                var interactionService = context.ServiceProvider.GetRequiredService<IInteractionService>();
+                var prompt = await interactionService.PromptInputAsync("Repetition", "How many times do you want to repeat the Playwright tests?", new InteractionInput
+                {
+                    Name = "RepetitionCount",
+                    Label = "Repetition Count",
+                    Description = "Enter the number of times to repeat the Playwright tests.",
+                    InputType = InputType.Number,
+                    Required = true,
+                    Placeholder = $"{repeatCount}",
+                });
+#pragma warning restore ASPIREINTERACTION001
+                if (prompt.Canceled)
+                {
+                    return CommandResults.Success();
+                }
+                return await OnRunCommand(resource, context, $"pnpm run test --repeat-each={prompt.Data.Value}");
+            },
+            commandOptions: commandOptions);
+
+        return resource;
+    }
+
+    public static IResourceBuilder<JavaScriptAppResource> WithPnpmWithWorkspaceRoot(this IResourceBuilder<JavaScriptAppResource> resource, bool install = true, string[]? installArgs = null, string workspaceRootPathRelativeToProject = "..")
     {
         ArgumentNullException.ThrowIfNull(resource);
 
@@ -42,7 +84,7 @@ internal static class CustomPnpmExtensions
             ? ["--frozen-lockfile"]
             : [];
 
-    private static void AddInstaller<TResource>(IResourceBuilder<TResource> resource, bool install) where TResource : JavaScriptAppResource
+    private static void AddInstaller(IResourceBuilder<JavaScriptAppResource> resource, bool install)
     {
         // Only install packages if in run mode
         if (resource.ApplicationBuilder.ExecutionContext.IsRunMode)
@@ -107,6 +149,44 @@ internal static class CustomPnpmExtensions
             resource.WithAnnotation(new JavaScriptPackageInstallerAnnotation(installer));
         }
     }
+
+    private static async Task<ExecuteCommandResult> OnRunCommand(IResourceBuilder<JavaScriptAppResource> builder, ExecuteCommandContext context, string command)
+    {
+        var loggerService = context.ServiceProvider.GetRequiredService<ResourceLoggerService>();
+        var logger = loggerService.GetLogger(context.ResourceName);
+
+        var processStartInfo = new ProcessStartInfo()
+        {
+            FileName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "cmd" : "/bin/bash",
+            RedirectStandardOutput = true,
+            RedirectStandardInput = true,
+            WorkingDirectory = builder.Resource.WorkingDirectory
+        };
+
+        var process = Process.Start(processStartInfo) ?? throw new InvalidOperationException("Failed to start process");
+        await process.StandardInput.WriteLineAsync($"{command} & exit");
+
+// #pragma warning disable CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
+//         while (!process.StandardOutput.EndOfStream)
+//         {
+//             var line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
+//             LogCommandOutput(logger, line);
+//         }
+// #pragma warning restore CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
+        while (await process.StandardOutput.ReadLineAsync() is { } line)
+        {
+            logger.LogCommandOutput(line);
+        }
+
+        return CommandResults.Success();
+    }
+
+    [LoggerMessage(
+        Level = LogLevel.Information,
+        Message = "{Line}")]
+    private static partial void LogCommandOutput(
+        this ILogger logger,
+        string line);
 
     private sealed class JavaScriptInstallCommandWithWorkingDirAnnotation(string[] args, string workingDirectory): IResourceAnnotation
     {

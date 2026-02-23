@@ -63,20 +63,20 @@ if (builder.Environment.IsDevelopment())
 apiService.WithParentRelationship(gateway);
 frontend.WithParentRelationship(gateway);
 
-// if (builder.Environment.IsDevelopment())
-// {
-//     var playwright = builder
-//         .AddJavaScriptApp("playwright", "../MyNetatmo24.EndToEndTests")
-//         .WithPnpm(install: false)
-//         .WithRunScript("test")
-//         .WithExplicitStart()
-//         .WithPlaywrightRepeatCommand()
-//         .ExcludeFromManifest()
-//         .WithEnvironment("ASPIRE", "true")
-//         .WithReference(gateway)
-//         .WithReference(migrations)
-//         .WithParentRelationship(angularApplication);
-// }
+if (builder.Environment.IsDevelopment())
+{
+    builder
+        .AddJavaScriptApp("playwright", "../MyNetatmo24.EndToEndTests")
+        .WithPnpm(install: false)
+        .WithRunScript("test")
+        .WithExplicitStart()
+        .WithPlaywrightRepeatCommand()
+        .ExcludeFromManifest()
+        .WithEnvironment("ASPIRE", "true")
+        .WithReference(gateway)
+        .WithReference(migrations)
+        .WithParentRelationship(frontend);
+}
 
 // var dabServer = builder
 //     .AddContainer("data-api", image: "azure-databases/data-api-builder", tag: "1.7.83-rc")
