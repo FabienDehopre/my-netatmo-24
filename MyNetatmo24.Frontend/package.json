@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "catalog:angular",
+    "@angular/build": "catalog:angular",
+    "@angular/compiler-cli": "catalog:angular",
     "@fabdeh/eslint-config": "catalog:eslint",
     "@tailwindcss/vite": "catalog:tailwindcss",
     "@testing-library/angular": "catalog:testing-library",
