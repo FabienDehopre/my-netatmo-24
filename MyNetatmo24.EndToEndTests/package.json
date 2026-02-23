@@ -1,0 +1,22 @@
+{
+  "name": "end-to-end-tests",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "lint": "eslint . --fix"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@fabdeh/eslint-config": "catalog:eslint",
+    "@playwright/test": "catalog:playwright",
+    "@types/dotenv": "catalog:",
+    "@types/node": "catalog:",
+    "dotenv": "catalog:",
+    "eslint": "catalog:eslint",
+    "eslint-plugin-erasable-syntax-only": "catalog:eslint",
+    "eslint-plugin-format": "catalog:eslint",
+    "eslint-plugin-playwright": "catalog:eslint",
+    "typescript": "catalog:"
+  }
+}
