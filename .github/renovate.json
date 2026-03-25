@@ -2,36 +2,33 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:best-practices",
-    "security:minimumReleaseAgeNpm",
+    "group:allNonMajor",
+    "helpers:disableTypesNodeMajor",
     "schedule:automergeDaily",
-    "group:all",
-    ":automergeAll"
+    ":automergeStableNonMajor",
+    ":semanticCommitType(build)",
+    ":semanticCommitScopeDisabled",
+    ":dependencyDashboard"
   ],
   "timezone": "Europe/Brussels",
   "prConcurrentLimit": 1,
   "automergeType": "pr",
+  "automergeStrategy": "squash",
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "matchCurrentVersion": "!/^0/",
-      "automerge": true
+      "description": "Skip release age delay for own packages",
+      "matchPackageNames": ["@fabdeh/{/,}**"],
+      "minimumReleaseAge": "0 days"
     },
     {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "automerge": false
-    },
-    {
-      "matchDepTypes": [
-        "action"
-      ],
-      "pinDigests": false
-    },
-    {
+      "description": "Disable updates for TypeScript",
       "matchPackageNames": [
         "typescript"
       ],
