@@ -55,8 +55,8 @@ catalogs:
     vite-plugin-node-polyfills: ^0.25.0
     vite-tsconfig-paths: ^6.1.0
   vitest:
-    '@vitest/browser': 4.1.1
-    '@vitest/browser-playwright': 4.1.1
-    '@vitest/coverage-v8': 4.1.1
-    '@vitest/ui': 4.1.1
-    vitest: 4.1.1
+    '@vitest/browser': 4.1.2
+    '@vitest/browser-playwright': 4.1.2
+    '@vitest/coverage-v8': 4.1.2
+    '@vitest/ui': 4.1.2
+    vitest: 4.1.2
