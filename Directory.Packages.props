@@ -32,7 +32,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
     <PackageVersion Include="Respawn" Version="7.0.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.13.19" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.13.20" />
     <PackageVersion Include="Vogen" Version="8.0.5" />
     <PackageVersion Include="WolverineFx" Version="5.27.0" />
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="5.27.0" />
