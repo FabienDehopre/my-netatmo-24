@@ -42,8 +42,8 @@ catalogs:
       specifier: 24.12.2
       version: 24.12.2
     dotenv:
-      specifier: 17.4.0
-      version: 17.4.0
+      specifier: 17.4.1
+      version: 17.4.1
     jsdom:
       specifier: 29.0.1
       version: 29.0.1
@@ -174,7 +174,7 @@ importers:
         version: 24.12.2
       dotenv:
         specifier: 'catalog:'
-        version: 17.4.0
+        version: 17.4.1
       eslint:
         specifier: catalog:eslint
         version: 10.2.0(jiti@2.6.1)
@@ -3087,8 +3087,8 @@ packages:
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
 
-  dotenv@17.4.0:
-    resolution: {integrity: sha512-kCKF62fwtzwYm0IGBNjRUjtJgMfGapII+FslMHIjMR5KTnwEmBmWLDRSnc3XSNP8bNy34tekgQyDT0hr7pERRQ==}
+  dotenv@17.4.1:
+    resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -7563,7 +7563,7 @@ snapshots:
 
   '@types/dotenv@8.2.3':
     dependencies:
-      dotenv: 17.4.0
+      dotenv: 17.4.1
 
   '@types/esrecurse@4.3.1': {}
 
@@ -8457,7 +8457,7 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
 
-  dotenv@17.4.0: {}
+  dotenv@17.4.1: {}
 
   dunder-proto@1.0.1:
     dependencies:
