@@ -24,7 +24,7 @@
     "@angular/router": "catalog:angular",
     "@opentelemetry/auto-instrumentations-web": "catalog:opentelemetry",
     "@opentelemetry/context-zone": "catalog:opentelemetry",
-    "@opentelemetry/exporter-trace-otlp-proto": "catalog:opentelemetry",
+    "@opentelemetry/exporter-trace-otlp-http": "catalog:opentelemetry",
     "@opentelemetry/instrumentation": "catalog:opentelemetry",
     "@opentelemetry/resources": "catalog:opentelemetry",
     "@opentelemetry/sdk-trace-base": "catalog:opentelemetry",
@@ -56,8 +56,6 @@
     "tailwindcss": "catalog:tailwindcss",
     "typescript": "catalog:",
     "vite": "catalog:vite",
-    "vite-plugin-node-polyfills": "catalog:vite",
-    "vite-tsconfig-paths": "catalog:vite",
     "vitest": "catalog:vitest"
   }
 }

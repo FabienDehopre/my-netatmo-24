@@ -3,37 +3,15 @@ import angular from '@analogjs/vite-plugin-angular';
 import tailwindcss from '@tailwindcss/vite';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vite';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
-import viteTsConfigPaths from 'vite-tsconfig-paths';
-
-// Patch @protobufjs/inquire library to work in Vite.
-function protobufPatch() {
-  return {
-    name: 'protobuf-patch',
-    transform(code, id) {
-      // https://github.com/protobufjs/protobuf.js/issues/1754
-      if (id.endsWith('@protobufjs/inquire/index.js')) {
-        return {
-          code: code.replace(`eval("quire".replace(/^/,"re"))`, 'require'),
-          // eslint-disable-next-line unicorn/no-null
-          map: null,
-        };
-      }
-    },
-  };
-}
 
 export default defineConfig({
   resolve: {
     mainFields: ['module', 'browser'],
+    tsconfigPaths: true,
   },
   plugins: [
     angular(),
-    viteTsConfigPaths(),
     tailwindcss(),
-    // Polyfill Node.js built-in modules for browser compatibility.
-    nodePolyfills(),
-    protobufPatch(),
   ],
   define: {
     /* eslint-disable n/prefer-global/process */
@@ -53,19 +31,21 @@ export default defineConfig({
     target: ['es2022'],
     outDir: 'dist',
     chunkSizeWarningLimit: 750,
-    rollupOptions: {
+    rolldownOptions: {
       onLog(level, log, handler) {
         // Remove warning about source map errors, which we don't care about.
         if (log.cause?.message === `Can't resolve original location of error.`) {
           return;
         }
 
+        // Remove warning about @protobufjs/inquire using an eval expression as the code will never be hit.
+        if (log.code === 'EVAL' && log.id?.includes('@protobufjs/inquire')) {
+          return;
+        }
+
         handler(level, log);
       },
     },
-  },
-  optimizeDeps: {
-    include: ['node:module'],
   },
   test: {
     setupFiles: ['./src/setup-angular.ts', './src/test-setup.ts'],

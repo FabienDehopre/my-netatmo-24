@@ -33,7 +33,7 @@ catalogs:
   opentelemetry:
     '@opentelemetry/auto-instrumentations-web': 0.59.0
     '@opentelemetry/context-zone': 2.6.1
-    '@opentelemetry/exporter-trace-otlp-proto': 0.214.0
+    '@opentelemetry/exporter-trace-otlp-http': 0.214.0
     '@opentelemetry/instrumentation': 0.214.0
     '@opentelemetry/resources': 2.6.1
     '@opentelemetry/sdk-trace-base': 2.6.1
@@ -52,8 +52,6 @@ catalogs:
     '@testing-library/user-event': 14.6.1
   vite:
     vite: ^8.0.0
-    vite-plugin-node-polyfills: ^0.26.0
-    vite-tsconfig-paths: ^6.1.0
   vitest:
     '@vitest/browser': 4.1.4
     '@vitest/browser-playwright': 4.1.4
