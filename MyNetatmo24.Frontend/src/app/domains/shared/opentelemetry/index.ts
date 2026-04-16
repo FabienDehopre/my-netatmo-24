@@ -22,6 +22,12 @@ function parseDelimitedValues(s: string) {
   return result;
 }
 
+function getCookie(name: string): string | undefined {
+  const prefix = `${name}=`;
+  const found = document.cookie.split('; ').find((c) => c.startsWith(prefix));
+  return found ? decodeURIComponent(found.slice(prefix.length)) : undefined;
+}
+
 export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
   return provideAppInitializer(() => {
     const resource = resourceFromAttributes({
@@ -30,13 +36,20 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
       ...parseDelimitedValues(import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES ?? ''),
     });
 
+    const staticHeaders = parseDelimitedValues(import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS ?? '');
     const provider = new WebTracerProvider({
       resource,
       spanProcessors: [
         new BatchSpanProcessor(
           new OTLPTraceExporter({
             url: `${window.origin}/v1/traces`,
-            headers: parseDelimitedValues(import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS ?? ''),
+            headers: () => {
+              const xsrf = getCookie('__MyNetatmo24-X-XSRF-TOKEN');
+              return Promise.resolve({
+                ...staticHeaders,
+                ...(xsrf ? { 'X-XSRF-TOKEN': xsrf } : {}),
+              });
+            },
           })
         ),
       ],

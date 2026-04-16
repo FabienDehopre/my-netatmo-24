@@ -18,14 +18,6 @@ internal sealed class ValidateAntiforgeryTokenRequestTransform(
             return;
         }
 
-        // Skip antiforgery validation for protobuf payloads because these requests do not
-        // use the standard form or header-based token flow expected by ASP.NET Core antiforgery,
-        // which would make valid protobuf requests fail validation.
-        if (context.HttpContext.Request.Headers.ContentType.Contains("application/x-protobuf"))
-        {
-            return;
-        }
-
         logger.LogValidatingAntiforgeryToken(context.HttpContext.Request.Path.Value);
 
         try
