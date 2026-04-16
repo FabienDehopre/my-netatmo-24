@@ -140,18 +140,15 @@ internal static class Extensions
     {
         public string BuildRedirectUrl(string? redirectUrl)
         {
-            if (string.IsNullOrEmpty(redirectUrl))
+            if (string.IsNullOrEmpty(redirectUrl)
+                || !redirectUrl.StartsWith('/')
+                || redirectUrl.StartsWith("//", StringComparison.Ordinal)
+                || redirectUrl.Contains('\\', StringComparison.Ordinal))
             {
                 redirectUrl = "/";
             }
 
-            if (redirectUrl.StartsWith('/'))
-            {
-                redirectUrl =
-                    $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}{redirectUrl}";
-            }
-
-            return redirectUrl;
+            return $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}{redirectUrl}";
         }
     }
 }
