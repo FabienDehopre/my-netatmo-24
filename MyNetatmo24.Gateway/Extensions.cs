@@ -129,6 +129,21 @@ internal static class Extensions
                         });
                 });
 
+                options.AddPolicy("otelcollector-ip", httpContext =>
+                {
+                    var partitionKey = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+                    return RateLimitPartition.GetFixedWindowLimiter(
+                        partitionKey,
+                        _ => new FixedWindowRateLimiterOptions
+                        {
+                            PermitLimit = 100,
+                            Window = TimeSpan.FromMinutes(1),
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                            QueueLimit = 0
+                        });
+                });
+
                 options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
             });
 
