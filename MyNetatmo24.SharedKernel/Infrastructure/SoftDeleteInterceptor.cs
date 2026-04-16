@@ -6,7 +6,9 @@ namespace MyNetatmo24.SharedKernel.Infrastructure;
 
 public class SoftDeleteInterceptor(TimeProvider timeProvider) : SaveChangesInterceptor
 {
-    public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result,
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
         CancellationToken cancellationToken = new())
     {
         ArgumentNullException.ThrowIfNull(eventData);
