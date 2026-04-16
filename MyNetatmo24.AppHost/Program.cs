@@ -37,10 +37,12 @@ var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
     .PublishAsDockerFile(resource => resource.WithDockerfile("../", stage: "frontend-app"));
 
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
+    .WithReference(redis)
     .WithReference(apiService)
     .WithReference(frontend)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
+    .WaitFor(redis)
     .WaitFor(apiService)
     .WaitFor(frontend)
     .WithUrlForEndpoint("http", u => u.DisplayText = "Open Application")

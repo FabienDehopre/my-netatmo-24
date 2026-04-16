@@ -8,7 +8,7 @@ builder.AddReverseProxy();
 builder.AddAuthenticationSchemes();
 builder.AddRateLimiting();
 
-builder.Services.AddDistributedMemoryCache();
+builder.AddRedisDistributedCache(connectionName: "cache");
 builder.Services.AddOpenIdConnectAccessTokenManagement();
 
 builder.Services.AddAntiforgery(options =>
