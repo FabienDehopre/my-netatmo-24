@@ -1,6 +1,8 @@
 packages:
   - MyNetatmo24.EndToEndTests
   - MyNetatmo24.Frontend
+allowBuilds:
+  '@fabdeh/eslint-config': false
 
 catalog:
   '@types/dotenv': 8.2.3
@@ -25,7 +27,7 @@ catalogs:
     '@angular/router': ^21.1.3
   eslint:
     '@fabdeh/eslint-config': ^0.11.0
-    eslint: ^10.0.0
+    eslint: ^9.39.4
     eslint-plugin-better-tailwindcss: ^4.1.1
     eslint-plugin-erasable-syntax-only: ^0.4.0
     eslint-plugin-format: ^2.0.0
