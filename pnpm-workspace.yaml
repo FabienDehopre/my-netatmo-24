@@ -55,8 +55,8 @@ catalogs:
   vite:
     vite: ^8.0.0
   vitest:
-    '@vitest/browser': 4.1.4
-    '@vitest/browser-playwright': 4.1.4
-    '@vitest/coverage-v8': 4.1.4
-    '@vitest/ui': 4.1.4
-    vitest: 4.1.4
+    '@vitest/browser': 4.1.5
+    '@vitest/browser-playwright': 4.1.5
+    '@vitest/coverage-v8': 4.1.5
+    '@vitest/ui': 4.1.5
+    vitest: 4.1.5
