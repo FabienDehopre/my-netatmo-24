@@ -33,7 +33,7 @@ catalogs:
     eslint-plugin-format: ^2.0.0
     eslint-plugin-playwright: ^2.7.1
   opentelemetry:
-    '@opentelemetry/auto-instrumentations-web': 0.63.0
+    '@opentelemetry/auto-instrumentations-web': 0.64.0
     '@opentelemetry/context-zone': 2.8.0
     '@opentelemetry/exporter-trace-otlp-http': 0.219.0
     '@opentelemetry/instrumentation': 0.219.0
