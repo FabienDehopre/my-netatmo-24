@@ -3,6 +3,11 @@ packages:
   - MyNetatmo24.Frontend
 allowBuilds:
   '@fabdeh/eslint-config': false
+  '@parcel/watcher': false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
+  unrs-resolver: false
 
 catalog:
   '@types/dotenv': 8.2.3
