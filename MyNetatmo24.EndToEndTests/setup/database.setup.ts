@@ -8,7 +8,7 @@ import { getConfig } from '../utils/env';
 test('reseed database', async ({}) => {
   const config = getConfig();
   const databaseUrl = config.databaseUrl;
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
   test.fail(
     !databaseUrl,
