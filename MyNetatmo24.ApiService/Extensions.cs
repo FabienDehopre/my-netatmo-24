@@ -14,18 +14,16 @@ public static class Extensions
         public WebApplicationBuilder AddAuthentication()
         {
             // Add authentication and authorization using Auth0
-            builder.Services.AddAuth0ApiAuthentication(options =>
-            {
-                options.Domain = builder.Configuration["Auth0:Domain"];
-                options.JwtBearerOptions = new JwtBearerOptions
+            builder.Services.AddAuth0ApiAuthentication(
+                builder.Configuration.GetSection("Auth0"),
+                configureJwtBearer: jwt =>
                 {
-                    Audience = builder.Configuration["Auth0:Audience"],
-                    TokenValidationParameters = new TokenValidationParameters
+                    jwt.TokenValidationParameters = new TokenValidationParameters
                     {
-                        NameClaimType = ClaimTypes.NameIdentifier, RoleClaimType = "permissions"
-                    }
-                };
-            });
+                        NameClaimType = ClaimTypes.NameIdentifier,
+                        RoleClaimType = "permissions",
+                    };
+                });
 
             builder.Services.AddAuthorization(options =>
             {
