@@ -15,7 +15,7 @@ RUN pnpm run -r build
 RUN pnpm deploy --filter=frontend-app --prod /prod/frontend-app
 RUN ls /prod/frontend-app
 
-FROM nginx:alpine@sha256:20316569d8f81a160065d7d2a5eeffc7ca97d79022462ee255fd23fa103a6b5c AS frontend-app
+FROM nginx:alpine@sha256:1a8724a52d432501548a8d8681bb1554c2d09778f8b9ed0882fc3442549980b7 AS frontend-app
 COPY --from=build /prod/frontend-app/default.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /prod/frontend-app/dist /usr/share/nginx/html
 EXPOSE 80
