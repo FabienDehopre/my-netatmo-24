@@ -1,4 +1,6 @@
 /// <reference types="vitest/config" />
+import * as process from 'node:process';
+
 import angular from '@analogjs/vite-plugin-angular';
 import tailwindcss from '@tailwindcss/vite';
 import { playwright } from '@vitest/browser-playwright';
@@ -49,6 +51,8 @@ export default defineConfig({
   },
   test: {
     setupFiles: ['./src/setup-angular.ts', './src/test-setup.ts'],
+    silent: 'passed-only',
+    reporters: process.env.GITHUB_ACTIONS === 'true' ? ['dot', 'github-actions'] : ['agent'],
     browser: {
       enabled: true,
       provider: playwright(),
