@@ -62,9 +62,9 @@ jobs:
         name: Report .NET Coverage
       - run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
         name: Publish coverage in build summary
-      - uses: stoplightio/spectral-actions@6416fd018ae38e60136775066eb3e98172143141 # v0.8.13
-        with:
-          file_glob: '**/documentation/*.json'
+#      - uses: stoplightio/spectral-action@6416fd018ae38e60136775066eb3e98172143141 # v0.8.13
+#        with:
+#          file_glob: '**/documentation/*.json'
 
   frontend:
     runs-on: ubuntu-latest
