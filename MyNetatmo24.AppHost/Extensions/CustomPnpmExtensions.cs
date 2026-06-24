@@ -166,13 +166,13 @@ internal static partial class CustomPnpmExtensions
         var process = Process.Start(processStartInfo) ?? throw new InvalidOperationException("Failed to start process");
         await process.StandardInput.WriteLineAsync($"{command} & exit");
 
-// #pragma warning disable CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
-//         while (!process.StandardOutput.EndOfStream)
-//         {
-//             var line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
-//             LogCommandOutput(logger, line);
-//         }
-// #pragma warning restore CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
+        // #pragma warning disable CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
+        //         while (!process.StandardOutput.EndOfStream)
+        //         {
+        //             var line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
+        //             LogCommandOutput(logger, line);
+        //         }
+        // #pragma warning restore CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
         while (await process.StandardOutput.ReadLineAsync() is { } line)
         {
             logger.LogCommandOutput(line);
@@ -188,7 +188,7 @@ internal static partial class CustomPnpmExtensions
         this ILogger logger,
         string line);
 
-    private sealed class JavaScriptInstallCommandWithWorkingDirAnnotation(string[] args, string workingDirectory): IResourceAnnotation
+    private sealed class JavaScriptInstallCommandWithWorkingDirAnnotation(string[] args, string workingDirectory) : IResourceAnnotation
     {
         public string[] Args { get; } = args;
         public string WorkingDirectory { get; } = workingDirectory;
