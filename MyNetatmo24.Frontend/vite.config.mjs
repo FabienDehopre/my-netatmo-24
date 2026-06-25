@@ -16,10 +16,10 @@ export default defineConfig({
     tailwindcss(),
   ],
   define: {
-    /* eslint-disable n/prefer-global/process */
+
     'import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES': JSON.stringify(process.env.OTEL_RESOURCE_ATTRIBUTES),
     'import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS': JSON.stringify(process.env.OTEL_EXPORTER_OTLP_HEADERS),
-    /* eslint-enable n/prefer-global/process */
+
   },
   server: {
     port: 4200,
