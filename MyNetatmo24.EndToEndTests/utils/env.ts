@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import * as process from 'node:process';
 
 import * as dotenv from 'dotenv';
@@ -16,17 +17,17 @@ export interface Config {
  */
 export function getConfig(): Config {
   // Load environment variables from .env file
-  dotenv.config({ path: `${import.meta.dirname}/../.env`, quiet: true });
+  dotenv.config({ path: resolve(import.meta.dirname, '../.env'), quiet: true });
 
   // Create configuration object
   const config: Config = {
     applicationUrl:
-      process.env.services__gateway__https__0 ?? process.env['APPLICATION_URL'] ?? '',
+      process.env.services__gateway__https__0 ?? process.env.APPLICATION_URL ?? '',
     databaseUrl:
-      process.env['services__migrations__https__0'] ??
-      process.env['DATABASE_URL'] ?? '',
-    username: process.env['PLAYWRIGHT_USERNAME'] ?? '',
-    password: process.env['PLAYWRIGHT_PASSWORD'] ?? '',
+      process.env.services__migrations__https__0 ??
+      process.env.DATABASE_URL ?? '',
+    username: process.env.PLAYWRIGHT_USERNAME ?? '',
+    password: process.env.PLAYWRIGHT_PASSWORD ?? '',
   };
 
   // Validate required environment variables

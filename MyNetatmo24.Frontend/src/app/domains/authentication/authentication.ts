@@ -6,18 +6,18 @@ import { USER_SCHEMA } from './user';
 
 @Injectable({ providedIn: 'root' })
 export class Authentication {
-  private readonly document = inject(DOCUMENT);
-  private readonly userResource = httpResource(() => '/bff/user', {
+  readonly #document = inject(DOCUMENT);
+  readonly #userResource = httpResource(() => '/bff/user', {
     parse: parse(USER_SCHEMA),
   });
 
-  readonly user = computed(() => this.userResource.value());
+  readonly user = computed(() => this.#userResource.value());
 
   login(redirectUrl: string): void {
-    this.document.location.href = `/bff/login?returnUrl=${encodeURIComponent(redirectUrl)}`;
+    this.#document.location.href = `/bff/login?returnUrl=${encodeURIComponent(redirectUrl)}`;
   }
 
   logout(redirectUrl: string): void {
-    this.document.location.href = `/bff/logout?returnUrl=${encodeURIComponent(redirectUrl)}`;
+    this.#document.location.href = `/bff/logout?returnUrl=${encodeURIComponent(redirectUrl)}`;
   }
 }

@@ -10,7 +10,9 @@
   "devDependencies": {
     "@fabdeh/eslint-config": "catalog:eslint",
     "@playwright/test": "catalog:playwright",
+    "@types/dotenv": "catalog:",
     "@types/node": "catalog:",
+    "dotenv": "catalog:",
     "eslint": "catalog:eslint",
     "eslint-plugin-erasable-syntax-only": "catalog:eslint",
     "eslint-plugin-format": "catalog:eslint",

@@ -6,16 +6,16 @@ import { Authentication } from './authentication';
   selector: '[appAuthenticated]',
 })
 export class Authenticated {
-  private readonly viewContainerRef = inject(ViewContainerRef);
-  private readonly templateRef = inject(TemplateRef);
-  private readonly authenticationService = inject(Authentication);
+  readonly #viewContainerRef = inject(ViewContainerRef);
+  readonly #templateRef = inject(TemplateRef);
+  readonly #authenticationService = inject(Authentication);
 
   constructor() {
     effect(() => {
-      if (this.authenticationService.user()?.isAuthenticated) {
-        this.viewContainerRef.createEmbeddedView(this.templateRef);
+      if (this.#authenticationService.user()?.isAuthenticated) {
+        this.#viewContainerRef.createEmbeddedView(this.#templateRef);
       } else {
-        this.viewContainerRef.clear();
+        this.#viewContainerRef.clear();
       }
     });
   }

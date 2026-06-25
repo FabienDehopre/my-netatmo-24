@@ -24,9 +24,9 @@ type WeatherForecast = z.infer<typeof WEATHER_FORECAST_SCHEMA>;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  private readonly authentication = inject(Authentication);
+  readonly #authentication = inject(Authentication);
   protected readonly title = signal('My Netatmo 24').asReadonly();
-  protected readonly user = this.authentication.user;
+  protected readonly user = this.#authentication.user;
   protected readonly weatherForecasts = httpResource<WeatherForecast[]>(
     () => '/api/weatherforecast',
     {
@@ -36,11 +36,11 @@ export class App {
   );
 
   protected login(): void {
-    this.authentication.login('/');
+    this.#authentication.login('/');
   }
 
   protected logout(): void {
-    this.authentication.logout('/');
+    this.#authentication.logout('/');
   }
 
   protected loadWeatherForecast(): void {

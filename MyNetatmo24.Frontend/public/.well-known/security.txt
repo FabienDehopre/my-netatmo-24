@@ -1,0 +1,21 @@
+# Sandbox Application Security Contact Information
+# This file is compliant with RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116.html)
+
+# Contact information for security researchers to report vulnerabilities
+Contact: https://github.com/fabiendehopre/MyNetatmo24/security/advisories/new
+Contact: mailto:security@dehopre.dev
+
+# Expiration date for this security.txt file (1 year from creation)
+Expires: 2027-06-22T12:37:53.000Z
+
+# Preferred language for security reports
+Preferred-Languages: en
+
+# Link to security policy
+Policy: https://github.com/fabiendehopre/MyNetatmo24/security/policy
+
+# Acknowledgments page for security researchers
+Acknowledgments: https://github.com/fabiendehopre/MyNetatmo24/security/advisories
+
+# Canonical URI for this file
+Canonical: https://my-netatmo-24.dehopre.dev/.well-known/security.txt
