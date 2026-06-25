@@ -55,17 +55,53 @@
       "skillPath": "skills/aspireify/SKILL.md",
       "computedHash": "906cf6cae54c0628b60db433269af621f8dece010bb6190207dc5377cb0757ee"
     },
+    "az-cost-optimize": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/az-cost-optimize/SKILL.md",
+      "computedHash": "4bad09d0db105898326d119abc6eeffdbcdb1f8026d6e793ced7ef9e9f50dad7"
+    },
+    "azure-pricing": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/azure-pricing/SKILL.md",
+      "computedHash": "016ade0ccf0b90e239ba770223cbc788fce83345dd71fa39c5464016447d6a5b"
+    },
     "codebase-design": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/codebase-design/SKILL.md",
       "computedHash": "2426dc4accf1a85dedfb560edb3a877ec8828b7375ea08c970df2b6c900a2a22"
     },
+    "commit-message-storyteller": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/commit-message-storyteller/SKILL.md",
+      "computedHash": "ca0d63ccdfeb488294209fd40b8ce122e809931a6d5c22a105627624e4e2dece"
+    },
     "configuring-opentelemetry-dotnet": {
       "source": "dotnet/skills",
       "sourceType": "github",
       "skillPath": "plugins/dotnet-aspnetcore/skills/configuring-opentelemetry-dotnet/SKILL.md",
       "computedHash": "736b7476710267bd46154714f38e16f5bac5498ce6a9aa980eb1d0a214960890"
+    },
+    "csharp-async": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/csharp-async/SKILL.md",
+      "computedHash": "e889958419757528e43fb674607d13fffe331a6673cfcef2b0ab8ff9fb569bb8"
+    },
+    "csharp-docs": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/csharp-docs/SKILL.md",
+      "computedHash": "93da3063bb770f13feec581efa3ff232c69a5a94b75cddfc4ad6e82909835cfe"
+    },
+    "csharp-tunit": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/csharp-tunit/SKILL.md",
+      "computedHash": "634bf822bdbd01c5d5a8c7c9f473f3818dfca8acca309a0af97cd90a7e39b738"
     },
     "diagnosing-bugs": {
       "source": "mattpocock/skills",
