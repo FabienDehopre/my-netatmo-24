@@ -1,0 +1,32 @@
+{
+  "csharp": {
+    "command": "dnx",
+    "args": [
+      "roslyn-language-server",
+      "--yes",
+      "--prerelease",
+      "--",
+      "--stdio",
+      "--autoLoadProjects"
+    ],
+    "extensionToLanguage": {
+      ".cs": "csharp",
+      ".razor": "aspnetcorerazor",
+      ".cshtml": "aspnetcorerazor"
+    }
+  },
+  "typescript": {
+    "command": "npx",
+    "args": [
+      "--yes",
+      "typescript-language-server@latest",
+      "--stdio"
+    ],
+    "extensionToLanguage": {
+      ".ts": "typescript",
+      ".tsx": "typescriptreact",
+      ".js": "javascript",
+      ".jsx": "javascriptreact"
+    }
+  }
+}
