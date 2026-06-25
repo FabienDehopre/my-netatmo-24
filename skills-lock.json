@@ -19,6 +19,42 @@
       "skillPath": "skills/engineering/ask-matt/SKILL.md",
       "computedHash": "f3ac3351e2a242ce2591e4f8475424d58f62db3f5786332b78f330b15312d1e0"
     },
+    "aspire": {
+      "source": "microsoft/aspire-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aspire/SKILL.md",
+      "computedHash": "0be6b8b52ed40a790911de8b4da21df3b12e5d48e923f9127fc9a01bf28d3802"
+    },
+    "aspire-deployment": {
+      "source": "microsoft/aspire-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aspire-deployment/SKILL.md",
+      "computedHash": "4f8d475100897f01ed1db3041bd0e8a47f10c0ea854a8793b46eb3d5a3cbe7f0"
+    },
+    "aspire-init": {
+      "source": "microsoft/aspire-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aspire-init/SKILL.md",
+      "computedHash": "2f00fdbe35999cf33f858963555fa783ba28218570563329cddc874805a2a3e8"
+    },
+    "aspire-monitoring": {
+      "source": "microsoft/aspire-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aspire-monitoring/SKILL.md",
+      "computedHash": "8f28ef8ef22cdbad5a385a752da9565021ec8703973dad9ead5e8bb56f5d3196"
+    },
+    "aspire-orchestration": {
+      "source": "microsoft/aspire-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aspire-orchestration/SKILL.md",
+      "computedHash": "a6c1b678eb9c97555f28f2f6d16510c7a5b7a91171b661003f37649aa253ebbe"
+    },
+    "aspireify": {
+      "source": "microsoft/aspire-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aspireify/SKILL.md",
+      "computedHash": "906cf6cae54c0628b60db433269af621f8dece010bb6190207dc5377cb0757ee"
+    },
     "codebase-design": {
       "source": "mattpocock/skills",
       "sourceType": "github",
