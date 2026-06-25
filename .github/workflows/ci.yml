@@ -119,6 +119,9 @@ jobs:
           check-latest: true
           cache: pnpm
       - run: pnpm install --prefer-offline --frozen-lockfile --recursive
+      - run: pnpm --filter='end-to-end-tests' exec playwright install --with-deps
+        timeout-minutes: 2
+        name: Install Playwright Browsers
       - run: |
           dotnet dev-certs https --export-path /tmp/aspire-dev-certs.pem --format pem --no-password
           sudo cp /tmp/aspire-dev-certs.pem /usr/local/share/ca-certificates/aspire-dev-certs.crt
