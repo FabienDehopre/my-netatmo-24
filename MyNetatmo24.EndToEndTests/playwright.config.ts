@@ -36,6 +36,12 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Always use English US locale to avoid issue with locators based on label. */
+    locale: 'en-US',
+
+    /* Always use Europe/Brussels as timezone to avoid issue when working with date and/or time. */
+    timezoneId: 'Europe/Brussels',
   },
 
   /* Configure projects for major browsers */
@@ -52,6 +58,8 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: '.state/auth-state.json',
+        locale: 'en-US',
+        timezoneId: 'Europe/Brussels',
       },
       dependencies: ['setup'],
     },
@@ -61,18 +69,28 @@ export default defineConfig({
       use: {
         ...devices['Desktop Firefox'],
         storageState: '.state/auth-state.json',
+        locale: 'en-US',
+        timezoneId: 'Europe/Brussels',
       },
       dependencies: ['setup'],
     },
     {
       name: 'chromium-unauthenticated',
       testMatch: '**/*unauthenticated*.test.ts',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        locale: 'en-US',
+        timezoneId: 'Europe/Brussels',
+      },
     },
     {
       name: 'firefox-unauthenticated',
       testMatch: '**/*unauthenticated*.test.ts',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        locale: 'en-US',
+        timezoneId: 'Europe/Brussels',
+      },
     },
     {
       name: 'teardown',
