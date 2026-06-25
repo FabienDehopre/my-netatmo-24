@@ -35,10 +35,10 @@ jobs:
         name: Build .NET Solution
       - run: >
           dotnet test --no-build --configuration Release --
-            --coverage
-            --coverage-output coverage.xml
-            --coverage-output-format cobertura
-            --coverage-settings "${{ github.workspace }}/coverage.config"
+          --coverage
+          --coverage-output coverage.xml
+          --coverage-output-format cobertura
+          --coverage-settings "${{ github.workspace }}/coverage.config"
         env:
           TUNIT_GITHUB_REPORTER_STYLE: collapsible
         name: Run .NET Tests
