@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as z from 'zod/mini';
 
@@ -22,6 +22,7 @@ type WeatherForecast = z.infer<typeof WEATHER_FORECAST_SCHEMA>;
   imports: [RouterOutlet, Anonymous, Authenticated, DatePipe],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
   readonly #authentication = inject(Authentication);
