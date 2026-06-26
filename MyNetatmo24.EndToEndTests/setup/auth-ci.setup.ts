@@ -21,6 +21,9 @@ test('authenticate user (CI)', async ({ page }) => {
   });
   expect(response.ok()).toBeTruthy();
 
+  await page.goto('/');
+  await expect(page.getByText(new RegExp(config.username, 'i'))).toBeVisible();
+
   await page.context().storageState({ path: STORAGE_STATE });
 });
 
