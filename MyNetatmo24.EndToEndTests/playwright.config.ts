@@ -12,6 +12,7 @@ const CONFIG = getConfig();
 export default defineConfig({
   tsconfig: './tsconfig.json',
   testDir: './tests',
+  globalTeardown: process.env.CI ? './setup/aspire-export.teardown.ts' : undefined,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
