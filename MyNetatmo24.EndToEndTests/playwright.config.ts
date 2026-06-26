@@ -106,8 +106,8 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     cwd: '..',
-    command: 'dotnet run --project ./MyNetatmo24.AppHost',
-    // command: 'aspire run',
+    // command: 'dotnet run --project ./MyNetatmo24.AppHost',
+    command: 'aspire run',
     url: `${CONFIG.applicationUrl}/health`,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000 * 5,

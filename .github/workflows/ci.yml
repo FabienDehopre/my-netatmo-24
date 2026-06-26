@@ -136,6 +136,8 @@ jobs:
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         name: Decrypt appsettings.json
+      - run: npm install -g @microsoft/aspire-cli && aspire --version
+        name: Install Aspire
       # - run: pnpm --filter='end-to-end-tests' test --config=playwright.service.config.ts
       - run: pnpm --filter='end-to-end-tests' test
         env:
