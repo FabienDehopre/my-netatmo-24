@@ -34,6 +34,12 @@ app.UseAuthorization();
 app.MapGroup("bff")
     .MapUserEndpoints();
 
+if (!app.Environment.IsProduction())
+{
+    app.MapGroup("bff")
+        .MapTestAuthEndpoints();
+}
+
 app.MapReverseProxy();
 app.MapDefaultEndpoints();
 

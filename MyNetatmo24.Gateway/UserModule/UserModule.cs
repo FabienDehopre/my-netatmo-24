@@ -7,45 +7,48 @@ namespace MyNetatmo24.Gateway.UserModule;
 
 internal static class UserModule
 {
-    internal static IEndpointRouteBuilder MapUserEndpoints(this IEndpointRouteBuilder builder)
+    extension(IEndpointRouteBuilder builder)
     {
-        builder.MapGet("user", (ClaimsPrincipal principal) =>
+        internal IEndpointRouteBuilder MapUserEndpoints()
         {
-            var user = principal switch
+            builder.MapGet("user", (ClaimsPrincipal principal) =>
             {
-                { Identity.IsAuthenticated: true } => new User
+                var user = principal switch
                 {
-                    IsAuthenticated = true,
-                    Name = principal.FindFirstValue("name"),
-                    Claims = principal.Claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value })
-                },
-                _ => new User { IsAuthenticated = false, Name = null }
-            };
+                    { Identity.IsAuthenticated: true } => new User
+                    {
+                        IsAuthenticated = true,
+                        Name = principal.FindFirstValue("name"),
+                        Claims = principal.Claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value })
+                    },
+                    _ => new User { IsAuthenticated = false, Name = null }
+                };
 
-            return TypedResults.Ok(user);
-        });
+                return TypedResults.Ok(user);
+            });
 
-        builder.MapGet("login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
-        {
-            var properties = new AuthenticationProperties { RedirectUri = context.BuildRedirectUrl(returnUrl) };
-
-            if (claimsChallenge != null)
+            builder.MapGet("login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
             {
-                var jsonString = claimsChallenge.Replace("\\", "", StringComparison.Ordinal).Trim(['"']);
-                properties.Items["claims"] = jsonString;
-            }
+                var properties = new AuthenticationProperties { RedirectUri = context.BuildRedirectUrl(returnUrl) };
 
-            return TypedResults.Challenge(properties);
-        });
+                if (claimsChallenge != null)
+                {
+                    var jsonString = claimsChallenge.Replace("\\", "", StringComparison.Ordinal).Trim(['"']);
+                    properties.Items["claims"] = jsonString;
+                }
 
-        builder.MapGet("logout", (string? redirectUrl, HttpContext context) =>
-        {
-            var properties = new AuthenticationProperties { RedirectUri = context.BuildRedirectUrl(redirectUrl) };
+                return TypedResults.Challenge(properties);
+            });
 
-            return TypedResults.SignOut(properties,
-                [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
-        });
+            builder.MapGet("logout", (string? redirectUrl, HttpContext context) =>
+            {
+                var properties = new AuthenticationProperties { RedirectUri = context.BuildRedirectUrl(redirectUrl) };
 
-        return builder;
+                return TypedResults.SignOut(properties,
+                    [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
+            });
+
+            return builder;
+        }
     }
 }

@@ -1,4 +1,5 @@
 import { existsSync, statSync } from 'node:fs';
+import * as process from 'node:process';
 
 import { expect, test } from '@playwright/test';
 
@@ -16,27 +17,33 @@ test('authenticate user', async ({ page }) => {
     'Skipping authentication test because user is already authenticated'
   );
 
-  await page.goto('/bff/login');
+  // eslint-disable-next-line playwright/no-conditional-in-test -- CI does not work well with Auth0 and Cloudflare
+  if (process.env.CI) {
+    const response = await page.request.post('/bff/test-login', {
+      data: { username: config.username, password: config.password },
+    });
+    // eslint-disable-next-line playwright/no-conditional-expect
+    expect(response.ok()).toBeTruthy();
+  } else {
+    await page.goto('/bff/login');
 
-  // https://auth.dehopre.dev/u/login/identifier
-  // await expect(page).toHaveURL(/^https:\/\/auth\.dehopre\.dev\/u\/login\/identifier/i);
-  const usernameInput = page.getByRole('textbox', { name: /Email Address/i });
-  await usernameInput.fill(config.username);
-  await usernameInput.press('Enter');
+    const usernameInput = page.getByRole('textbox', { name: /Email Address/i });
+    await usernameInput.fill(config.username);
+    await usernameInput.press('Enter');
 
-  // https://auth.dehopre.dev/u/login/password
-  // await expect(page).toHaveURL(/^https:\/\/auth\.dehopre\.dev\/u\/login\/password/i);
-  const passwordInput = page.getByRole('textbox', { name: /Password/i });
-  await passwordInput.fill(config.password);
-  await passwordInput.press('Enter');
+    const passwordInput = page.getByRole('textbox', { name: /Password/i });
+    await passwordInput.fill(config.password);
+    await passwordInput.press('Enter');
 
-  // https://auth.dehopre.dev/u/passkey-enrollment
-  // await expect(page).toHaveURL(/^https:\/\/auth\.dehopre\.dev\/u\/passkey-enrollment/i);
-  const continueButton = page.getByRole('button', { name: /Continue without passkeys/i });
-  await continueButton.click();
+    const continueButton = page.getByRole('button', { name: /Continue without passkeys/i });
+    await continueButton.click();
 
-  // await expect(page).toHaveURL('/');
-  await expect(page.getByText(new RegExp(config.username, 'i'))).toBeVisible();
+    /* eslint-disable playwright/no-conditional-expect */
+    await expect(page).toHaveURL('/');
+    await expect(page.getByText(new RegExp(config.username, 'i'))).toBeVisible();
+    /* eslint-enable playwright/no-conditional-expect */
+  }
+
   await page.context().storageState({ path: STORAGE_STATE });
 });
 
