@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace MyNetatmo24.Gateway.TestModule;
@@ -13,7 +14,7 @@ internal static class TestModule
     {
         internal IEndpointRouteBuilder MapTestAuthEndpoints()
         {
-            builder.MapGet("test-login", async (
+            builder.MapPost("test-login", async (
                 TestLoginRequest request,
                 IHttpContextAccessor httpContextAccessor,
                 IConfiguration configuration) =>
@@ -28,16 +29,17 @@ internal static class TestModule
                 ArgumentException.ThrowIfNullOrWhiteSpace(clientSecret);
                 ArgumentException.ThrowIfNullOrWhiteSpace(audience);
 
-                using var httpClient = new HttpClient();
+                using var httpClient = new HttpClient(); // only for e2e tests running in CI environment.
                 var tokenResponse = await httpClient.PostAsync(
                     new Uri($"https://{domain}/oauth/token"),
                     new FormUrlEncodedContent(new Dictionary<string, string>
                     {
-                        ["grant_type"] = "password",
+                        ["grant_type"] = "http://auth0.com/oauth/grant-type/password-realm",
                         ["username"] = request.Username,
                         ["password"] = request.Password,
                         ["client_id"] = clientId,
                         ["client_secret"] = clientSecret,
+                        ["realm"] = "Username-Password-Authentication",
                         ["audience"] = audience,
                         ["scope"] = "openid"
                     }));
@@ -91,7 +93,7 @@ internal static class TestModule
                 Debug.Assert(httpContextAccessor.HttpContext != null, "httpContextAccessor.HttpContext != null");
                 await httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
                 return Results.Ok();
-            });
+            }).AllowAnonymous();
 
             return builder;
         }

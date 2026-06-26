@@ -53,6 +53,7 @@ export default defineConfig({
       name: 'setup',
       testDir: './setup',
       testMatch: '**/*.setup.ts',
+      testIgnore: process.env.CI ? '**/*-local.setup.ts' : '**/*-ci.setup.ts',
       teardown: 'teardown',
     },
     {
