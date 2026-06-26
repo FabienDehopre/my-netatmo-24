@@ -48,8 +48,8 @@ catalogs:
     '@opentelemetry/sdk-trace-web': 2.8.0
     '@opentelemetry/semantic-conventions': 1.41.1
   playwright:
-    '@playwright/test': 1.61.0
-    playwright: 1.61.0
+    '@playwright/test': 1.61.1
+    playwright: 1.61.1
   tailwindcss:
     '@tailwindcss/vite': ^4.1.18
     '@tailwindplus/elements': ^1.0.22
