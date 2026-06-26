@@ -40,8 +40,9 @@ public sealed class AccountManagementModule : IModule
             {
                 var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
                 var token = httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                var domain = builder.Configuration["Auth0:Domain"];
 
-                client.BaseAddress = new Uri("https://auth.dehopre.dev/");
+                client.BaseAddress = new Uri($"https://{domain}/");
                 if (!string.IsNullOrWhiteSpace(token))
                 {
                     client.DefaultRequestHeaders.Add("Authorization", token);
