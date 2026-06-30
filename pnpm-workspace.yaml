@@ -62,7 +62,6 @@ catalogs:
   tailwindcss:
     '@tailwindcss/vite': ^4.1.18
     '@tailwindplus/elements': ^1.0.22
-    daisyui: ^5.5.18
     tailwindcss: ^4.1.12
   testing-library:
     '@testing-library/angular': 19.4.1
