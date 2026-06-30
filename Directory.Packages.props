@@ -34,9 +34,9 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="2.16.6" />
     <PackageVersion Include="TUnit" Version="1.57.0" />
     <PackageVersion Include="Vogen" Version="8.0.5" />
-    <PackageVersion Include="WolverineFx" Version="5.39.5" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="5.39.5" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="5.39.5" />
+    <PackageVersion Include="WolverineFx" Version="6.16.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="6.16.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="6.16.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.6.0" />
