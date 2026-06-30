@@ -205,6 +205,12 @@
       "skillPath": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
       "computedHash": "400da4521ed701c99e8824ae7b71c7859632ee91481b3715890036cf8aec6857"
     },
+    "spartan": {
+      "source": "spartan-ng/spartan",
+      "sourceType": "github",
+      "skillPath": "skills/spartan/SKILL.md",
+      "computedHash": "126d1eba31bef1c33c37ce3675bc20d0e74a5c2f42625d7837d5c8fae25234e5"
+    },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceType": "github",
