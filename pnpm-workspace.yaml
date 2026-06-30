@@ -1,6 +1,7 @@
 catalogMode: strict
 cleanupUnusedCatalogs: true
 minimumReleaseAge: 4320
+minimumReleaseAgeStrict: false
 minimumReleaseAgeExclude:
   - '@fabdeh/*'
 shellEmulator: true
