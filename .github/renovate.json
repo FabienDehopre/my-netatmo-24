@@ -36,11 +36,11 @@
     }
   ],
   "ignorePaths": [
-    "**/skills/**"
+    "**/.agents/**"
   ],
   "nuget": {
     "ignorePaths": [
-      "**/skills/**",
+      "**/.agents/**",
       "**/node_modules/**",
       "**/bower_components/**",
       "**/vendor/**",
