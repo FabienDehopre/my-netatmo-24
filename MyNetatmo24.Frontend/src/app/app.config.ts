@@ -1,7 +1,7 @@
 import type { ApplicationConfig } from '@angular/core';
 
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
-import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
+import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 
@@ -25,8 +25,7 @@ export const APP_CONFIG: ApplicationConfig = {
       withXsrfConfiguration({
         cookieName: '__MyNetatmo24-X-XSRF-TOKEN',
         headerName: 'X-XSRF-TOKEN',
-      }),
-      withFetch()
+      })
     ),
     {
       provide: DATE_PIPE_DEFAULT_OPTIONS,
