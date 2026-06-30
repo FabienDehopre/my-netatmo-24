@@ -36,9 +36,16 @@
     }
   ],
   "ignorePaths": [
-    "**/.agents/**",
-    "**/.aspire/**",
-    "**/.claude/**",
-    "**/.github/**"
-  ]
+    "**/skills/**"
+  ],
+  "nuget": {
+    "ignorePaths": [
+      "**/skills/**",
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/vendor/**",
+      "**/examples/**",
+      "**/__fixtures__/**"
+    ]
+  }
 }
