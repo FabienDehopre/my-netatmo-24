@@ -1,3 +1,13 @@
+catalogMode: strict
+cleanupUnusedCatalogs: true
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - '@fabdeh/*'
+shellEmulator: true
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 43200 # 30 days
+trustLockfile: true
+blockExoticSubdeps: true
 packages:
   - MyNetatmo24.EndToEndTests
   - MyNetatmo24.Frontend
@@ -11,7 +21,6 @@ allowBuilds:
 
 catalog:
   '@stoplight/spectral-cli': 6.16.0
-  '@types/dotenv': 8.2.3
   '@types/node': 24.13.2
   dotenv: 17.4.2
   jsdom: 29.1.1
@@ -49,7 +58,6 @@ catalogs:
     '@opentelemetry/semantic-conventions': 1.41.1
   playwright:
     '@playwright/test': 1.61.1
-    playwright: 1.61.1
   tailwindcss:
     '@tailwindcss/vite': ^4.1.18
     '@tailwindplus/elements': ^1.0.22
