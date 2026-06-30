@@ -16,6 +16,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@angular/cdk": "catalog:angular",
     "@angular/common": "catalog:angular",
     "@angular/compiler": "catalog:angular",
     "@angular/core": "catalog:angular",
@@ -30,6 +31,7 @@
     "@opentelemetry/sdk-trace-base": "catalog:opentelemetry",
     "@opentelemetry/sdk-trace-web": "catalog:opentelemetry",
     "@opentelemetry/semantic-conventions": "catalog:opentelemetry",
+    "@spartan-ng/brain": "catalog:spartanui",
     "rxjs": "catalog:",
     "tslib": "catalog:",
     "zod": "catalog:"

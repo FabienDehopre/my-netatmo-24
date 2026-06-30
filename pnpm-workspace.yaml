@@ -34,6 +34,7 @@ catalogs:
   angular:
     '@analogjs/vite-plugin-angular': ^2.2.3
     '@angular/build': ^22.0.0
+    '@angular/cdk': ^22.0.2
     '@angular/common': ^22.0.0
     '@angular/compiler': ^22.0.0
     '@angular/compiler-cli': ^22.0.0
@@ -59,6 +60,8 @@ catalogs:
     '@opentelemetry/semantic-conventions': 1.41.1
   playwright:
     '@playwright/test': 1.61.1
+  spartanui:
+    '@spartan-ng/brain': ^1.0.2
   tailwindcss:
     '@tailwindcss/vite': ^4.1.18
     '@tailwindplus/elements': ^1.0.22
