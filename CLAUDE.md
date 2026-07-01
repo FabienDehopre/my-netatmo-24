@@ -5,7 +5,7 @@ testing strategy including unit, integration, architecture, and end-to-end tests
 
 ## Architecture Foundation
 
-**Monorepoi**: All backend and frontend code lives in a single repository, enabling easier cross-team collaboration,
+**Monorepo**: All backend and frontend code lives in a single repository, enabling easier cross-team collaboration,
 consistent tooling, and simplified dependency management.
 
 **Modular Monolith** + DDD: Clear bounded contexts. Each module implements IModule with separate schemas, DbContexts,
@@ -14,15 +14,11 @@ and caching strategies. Always use TUnit for testing.
 **BFF Pattern**: Gateway uses YARP to proxy requests, managing authentication server-side. Frontend never touches
 tokens-only HttpOnly cookies. The gateway automatically transforms cookies to Bearer tokens for API calls.
 
-**Angular Frontend** Modern Angular 22 app using standalone components, signals, and signal forms. Always use Vitest
+**Angular Frontend**: Modern Angular 22 app using standalone components, signals, and signal forms. Always use Vitest
 for testing.
 
 **Aspire Orchestration**: Aspire hosts the modular monolith, managing service lifecycles, configuration, and
 dependencies.
-
-[//]: # (**Observability**: OpenTelemetry collector for metrics, traces, and logs across backend and frontend. Grafana &#40;with )
-
-[//]: # (loki, tempo, blackbox, prometheus&#41; dashboards for visualization.)
 
 ### System Architecture
 
@@ -51,7 +47,6 @@ graph TB
 
             subgraph "Domain Modules"
                 AccountMgmt[AccountManagement<br/>Module]
-%%                Billing[Billing<br/>Module]
             end
         end
 
@@ -60,11 +55,6 @@ graph TB
             Postgres[(PostgreSQL<br/>Modular Schemas)]
             Redis[(Redis<br/>Distributed Cache<br/>FusionCache L2)]
         end
-
-%%        subgraph "Observability"
-%%            OTel[OpenTelemetry<br/>Collector]
-%%            Grafana[Grafana Stack<br/>Loki, Tempo<br/>Prometheus]
-%%        end
     end
 
     subgraph "Shared Libraries"
@@ -78,18 +68,10 @@ graph TB
     Gateway -->|Bearer Token| ApiService
 
     ApiService --> AccountMgmt
-%%    ApiService --> Billing
     AccountMgmt --> Postgres
-%%    Billing --> Postgres
     AccountMgmt -.->|L1/L2 Cache| Redis
-%%    Billing -.->|L1/L2 Cache| Redis
 
     Migrations -->|Apply Migrations| Postgres
-
-%%    ApiService -.->|Traces/Metrics/Logs| OTel
-%%    Gateway -.->|Traces/Metrics/Logs| OTel
-%%    Angular -.->|Traces/Metrics/Logs| OTel
-%%    OTel --> Grafana
 
     AppHost -.->|Orchestrates| Gateway
     AppHost -.->|Orchestrates| ApiService
@@ -97,10 +79,8 @@ graph TB
     AppHost -.->|Orchestrates| Migrations
     AppHost -.->|Orchestrates| Postgres
     AppHost -.->|Orchestrates| Redis
-%%    AppHost -.->|Orchestrates| OTel
 
     AccountMgmt -.->|Uses| SharedKernel
-%%    Billing -.->|Uses| SharedKernel
     ApiService -.->|Uses| ServiceDefaults
     Gateway -.->|Uses| ServiceDefaults
 
@@ -110,11 +90,8 @@ graph TB
     style Gateway fill:#512bd4,color:#fff
     style ApiService fill:#512bd4,color:#fff
     style AccountMgmt fill:#68217a,color:#fff
-%%    style Billing fill:#68217a,color:#fff
     style Postgres fill:#336791,color:#fff
     style Redis fill:#dc382d,color:#fff
-%%    style OTel fill:#f5a800
-%%    style Grafana fill:#f46800,color:#fff
 ```
 
 **Key Architectural Decisions**:
@@ -251,8 +228,6 @@ sequenceDiagram
 - **Lint all frontend**: `pnpm run -r lint`
 - **Format .NET**: `dotnet format --severity info`
 
-[//]: # (- **Format all**: `pnpm prettier --write .`)
-
 ### Database Operations
 
 - **EF migrations**: TODO
@@ -275,8 +250,6 @@ sequenceDiagram
 
 - **`MyNetatmo24.Modules.AccountManagement`**: User's account management.
 
-[//]: # (- MORE TO COME LATER)
-
 ### Frontend
 
 - **`MyNetatmo24.Frontend`**: Angular 22 application with standalone components, signals, and signal forms. Uses
@@ -288,15 +261,15 @@ sequenceDiagram
 
 - **`MyNetatmo24.Modules.*.Tests`**: Unit tests for each module (TUnit).
 - **`MyNetatmo24.IntegrationTests`**: Service integration tests (TUnit) in combination with test containers.
-- **`MyNetatmo24.EndToEndTests`**: Playwright E2E tests with  Auth0 authentication.
-- **`MyNetatmo24.Frontend`**: Vitest unit tests for Angular following the syntaxt `*.spec.ts`.
+- **`MyNetatmo24.EndToEndTests`**: Playwright E2E tests with Auth0 authentication.
+- **`MyNetatmo24.Frontend`**: Vitest unit tests for Angular following the syntax `*.spec.ts`.
 - **`MyNetatmo24.Architectural.Tests`**: Architecture compliance tests (ArchUnitNET).
 
 ## Data Stores
 
 - **Primary Database**: PostgreSQL (with option to switch to SQL Server).
 - **Distributed Cache**: Redis with FusionCache hybrid L1/L2 caching and backplane for replica.
-- **Monitoring** OpenTelemetry collector for metrics, traces, and logs.
+- **Monitoring**: OpenTelemetry collector for metrics, traces, and logs.
 
 ### Database Schema
 
@@ -322,9 +295,6 @@ erDiagram
 **Key Design Patterns:**
 
 - **Strongly-typed IDs**: AccountId and other ids are Vogen value objects wrapping GUIDs.
-
-[//]: # (- **Table-per-Hierarchy &#40;TPH&#41;**: CustomerBillingAddress and CustomerShippingAddress share the
-`customeraddresses` table with discriminator column `AddressType`).
 - **Complex Properties**: FullName (FirstName + LastName) and NetatmoAuthInfo (AccessToken + RefreshToken +
   ExpiresAt) are configured as owned types.
 - **Soft Deletes**: Global query filters automatically exclude entities where DeletedAt is not null.
@@ -342,7 +312,7 @@ erDiagram
 
 ### Security Features
 
-- **OWASP Top 10**: Always consider during development ( Broken Access Control, Insecure Design, Mishandling of
+- **OWASP Top 10**: Always consider during development (Broken Access Control, Insecure Design, Mishandling of
   Exceptional Conditions, etc.).
 - **CSRF Protection**: Custom antiforgery tokens via YARP transformers
 - **Cookie Security**: Only secure, HttpOnly cookies for session tokens
