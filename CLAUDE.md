@@ -326,3 +326,17 @@ When a change is made to the appsettings, always update the encrypted version as
 - **Decrypt**: `sops --decrypt "config/appsettings.encrypted.json" > "MyNetatmo24.AppHost/appsettings.json"`
 - **Encrypt**: `sops --encrypt "MyNetatmo24.AppHost/appsettings.json" > "config/appsettings.encrypted.json"`
 - **Pattern**: Only fields matching `Secret|Password|Key|Token` are encrypted
+
+#### Auth0 Client Secret
+
+In `MyNetatmo24.AppHost/appsettings.json`, `Parameters:OpenIdConnectSettingsClientSecret` is a placeholder
+(`"supersecret"`). The real value must be fetched from Auth0 (easiest via the Auth0 CLI) and injected directly into a
+`sops set` command targeting the encrypted config:
+
+```bash
+sops set "config/appsettings.encrypted.json" '["Parameters"]["OpenIdConnectSettingsClientSecret"]' \
+  "$(auth0 apps show pp58cz4RTsPZZsy16X2gHmlxBn4yoFhk -r --json-compact | jq -c '.client_secret')"
+```
+
+`jq -c '.client_secret'` emits the value already quoted as a JSON string, which is what `sops set` expects. Prefer
+direct injection over storing the secret in an intermediate environment variable.
