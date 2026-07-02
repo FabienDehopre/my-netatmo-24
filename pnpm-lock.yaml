@@ -65,6 +65,12 @@ catalogs:
     '@fabdeh/eslint-config':
       specifier: ^0.12.1
       version: 0.12.2
+    '@softarc/eslint-plugin-sheriff':
+      specifier: ^0.19.6
+      version: 0.19.6
+    '@softarc/sheriff-core':
+      specifier: ^0.19.6
+      version: 0.19.6
     eslint:
       specifier: ^10.0.0
       version: 10.6.0
@@ -304,6 +310,12 @@ importers:
       '@fabdeh/eslint-config':
         specifier: catalog:eslint
         version: 0.12.2(@angular/cli@22.0.4(@types/node@26.0.1)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.6.0(eslint@10.6.0(jiti@2.7.0))(tailwindcss@4.3.1)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.4.2(@typescript-eslint/parser@8.62.0(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)(vitest@4.1.9)
+      '@softarc/eslint-plugin-sheriff':
+        specifier: catalog:eslint
+        version: 0.19.6(@softarc/sheriff-core@0.19.6(typescript@6.0.3))(@typescript-eslint/utils@8.62.0(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.6.0(jiti@2.7.0))
+      '@softarc/sheriff-core':
+        specifier: catalog:eslint
+        version: 0.19.6(typescript@6.0.3)
       '@tailwindcss/vite':
         specifier: catalog:tailwindcss
         version: 4.3.1(vite@8.1.0(@types/node@26.0.1)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.99.0)(yaml@2.9.0))
@@ -2450,6 +2462,19 @@ packages:
   '@sindresorhus/base62@1.0.0':
     resolution: {integrity: sha512-TeheYy0ILzBEI/CO55CP6zJCSdSWeRtGnHy8U8dWSUH4I68iqTsy7HkMktR4xakThc9jotkPQUXT4ITdbV7cHA==}
     engines: {node: '>=18'}
+
+  '@softarc/eslint-plugin-sheriff@0.19.6':
+    resolution: {integrity: sha512-PPP4TKSFLOvFhfckS0M7L2PMqK6qw7Q8LiYGd3H64V/jHc7cVLfogMS4mjc/I2+7wbAr374qJg0A+uJ5VkXbCQ==}
+    peerDependencies:
+      '@softarc/sheriff-core': 0.19.6
+      '@typescript-eslint/utils': ^5.48.2 || ^6.0.0 || ^7.0.0 || ^8.0.0-alpha.20
+      eslint: ^8.0.0 || ^9.0.0
+
+  '@softarc/sheriff-core@0.19.6':
+    resolution: {integrity: sha512-KACxHG9sS7kNWgnnBODzdr14kMLMrJVlQKc+tViUP03p2fRwNhESOA49bz51Yn7dro1mbtMmmFjICLmZSJDZZA==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=4.8'
 
   '@spartan-ng/brain@1.0.2':
     resolution: {integrity: sha512-5JaI/C9ZheJWWQq07PrYUmEFrF6K3WhgfblfeOsWHO/T1vFZL+dotGDOoncEfxfaNHmX7ApS1otNHuzc9SMstQ==}
@@ -8199,6 +8224,16 @@ snapshots:
       '@sigstore/protobuf-specs': 0.5.1
 
   '@sindresorhus/base62@1.0.0': {}
+
+  '@softarc/eslint-plugin-sheriff@0.19.6(@softarc/sheriff-core@0.19.6(typescript@6.0.3))(@typescript-eslint/utils@8.62.0(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.6.0(jiti@2.7.0))':
+    dependencies:
+      '@softarc/sheriff-core': 0.19.6(typescript@6.0.3)
+      '@typescript-eslint/utils': 8.62.0(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
+      eslint: 10.6.0(jiti@2.7.0)
+
+  '@softarc/sheriff-core@0.19.6(typescript@6.0.3)':
+    dependencies:
+      typescript: 6.0.3
 
   '@spartan-ng/brain@1.0.2(3dc54125dc5a8aacf5c09f9f7ef2af50)':
     dependencies:

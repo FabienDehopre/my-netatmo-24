@@ -44,6 +44,8 @@ catalogs:
     '@angular/router': ^22.0.0
   eslint:
     '@fabdeh/eslint-config': ^0.12.1
+    '@softarc/eslint-plugin-sheriff': ^0.19.6
+    '@softarc/sheriff-core': ^0.19.6
     eslint: ^10.0.0
     eslint-plugin-better-tailwindcss: ^4.1.1
     eslint-plugin-erasable-syntax-only: ^0.4.0

@@ -47,6 +47,8 @@
     "@angular/build": "catalog:angular",
     "@angular/compiler-cli": "catalog:angular",
     "@fabdeh/eslint-config": "catalog:eslint",
+    "@softarc/eslint-plugin-sheriff": "catalog:eslint",
+    "@softarc/sheriff-core": "catalog:eslint",
     "@tailwindcss/vite": "catalog:tailwindcss",
     "@tailwindplus/elements": "catalog:tailwindcss",
     "@testing-library/angular": "catalog:testing-library",
