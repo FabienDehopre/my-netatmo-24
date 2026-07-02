@@ -2,8 +2,11 @@ import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NgIcon } from '@ng-icons/core';
 import * as z from 'zod/mini';
 
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { Anonymous } from '~domains/authentication/anonymous';
 import { Authenticated } from '~domains/authentication/authenticated';
 import { Authentication } from '~domains/authentication/authentication';
@@ -19,7 +22,7 @@ type WeatherForecast = z.infer<typeof WEATHER_FORECAST_SCHEMA>;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Anonymous, Authenticated, DatePipe],
+  imports: [RouterOutlet, Anonymous, Authenticated, DatePipe, HlmButtonImports, HlmDropdownMenuImports, NgIcon],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

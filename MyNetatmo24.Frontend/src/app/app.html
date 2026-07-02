@@ -12,64 +12,78 @@
     mt-4 flex
     md:mt-0 md:ml-4
   ">
-    <button
-      *appAnonymous
-      class="
-        rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900
-        shadow-xs inset-ring inset-ring-gray-300
-        hover:bg-gray-50
-        dark:bg-white/10 dark:text-white dark:shadow-none
-        dark:inset-ring-white/5
-        dark:hover:bg-white/20
-      "
-      type="button"
-      (click)="login()"
-    >
-      Sign in
-    </button>
-    <el-dropdown *appAuthenticated class="inline-block">
-      <button
-        class="
-          inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3
-          py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1
-          inset-ring-gray-300
-          hover:bg-gray-50
-          dark:bg-white/10 dark:text-white dark:shadow-none
-          dark:inset-ring-white/5
-          dark:hover:bg-white/20
-        "
-        type="button"
-      >
-        {{ user()?.name }}
-        <svg aria-hidden="true" class="-mr-1 size-5 text-gray-400" data-slot="icon" fill="currentColor" viewBox="0 0 20 20">
-          <path clip-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" fill-rule="evenodd" />
-        </svg>
-      </button>
-      <el-menu anchor="bottom end" class="
-        w-56 origin-top-right rounded-md bg-white shadow-lg outline-1
-        outline-black/5 transition transition-discrete
-        [--anchor-gap:--spacing(2)]
-        data-closed:scale-95 data-closed:transform data-closed:opacity-0
-        data-enter:duration-100 data-enter:ease-out
-        data-leave:duration-75 data-leave:ease-in
-        dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1
-        dark:outline-white/10
-      " popover>
-        <div class="py-1">
-          <button
-            class="
-              block w-full px-4 py-2 text-left text-sm text-gray-700
-              focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden
-              dark:text-gray-300
-              dark:focus:bg-white/5 dark:focus:text-white
-            "
-            type="button"
-            (click)="logout()">
-            Sign out
-          </button>
-        </div>
-      </el-menu>
-    </el-dropdown>
+<!--    <button-->
+<!--      *appAnonymous-->
+<!--      class="-->
+<!--        rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900-->
+<!--        shadow-xs inset-ring inset-ring-gray-300-->
+<!--        hover:bg-gray-50-->
+<!--        dark:bg-white/10 dark:text-white dark:shadow-none-->
+<!--        dark:inset-ring-white/5-->
+<!--        dark:hover:bg-white/20-->
+<!--      "-->
+<!--      type="button"-->
+<!--      (click)="login()"-->
+<!--    >-->
+<!--      Sign in-->
+<!--    </button>-->
+    <button *appAnonymous hlmBtn type="button" variant="outline" (click)="login()">Sign in</button>
+    <ng-container *appAuthenticated>
+      <button hlmBtn type="button" variant="outline" [hlmDropdownMenuTrigger]="menu">{{ user()?.name }}</button>
+      <ng-template #menu>
+        <hlm-dropdown-menu>
+          <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem type="button" variant="destructive">
+              <ng-icon name="lucideLogOut" />
+              Sign out
+            </button>
+          </hlm-dropdown-menu-group>
+        </hlm-dropdown-menu>
+      </ng-template>
+    </ng-container>
+<!--    <el-dropdown *appAuthenticated class="inline-block">-->
+<!--      <button-->
+<!--        class="-->
+<!--          inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3-->
+<!--          py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1-->
+<!--          inset-ring-gray-300-->
+<!--          hover:bg-gray-50-->
+<!--          dark:bg-white/10 dark:text-white dark:shadow-none-->
+<!--          dark:inset-ring-white/5-->
+<!--          dark:hover:bg-white/20-->
+<!--        "-->
+<!--        type="button"-->
+<!--      >-->
+<!--        {{ user()?.name }}-->
+<!--        <svg aria-hidden="true" class="-mr-1 size-5 text-gray-400" data-slot="icon" fill="currentColor" viewBox="0 0 20 20">-->
+<!--          <path clip-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" fill-rule="evenodd" />-->
+<!--        </svg>-->
+<!--      </button>-->
+<!--      <el-menu anchor="bottom end" class="-->
+<!--        w-56 origin-top-right rounded-md bg-white shadow-lg outline-1-->
+<!--        outline-black/5 transition transition-discrete-->
+<!--        [&#45;&#45;anchor-gap:&#45;&#45;spacing(2)]-->
+<!--        data-enter:duration-100 data-enter:ease-out-->
+<!--        data-leave:duration-75 data-leave:ease-in-->
+<!--        dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1-->
+<!--        dark:outline-white/10-->
+<!--        data-closed:scale-95 data-closed:transform data-closed:opacity-0-->
+<!--      " popover>-->
+<!--        <div class="py-1">-->
+<!--          <button-->
+<!--            class="-->
+<!--              block w-full px-4 py-2 text-left text-sm text-gray-700-->
+<!--              focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden-->
+<!--              dark:text-gray-300-->
+<!--              dark:focus:bg-white/5 dark:focus:text-white-->
+<!--            "-->
+<!--            type="button"-->
+<!--            (click)="logout()">-->
+<!--            Sign out-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </el-menu>-->
+<!--    </el-dropdown>-->
   </div>
 </div>
 <div *appAuthenticated
@@ -95,20 +109,14 @@
       mt-4
       sm:mt-0 sm:ml-16 sm:flex-none
     ">
-      <button
-        class="btn btn-primary"
-        type="button"
-        (click)="loadWeatherForecast()"
-      >
-        Load Forecast
-      </button>
+      <button hlmBtn type="button" variant="default" (click)="loadWeatherForecast()">Load Forecast</button>
     </div>
   </div>
   <div class="mt-8 flow-root">
     <div class="
-      overflow-x-auto rounded-box border border-base-content/5 bg-base-100
+      rounded-box border-base-content/5 bg-base-100 overflow-x-auto border
     ">
-        <table class="table table-zebra">
+        <table class="table-zebra table">
           <thead>
             <tr>
               <th>Date</th>
