@@ -1,6 +1,6 @@
 import { Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { Authentication } from './authentication';
+import { Authentication } from '@app/shared/util-auth/authentication';
 
 @Directive({
   selector: '[appAnonymous]',

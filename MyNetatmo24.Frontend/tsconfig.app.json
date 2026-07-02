@@ -6,7 +6,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "libs/ui/**/src/**/*.ts"
+    "libs/**/src/**/*.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts",

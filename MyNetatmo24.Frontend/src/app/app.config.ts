@@ -5,8 +5,8 @@ import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 
-import { provideEventPlugins } from '~domains/shared/event-managers';
-import { provideOpenTelemetryInstrumentation } from '~domains/shared/opentelemetry';
+import { provideEventPlugins } from '@app/event-managers';
+import { provideOpenTelemetryInstrumentation } from '@app/opentelemetry';
 
 import { ROUTES } from './app.routes';
 

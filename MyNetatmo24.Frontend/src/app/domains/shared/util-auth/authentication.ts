@@ -1,7 +1,8 @@
 import { httpResource } from '@angular/common/http';
 import { computed, DOCUMENT, inject, Injectable } from '@angular/core';
 
-import { parse } from '../shared/functions/parse';
+import { parse } from '@app/shared/util-common/parse';
+
 import { USER_SCHEMA } from './user';
 
 @Injectable({ providedIn: 'root' })

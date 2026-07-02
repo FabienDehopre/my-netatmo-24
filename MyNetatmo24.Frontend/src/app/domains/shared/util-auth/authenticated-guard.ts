@@ -4,7 +4,8 @@ import { inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
-import { filterNullish } from '../shared/operators/filter-nullish';
+import { filterNullish } from '@app/shared/util-operators/filter-nullish';
+
 import { Authentication } from './authentication';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention -- this is a convention for guards in Angular

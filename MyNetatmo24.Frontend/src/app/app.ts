@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -7,12 +6,12 @@ import { lucideLogOut } from '@ng-icons/lucide';
 import { createAngularTable, createColumnHelper, FlexRenderDirective, getCoreRowModel } from '@tanstack/angular-table';
 import * as z from 'zod/mini';
 
+import { Anonymous } from '@app/shared/ui-auth/anonymous';
+import { Authenticated } from '@app/shared/ui-auth/authenticated';
+import { Authentication } from '@app/shared/util-auth/authentication';
+import { parse } from '@app/shared/util-common/parse';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { Anonymous } from '~domains/authentication/anonymous';
-import { Authenticated } from '~domains/authentication/authenticated';
-import { Authentication } from '~domains/authentication/authentication';
-import { parse } from '~domains/shared/functions/parse';
 
 const WEATHER_FORECAST_SCHEMA = z.strictObject({
   date: z.iso.date(),
@@ -41,7 +40,7 @@ const WEATHER_FORECAST_COLUMNS = [
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Anonymous, Authenticated, DatePipe, HlmButtonImports, HlmDropdownMenuImports, NgIcon, FlexRenderDirective],
+  imports: [RouterOutlet, Anonymous, Authenticated, HlmButtonImports, HlmDropdownMenuImports, NgIcon, FlexRenderDirective],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ lucideLogOut })],

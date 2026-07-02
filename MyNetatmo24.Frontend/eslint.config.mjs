@@ -9,5 +9,6 @@ export default defineConfig({
 }, {
   name: 'sheriff',
   files: ['src/**/*.ts'],
+  ignores: ['libs'],
   extends: [sheriff.configs.all],
 });
