@@ -33,6 +33,7 @@
     "@opentelemetry/semantic-conventions": "catalog:opentelemetry",
     "@spartan-ng/brain": "catalog:spartanui",
     "rxjs": "catalog:",
+    "tailwind-merge": "catalog:tailwindcss",
     "tslib": "catalog:",
     "zod": "catalog:"
   },
@@ -56,6 +57,7 @@
     "eslint-plugin-format": "catalog:eslint",
     "jsdom": "catalog:",
     "tailwindcss": "catalog:tailwindcss",
+    "tw-animate-css": "catalog:tailwindcss",
     "typescript": "catalog:",
     "vite": "catalog:vite",
     "vitest": "catalog:vitest"

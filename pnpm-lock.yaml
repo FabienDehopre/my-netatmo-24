@@ -120,9 +120,15 @@ catalogs:
     '@tailwindplus/elements':
       specifier: ^1.0.22
       version: 1.0.22
+    tailwind-merge:
+      specifier: ^3.6.0
+      version: 3.6.0
     tailwindcss:
       specifier: ^4.1.12
       version: 4.3.1
+    tw-animate-css:
+      specifier: ^1.4.0
+      version: 1.4.0
   testing-library:
     '@testing-library/angular':
       specifier: 19.4.1
@@ -245,6 +251,9 @@ importers:
       rxjs:
         specifier: 'catalog:'
         version: 7.8.2
+      tailwind-merge:
+        specifier: catalog:tailwindcss
+        version: 3.6.0
       tslib:
         specifier: 'catalog:'
         version: 2.8.1
@@ -309,6 +318,9 @@ importers:
       tailwindcss:
         specifier: catalog:tailwindcss
         version: 4.3.1
+      tw-animate-css:
+        specifier: catalog:tailwindcss
+        version: 1.4.0
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -5551,6 +5563,9 @@ packages:
     peerDependenciesMeta:
       '@eslint/css':
         optional: true
+
+  tailwind-merge@3.6.0:
+    resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
 
   tailwindcss@4.3.1:
     resolution: {integrity: sha512-hk+TB1m+K8CYNrP6rjQaq/Y+4Zylwpa87mLYBKCunwnnQ9p+fHb7kmSfGqyEJoxF/O6CDyABWVFEafNSYKll+Q==}
@@ -11984,6 +11999,8 @@ snapshots:
       '@pkgr/core': 0.3.6
 
   tailwind-csstree@0.3.3: {}
+
+  tailwind-merge@3.6.0: {}
 
   tailwindcss@4.3.1: {}
 
