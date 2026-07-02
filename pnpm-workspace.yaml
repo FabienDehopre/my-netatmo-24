@@ -61,7 +61,11 @@ catalogs:
   playwright:
     '@playwright/test': 1.61.1
   spartanui:
+    '@ng-icons/core': '>=32.0.0 <34.0.0'
+    '@ng-icons/lucide': '>=32.0.0 <34.0.0'
     '@spartan-ng/brain': ^1.0.2
+    'class-variance-authority': ^0.7.0
+    clsx: ^2.1.1
   tailwindcss:
     '@tailwindcss/vite': ^4.1.18
     '@tailwindplus/elements': ^1.0.22
