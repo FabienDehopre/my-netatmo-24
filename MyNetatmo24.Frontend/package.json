@@ -34,6 +34,7 @@
     "@opentelemetry/sdk-trace-web": "catalog:opentelemetry",
     "@opentelemetry/semantic-conventions": "catalog:opentelemetry",
     "@spartan-ng/brain": "catalog:spartanui",
+    "@tanstack/angular-table": "catalog:tanstack",
     "class-variance-authority": "catalog:spartanui",
     "clsx": "catalog:spartanui",
     "rxjs": "catalog:",
