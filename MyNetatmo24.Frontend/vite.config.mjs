@@ -16,10 +16,8 @@ export default defineConfig({
     tailwindcss(),
   ],
   define: {
-
     'import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES': JSON.stringify(process.env.OTEL_RESOURCE_ATTRIBUTES),
     'import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS': JSON.stringify(process.env.OTEL_EXPORTER_OTLP_HEADERS),
-
   },
   server: {
     port: 4200,
