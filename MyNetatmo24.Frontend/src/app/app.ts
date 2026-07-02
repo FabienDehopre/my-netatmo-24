@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgIcon } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideLogOut } from '@ng-icons/lucide';
 import { createAngularTable, createColumnHelper, FlexRenderDirective, getCoreRowModel } from '@tanstack/angular-table';
 import * as z from 'zod/mini';
 
@@ -43,7 +44,7 @@ const WEATHER_FORECAST_COLUMNS = [
   imports: [RouterOutlet, Anonymous, Authenticated, DatePipe, HlmButtonImports, HlmDropdownMenuImports, NgIcon, FlexRenderDirective],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  viewProviders: [provideIcons({ lucideLogOut })],
 })
 export class App {
   readonly #authentication = inject(Authentication);
