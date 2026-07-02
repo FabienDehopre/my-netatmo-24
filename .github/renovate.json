@@ -33,6 +33,11 @@
         "typescript"
       ],
       "enabled": false
+    },
+    {
+      "description": "Microsoft.OpenApi 3.x requires ASP.NET Core 11 (Microsoft.AspNetCore.OpenApi source generator breaks); stay on 2.x until the app targets .NET 11",
+      "matchPackageNames": ["Microsoft.OpenApi"],
+      "allowedVersions": "<3.0.0"
     }
   ],
   "ignorePaths": [
