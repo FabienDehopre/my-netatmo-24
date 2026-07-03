@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
@@ -10,7 +10,6 @@ import { provideEventPlugins } from '.';
   selector: 'app-test',
   standalone: true,
   template: ` <a href="https://example.com" (click.preventDefault)="handleClick()"> Click me </a> `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TestComponent {
   handleClick = vi.fn();

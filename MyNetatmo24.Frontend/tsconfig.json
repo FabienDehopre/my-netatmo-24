@@ -11,6 +11,7 @@
       "@app/*": ["src/app/domains/*"],
       "@app/opentelemetry": ["libs/opentelemetry/src/index.ts"],
       "@app/event-managers": ["libs/event-managers/src/index.ts"],
+      "@spartan-ng/helm/avatar": ["libs/ui/avatar/src/index.ts"],
       "@spartan-ng/helm/button": ["libs/ui/button/src/index.ts"],
       "@spartan-ng/helm/dropdown-menu": ["libs/ui/dropdown-menu/src/index.ts"],
       "@spartan-ng/helm/sidebar": ["./libs/ui/sidebar/src/index.ts"],
