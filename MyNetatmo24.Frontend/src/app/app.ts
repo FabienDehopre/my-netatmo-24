@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLogOut } from '@ng-icons/lucide';
@@ -6,6 +6,7 @@ import { lucideLogOut } from '@ng-icons/lucide';
 import { Anonymous } from '@app/shared/ui-auth/anonymous';
 import { Authenticated } from '@app/shared/ui-auth/authenticated';
 import { Authentication } from '@app/shared/util-auth/authentication';
+import { AppStore } from '@app/shared/util-state/app.store';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
@@ -17,8 +18,13 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 })
 export class App {
   readonly #authentication = inject(Authentication);
-  protected readonly title = signal('My Netatmo 24').asReadonly();
+  readonly #appStore = inject(AppStore);
+  protected readonly title = signal('My Netatmo 24');
   protected readonly user = this.#authentication.user;
+  protected readonly showLayout = computed(() => {
+    const fullScreenPage = this.#appStore.fullScreenPage();
+    return !fullScreenPage;
+  });
 
   protected login(): void {
     this.#authentication.login('/');

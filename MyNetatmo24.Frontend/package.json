@@ -25,6 +25,8 @@
     "@angular/router": "catalog:angular",
     "@ng-icons/core": "catalog:spartanui",
     "@ng-icons/lucide": "catalog:spartanui",
+    "@ngrx/operators": "catalog:ngrx",
+    "@ngrx/signals": "catalog:ngrx",
     "@opentelemetry/auto-instrumentations-web": "catalog:opentelemetry",
     "@opentelemetry/context-zone": "catalog:opentelemetry",
     "@opentelemetry/exporter-trace-otlp-http": "catalog:opentelemetry",
@@ -39,6 +41,7 @@
     "clsx": "catalog:spartanui",
     "rxjs": "catalog:",
     "tailwind-merge": "catalog:tailwindcss",
+    "temporal-polyfill": "catalog:",
     "tslib": "catalog:",
     "zod": "catalog:"
   },
