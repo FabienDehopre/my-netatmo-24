@@ -4,7 +4,7 @@ import { userEvent } from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
 
 import { PreventDefaultEventPlugin } from './prevent-default-event';
-import { provideEventPlugins } from '.';
+import { provideEventPlugins } from './providers';
 
 @Component({
   selector: 'app-test',
