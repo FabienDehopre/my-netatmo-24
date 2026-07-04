@@ -48,20 +48,14 @@ export class Sidebar {
   readonly #sidebarMenu = inject(HlmSidebarService);
   protected readonly menuSide = computed(() => (this.#sidebarMenu.isMobile() ? 'top' : 'right'));
   // protected readonly menuAlign = computed(() => (this.#sidebarMenu.isMobile() ? 'end' : 'start'));
-  // protected readonly anonymousMenuClasses = computed(() => {
-  //   const isOpen = this.#sidebarMenu.open();
-  //   return untracked(() => (isOpen ? 'flex w-full min-w-0' : 'gap-0 flex w-full min-w-0 flex-col'));
-  // });
   protected readonly menuOpen = this.#sidebarMenu.open;
-
   protected readonly userName = computed(() => {
     const user = this.#authentication.user();
     return untracked(() => {
       const preferredName = user?.claims.find((claim) => claim.type === 'auth0:preferred_username')?.value;
-      const nickname = user?.claims.find((claim) => claim.type === 'nickname')?.value;
       // const firstName = user?.claims.find((claim) => claim.type === 'auth0:given_name')?.value;
       // const lastName = user?.claims.find((claim) => claim.type === 'auth0:family_name')?.value;
-      return preferredName ?? nickname ?? user?.name ?? 'User';
+      return preferredName ?? user?.name ?? 'User';
     });
   });
 
