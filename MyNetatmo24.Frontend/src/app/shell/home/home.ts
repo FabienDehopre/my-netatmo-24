@@ -5,7 +5,7 @@ import * as z from 'zod/mini';
 
 import { Anonymous } from '@app/shared/ui-auth/anonymous';
 import { Authenticated } from '@app/shared/ui-auth/authenticated';
-import { parse } from '@app/shared/util-common/parse';
+import { parse } from '@app/shared/util-shared/parse';
 import { HlmButton } from '@spartan-ng/helm/button';
 
 const WEATHER_FORECAST_SCHEMA = z.strictObject({

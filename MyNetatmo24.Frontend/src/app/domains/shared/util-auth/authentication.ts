@@ -1,7 +1,7 @@
 import { httpResource } from '@angular/common/http';
 import { computed, DOCUMENT, inject, Injectable } from '@angular/core';
 
-import { parse } from '@app/shared/util-common/parse';
+import { parse } from '@app/shared/util-shared/parse';
 
 import { USER_SCHEMA } from './user';
 

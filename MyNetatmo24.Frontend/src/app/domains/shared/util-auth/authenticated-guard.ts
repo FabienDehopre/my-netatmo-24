@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
-import { filterNullish } from '@app/shared/util-operators/filter-nullish';
+import { filterNullish } from '@app/shared/util-shared/filter-nullish';
 
 import { Authentication } from './authentication';
 

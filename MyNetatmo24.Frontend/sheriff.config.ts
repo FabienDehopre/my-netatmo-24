@@ -12,6 +12,7 @@ export const config: SheriffConfig = {
         'feature-<feature>': ['domain:<domain>', 'type:feature'],
         'ui-<ui>': ['domain:<domain>', 'type:ui'],
         data: ['domain:<domain>', 'type:data'],
+        'util-shared': ['domain:<domain>', 'type:shared'],
         'util-<util>': ['domain:<domain>', 'type:util'],
       },
     },
@@ -22,6 +23,7 @@ export const config: SheriffConfig = {
     'type:feature': ['type:data', 'type:ui', 'type:util'],
     'type:ui': ['type:data', 'type:util'],
     'type:data': ['type:util'],
-    'type:util': noDependencies,
+    'type:util': ['type:shared'],
+    'type:shared': noDependencies,
   },
 };
