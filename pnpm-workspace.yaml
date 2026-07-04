@@ -15,13 +15,14 @@ packages:
 allowBuilds:
   '@fabdeh/eslint-config': false
   '@parcel/watcher': false
+  '@scarf/scarf': false
   esbuild: false
   lmdb: false
   msgpackr-extract: false
   unrs-resolver: false
 
 catalog:
-  '@stoplight/spectral-cli': 6.16.0
+  '@stoplight/spectral-cli': 6.16.1
   '@types/node': 24.13.2
   dotenv: 17.4.2
   jsdom: 29.1.1
