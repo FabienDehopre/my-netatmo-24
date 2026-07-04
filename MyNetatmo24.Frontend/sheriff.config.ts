@@ -8,7 +8,7 @@ export const config: SheriffConfig = {
   entryFile: './src/main.ts',
   modules: {
     'src/app': {
-      'domain/<domain>': {
+      'domains/<domain>': {
         'feature-<feature>': ['domain:<domain>', 'type:feature'],
         'ui-<ui>': ['domain:<domain>', 'type:ui'],
         data: ['domain:<domain>', 'type:data'],

@@ -61,7 +61,7 @@ export class Sidebar {
 
   protected readonly email = computed(() => {
     const user = this.#authentication.user();
-    return untracked(() => user?.name ?? 'john.doe@example.com');
+    return untracked(() => user?.claims.find((claim) => claim.type === 'email')?.value ?? 'john.doe@example.com');
   });
 
   protected readonly avatarUrl = computed(() => {

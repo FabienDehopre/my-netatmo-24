@@ -35,7 +35,7 @@ export const AppStore = signalStore(
     },
     onDestroy(state): void {
       const intervalId = state._intervalId();
-      if (intervalId) {
+      if (intervalId !== undefined) {
         clearInterval(intervalId);
         patchState(state, { _intervalId: undefined });
       }
