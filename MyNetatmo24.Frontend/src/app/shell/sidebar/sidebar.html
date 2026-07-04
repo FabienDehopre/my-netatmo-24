@@ -1,0 +1,117 @@
+<hlm-sidebar collapsible="icon" variant="inset">
+  <div hlmSidebarHeader>
+    <ul hlmSidebarMenu>
+      <li hlmSidebarMenuItem>
+        <button
+          hlmSidebarMenuButton
+          size="lg"
+          type="button"
+          (click)="navigateToHome()"
+        >
+          <div
+            class="
+              flex aspect-square size-8 items-center justify-center rounded-lg
+              bg-sidebar-primary text-sidebar-primary-foreground
+            "
+          >
+            <img alt="My Netatmo 24" height="32" ngSrc="logo.svg" width="32" />
+          </div>
+          <div class="flex gap-1 text-xl">
+            <span class="text-[#182437]">My Netatmo</span>
+            <span class="text-[#d9622b]">24</span>
+          </div>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div hlmSidebarContent>
+    <div hlmSidebarGroup>
+      <div hlmSidebarGroupLabel>
+        Application
+      </div>
+      <div hlmSidebarGroupContent>
+        <ul hlmSidebarMenu>
+          @for (menuItem of menuItems; track menuItem.title) {
+            <li hlmSidebarMenuItem>
+              <a hlmSidebarMenuButton [isActive]="menuItem.isActive()" [routerLink]="menuItem.url">
+                <ng-icon  [name]="menuItem.icon" />
+                <span>{{ menuItem.title }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div hlmSidebarFooter>
+    <ul *appAuthenticated hlmSidebarMenu>
+      <li hlmSidebarMenuItem>
+        <button
+          align="end"
+          hlmSidebarMenuButton
+          size="lg"
+          type="button"
+          [hlmDropdownMenuTrigger]="userMenu"
+          [side]="menuSide()"
+        >
+          <ng-container [ngTemplateOutlet]="userInfoWithAvatar" />
+          <ng-icon class="ml-auto text-base" name="lucideChevronRight" />
+        </button>
+       </li>
+    </ul>
+    <ul *appAnonymous [class]="'flex w-full min-w-0 ' + (menuOpen() ? 'gap-1' : `
+      flex-col gap-0
+    `)">
+      <li class="grow" hlmSidebarMenuItem>
+        <button
+          hlmSidebarMenuButton
+          size="sm"
+          type="button"
+          (click)="signIn()"
+        >
+          <ng-icon name="lucideLogIn" />
+          <span>Sign in</span>
+        </button>
+      </li>
+      <li class="grow" hlmSidebarMenuItem>
+        <button
+          hlmSidebarMenuButton
+          size="sm"
+          type="button"
+          (click)="signUp()"
+        >
+          <ng-icon name="lucideUserPlus" />
+          <span>Sign up</span>
+        </button>
+      </li>
+    </ul>
+    <ng-template #userMenu>
+      <hlm-dropdown-menu class="min-w-56 rounded-lg">
+        <hlm-dropdown-menu-label>
+          <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+            <ng-container [ngTemplateOutlet]="userInfoWithAvatar" />
+          </div>
+        </hlm-dropdown-menu-label>
+        <hlm-dropdown-menu-separator />
+        <hlm-dropdown-menu-group>
+          <button hlmDropdownMenuItem type="button" variant="destructive" (click)="signOut()">
+            <ng-icon name="lucideLogOut" />
+            Sign out
+          </button>
+        </hlm-dropdown-menu-group>
+      </hlm-dropdown-menu>
+    </ng-template>
+    <ng-template #userInfoWithAvatar>
+      <hlm-avatar class="rounded-lg">
+        <!-- eslint-disable-next-line @angular-eslint/template/prefer-ngsrc -- hlmAvatar and hlmAvatarImage does not seem to work with ngSrc -->
+        <img hlmAvatarImage [alt]="`${userName()}'s avatar`" [src]="avatarUrl()" />
+        <span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>FD</span>
+      </hlm-avatar>
+      <div class="grid flex-1 text-left text-sm/tight">
+        <span class="truncate font-medium">{{ userName() }}</span>
+        <span class="truncate text-xs">{{ email() }}</span>
+      </div>
+    </ng-template>
+  </div>
+</hlm-sidebar>
+<ng-content />

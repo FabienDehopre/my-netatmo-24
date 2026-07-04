@@ -15,6 +15,7 @@ packages:
 allowBuilds:
   '@fabdeh/eslint-config': false
   '@parcel/watcher': false
+  '@scarf/scarf': false
   esbuild: false
   lmdb: false
   msgpackr-extract: false
@@ -26,6 +27,7 @@ catalog:
   dotenv: 17.4.2
   jsdom: 29.1.1
   rxjs: ~7.8.2
+  temporal-polyfill: ^1.0.1
   tslib: ^2.8.1
   typescript: ~6.0.3
   zod: ^4.3.5
@@ -44,11 +46,16 @@ catalogs:
     '@angular/router': ^22.0.0
   eslint:
     '@fabdeh/eslint-config': ^0.12.1
+    '@softarc/eslint-plugin-sheriff': ^0.19.6
+    '@softarc/sheriff-core': ^0.19.6
     eslint: ^10.0.0
     eslint-plugin-better-tailwindcss: ^4.1.1
     eslint-plugin-erasable-syntax-only: ^0.4.0
     eslint-plugin-format: ^2.0.0
     eslint-plugin-playwright: ^2.7.1
+  ngrx:
+    '@ngrx/operators': ^21.1.1
+    '@ngrx/signals': ^21.1.1
   opentelemetry:
     '@opentelemetry/auto-instrumentations-web': 0.64.0
     '@opentelemetry/context-zone': 2.8.0
