@@ -27,7 +27,7 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: true,
+    // sourcemap: true, // TODO: investigate SOURCEMAP_BROKEN when enabled
     target: ['es2022'],
     outDir: 'dist',
     chunkSizeWarningLimit: 750,
