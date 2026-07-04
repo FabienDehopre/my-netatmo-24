@@ -1,6 +1,28 @@
 <hlm-sidebar collapsible="icon" variant="inset">
   <div hlmSidebarHeader>
-    TODO: App title
+    <ul hlmSidebarMenu>
+      <li hlmSidebarMenuItem>
+        <button
+          hlmSidebarMenuButton
+          size="lg"
+          type="button"
+          (click)="navigateToHome()"
+        >
+          <div
+            class="
+              flex aspect-square size-8 items-center justify-center rounded-lg
+              bg-sidebar-primary text-sidebar-primary-foreground
+            "
+          >
+            <img alt="My Netatmo 24" height="32" ngSrc="logo.svg" width="32" />
+          </div>
+          <div class="flex gap-1 text-xl">
+            <span class="text-[#182437]">My Netatmo</span>
+            <span class="text-[#d9622b]">24</span>
+          </div>
+        </button>
+      </li>
+    </ul>
   </div>
   <div hlmSidebarContent>
     <div hlmSidebarGroup>

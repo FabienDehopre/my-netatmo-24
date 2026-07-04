@@ -1,7 +1,7 @@
 import type { Signal } from '@angular/core';
 import type { UrlTree } from '@angular/router';
 
-import { NgTemplateOutlet } from '@angular/common';
+import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, untracked } from '@angular/core';
 import { isActive, Router, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -30,7 +30,7 @@ interface MenuItem {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [HlmSidebarImports, NgIcon, Anonymous, Authenticated, HlmAvatarImports, HlmDropdownMenuImports, RouterLink, NgTemplateOutlet],
+  imports: [HlmSidebarImports, NgIcon, Anonymous, Authenticated, HlmAvatarImports, HlmDropdownMenuImports, RouterLink, NgTemplateOutlet, NgOptimizedImage],
   templateUrl: './sidebar.html',
   viewProviders: [provideIcons({
     lucideBomb,
@@ -95,5 +95,9 @@ export class Sidebar {
 
   protected signOut(): void {
     this.#authentication.logout('/');
+  }
+
+  protected async navigateToHome(): Promise<void> {
+    await this.#router.navigate(['/', 'home']);
   }
 }
