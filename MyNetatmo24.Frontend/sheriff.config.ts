@@ -2,6 +2,7 @@ import type { SheriffConfig } from '@softarc/sheriff-core';
 
 import { noDependencies, sameTag } from '@softarc/sheriff-core';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention -- format expected by sheriff
 export const config: SheriffConfig = {
   enableBarrelLess: true,
   entryFile: './src/main.ts',
@@ -12,7 +13,7 @@ export const config: SheriffConfig = {
         'ui-<ui>': ['domain:<domain>', 'type:ui'],
         data: ['domain:<domain>', 'type:data'],
         'util-<util>': ['domain:<domain>', 'type:util'],
-      }
+      },
     },
   },
   depRules: {

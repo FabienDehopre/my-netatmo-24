@@ -16,8 +16,8 @@ export default defineConfig({
     tailwindcss(),
   ],
   define: {
-    'import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES': JSON.stringify(process.env.OTEL_RESOURCE_ATTRIBUTES),
-    'import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS': JSON.stringify(process.env.OTEL_EXPORTER_OTLP_HEADERS),
+    'import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES': JSON.stringify(process.env['OTEL_RESOURCE_ATTRIBUTES']),
+    'import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS': JSON.stringify(process.env['OTEL_EXPORTER_OTLP_HEADERS']),
   },
   server: {
     port: 4200,
@@ -27,14 +27,17 @@ export default defineConfig({
     },
   },
   build: {
-    sourceMap: true,
+    sourcemap: true,
     target: ['es2022'],
     outDir: 'dist',
     chunkSizeWarningLimit: 750,
     rolldownOptions: {
       onLog(level, log, handler) {
         // Remove warning about source map errors, which we don't care about.
-        if (log.cause?.message === `Can't resolve original location of error.`) {
+        if (typeof log.cause === 'object' &&
+          log.cause !== null &&
+          'message' in log.cause &&
+          log.cause.message === `Can't resolve original location of error.`) {
           return;
         }
 
@@ -50,7 +53,7 @@ export default defineConfig({
   test: {
     setupFiles: ['./src/setup-angular.ts', './src/test-setup.ts'],
     silent: 'passed-only',
-    reporters: process.env.GITHUB_ACTIONS === 'true' ? ['dot', 'github-actions'] : ['agent'],
+    reporters: process.env['GITHUB_ACTIONS'] === 'true' ? ['dot', 'github-actions'] : ['agent'],
     browser: {
       enabled: true,
       provider: playwright(),

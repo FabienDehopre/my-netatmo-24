@@ -40,12 +40,8 @@
     "strictTemplates": true
   },
   "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.spec.json" }
   ],
-  "files": []
+  "include": ["*.config.ts"]
 }
