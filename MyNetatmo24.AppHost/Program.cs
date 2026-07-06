@@ -40,7 +40,12 @@ var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Fron
     {
         url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
     })
-    .PublishAsDockerFile(resource => resource.WithDockerfile("../", stage: "frontend-app"));
+    .PublishAsDockerFile(resource =>
+        resource.WithDockerfile("../", stage: "frontend-app")
+            .WithBuildArg("APP_NAME", "angular-frontend")
+            .WithBuildArg("APP_VERSION", "1.0.0")
+            .WithBuildArg("OTEL_RESOURCE_ATTRIBUTES", "")
+            .WithBuildArg("OTEL_EXPORTER_OTLP_HEADERS", ""));
 
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
     .WithReference(redis)

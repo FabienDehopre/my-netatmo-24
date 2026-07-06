@@ -1,3 +1,8 @@
+ARG APP_NAME=angular-frontend
+ARG APP_VERSION=1.0.0
+ARG OTEL_RESOURCE_ATTRIBUTES=""
+ARG OTEL_EXPORTER_OTLP_HEADERS=""
+
 FROM node:24-slim@sha256:b31e7a42fdf8b8aa5f5ed477c72d694301273f1069c5a2f71d53c6482e99a2fc AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -11,6 +16,8 @@ COPY pnpm-lock.yaml /usr/src/app
 COPY pnpm-workspace.yaml /usr/src/app
 WORKDIR /usr/src/app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prefer-offline
+ENV OTEL_RESOURCE_ATTRIBUTES="service.name=$APP_NAME,service.version=$APP_VERSION,$OTEL_RESOURCE_ATTRIBUTES"
+ENV OTEL_EXPORTER_OTLP_HEADERS=$OTEL_EXPORTER_OTLP_HEADERS
 RUN pnpm run -r build
 RUN pnpm deploy --filter=frontend-app --prod /prod/frontend-app
 RUN ls /prod/frontend-app
