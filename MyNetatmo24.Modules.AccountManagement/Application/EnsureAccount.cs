@@ -61,6 +61,13 @@ public static class EnsureAccount
             ExecuteAsync(CancellationToken ct)
         {
             var auth0IdResult = GetAuth0Id();
+            if (auth0IdResult.IsFailed)
+            {
+                // Short-circuit here: threading the failed result through the pipeline would let
+                // BindWith merge the same authentication error twice, breaking the SingleOrDefault below.
+                return TypedResults.Unauthorized();
+            }
+
             var result = await auth0IdResult
                 .Bind(auth0Id => GetExistingAccount(auth0Id, ct))
                 .Bind(() => _userInfoService.GetUserInfoAsync(ct))
@@ -72,7 +79,6 @@ public static class EnsureAccount
                 { IsSuccess: true } => TypedResults.NoContent(),
                 { IsSuccess: false } => result.Reasons.OfType<FastEndpointsError>().SingleOrDefault() switch
                 {
-                    { StatusCode: 401 } => TypedResults.Unauthorized(),
                     { StatusCode: 404 } => TypedResults.NotFound(),
                     { StatusCode: 409 } conflictError
                         when conflictError.GetDeletedAt() is { } deletedAt =>

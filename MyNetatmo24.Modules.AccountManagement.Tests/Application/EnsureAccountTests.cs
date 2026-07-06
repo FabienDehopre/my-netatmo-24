@@ -88,13 +88,22 @@ public class EnsureAccountTests
         await args.Outbox.Received(1).SaveChangesAndFlushMessagesAsync(Arg.Any<CancellationToken>());
     }
 
-    // NOTE: There is no "unauthenticated" test here on purpose.
-    // EnsureAccount has a latent bug: when the user is unauthenticated, the 401 error is carried by
-    // BOTH the chain result and the `withResult` argument merged in ResultExtensions.BindWith, so
-    // `result.Reasons.OfType<FastEndpointsError>().SingleOrDefault()` sees two errors and throws
-    // InvalidOperationException ("Sequence contains more than one element") -> HTTP 500 instead of 401.
-    // MyAccount and RestoreAccount cover the 401 path correctly; this arm cannot be asserted until the
-    // endpoint is fixed (e.g. use SingleOrDefault-safe error selection or de-duplicate reasons).
+    [Test]
+    public async Task ExecuteAsync_WhenNotAuthenticated_ReturnsUnauthorized()
+    {
+        await using var db = await TestAccountDbContext.CreateAsync();
+        var args = Arrange(db.Context);
+
+        var endpoint = Factory.Create<EnsureAccount.Endpoint>(
+            TestClaims.Anonymous,
+            args.Outbox, args.Accounts, args.UserInfoService);
+
+        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+
+        await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
+        await args.UserInfoService.DidNotReceive().GetUserInfoAsync(Arg.Any<CancellationToken>());
+        await args.Outbox.DidNotReceive().PublishAsync(Arg.Any<AccountCreated>());
+    }
 
     [Test]
     public async Task ExecuteAsync_WhenAuth0UserInfoUnavailable_ReturnsNotFound()
