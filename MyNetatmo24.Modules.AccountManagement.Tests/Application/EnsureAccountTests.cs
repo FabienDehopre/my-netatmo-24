@@ -37,17 +37,17 @@ public class EnsureAccountTests
         return Account.Create(AccountId.New(), Auth0Id, "johnny", FullName.From("John", "Doe"));
     }
 
-    private static RestoreAccountArgs Arrange(AccountDbContext context)
-    {
-        var outbox = OutboxFor(context);
-        var userInfoService = Substitute.For<IUserInfoService>();
-        return new RestoreAccountArgs(outbox, context.Set<Account>().AsNoTracking(), userInfoService);
-    }
+private static EnsureAccountArgs Arrange(AccountDbContext context)
+{
+    var outbox = OutboxFor(context);
+    var userInfoService = Substitute.For<IUserInfoService>();
+    return new EnsureAccountArgs(outbox, context.Set<Account>().AsNoTracking(), userInfoService);
+}
 
-    private sealed record RestoreAccountArgs(
-        IDbContextOutbox<AccountDbContext> Outbox,
-        IQueryable<Account> Accounts,
-        IUserInfoService UserInfoService);
+private sealed record EnsureAccountArgs(
+    IDbContextOutbox<AccountDbContext> Outbox,
+    IQueryable<Account> Accounts,
+    IUserInfoService UserInfoService);
 
     [Test]
     public async Task ExecuteAsync_WhenAccountAlreadyExists_ReturnsNoContentWithoutCreating()
