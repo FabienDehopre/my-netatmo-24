@@ -11,8 +11,8 @@ interface ViteTypeOptions {
 }
 
 interface ImportMetaEnv {
-  readonly VITE_OTEL_RESOURCE_ATTRIBUTES?: Nullable<string>;
-  readonly VITE_OTEL_EXPORTER_OTLP_HEADERS?: Nullable<string>;
+  readonly OTEL_RESOURCE_ATTRIBUTES?: Nullable<string>;
+  readonly OTEL_EXPORTER_OTLP_HEADERS?: Nullable<string>;
 }
 
 interface ImportMeta {
