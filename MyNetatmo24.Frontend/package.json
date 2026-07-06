@@ -72,6 +72,7 @@
     "tailwindcss": "catalog:tailwindcss",
     "tw-animate-css": "catalog:tailwindcss",
     "typescript": "catalog:",
-    "vitest": "catalog:vitest"
+    "vitest": "catalog:vitest",
+    "zone.js": "catalog:"
   }
 }
