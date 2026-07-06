@@ -1,15 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
-        <NoWarn>$(NoWarn);CA1303</NoWarn>
+        <!-- CA1707: underscores are idiomatic in test method names. CA2000: test doubles have trivial lifetimes. -->
+        <NoWarn>$(NoWarn);CA1303;CA1707;CA2000</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="TUnit" />
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+        <!-- Override the vulnerable SQLitePCLRaw.lib.e_sqlite3 2.1.11 pulled in transitively by EFCore.Sqlite. -->
+        <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MyNetatmo24.Modules.AccountManagement\MyNetatmo24.Modules.AccountManagement.csproj" />
     </ItemGroup>
 
 </Project>
