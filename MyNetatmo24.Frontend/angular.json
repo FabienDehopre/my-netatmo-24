@@ -76,8 +76,7 @@
           "builder": "@ngx-env/builder:unit-test",
           "options": {
             "providersFile": "src/test-providers.ts",
-            "runnerConfig": "vitest.config.ts",
-            "builderMode": "browser"
+            "runnerConfig": "vitest.config.ts"
           }
         }
       }
