@@ -21,4 +21,8 @@
     <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="MyNetatmo24.Modules.AccountManagement.Tests" />
+  </ItemGroup>
+
 </Project>

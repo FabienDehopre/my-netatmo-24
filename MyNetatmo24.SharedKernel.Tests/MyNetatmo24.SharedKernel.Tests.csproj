@@ -15,11 +15,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
         <!-- Override the vulnerable SQLitePCLRaw.lib.e_sqlite3 2.1.11 pulled in transitively by EFCore.Sqlite. -->
         <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
+        <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MyNetatmo24.Modules.AccountManagement\MyNetatmo24.Modules.AccountManagement.csproj" />
+        <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" />
     </ItemGroup>
 
 </Project>

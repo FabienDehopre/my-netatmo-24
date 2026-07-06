@@ -43,7 +43,10 @@ public static class ResultExtensions
             var result = await resultTask;
             var newResult = new Result<TResult>();
             newResult.WithReasons(result.Reasons);
-            newResult.WithReasons(withResult.Reasons);
+            // Only carry withResult's reasons that the chain doesn't already hold. When withResult is
+            // the failed head of this same chain, its error has already propagated into result.Reasons;
+            // adding it again would double-count it (e.g. a single 401 would appear twice).
+            newResult.WithReasons(withResult.Reasons.Where(reason => !result.Reasons.Contains(reason)));
 
             if (result.IsSuccess && withResult.IsSuccess)
             {
