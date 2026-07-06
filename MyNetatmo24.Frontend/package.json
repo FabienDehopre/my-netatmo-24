@@ -12,8 +12,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:coverage": "ng test --configuration=coverage",
-    "test:ui": "ng test --configuration=ui",
+    "test:coverage": "ng test --coverage",
+    "test:ui": "ng test --ui",
     "lint": "eslint . --fix"
   },
   "dependencies": {
