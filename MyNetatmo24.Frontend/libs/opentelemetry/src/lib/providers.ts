@@ -33,10 +33,10 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
     const resource = resourceFromAttributes({
       [ATTR_SERVICE_NAME]: 'angular-frontend',
       [ATTR_SERVICE_VERSION]: '1.0.0',
-      ...parseDelimitedValues(import.meta.env.VITE_OTEL_RESOURCE_ATTRIBUTES ?? ''),
+      ...parseDelimitedValues(import.meta.env.OTEL_RESOURCE_ATTRIBUTES ?? ''),
     });
 
-    const staticHeaders = parseDelimitedValues(import.meta.env.VITE_OTEL_EXPORTER_OTLP_HEADERS ?? '');
+    const staticHeaders = parseDelimitedValues(import.meta.env.OTEL_EXPORTER_OTLP_HEADERS ?? '');
     const provider = new WebTracerProvider({
       resource,
       spanProcessors: [

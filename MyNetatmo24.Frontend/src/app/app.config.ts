@@ -3,7 +3,13 @@ import type { ApplicationConfig } from '@angular/core';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withPreloading
+} from '@angular/router';
 
 import { provideEventPlugins } from '@app/event-managers';
 import { provideOpenTelemetryInstrumentation } from '@app/opentelemetry';
@@ -18,7 +24,8 @@ export const APP_CONFIG: ApplicationConfig = {
       withComponentInputBinding(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
-      })
+      }),
+      withPreloading(PreloadAllModules)
     ),
     provideHttpClient(
       withXsrfConfiguration({

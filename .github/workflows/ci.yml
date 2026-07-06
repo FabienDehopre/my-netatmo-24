@@ -83,14 +83,14 @@ jobs:
         name: Upload Vitest coverage report artifact
         with:
           name: coverage-frontend
-          path: MyNetatmo24.Frontend/coverage
+          path: MyNetatmo24.Frontend/coverage/MyNetatmo24.Frontend
       - name: Report Vitest Coverage
         if: github.event_name == 'pull_request'
         uses: davelosert/vitest-coverage-report-action@3c054a2d2e2ca45446417ad5d6d5eb33092af8f1 # v2
         with:
           threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
-          json-summary-path: MyNetatmo24.Frontend/coverage/coverage-summary.json
-          json-final-path: MyNetatmo24.Frontend/coverage/coverage-final.json
+          json-summary-path: MyNetatmo24.Frontend/coverage/MyNetatmo24.Frontend/coverage-summary.json
+          json-final-path: MyNetatmo24.Frontend/coverage/MyNetatmo24.Frontend/coverage-final.json
           file-coverage-mode: 'all'
           name: 'Frontend Vitest Coverage'
 

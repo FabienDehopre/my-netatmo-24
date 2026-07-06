@@ -13,7 +13,8 @@ internal sealed class ValidateAntiforgeryTokenRequestTransform(
         if (context.HttpContext.Request.Method == HttpMethod.Get.Method ||
             context.HttpContext.Request.Method == HttpMethod.Head.Method ||
             context.HttpContext.Request.Method == HttpMethod.Options.Method ||
-            context.HttpContext.Request.Method == HttpMethod.Trace.Method)
+            context.HttpContext.Request.Method == HttpMethod.Trace.Method ||
+            context.HttpContext.Request.Method == HttpMethod.Connect.Method)
         {
             return;
         }

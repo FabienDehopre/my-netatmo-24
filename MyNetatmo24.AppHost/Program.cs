@@ -32,8 +32,14 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     .WithUrlForEndpoint("http", u => u.DisplayText = "API Documentation")
     .WithUrlForEndpoint("https", u => u.DisplayText = "API Documentation");
 
-var frontend = builder.AddViteApp("angular-frontend", "../MyNetatmo24.Frontend")
+var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Frontend", runScriptName: "start")
     .WithPnpmWithWorkspaceRoot(installArgs: ["--workspace-root", "--recursive", "--frozen-lockfile"], workspaceRootPathRelativeToProject: "..")
+    .WithRunScript("start")
+    .WithHttpEndpoint(env: "PORT")
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    })
     .PublishAsDockerFile(resource => resource.WithDockerfile("../", stage: "frontend-app"));
 
 var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")

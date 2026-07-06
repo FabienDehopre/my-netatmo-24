@@ -1,8 +1,5 @@
 import type { Routes } from '@angular/router';
 
-import { Home } from './shell/home/home';
-import { NotFound } from './shell/not-found/not-found';
-
 export const ROUTES: Routes = [
   {
     path: '',
@@ -11,7 +8,7 @@ export const ROUTES: Routes = [
   },
   {
     path: 'home',
-    component: Home,
+    loadComponent: () => import('./shell/home/home').then((m) => m.Home),
   },
   {
     path: '',
@@ -21,7 +18,7 @@ export const ROUTES: Routes = [
       // This _needs_ to be the last route!!
       {
         path: '**',
-        component: NotFound,
+        loadChildren: () => import('./shell/not-found/not-found').then((m) => m.NotFound),
       },
     ],
   },

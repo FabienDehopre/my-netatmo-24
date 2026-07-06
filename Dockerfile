@@ -17,6 +17,6 @@ RUN ls /prod/frontend-app
 
 FROM nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa AS frontend-app
 COPY --from=build /prod/frontend-app/default.conf.template /etc/nginx/templates/default.conf.template
-COPY --from=build /prod/frontend-app/dist /usr/share/nginx/html
+COPY --from=build /prod/frontend-app/dist/browser /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

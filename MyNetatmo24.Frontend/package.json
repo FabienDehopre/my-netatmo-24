@@ -7,12 +7,13 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "test:ui": "vitest --ui",
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "test:coverage": "ng test --coverage",
+    "test:ui": "ng test --ui",
     "lint": "eslint . --fix"
   },
   "dependencies": {
@@ -46,17 +47,18 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "catalog:angular",
     "@angular/build": "catalog:angular",
+    "@angular/cli": "catalog:angular",
     "@angular/compiler-cli": "catalog:angular",
     "@fabdeh/eslint-config": "catalog:eslint",
+    "@ngx-env/builder": "catalog:",
     "@softarc/eslint-plugin-sheriff": "catalog:eslint",
     "@softarc/sheriff-core": "catalog:eslint",
-    "@tailwindcss/vite": "catalog:tailwindcss",
-    "@tailwindplus/elements": "catalog:tailwindcss",
+    "@tailwindcss/postcss": "catalog:tailwindcss",
     "@testing-library/angular": "catalog:testing-library",
     "@testing-library/jest-dom": "catalog:testing-library",
     "@testing-library/user-event": "catalog:testing-library",
+    "@types/node": "catalog:",
     "@vitest/browser": "catalog:vitest",
     "@vitest/browser-playwright": "catalog:vitest",
     "@vitest/coverage-v8": "catalog:vitest",
@@ -66,10 +68,11 @@
     "eslint-plugin-erasable-syntax-only": "catalog:eslint",
     "eslint-plugin-format": "catalog:eslint",
     "jsdom": "catalog:",
+    "postcss": "catalog:",
     "tailwindcss": "catalog:tailwindcss",
     "tw-animate-css": "catalog:tailwindcss",
     "typescript": "catalog:",
-    "vite": "catalog:vite",
-    "vitest": "catalog:vitest"
+    "vitest": "catalog:vitest",
+    "zone.js": "catalog:"
   }
 }

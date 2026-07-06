@@ -4,23 +4,22 @@
     "target": "ES2022",
     "lib": ["es2022", "dom", "dom.iterable"],
     "experimentalDecorators": true,
-    "baseUrl": "./",
     "module": "preserve",
     "moduleResolution": "bundler",
     "paths": {
-      "@app/*": ["src/app/domains/*"],
-      "@app/opentelemetry": ["libs/opentelemetry/src/index.ts"],
-      "@app/event-managers": ["libs/event-managers/src/index.ts"],
-      "@spartan-ng/helm/avatar": ["libs/ui/avatar/src/index.ts"],
-      "@spartan-ng/helm/button": ["libs/ui/button/src/index.ts"],
-      "@spartan-ng/helm/dropdown-menu": ["libs/ui/dropdown-menu/src/index.ts"],
+      "@app/*": ["./src/app/domains/*"],
+      "@app/opentelemetry": ["./libs/opentelemetry/src/index.ts"],
+      "@app/event-managers": ["./libs/event-managers/src/index.ts"],
+      "@spartan-ng/helm/avatar": ["./libs/ui/avatar/src/index.ts"],
+      "@spartan-ng/helm/button": ["./libs/ui/button/src/index.ts"],
+      "@spartan-ng/helm/dropdown-menu": ["./libs/ui/dropdown-menu/src/index.ts"],
       "@spartan-ng/helm/sidebar": ["./libs/ui/sidebar/src/index.ts"],
       "@spartan-ng/helm/input": ["./libs/ui/input/src/index.ts"],
       "@spartan-ng/helm/separator": ["./libs/ui/separator/src/index.ts"],
       "@spartan-ng/helm/sheet": ["./libs/ui/sheet/src/index.ts"],
       "@spartan-ng/helm/skeleton": ["./libs/ui/skeleton/src/index.ts"],
       "@spartan-ng/helm/tooltip": ["./libs/ui/tooltip/src/index.ts"],
-      "@spartan-ng/helm/utils": ["libs/ui/utils/src/index.ts"]
+      "@spartan-ng/helm/utils": ["./libs/ui/utils/src/index.ts"]
     },
     "strict": true,
     "noFallthroughCasesInSwitch": true,
@@ -43,5 +42,5 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.spec.json" }
   ],
-  "include": ["*.config.ts"]
+  "include": ["./*.config.ts"]
 }
