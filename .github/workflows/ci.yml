@@ -41,6 +41,7 @@ jobs:
           TUNIT_GITHUB_REPORTER_STYLE: collapsible
         name: Run .NET Tests
       - uses: danielpalme/ReportGenerator-GitHub-Action@049f7ec958c672fd31d5cc1cb01622dc8d2e23ab # v5
+        id: reportgenerator
         with:
           reports: '**/coverage.xml'
           targetdir: coveragereport
@@ -53,12 +54,13 @@ jobs:
           name: CoverageReport
           path: coveragereport
       - run: gh pr comment $PR_NUMBER --body-file coveragereport/SummaryGithub.md
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.reportgenerator.outcome != 'skipped'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
         name: Report .NET Coverage
       - run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+        if: steps.reportgenerator.outcome != 'skipped'
         name: Publish coverage in build summary
 #      - uses: stoplightio/spectral-action@6416fd018ae38e60136775066eb3e98172143141 # v0.8.13
 #        with:
@@ -141,8 +143,12 @@ jobs:
           name: playwright-report
           path: MyNetatmo24.EndToEndTests/playwright-report
       - run: |
-         unzip -o MyNetatmo24.EndToEndTests/aspire-export/all-resources.zip \
-            -d MyNetatmo24.EndToEndTests/aspire-export/all-resources
+         archive=MyNetatmo24.EndToEndTests/aspire-export/all-resources.zip
+         if [ -f "$archive" ]; then
+           unzip -o "$archive" -d MyNetatmo24.EndToEndTests/aspire-export/all-resources
+         else
+           echo "No Aspire export archive found at $archive; skipping."
+         fi
         if: ${{ !cancelled() }}
         name: Unzip Aspire Export Artifact
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
