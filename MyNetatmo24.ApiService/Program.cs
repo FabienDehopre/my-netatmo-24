@@ -10,7 +10,6 @@ builder.AddErrorHandling();
 builder.AddCaching();
 // AddFeatureFlags ??
 builder.AddWolverine();
-builder.AddFastEndpointsWithOpenApi();
 builder.AddModules();
 
 var app = builder.Build();

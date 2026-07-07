@@ -1,5 +1,4 @@
 using System.Reflection;
-using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 
 namespace MyNetatmo24.SharedKernel.Modules;
@@ -46,15 +45,6 @@ public static class ModuleExtensions
             }
 
             return app;
-        }
-    }
-
-    extension(EndpointDiscoveryOptions options)
-    {
-        public EndpointDiscoveryOptions AddEndpointsAssemblies()
-        {
-            options.Assemblies = s_modules.Select(m => m.GetType().Assembly).ToArray();
-            return options;
         }
     }
 }
