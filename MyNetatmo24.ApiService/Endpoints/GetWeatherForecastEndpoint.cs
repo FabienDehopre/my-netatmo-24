@@ -1,3 +1,5 @@
+using MyNetatmo24.SharedKernel.Endpoints;
+
 namespace MyNetatmo24.ApiService.Endpoints;
 
 public static class GetWeatherForecastEndpoint
@@ -15,7 +17,7 @@ public static class GetWeatherForecastEndpoint
             .WithSummary("Gets the weather forecast.")
             .WithDescription("Retrieves the weather forecast for the next 5 days.")
             .RequireAuthorization(Constants.Policies.ReadWeather)
-            .Produces<IEnumerable<WeatherForecast>>(StatusCodes.Status200OK, "The weather forecast was successfully retrieved.");
+            .ProducesWithDescription<IEnumerable<WeatherForecast>>(StatusCodes.Status200OK, "The weather forecast was successfully retrieved.");
     }
 
     public static Task<IEnumerable<WeatherForecast>> HandleAsync(CancellationToken ct)

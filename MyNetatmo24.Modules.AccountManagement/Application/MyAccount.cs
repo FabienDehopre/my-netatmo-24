@@ -42,9 +42,9 @@ public static class MyAccount
                              "If the user is not authenticated, a 401 Unauthorized response is returned. " +
                              "If the user's account cannot be found, a 404 Not Found response is returned. " +
                              "If the user's account is found, a 200 OK response is returned with the account information.")
-            .Produces<UserInfoDto>(StatusCodes.Status200OK, "he user's account information was successfully retrieved.")
-            .Produces(StatusCodes.Status401Unauthorized, "The user is not authenticated, so their account information cannot be retrieved.")
-            .Produces(StatusCodes.Status404NotFound, "The user's account could not be found, so their account information cannot be retrieved.");
+            .ProducesWithDescription<UserInfoDto>(StatusCodes.Status200OK, "The user's account information was successfully retrieved.")
+            .ProducesWithDescription(StatusCodes.Status401Unauthorized, "The user is not authenticated, so their account information cannot be retrieved.")
+            .ProducesWithDescription(StatusCodes.Status404NotFound, "The user's account could not be found, so their account information cannot be retrieved.");
     }
 
     public static async Task<Results<Ok<UserInfoDto>, UnauthorizedHttpResult, NotFound>> HandleAsync(

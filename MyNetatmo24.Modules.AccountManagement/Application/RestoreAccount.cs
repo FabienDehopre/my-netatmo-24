@@ -30,9 +30,9 @@ public static class RestoreAccount
                              "If the user is not authenticated, a 401 Unauthorized response is returned. " +
                              "If the user's account cannot be found, a 404 Not Found response is returned. " +
                              "If the user's account is successfully restored, a 204 No Content response is returned.")
-            .Produces(StatusCodes.Status204NoContent, "The user's account was successfully restored.")
-            .Produces(StatusCodes.Status401Unauthorized, "The user is not authenticated, so their account cannot be restored.")
-            .Produces(StatusCodes.Status404NotFound, "The user's account could not be found, so it cannot be restored.");
+            .ProducesWithDescription(StatusCodes.Status204NoContent, "The user's account was successfully restored.")
+            .ProducesWithDescription(StatusCodes.Status401Unauthorized, "The user is not authenticated, so their account cannot be restored.")
+            .ProducesWithDescription(StatusCodes.Status404NotFound, "The user's account could not be found, so it cannot be restored.");
     }
 
     public static async Task<Results<NoContent, UnauthorizedHttpResult, NotFound>> HandleAsync(

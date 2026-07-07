@@ -39,10 +39,10 @@ public static class EnsureAccount
                              "If the user's information cannot be retrieved from Auth0, a 404 Not Found response is returned. " +
                              "If the user is not authenticated, a 401 Unauthorized response is returned. " +
                              "If an account exists but is marked as deleted, a 409 Conflict response is returned.")
-            .Produces(StatusCodes.Status204NoContent, "The authenticated user already has an account.")
-            .Produces(StatusCodes.Status401Unauthorized, "The user is not authenticated, so an account cannot be ensured.")
-            .Produces(StatusCodes.Status404NotFound, "The user's information could not be retrieved from Auth0, so an account could not be created.")
-            .Produces<UserDeletedDto>(StatusCodes.Status409Conflict, "An account for the user already exists but is marked as deleted.");
+            .ProducesWithDescription(StatusCodes.Status204NoContent, "The authenticated user already has an account.")
+            .ProducesWithDescription(StatusCodes.Status401Unauthorized, "The user is not authenticated, so an account cannot be ensured.")
+            .ProducesWithDescription(StatusCodes.Status404NotFound, "The user's information could not be retrieved from Auth0, so an account could not be created.")
+            .ProducesWithDescription<UserDeletedDto>(StatusCodes.Status409Conflict, "An account for the user already exists but is marked as deleted.");
     }
 
     public static async Task<Results<NoContent, UnauthorizedHttpResult, NotFound, Conflict<UserDeletedDto>>>

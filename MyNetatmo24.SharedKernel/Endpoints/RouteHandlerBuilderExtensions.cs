@@ -8,7 +8,7 @@ public static class RouteHandlerBuilderExtensions
 {
     extension(RouteHandlerBuilder builder)
     {
-        public RouteHandlerBuilder Produces(
+        public RouteHandlerBuilder ProducesWithDescription(
             int statusCode,
             string description,
             string? contentType = null,
@@ -18,7 +18,7 @@ public static class RouteHandlerBuilderExtensions
                 .ProducesOpenApiResponse(statusCode, description);
         }
 
-        public RouteHandlerBuilder Produces<T>(
+        public RouteHandlerBuilder ProducesWithDescription<T>(
             int statusCode,
             string description,
             string? contentType = null,
