@@ -1,4 +1,5 @@
 using MyNetatmo24.ApiService;
+using MyNetatmo24.SharedKernel.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ app.UseExceptionHandler(
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseModules();
+// temporary until demo endpoint is removed
+app.RegisterAssemblyEndpoints();
+// end of temporary endpoints
 app.UseSecurityHeaders();
 
 if (app.Environment.IsDevelopment())
