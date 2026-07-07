@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using MyNetatmo24.Modules.AccountManagement.Data;
 using MyNetatmo24.Modules.AccountManagement.Domain;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
+using MyNetatmo24.SharedKernel.Endpoints;
 using MyNetatmo24.SharedKernel.Infrastructure;
 using MyNetatmo24.SharedKernel.Modules;
 using Wolverine.Attributes;
@@ -54,11 +55,11 @@ public sealed class AccountManagementModule : IModule
 
     public WebApplication UseModule(WebApplication app)
     {
-        // ArgumentNullException.ThrowIfNull(app);
-        //
-        // using var scope = app.Services.CreateScope();
-        // var dbContext = scope.ServiceProvider.GetRequiredService<AccountDbContext>();
-        // dbContext.Database.Migrate();
+        ArgumentNullException.ThrowIfNull(app);
+        var group = app.MapGroup("account")
+            .RequireAuthorization()
+            .WithTags("Account Management");
+        group.RegisterAssemblyEndpoints();
 
         return app;
     }
