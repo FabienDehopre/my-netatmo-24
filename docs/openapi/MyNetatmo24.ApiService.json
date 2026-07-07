@@ -1,0 +1,219 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "My Netatmo 24 API",
+    "description": "API for My Netatmo 24 application",
+    "contact": {
+      "name": "Support",
+      "url": "https://github.com/FabienDehopre/my-netatmo-24"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:7115"
+    }
+  ],
+  "paths": {
+    "/account/ensure": {
+      "post": {
+        "tags": [
+          "Account Management"
+        ],
+        "summary": "Ensures that the authenticated user has an account.",
+        "description": "This endpoint checks if the authenticated user already has an account. If they do, a 204 No Content response is returned. If they don't, a new account is created for them and a 201 Created response is returned. If the user's information cannot be retrieved from Auth0, a 404 Not Found response is returned. If the user is not authenticated, a 401 Unauthorized response is returned. If an account exists but is marked as deleted, a 409 Conflict response is returned.",
+        "operationId": "EnsureAccount",
+        "responses": {
+          "204": {
+            "description": "The authenticated user already has an account."
+          },
+          "404": {
+            "description": "The user's information could not be retrieved from Auth0, so an account could not be created."
+          },
+          "409": {
+            "description": "An account for the user already exists but is marked as deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyNetatmo24.Modules.AccountManagement.Application.EnsureAccount.UserDeletedDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not authenticated, so an account cannot be ensured."
+          }
+        }
+      }
+    },
+    "/account/me": {
+      "get": {
+        "tags": [
+          "Account Management"
+        ],
+        "summary": "Gets the authenticated user's account information.",
+        "description": "This endpoint retrieves the account information of the authenticated user. If the user is not authenticated, a 401 Unauthorized response is returned. If the user's account cannot be found, a 404 Not Found response is returned. If the user's account is found, a 200 OK response is returned with the account information.",
+        "operationId": "MyAccount",
+        "responses": {
+          "200": {
+            "description": "The user's account information was successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyNetatmo24.Modules.AccountManagement.Application.MyAccount.UserInfoDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The user's account could not be found, so their account information cannot be retrieved."
+          },
+          "401": {
+            "description": "The user is not authenticated, so their account information cannot be retrieved."
+          }
+        }
+      }
+    },
+    "/account/restore": {
+      "post": {
+        "tags": [
+          "Account Management"
+        ],
+        "summary": "Restores the authenticated user's account if it was previously marked as deleted.",
+        "description": "This endpoint restores the authenticated user's account if it was previously marked as deleted. If the user is not authenticated, a 401 Unauthorized response is returned. If the user's account cannot be found, a 404 Not Found response is returned. If the user's account is successfully restored, a 204 No Content response is returned.",
+        "operationId": "RestoreAccount",
+        "responses": {
+          "204": {
+            "description": "The user's account was successfully restored."
+          },
+          "404": {
+            "description": "The user's account could not be found, so it cannot be restored."
+          },
+          "401": {
+            "description": "The user is not authenticated, so their account cannot be restored."
+          }
+        }
+      }
+    },
+    "/weatherforecast": {
+      "get": {
+        "tags": [
+          "GetWeatherForecastEndpoint"
+        ],
+        "summary": "Gets the weather forecast.",
+        "description": "Retrieves the weather forecast for the next 5 days.",
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "The weather forecast was successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast": {
+        "required": [
+          "date",
+          "temperatureC",
+          "summary"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "summary": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "temperatureF": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
+      "MyNetatmo24.Modules.AccountManagement.Application.EnsureAccount.UserDeletedDto": {
+        "required": [
+          "deletedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "deletedAt": {
+            "type": "string",
+            "description": "The date and time when the account was marked as deleted.",
+            "format": "date-time"
+          }
+        }
+      },
+      "MyNetatmo24.Modules.AccountManagement.Application.MyAccount.UserInfoDto": {
+        "required": [
+          "nickname",
+          "firstName",
+          "lastName",
+          "avatarUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "The user's nickname, which may be null if the user has not set a nickname."
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The user's first name, which is required and cannot be null or empty."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user's last name, which is required and cannot be null or empty."
+          },
+          "avatarUrl": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "The URL of the user's avatar, which may be null if the user has not set an avatar.",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Account Management"
+    },
+    {
+      "name": "GetWeatherForecastEndpoint"
+    }
+  ]
+}
