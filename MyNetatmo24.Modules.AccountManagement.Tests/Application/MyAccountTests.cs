@@ -25,12 +25,11 @@ public class MyAccountTests
         db.Context.Add(SeededAccount());
         await db.Context.SaveChangesAsync();
 
-        var endpoint = new MyAccount(
+        var response = await MyAccount.HandleAsync(
             TestClaims.Authenticated(Auth0Id),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.HandleAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is Ok<MyAccount.UserInfoDto>).IsTrue();
         var ok = (Ok<MyAccount.UserInfoDto>)response.Result;
@@ -44,12 +43,11 @@ public class MyAccountTests
     {
         await using var db = await TestAccountDbContext.CreateAsync();
 
-        var endpoint = new MyAccount(
+        var response = await MyAccount.HandleAsync(
             TestClaims.Anonymous(),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.HandleAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
     }
@@ -59,12 +57,11 @@ public class MyAccountTests
     {
         await using var db = await TestAccountDbContext.CreateAsync();
 
-        var endpoint = new MyAccount(
+        var response = await MyAccount.HandleAsync(
             TestClaims.Authenticated(Auth0Id),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.HandleAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
     }
@@ -78,12 +75,11 @@ public class MyAccountTests
         db.Context.Add(account);
         await db.Context.SaveChangesAsync();
 
-        var endpoint = new MyAccount(
+        var response = await MyAccount.HandleAsync(
             TestClaims.Authenticated(Auth0Id),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.HandleAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
     }
