@@ -51,4 +51,15 @@ public sealed class AccountManagementModule : IModule
 
         return builder;
     }
+
+    public WebApplication UseModule(WebApplication app)
+    {
+        // ArgumentNullException.ThrowIfNull(app);
+        //
+        // using var scope = app.Services.CreateScope();
+        // var dbContext = scope.ServiceProvider.GetRequiredService<AccountDbContext>();
+        // dbContext.Database.Migrate();
+
+        return app;
+    }
 }

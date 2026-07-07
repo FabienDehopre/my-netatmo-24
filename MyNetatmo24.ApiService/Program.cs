@@ -17,7 +17,7 @@ app.UseStatusCodePages();
 app.UseExceptionHandler(); // or app.UseDefaultExceptionHandler(); // default way to handler exception in FastEndpoints
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseFastEndpoints(); // or app.UseFastEndpoints(config => config.Errors.UseProblemDetails()); // when using default exception handler
+app.UseModules();
 app.UseSecurityHeaders();
 
 if (app.Environment.IsDevelopment())

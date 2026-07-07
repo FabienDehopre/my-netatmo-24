@@ -36,6 +36,19 @@ public static class ModuleExtensions
         }
     }
 
+    extension(WebApplication app)
+    {
+        public WebApplication UseModules()
+        {
+            foreach (var module in s_modules)
+            {
+                module.UseModule(app);
+            }
+
+            return app;
+        }
+    }
+
     extension(EndpointDiscoveryOptions options)
     {
         public EndpointDiscoveryOptions AddEndpointsAssemblies()
