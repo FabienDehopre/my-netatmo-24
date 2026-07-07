@@ -1,7 +1,11 @@
 using JasperFx.Resources;
+using Microsoft.AspNetCore.OpenApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZiggyCreatures.Caching.Fusion;
+using OpenApiContact = Microsoft.OpenApi.OpenApiContact;
+using OpenApiInfo = Microsoft.OpenApi.OpenApiInfo;
+using OpenApiServer = Microsoft.OpenApi.OpenApiServer;
 
 namespace MyNetatmo24.ApiService;
 
@@ -32,6 +36,45 @@ public static class Extensions
                     b.RequireAuthenticatedUser()
                         .RequireRole("read:weatherdata");
                 });
+            });
+
+            return builder;
+        }
+
+        public WebApplicationBuilder AddOpenApi()
+        {
+            builder.Services.AddOpenApi(openApi =>
+            {
+                openApi.CreateSchemaReferenceId = (jsonTypeInfo) =>
+                {
+                    var schemaRefId = OpenApiOptions.CreateDefaultSchemaReferenceId(jsonTypeInfo);
+                    if (schemaRefId is null || jsonTypeInfo?.Type?.FullName is null)
+                    {
+                        return null;
+                    }
+
+                    return jsonTypeInfo.Type.FullName.Replace("+", ".", StringComparison.Ordinal);
+                };
+
+                openApi.AddDocumentTransformer((document, _, _) =>
+                {
+                    document.Servers = [new OpenApiServer { Url = "https://localhost:7115" }];
+                    document.Info = new OpenApiInfo
+                    {
+                        Title = "My Netatmo 24 API",
+                        Version = "v1",
+                        Description = "API for My Netatmo 24 application",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Support",
+                            Email = "my-netatmo-24@dehopre.dev",
+                            Url = new Uri("https://github.com/FabienDehopre/my-netatmo-24"),
+                        }
+                    };
+
+                    return Task.CompletedTask;
+                });
+                openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
             });
 
             return builder;
