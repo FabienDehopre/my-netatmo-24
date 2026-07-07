@@ -10,7 +10,6 @@ using MyNetatmo24.Modules.AccountManagement.Tests.TestSupport;
 using MyNetatmo24.SharedKernel.Messages;
 using MyNetatmo24.SharedKernel.StronglyTypedIds;
 using NSubstitute;
-using Wolverine;
 using Wolverine.EntityFrameworkCore;
 
 namespace MyNetatmo24.Modules.AccountManagement.Tests.Application;

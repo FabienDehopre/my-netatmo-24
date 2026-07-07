@@ -19,11 +19,10 @@ public abstract class Endpoint<TRequest, TResponse> : IEndpoint
 }
 
 [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
-public abstract class EndpointWithoutRequest<TResponse> : Endpoint<EmptyRequest, TResponse>
+public abstract class EndpointWithoutRequest<TResponse> : IEndpoint
 {
     /// <inheritdoc />
-    public override Task<TResponse> InvokeAsync(EmptyRequest _, CancellationToken ct)
-        => InvokeAsync(ct);
+    public abstract void Configure(IEndpointRouteBuilder builder);
 
     /// <summary>
     /// Method used to handle the request and produce a response.
