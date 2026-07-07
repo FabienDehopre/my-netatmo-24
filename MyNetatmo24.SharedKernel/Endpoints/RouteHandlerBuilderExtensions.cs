@@ -1,6 +1,6 @@
 using MartinCostello.OpenApi;
 using Microsoft.AspNetCore.Builder;
-using  Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace MyNetatmo24.SharedKernel.Endpoints;
 

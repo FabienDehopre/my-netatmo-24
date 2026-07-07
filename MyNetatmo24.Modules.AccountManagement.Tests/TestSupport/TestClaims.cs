@@ -14,5 +14,6 @@ internal static class TestClaims
         Accessor(new ClaimsPrincipal(new ClaimsIdentity()));
 
     private static HttpContextAccessor Accessor(ClaimsPrincipal user) =>
-        new HttpContextAccessor { HttpContext = new DefaultHttpContext { User = user } };
+        new()
+        { HttpContext = new DefaultHttpContext { User = user } };
 }
