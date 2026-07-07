@@ -1,4 +1,3 @@
-using FastEndpoints;
 using FluentResults;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -49,18 +48,17 @@ public class EnsureAccountTests
         IUserInfoService UserInfoService);
 
     [Test]
-    public async Task ExecuteAsync_WhenAccountAlreadyExists_ReturnsNoContentWithoutCreating()
+    public async Task InvokeAsync_WhenAccountAlreadyExists_ReturnsNoContentWithoutCreating()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         db.Context.Add(SeededAccount());
         await db.Context.SaveChangesAsync();
         var args = Arrange(db.Context);
 
-        var endpoint = Factory.Create<EnsureAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
-            args.Outbox, args.Accounts, args.UserInfoService);
+        var endpoint = new EnsureAccount(
+            TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+        var response = await endpoint.InvokeAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NoContent).IsTrue();
         await args.UserInfoService.DidNotReceive().GetUserInfoAsync(Arg.Any<CancellationToken>());
@@ -68,18 +66,17 @@ public class EnsureAccountTests
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenAccountIsNew_CreatesAccountAndPublishesEvent()
+    public async Task InvokeAsync_WhenAccountIsNew_CreatesAccountAndPublishesEvent()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         var args = Arrange(db.Context);
         args.UserInfoService.GetUserInfoAsync(Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(Result.Ok(s_auth0UserInfo)));
 
-        var endpoint = Factory.Create<EnsureAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
-            args.Outbox, args.Accounts, args.UserInfoService);
+        var endpoint = new EnsureAccount(
+            TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+        var response = await endpoint.InvokeAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NoContent).IsTrue();
         await args.Outbox.Received(1).PublishAsync(
@@ -88,16 +85,15 @@ public class EnsureAccountTests
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenNotAuthenticated_ReturnsUnauthorized()
+    public async Task InvokeAsync_WhenNotAuthenticated_ReturnsUnauthorized()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         var args = Arrange(db.Context);
 
-        var endpoint = Factory.Create<EnsureAccount.Endpoint>(
-            TestClaims.Anonymous,
-            args.Outbox, args.Accounts, args.UserInfoService);
+        var endpoint = new EnsureAccount(
+            TestClaims.Anonymous(), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+        var response = await endpoint.InvokeAsync(CancellationToken.None);
 
         await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
         await args.UserInfoService.DidNotReceive().GetUserInfoAsync(Arg.Any<CancellationToken>());
@@ -105,25 +101,24 @@ public class EnsureAccountTests
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenAuth0UserInfoUnavailable_ReturnsNotFound()
+    public async Task InvokeAsync_WhenAuth0UserInfoUnavailable_ReturnsNotFound()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         var args = Arrange(db.Context);
         args.UserInfoService.GetUserInfoAsync(Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(Result.Fail<UserInfoDto>(Errors.UserInfoNotFound)));
 
-        var endpoint = Factory.Create<EnsureAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
-            args.Outbox, args.Accounts, args.UserInfoService);
+        var endpoint = new EnsureAccount(
+            TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+        var response = await endpoint.InvokeAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
         await args.Outbox.DidNotReceive().PublishAsync(Arg.Any<AccountCreated>());
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenAccountIsSoftDeleted_ReturnsConflictWithDeletedAt()
+    public async Task InvokeAsync_WhenAccountIsSoftDeleted_ReturnsConflictWithDeletedAt()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         var deletedAt = DateTimeOffset.UtcNow.AddDays(-1);
@@ -133,11 +128,10 @@ public class EnsureAccountTests
         await db.Context.SaveChangesAsync();
         var args = Arrange(db.Context);
 
-        var endpoint = Factory.Create<EnsureAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
-            args.Outbox, args.Accounts, args.UserInfoService);
+        var endpoint = new EnsureAccount(
+            TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+        var response = await endpoint.InvokeAsync(CancellationToken.None);
 
         await Assert.That(response.Result is Conflict<EnsureAccount.UserDeletedDto>).IsTrue();
         var conflict = (Conflict<EnsureAccount.UserDeletedDto>)response.Result;

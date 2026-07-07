@@ -5,11 +5,14 @@ namespace MyNetatmo24.Modules.AccountManagement.Tests.TestSupport;
 
 internal static class TestClaims
 {
-    /// <summary>Configures the request context with an authenticated user whose name is <paramref name="auth0Id"/>.</summary>
-    public static void Authenticated(DefaultHttpContext ctx, string auth0Id) =>
-        ctx.User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Name, auth0Id)], "Test"));
+    /// <summary>An <see cref="IHttpContextAccessor"/> whose user is authenticated with the name <paramref name="auth0Id"/>.</summary>
+    public static IHttpContextAccessor Authenticated(string auth0Id) =>
+        Accessor(new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Name, auth0Id)], "Test")));
 
-    /// <summary>Configures the request context with an anonymous (unauthenticated) user.</summary>
-    public static void Anonymous(DefaultHttpContext ctx) =>
-        ctx.User = new ClaimsPrincipal(new ClaimsIdentity());
+    /// <summary>An <see cref="IHttpContextAccessor"/> whose user is anonymous (unauthenticated).</summary>
+    public static IHttpContextAccessor Anonymous() =>
+        Accessor(new ClaimsPrincipal(new ClaimsIdentity()));
+
+    private static HttpContextAccessor Accessor(ClaimsPrincipal user) =>
+        new HttpContextAccessor { HttpContext = new DefaultHttpContext { User = user } };
 }
