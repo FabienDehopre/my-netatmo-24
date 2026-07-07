@@ -32,7 +32,7 @@ app.UseSecurityHeaders();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseOpenApi();
+    app.MapOpenApi();
     app.MapScalarApiReference(options =>
     {
         options.WithTitle("MyNetatmo24 API");

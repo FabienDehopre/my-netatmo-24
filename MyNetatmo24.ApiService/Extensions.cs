@@ -160,49 +160,6 @@ public static class Extensions
             return builder;
         }
 
-        // public WebApplicationBuilder AddFastEndpointsWithOpenApi()
-        // {
-        //     builder.Services
-        //         .AddFastEndpoints(options => options.AddEndpointsAssemblies())
-        //         .SwaggerDocument(options =>
-        //         {
-        //             options.RemoveEmptyRequestSchema = true;
-        //             options.EnableJWTBearerAuth = false;
-        //             options.DocumentSettings = settings =>
-        //             {
-        //                 settings.Title = "My Netatmo 24 API";
-        //                 settings.Description = "An API to access weather data from Netatmo devices.";
-        //                 settings.MarkNonNullablePropsAsRequired();
-        //                 settings.AddAuth("Auth0", new OpenApiSecurityScheme
-        //                 {
-        //                     Type = OpenApiSecuritySchemeType.OAuth2,
-        //                     BearerFormat = "JWT",
-        //                     Scheme = "Bearer",
-        //                     In = OpenApiSecurityApiKeyLocation.Header,
-        //                     Flows = new OpenApiOAuthFlows
-        //                     {
-        //                         AuthorizationCode = new OpenApiOAuthFlow
-        //                         {
-        //                             // AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize?audience={builder.Configuration["Auth0:Audience"]}",
-        //                             AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize",
-        //                             TokenUrl = $"https://{builder.Configuration["Auth0:Domain"]}/oauth/token",
-        //                             Scopes = new Dictionary<string, string>
-        //                             {
-        //                                 { "openid", "OpenID Connect scope" },
-        //                                 { "profile", "Access to your profile information" },
-        //                                 { "email", "Access to your email address" },
-        //                                 { "offline_access", "Access to refresh tokens" },
-        //                                 { "read:weatherdata", "Read access to weather data" }
-        //                             }
-        //                         }
-        //                     }
-        //                 });
-        //             };
-        //         });
-        //
-        //     return builder;
-        // }
-
         public WebApplicationBuilder AddSecurity()
         {
             builder.Services.AddSecurityHeaderPolicies()

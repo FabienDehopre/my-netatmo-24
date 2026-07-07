@@ -71,7 +71,7 @@ public sealed class EnsureAccount(
         return result switch
         {
             { IsSuccess: true } => TypedResults.NoContent(),
-            { IsSuccess: false } => result.Reasons.OfType<FastEndpointsError>().SingleOrDefault() switch
+            { IsSuccess: false } => result.Reasons.OfType<EndpointError>().SingleOrDefault() switch
             {
                 { StatusCode: 401 } => TypedResults.Unauthorized(),
                 { StatusCode: 404 } => TypedResults.NotFound(),

@@ -9,17 +9,17 @@ internal static class Errors
     private const string DeletedAtName = "DeletedAt";
     private const string UserExistsMarker = "UserExists";
 
-    public static readonly Error UserNotAuthenticated = new FastEndpointsError(StatusCodes.Status401Unauthorized, "The user is not authenticated.");
-    public static readonly Error UserExists = new FastEndpointsError(StatusCodes.Status204NoContent, "The user already exists.").WithMetadata(UserExistsMarker, true);
-    public static readonly Error UserInfoNotFound = new FastEndpointsError(StatusCodes.Status404NotFound, "Failed to retrieve user info from Auth0.");
-    public static readonly Error AccountNotFound = new FastEndpointsError(StatusCodes.Status404NotFound, "The user's account could not be found.");
-    public static Error UserDeleted(DateTimeOffset deletedAt) => new FastEndpointsError(StatusCodes.Status409Conflict, $"The user's account was deleted at {deletedAt}.").WithMetadata(DeletedAtName, deletedAt);
+    public static readonly Error UserNotAuthenticated = new EndpointError(StatusCodes.Status401Unauthorized, "The user is not authenticated.");
+    public static readonly Error UserExists = new EndpointError(StatusCodes.Status204NoContent, "The user already exists.").WithMetadata(UserExistsMarker, true);
+    public static readonly Error UserInfoNotFound = new EndpointError(StatusCodes.Status404NotFound, "Failed to retrieve user info from Auth0.");
+    public static readonly Error AccountNotFound = new EndpointError(StatusCodes.Status404NotFound, "The user's account could not be found.");
+    public static Error UserDeleted(DateTimeOffset deletedAt) => new EndpointError(StatusCodes.Status409Conflict, $"The user's account was deleted at {deletedAt}.").WithMetadata(DeletedAtName, deletedAt);
 
     extension(IReason reason)
     {
         public bool IsUserExistsError() => reason is IError error && error.Metadata.TryGetValue(UserExistsMarker, out var value) && value is true;
         public DateTimeOffset? GetDeletedAt() => reason is IError error && error.Metadata.TryGetValue(DeletedAtName, out var value) && value is DateTimeOffset deletedAt ? deletedAt : null;
-        public bool IsUserInfoNotFound() => reason is FastEndpointsError { StatusCode: StatusCodes.Status404NotFound };
-        public bool IsUserNotAuthenticated() => reason is FastEndpointsError { StatusCode: StatusCodes.Status401Unauthorized };
+        public bool IsUserInfoNotFound() => reason is EndpointError { StatusCode: StatusCodes.Status404NotFound };
+        public bool IsUserNotAuthenticated() => reason is EndpointError { StatusCode: StatusCodes.Status401Unauthorized };
     }
 }
