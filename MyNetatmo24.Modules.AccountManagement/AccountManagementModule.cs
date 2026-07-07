@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyNetatmo24.Modules.AccountManagement.Application;
 using MyNetatmo24.Modules.AccountManagement.Data;
 using MyNetatmo24.Modules.AccountManagement.Domain;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
@@ -59,7 +60,9 @@ public sealed class AccountManagementModule : IModule
         var group = app.MapGroup("account")
             .RequireAuthorization()
             .WithTags("Account Management");
-        group.RegisterAssemblyEndpoints();
+        EnsureAccount.Configure(group);
+        MyAccount.Configure(group);
+        RestoreAccount.Configure(group);
 
         return app;
     }

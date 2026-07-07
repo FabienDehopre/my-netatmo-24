@@ -58,7 +58,7 @@ public class EnsureAccountTests
         var endpoint = new EnsureAccount(
             TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NoContent).IsTrue();
         await args.UserInfoService.DidNotReceive().GetUserInfoAsync(Arg.Any<CancellationToken>());
@@ -76,7 +76,7 @@ public class EnsureAccountTests
         var endpoint = new EnsureAccount(
             TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NoContent).IsTrue();
         await args.Outbox.Received(1).PublishAsync(
@@ -93,7 +93,7 @@ public class EnsureAccountTests
         var endpoint = new EnsureAccount(
             TestClaims.Anonymous(), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
         await args.UserInfoService.DidNotReceive().GetUserInfoAsync(Arg.Any<CancellationToken>());
@@ -111,7 +111,7 @@ public class EnsureAccountTests
         var endpoint = new EnsureAccount(
             TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
         await args.Outbox.DidNotReceive().PublishAsync(Arg.Any<AccountCreated>());
@@ -131,7 +131,7 @@ public class EnsureAccountTests
         var endpoint = new EnsureAccount(
             TestClaims.Authenticated(Auth0Id), args.Outbox, args.Accounts, args.UserInfoService);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is Conflict<EnsureAccount.UserDeletedDto>).IsTrue();
         var conflict = (Conflict<EnsureAccount.UserDeletedDto>)response.Result;

@@ -33,7 +33,7 @@ public class RestoreAccountTests
 
         var endpoint = new RestoreAccount(TestClaims.Authenticated(Auth0Id), outbox);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NoContent).IsTrue();
         await Assert.That(account.DeletedAt).IsNull();
@@ -49,7 +49,7 @@ public class RestoreAccountTests
 
         var endpoint = new RestoreAccount(TestClaims.Anonymous(), outbox);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
         await outbox.DidNotReceive().PublishAsync(Arg.Any<AccountRestored>());
@@ -63,7 +63,7 @@ public class RestoreAccountTests
 
         var endpoint = new RestoreAccount(TestClaims.Authenticated(Auth0Id), outbox);
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
         await outbox.DidNotReceive().PublishAsync(Arg.Any<AccountRestored>());

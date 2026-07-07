@@ -30,7 +30,7 @@ public class MyAccountTests
             db.Context.Set<Account>().AsNoTracking(),
             new PassThroughHybridCache());
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is Ok<MyAccount.UserInfoDto>).IsTrue();
         var ok = (Ok<MyAccount.UserInfoDto>)response.Result;
@@ -49,7 +49,7 @@ public class MyAccountTests
             db.Context.Set<Account>().AsNoTracking(),
             new PassThroughHybridCache());
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
     }
@@ -64,7 +64,7 @@ public class MyAccountTests
             db.Context.Set<Account>().AsNoTracking(),
             new PassThroughHybridCache());
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
     }
@@ -83,7 +83,7 @@ public class MyAccountTests
             db.Context.Set<Account>().AsNoTracking(),
             new PassThroughHybridCache());
 
-        var response = await endpoint.InvokeAsync(CancellationToken.None);
+        var response = await endpoint.HandleAsync(CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
     }

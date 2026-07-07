@@ -1,27 +1,24 @@
-using MartinCostello.OpenApi;
-
 namespace MyNetatmo24.ApiService.Endpoints;
 
-public sealed class GetWeatherForecastEndpoint : SharedKernel.Endpoints.EndpointWithoutRequest<IEnumerable<GetWeatherForecastEndpoint.WeatherForecast>>
+public static class GetWeatherForecastEndpoint
 {
     public sealed record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
     {
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
 
-    public override void Configure(IEndpointRouteBuilder builder)
+    public static void Configure(IEndpointRouteBuilder builder)
     {
         builder
-            .MapGet("weatherforecast", InvokeAsync)
+            .MapGet("weatherforecast", HandleAsync)
             .WithName("GetWeatherForecast")
             .WithSummary("Gets the weather forecast.")
             .WithDescription("Retrieves the weather forecast for the next 5 days.")
             .RequireAuthorization(Constants.Policies.ReadWeather)
-            .Produces<IEnumerable<WeatherForecast>>()
-            .ProducesOpenApiResponse(StatusCodes.Status200OK, "The weather forecast was successfully retrieved.");
+            .Produces<IEnumerable<WeatherForecast>>(StatusCodes.Status200OK, "The weather forecast was successfully retrieved.");
     }
 
-    public override Task<IEnumerable<WeatherForecast>> InvokeAsync(CancellationToken ct)
+    public static Task<IEnumerable<WeatherForecast>> HandleAsync(CancellationToken ct)
     {
         var summaries = new[]
         {

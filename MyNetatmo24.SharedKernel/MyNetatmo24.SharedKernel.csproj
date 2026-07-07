@@ -5,6 +5,7 @@
   <ItemGroup>
     <PackageReference Include="FluentResults" />
     <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="MartinCostello.OpenApi.Extensions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational"/>
     <PackageReference Include="Vogen"/>
   </ItemGroup>

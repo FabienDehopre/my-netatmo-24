@@ -1,4 +1,6 @@
 using JasperFx.Resources;
+using MartinCostello.OpenApi;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OpenApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
@@ -67,7 +69,7 @@ public static class Extensions
                         Contact = new OpenApiContact
                         {
                             Name = "Support",
-                            Email = "my-netatmo-24@dehopre.dev",
+                            // Email = "my-netatmo-24@dehopre.dev",
                             Url = new Uri("https://github.com/FabienDehopre/my-netatmo-24"),
                         }
                     };
@@ -75,6 +77,16 @@ public static class Extensions
                     return Task.CompletedTask;
                 });
                 openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+            });
+
+            builder.Services.AddOpenApiExtensions(openApi =>
+            {
+                openApi.AddServerUrls = true;
+                openApi.DefaultServerUrl = "https://localhost:7115";
+                // openApi.AddExamples = true;
+                // openApi.SerializationContexts.Add(TODO);
+                // openApi.AddExample<ProblemDetails, ProblemDetailsExampleProvider>();
+                openApi.AddXmlComments<Program>();
             });
 
             return builder;

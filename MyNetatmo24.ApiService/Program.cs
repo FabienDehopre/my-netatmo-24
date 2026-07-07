@@ -1,4 +1,5 @@
 using MyNetatmo24.ApiService;
+using MyNetatmo24.ApiService.Endpoints;
 using MyNetatmo24.SharedKernel.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseModules();
 // temporary until demo endpoint is removed
-app.RegisterAssemblyEndpoints();
+GetWeatherForecastEndpoint.Configure(app);
 // end of temporary endpoints
 app.UseSecurityHeaders();
 
