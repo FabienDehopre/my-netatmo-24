@@ -43,8 +43,8 @@ if (app.Environment.IsDevelopment())
             flow.WithClientId(builder.Configuration["Auth0:ScalarClientId"])
                 .WithPkce(Pkce.Sha256)
                 .WithSelectedScopes("openid", "profile", "email", "offline_access", "read:weatherdata");
-                // .WithCredentialsLocation(CredentialsLocation.Body)
-                // .WithRedirectUri("https://localhost:7115/scalar/");
+            // .WithCredentialsLocation(CredentialsLocation.Body)
+            // .WithRedirectUri("https://localhost:7115/scalar/");
             var audience = builder.Configuration["Auth0:Audience"];
             if (!string.IsNullOrEmpty(audience))
             {
