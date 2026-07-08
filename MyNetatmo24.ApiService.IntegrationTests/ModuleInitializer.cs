@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace MyNetatmo24.Modules.AccountManagement.IntegrationTests;
+namespace MyNetatmo24.ApiService.IntegrationTests;
 
 public static class ModuleInitializer
 {
