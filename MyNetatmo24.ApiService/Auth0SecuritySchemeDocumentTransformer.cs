@@ -22,7 +22,7 @@ internal static class SecuritySchemeConstants
 /// components when the matching authentication scheme is registered. This lets Scalar render an
 /// "Authenticate" button that drives the Auth0 login flow instead of a bare token input.
 /// </summary>
-internal sealed class BearerSecuritySchemeTransformer(
+internal sealed class Auth0SecuritySchemeDocumentTransformer(
     IAuthenticationSchemeProvider authenticationSchemeProvider,
     IConfiguration configuration) : IOpenApiDocumentTransformer
 {
@@ -58,7 +58,7 @@ internal sealed class BearerSecuritySchemeTransformer(
                         TokenUrl = new Uri($"https://{domain}/oauth/token"),
                         RefreshUrl = new Uri($"https://{domain}/oauth/token"),
                         Scopes = s_scopes,
-                    }
+                    },
                 }
             };
             document.Components ??= new OpenApiComponents();
@@ -74,7 +74,7 @@ internal sealed class BearerSecuritySchemeTransformer(
 /// Marks each secured operation with the Auth0 security requirement. Operations that allow anonymous
 /// access or that carry no authorization metadata are left untouched, so no lock icon is shown for them.
 /// </summary>
-internal sealed class BearerSecurityRequirementOperationTransformer : IOpenApiOperationTransformer
+internal sealed class Auth0SecurityRequirementOperationTransformer : IOpenApiOperationTransformer
 {
     public Task TransformAsync(
         OpenApiOperation operation,

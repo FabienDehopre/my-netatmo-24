@@ -37,16 +37,20 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(options =>
     {
         options.WithTitle("MyNetatmo24 API");
-        // options.AddPreferredSecuritySchemes("Auth0");
-        // options.AddAuthorizationCodeFlow("Auth0", flow =>
-        // {
-        //     flow.ClientId = builder.Configuration["Auth0:ClientId"];
-        //     flow.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
-        //     flow.Pkce = Pkce.Sha256;
-        //     flow.SelectedScopes = ["openid", "profile", "email", "offline_access", "read:weatherdata"];
-        //     flow.AddQueryParameter("audience", app.Configuration["Auth0:Audience"]!);
-        //     flow.RedirectUri = "https://localhost:7115/scalar/";
-        // });
+        options.AddPreferredSecuritySchemes("Auth0");
+        options.AddAuthorizationCodeFlow("Auth0", flow =>
+        {
+            flow.WithClientId(builder.Configuration["Auth0:ScalarClientId"])
+                .WithPkce(Pkce.Sha256)
+                .WithSelectedScopes("openid", "profile", "email", "offline_access", "read:weatherdata");
+                // .WithCredentialsLocation(CredentialsLocation.Body)
+                // .WithRedirectUri("https://localhost:7115/scalar/");
+            var audience = builder.Configuration["Auth0:Audience"];
+            if (!string.IsNullOrEmpty(audience))
+            {
+                flow.AddQueryParameter("audience", audience);
+            }
+        });
     });
 }
 

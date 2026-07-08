@@ -77,8 +77,8 @@ public static class Extensions
 
                     return Task.CompletedTask;
                 });
-                openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
-                openApi.AddOperationTransformer<BearerSecurityRequirementOperationTransformer>();
+                openApi.AddDocumentTransformer<Auth0SecuritySchemeDocumentTransformer>();
+                openApi.AddOperationTransformer<Auth0SecurityRequirementOperationTransformer>();
             });
 
             builder.Services.AddOpenApiExtensions(openApi =>
@@ -185,7 +185,8 @@ public static class Extensions
                         context.HttpContext.Request.Path.StartsWithSegments(
                             "/scalar", StringComparison.OrdinalIgnoreCase))
                     {
-                        return GetScalarHeaderPolicyCollection();
+                        var auth0Domain = builder.Configuration["Auth0:Domain"];
+                        return GetScalarHeaderPolicyCollection(auth0Domain);
                     }
 
                     return GetApiHeaderPolicyCollection(isDevelopment);
@@ -238,7 +239,7 @@ public static class Extensions
     // Relaxed policy for the Scalar API reference UI (development only). Scalar loads its
     // own bundled scripts (scalar.js, scalar.aspnetcore.js) and an inline bootstrap script,
     // which the strict API CSP blocks via `script-src-elem 'none'` and trusted types.
-    internal static HeaderPolicyCollection GetScalarHeaderPolicyCollection()
+    internal static HeaderPolicyCollection GetScalarHeaderPolicyCollection(string? auth0Domain)
     {
         if (s_headerScalarPolicy is not null)
         {
@@ -262,8 +263,13 @@ public static class Extensions
             builder.AddScriptSrcElem().Self().UnsafeInline();
             builder.AddStyleSrc().Self().UnsafeInline();
             builder.AddImgSrc().Self().Data().Blob();
-            builder.AddFontSrc().Self().Data();
-            builder.AddConnectSrc().Self();
+            builder.AddFontSrc().Self().From("fonts.scalar.com").Data();
+            var connectSrc = builder.AddConnectSrc().Self().From("api.scalar.com");
+            if (!string.IsNullOrWhiteSpace(auth0Domain))
+            {
+                connectSrc.From(auth0Domain);
+            }
+
             builder.AddBaseUri().Self();
             builder.AddFrameAncestors().None();
         });
