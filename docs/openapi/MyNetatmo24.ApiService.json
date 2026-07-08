@@ -229,9 +229,21 @@
     },
     "securitySchemes": {
       "Auth0": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "Json Web Token"
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://auth.dehopre.dev/authorize",
+            "tokenUrl": "https://auth.dehopre.dev/oauth/token",
+            "refreshUrl": "https://auth.dehopre.dev/oauth/token",
+            "scopes": {
+              "openid": "Sign in and read the user's identity.",
+              "profile": "Read the user's profile information.",
+              "email": "Read the user's email address.",
+              "offline_access": "Obtain a refresh token to keep the session alive.",
+              "read:weatherdata": "Read weather data."
+            }
+          }
+        }
       }
     }
   },

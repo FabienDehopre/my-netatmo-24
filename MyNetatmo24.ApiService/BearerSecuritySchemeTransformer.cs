@@ -18,12 +18,25 @@ internal static class SecuritySchemeConstants
 }
 
 /// <summary>
-/// Adds the Auth0 bearer security scheme definition to the OpenAPI document components when the
-/// matching authentication scheme is registered.
+/// Adds the Auth0 OAuth2 (authorization code flow) security scheme definition to the OpenAPI document
+/// components when the matching authentication scheme is registered. This lets Scalar render an
+/// "Authenticate" button that drives the Auth0 login flow instead of a bare token input.
 /// </summary>
-internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvider authenticationSchemeProvider) : IOpenApiDocumentTransformer
+internal sealed class BearerSecuritySchemeTransformer(
+    IAuthenticationSchemeProvider authenticationSchemeProvider,
+    IConfiguration configuration) : IOpenApiDocumentTransformer
 {
+    private static readonly Dictionary<string, string> s_scopes = new()
+    {
+        ["openid"] = "Sign in and read the user's identity.",
+        ["profile"] = "Read the user's profile information.",
+        ["email"] = "Read the user's email address.",
+        ["offline_access"] = "Obtain a refresh token to keep the session alive.",
+        ["read:weatherdata"] = "Read weather data.",
+    };
+
     private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider = authenticationSchemeProvider.ThrowIfNull();
+    private readonly IConfiguration _configuration = configuration.ThrowIfNull();
 
     public async Task TransformAsync(
         OpenApiDocument document,
@@ -33,12 +46,20 @@ internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvi
         var authenticationSchemes = await _authenticationSchemeProvider.GetAllSchemesAsync();
         if (authenticationSchemes.Any(authScheme => authScheme.Name == SecuritySchemeConstants.Auth0))
         {
+            var domain = _configuration["Auth0:Domain"].ThrowIfNullOrWhiteSpace();
             var scheme = new OpenApiSecurityScheme
             {
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                In = ParameterLocation.Header,
-                BearerFormat = "Json Web Token",
+                Type = SecuritySchemeType.OAuth2,
+                Flows = new OpenApiOAuthFlows
+                {
+                    AuthorizationCode = new OpenApiOAuthFlow
+                    {
+                        AuthorizationUrl = new Uri($"https://{domain}/authorize"),
+                        TokenUrl = new Uri($"https://{domain}/oauth/token"),
+                        RefreshUrl = new Uri($"https://{domain}/oauth/token"),
+                        Scopes = s_scopes,
+                    }
+                }
             };
             document.Components ??= new OpenApiComponents();
             document.Components.SecuritySchemes = new Dictionary<string, IOpenApiSecurityScheme>
