@@ -17,20 +17,27 @@ internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvi
         CancellationToken cancellationToken)
     {
         var authenticationSchemes = await _authenticationSchemeProvider.GetAllSchemesAsync();
-        if (authenticationSchemes.Any(authScheme => authScheme.Name == "Bearer"))
+        if (authenticationSchemes.Any(authScheme => authScheme.Name == "Auth0"))
         {
-            var requirements = new Dictionary<string, IOpenApiSecurityScheme>
+            var scheme = new OpenApiSecurityScheme
             {
-                ["Bearer"] = new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    In = ParameterLocation.Header,
-                    BearerFormat = "Json Web Token",
-                }
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                In = ParameterLocation.Header,
+                BearerFormat = "Json Web Token",
             };
             document.Components ??= new OpenApiComponents();
-            document.Components.SecuritySchemes = requirements;
+            document.Components.SecuritySchemes = new Dictionary<string, IOpenApiSecurityScheme>
+            {
+                ["Auth0"] = scheme
+            };
+
+            // Reference the scheme so operations are marked as secured (adds the lock icon).
+            var reference = new OpenApiSecuritySchemeReference("Auth0", document);
+            foreach (var operation in document.Paths.Values.SelectMany(path => path.Operations!.Values))
+            {
+                operation.Security = [new OpenApiSecurityRequirement { [reference] = [] }];
+            }
         }
     }
 }

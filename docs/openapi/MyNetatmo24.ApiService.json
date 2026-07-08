@@ -43,7 +43,12 @@
           "401": {
             "description": "The user is not authenticated, so an account cannot be ensured."
           }
-        }
+        },
+        "security": [
+          {
+            "Auth0": [ ]
+          }
+        ]
       }
     },
     "/account/me": {
@@ -71,7 +76,12 @@
           "401": {
             "description": "The user is not authenticated, so their account information cannot be retrieved."
           }
-        }
+        },
+        "security": [
+          {
+            "Auth0": [ ]
+          }
+        ]
       }
     },
     "/account/restore": {
@@ -92,7 +102,12 @@
           "401": {
             "description": "The user is not authenticated, so their account cannot be restored."
           }
-        }
+        },
+        "security": [
+          {
+            "Auth0": [ ]
+          }
+        ]
       }
     },
     "/weatherforecast": {
@@ -117,7 +132,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Auth0": [ ]
+          }
+        ]
       }
     }
   },
@@ -205,6 +225,13 @@
             "format": "uri"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "Auth0": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Json Web Token"
       }
     }
   },
