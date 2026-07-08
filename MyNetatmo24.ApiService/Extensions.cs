@@ -250,7 +250,7 @@ public static class Extensions
             .AddFrameOptionsDeny()
             .AddContentTypeOptionsNoSniff()
             .AddReferrerPolicyStrictOriginWhenCrossOrigin()
-            .AddCrossOriginOpenerPolicy(builder => builder.SameOrigin())
+            .AddCrossOriginOpenerPolicy(builder => builder.UnsafeNone())
             .AddCrossOriginResourcePolicy(builder => builder.SameOrigin())
             .RemoveServerHeader();
 
