@@ -78,6 +78,7 @@ public static class Extensions
                     return Task.CompletedTask;
                 });
                 openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+                openApi.AddOperationTransformer<BearerSecurityRequirementOperationTransformer>();
             });
 
             builder.Services.AddOpenApiExtensions(openApi =>
