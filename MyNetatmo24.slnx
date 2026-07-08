@@ -13,6 +13,9 @@
     <File Path=".github\workflows\autofix.yml" />
     <File Path=".github\workflows\ci.yml" />
   </Folder>
+  <Folder Name="/OpenApi/">
+    <File Path="docs\openapi\MyNetatmo24.ApiService.json" />
+  </Folder>
   <Folder Name="/root/">
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
