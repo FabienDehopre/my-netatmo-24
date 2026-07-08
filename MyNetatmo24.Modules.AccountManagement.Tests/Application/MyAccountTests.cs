@@ -1,4 +1,3 @@
-using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using MyNetatmo24.Modules.AccountManagement.Application;
@@ -20,18 +19,17 @@ public class MyAccountTests
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenAccountExists_ReturnsOkWithUserInfo()
+    public async Task InvokeAsync_WhenAccountExists_ReturnsOkWithUserInfo()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         db.Context.Add(SeededAccount());
         await db.Context.SaveChangesAsync();
 
-        var endpoint = Factory.Create<MyAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
+        var response = await MyAccount.HandleAsync(
+            TestClaims.Authenticated(Auth0Id),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is Ok<MyAccount.UserInfoDto>).IsTrue();
         var ok = (Ok<MyAccount.UserInfoDto>)response.Result;
@@ -41,37 +39,35 @@ public class MyAccountTests
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenNotAuthenticated_ReturnsUnauthorized()
+    public async Task InvokeAsync_WhenNotAuthenticated_ReturnsUnauthorized()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
 
-        var endpoint = Factory.Create<MyAccount.Endpoint>(
-            TestClaims.Anonymous,
+        var response = await MyAccount.HandleAsync(
+            TestClaims.Anonymous(),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is UnauthorizedHttpResult).IsTrue();
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenAccountMissing_ReturnsNotFound()
+    public async Task InvokeAsync_WhenAccountMissing_ReturnsNotFound()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
 
-        var endpoint = Factory.Create<MyAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
+        var response = await MyAccount.HandleAsync(
+            TestClaims.Authenticated(Auth0Id),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
     }
 
     [Test]
-    public async Task ExecuteAsync_WhenAccountSoftDeleted_ReturnsNotFound()
+    public async Task InvokeAsync_WhenAccountSoftDeleted_ReturnsNotFound()
     {
         await using var db = await TestAccountDbContext.CreateAsync();
         var account = SeededAccount();
@@ -79,12 +75,11 @@ public class MyAccountTests
         db.Context.Add(account);
         await db.Context.SaveChangesAsync();
 
-        var endpoint = Factory.Create<MyAccount.Endpoint>(
-            ctx => TestClaims.Authenticated(ctx, Auth0Id),
+        var response = await MyAccount.HandleAsync(
+            TestClaims.Authenticated(Auth0Id),
             db.Context.Set<Account>().AsNoTracking(),
-            new PassThroughHybridCache());
-
-        var response = await endpoint.ExecuteAsync(CancellationToken.None);
+            new PassThroughHybridCache(),
+            CancellationToken.None);
 
         await Assert.That(response.Result is NotFound).IsTrue();
     }

@@ -5,5 +5,5 @@ namespace MyNetatmo24.SharedKernel.Modules;
 public interface IModule
 {
     WebApplicationBuilder AddModule(WebApplicationBuilder builder);
-    // WebApplication UseModule(WebApplication app);
+    WebApplication UseModule(WebApplication app);
 }

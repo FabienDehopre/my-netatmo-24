@@ -10,7 +10,7 @@ public class ErrorsTests
     [Test]
     public async Task UserNotAuthenticated_HasUnauthorizedStatusCode()
     {
-        var error = (FastEndpointsError)Errors.UserNotAuthenticated;
+        var error = (EndpointError)Errors.UserNotAuthenticated;
 
         await Assert.That(error.StatusCode).IsEqualTo(StatusCodes.Status401Unauthorized);
     }
@@ -18,7 +18,7 @@ public class ErrorsTests
     [Test]
     public async Task AccountNotFound_HasNotFoundStatusCode()
     {
-        var error = (FastEndpointsError)Errors.AccountNotFound;
+        var error = (EndpointError)Errors.AccountNotFound;
 
         await Assert.That(error.StatusCode).IsEqualTo(StatusCodes.Status404NotFound);
     }
@@ -55,7 +55,7 @@ public class ErrorsTests
         IReason reason = Errors.UserDeleted(deletedAt);
 
         await Assert.That(reason.GetDeletedAt()).IsEqualTo(deletedAt);
-        await Assert.That(((FastEndpointsError)reason).StatusCode).IsEqualTo(StatusCodes.Status409Conflict);
+        await Assert.That(((EndpointError)reason).StatusCode).IsEqualTo(StatusCodes.Status409Conflict);
     }
 
     [Test]

@@ -1,7 +1,13 @@
 using JasperFx.Resources;
+using MartinCostello.OpenApi;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OpenApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZiggyCreatures.Caching.Fusion;
+using OpenApiContact = Microsoft.OpenApi.OpenApiContact;
+using OpenApiInfo = Microsoft.OpenApi.OpenApiInfo;
+using OpenApiServer = Microsoft.OpenApi.OpenApiServer;
 
 namespace MyNetatmo24.ApiService;
 
@@ -32,6 +38,55 @@ public static class Extensions
                     b.RequireAuthenticatedUser()
                         .RequireRole("read:weatherdata");
                 });
+            });
+
+            return builder;
+        }
+
+        public WebApplicationBuilder AddOpenApi()
+        {
+            builder.Services.AddOpenApi(openApi =>
+            {
+                openApi.CreateSchemaReferenceId = (jsonTypeInfo) =>
+                {
+                    var schemaRefId = OpenApiOptions.CreateDefaultSchemaReferenceId(jsonTypeInfo);
+                    if (schemaRefId is null || jsonTypeInfo?.Type?.FullName is null)
+                    {
+                        return null;
+                    }
+
+                    return jsonTypeInfo.Type.FullName.Replace("+", ".", StringComparison.Ordinal);
+                };
+
+                openApi.AddDocumentTransformer((document, _, _) =>
+                {
+                    document.Servers = [new OpenApiServer { Url = "https://localhost:7115" }];
+                    document.Info = new OpenApiInfo
+                    {
+                        Title = "My Netatmo 24 API",
+                        Version = "v1",
+                        Description = "API for My Netatmo 24 application",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Support",
+                            // Email = "my-netatmo-24@dehopre.dev",
+                            Url = new Uri("https://github.com/FabienDehopre/my-netatmo-24"),
+                        }
+                    };
+
+                    return Task.CompletedTask;
+                });
+                openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+            });
+
+            builder.Services.AddOpenApiExtensions(openApi =>
+            {
+                openApi.AddServerUrls = true;
+                openApi.DefaultServerUrl = "https://localhost:7115";
+                // openApi.AddExamples = true;
+                // openApi.SerializationContexts.Add(TODO);
+                // openApi.AddExample<ProblemDetails, ProblemDetailsExampleProvider>();
+                openApi.AddXmlComments<Program>();
             });
 
             return builder;
@@ -113,49 +168,6 @@ public static class Extensions
                 options.Policies.UseDurableLocalQueues();
                 options.Policies.AutoApplyTransactions();
             });
-
-            return builder;
-        }
-
-        public WebApplicationBuilder AddFastEndpointsWithOpenApi()
-        {
-            builder.Services
-                .AddFastEndpoints(options => options.AddEndpointsAssemblies())
-                .SwaggerDocument(options =>
-                {
-                    options.RemoveEmptyRequestSchema = true;
-                    options.EnableJWTBearerAuth = false;
-                    options.DocumentSettings = settings =>
-                    {
-                        settings.Title = "My Netatmo 24 API";
-                        settings.Description = "An API to access weather data from Netatmo devices.";
-                        settings.MarkNonNullablePropsAsRequired();
-                        settings.AddAuth("Auth0", new OpenApiSecurityScheme
-                        {
-                            Type = OpenApiSecuritySchemeType.OAuth2,
-                            BearerFormat = "JWT",
-                            Scheme = "Bearer",
-                            In = OpenApiSecurityApiKeyLocation.Header,
-                            Flows = new OpenApiOAuthFlows
-                            {
-                                AuthorizationCode = new OpenApiOAuthFlow
-                                {
-                                    // AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize?audience={builder.Configuration["Auth0:Audience"]}",
-                                    AuthorizationUrl = $"https://{builder.Configuration["Auth0:Domain"]}/authorize",
-                                    TokenUrl = $"https://{builder.Configuration["Auth0:Domain"]}/oauth/token",
-                                    Scopes = new Dictionary<string, string>
-                                    {
-                                        { "openid", "OpenID Connect scope" },
-                                        { "profile", "Access to your profile information" },
-                                        { "email", "Access to your email address" },
-                                        { "offline_access", "Access to refresh tokens" },
-                                        { "read:weatherdata", "Read access to weather data" }
-                                    }
-                                }
-                            }
-                        });
-                    };
-                });
 
             return builder;
         }

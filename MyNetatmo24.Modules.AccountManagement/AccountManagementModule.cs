@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyNetatmo24.Modules.AccountManagement.Application;
 using MyNetatmo24.Modules.AccountManagement.Data;
 using MyNetatmo24.Modules.AccountManagement.Domain;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
+using MyNetatmo24.SharedKernel.Endpoints;
 using MyNetatmo24.SharedKernel.Infrastructure;
 using MyNetatmo24.SharedKernel.Modules;
 using Wolverine.Attributes;
@@ -50,5 +52,18 @@ public sealed class AccountManagementModule : IModule
             });
 
         return builder;
+    }
+
+    public WebApplication UseModule(WebApplication app)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        var group = app.MapGroup("account")
+            .RequireAuthorization()
+            .WithTags("Account Management");
+        EnsureAccount.Configure(group);
+        MyAccount.Configure(group);
+        RestoreAccount.Configure(group);
+
+        return app;
     }
 }

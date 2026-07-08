@@ -1,5 +1,4 @@
 using FluentResults;
-using Microsoft.AspNetCore.Http;
 
 namespace MyNetatmo24.SharedKernel.Results;
 
