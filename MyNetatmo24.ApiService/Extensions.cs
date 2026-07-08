@@ -14,6 +14,7 @@ namespace MyNetatmo24.ApiService;
 public static class Extensions
 {
     private static HeaderPolicyCollection? s_headerApiPolicy;
+    private static HeaderPolicyCollection? s_headerScalarPolicy;
 
     extension(WebApplicationBuilder builder)
     {
@@ -174,8 +175,20 @@ public static class Extensions
 
         public WebApplicationBuilder AddSecurity()
         {
+            var isDevelopment = builder.Environment.IsDevelopment();
             builder.Services.AddSecurityHeaderPolicies()
-                .SetPolicySelector(_ => GetApiHeaderPolicyCollection(builder.Environment.IsDevelopment()));
+                .SetPolicySelector(context =>
+                {
+                    // Scalar UI (development only) needs a relaxed CSP to load its scripts/styles.
+                    if (isDevelopment &&
+                        context.HttpContext.Request.Path.StartsWithSegments(
+                            "/scalar", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return GetScalarHeaderPolicyCollection();
+                    }
+
+                    return GetApiHeaderPolicyCollection(isDevelopment);
+                });
 
             return builder;
         }
@@ -219,5 +232,41 @@ public static class Extensions
         }
 
         return s_headerApiPolicy;
+    }
+
+    // Relaxed policy for the Scalar API reference UI (development only). Scalar loads its
+    // own bundled scripts (scalar.js, scalar.aspnetcore.js) and an inline bootstrap script,
+    // which the strict API CSP blocks via `script-src-elem 'none'` and trusted types.
+    internal static HeaderPolicyCollection GetScalarHeaderPolicyCollection()
+    {
+        if (s_headerScalarPolicy is not null)
+        {
+            return s_headerScalarPolicy;
+        }
+
+        s_headerScalarPolicy = new HeaderPolicyCollection()
+            .AddFrameOptionsDeny()
+            .AddContentTypeOptionsNoSniff()
+            .AddReferrerPolicyStrictOriginWhenCrossOrigin()
+            .AddCrossOriginOpenerPolicy(builder => builder.SameOrigin())
+            .AddCrossOriginResourcePolicy(builder => builder.SameOrigin())
+            .RemoveServerHeader();
+
+        s_headerScalarPolicy.AddContentSecurityPolicy(builder =>
+        {
+            builder.AddObjectSrc().None();
+            builder.AddBlockAllMixedContent();
+            builder.AddDefaultSrc().Self();
+            builder.AddScriptSrc().Self().UnsafeInline().UnsafeEval();
+            builder.AddScriptSrcElem().Self().UnsafeInline();
+            builder.AddStyleSrc().Self().UnsafeInline();
+            builder.AddImgSrc().Self().Data().Blob();
+            builder.AddFontSrc().Self().Data();
+            builder.AddConnectSrc().Self();
+            builder.AddBaseUri().Self();
+            builder.AddFrameAncestors().None();
+        });
+
+        return s_headerScalarPolicy;
     }
 }
