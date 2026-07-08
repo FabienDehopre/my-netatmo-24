@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+      <PackageReference Include="Microsoft.Kiota.Bundle" />
+      <PackageReference Include="Testcontainers.PostgreSql" />
+      <PackageReference Include="Testcontainers.Redis" />
+      <PackageReference Include="TUnit" />
+      <PackageReference Include="TUnit.AspNetCore" />
+      <PackageReference Include="Verify.TUnit" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
+      <ProjectReference Include="..\MyNetatmo24.Modules.AccountManagement\MyNetatmo24.Modules.AccountManagement.csproj" />
+    </ItemGroup>
+
+  <Target Name="GenerateClient" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
+    <Exec
+      Command="kiota generate -l CSharp --output ./ApiServiceSDK --namespace-name ApiServiceSDK --class-name ApiClient --openapi ../docs/openapi/MyNetatmo24.ApiService.json --clean-output"
+      WorkingDirectory="$(ProjectDir)" />
+  </Target>
+
+</Project>
