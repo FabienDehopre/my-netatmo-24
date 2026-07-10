@@ -1,3 +1,5 @@
+using MyNetatmo24.SharedKernel.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options => options.AddServerHeader = false);
@@ -8,7 +10,7 @@ builder.AddReverseProxy();
 builder.AddAuthenticationSchemes();
 builder.AddRateLimiting();
 
-builder.AddRedisDistributedCache(connectionName: "cache");
+builder.AddRedisDistributedCache(connectionName: Constants.CacheName);
 builder.Services.AddOpenIdConnectAccessTokenManagement();
 
 builder.Services.AddAntiforgery(options =>

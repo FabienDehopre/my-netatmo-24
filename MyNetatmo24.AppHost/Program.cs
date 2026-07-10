@@ -10,7 +10,7 @@ postgres.WithPgWeb(p => p.WithParentRelationship(postgres))
 
 var database = postgres.AddDatabase(Constants.DatabaseName);
 
-var redis = builder.AddRedis("cache")
+var redis = builder.AddRedis(Constants.CacheName)
     .WithDataVolume();
 redis
     .WithRedisInsight(p => p.WithParentRelationship(redis));

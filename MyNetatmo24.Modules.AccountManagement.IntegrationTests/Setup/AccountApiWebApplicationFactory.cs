@@ -1,4 +1,3 @@
-// extern alias migrations;
 using System.Diagnostics.CodeAnalysis;
 using ApiServiceSDK;
 using Microsoft.AspNetCore.Authentication;
@@ -138,9 +137,6 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
 
     private static async Task MigrateAsync(string connectionString, CancellationToken cancellationToken)
     {
-        // var options = new DbContextOptionsBuilder<AccountDbContext>()
-        //     .UseNpgsql(connectionString, npgsql => npgsql.MigrationsAssembly(typeof(migrations.Program).Assembly))
-        //     .Options;
         var options = new DbContextOptionsBuilder<AccountDbContext>()
             .UseNpgsql(connectionString, npgsql => npgsql.MigrationsAssembly(typeof(AccountDbContext).Assembly))
             .Options;
