@@ -1,10 +1,12 @@
 // extern alias migrations;
 using System.Diagnostics.CodeAnalysis;
 using ApiServiceSDK;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using MyNetatmo24.Modules.AccountManagement.Data;
+using MyNetatmo24.SharedKernel.Infrastructure;
 using Npgsql;
 using TUnit.AspNetCore;
 using TUnit.Core.Interfaces;
@@ -37,7 +39,26 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        // TODO
+        ArgumentNullException.ThrowIfNull(builder);
+        builder.UseSetting($"ConnectionStrings:{Constants.DatabaseName}", Database.Container.GetConnectionString());
+        builder.UseSetting("ConnectionStrings:cache", Cache.Container.GetConnectionString());
+
+        builder.ConfigureServices(services =>
+        {
+            services.AddAuthentication(defaultScheme: "Test")
+                .AddScheme<AuthenticationSchemeOptions, AccountApiAuthenticationHandler>("Test", options => { });
+
+            // Remove OpenFeature's lifecycle service to prevent teardown errors
+            // when the static Api singleton is shut down multiple times across tests.
+            // var openFeatureLifecycle = services.FirstOrDefault(
+            //     d => d.ImplementationType == typeof(HostedFeatureLifecycleService));
+            // if (openFeatureLifecycle is not null)
+            // {
+            //     services.Remove(openFeatureLifecycle);
+            // }
+        });
+
+        builder.UseEnvironment("IntegrationTest");
     }
 
     public static ApiClient CreateApiClient(HttpClient httpClient)
