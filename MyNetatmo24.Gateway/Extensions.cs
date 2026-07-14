@@ -175,12 +175,14 @@ internal static class Extensions
                 .Where(host => !string.Equals(host, "*", StringComparison.Ordinal))
                 .ToArray() ?? [];
 
-            var allowedHost = allowedHosts
-                .FirstOrDefault(host => string.Equals(host, request.Host.Host, StringComparison.OrdinalIgnoreCase))
-                ?? allowedHosts.FirstOrDefault()
-                ?? "localhost";
+            var matchedHost = allowedHosts
+                .FirstOrDefault(host => string.Equals(host, request.Host.Host, StringComparison.OrdinalIgnoreCase));
 
-            var authority = request.Host.Port is { } port ? $"{allowedHost}:{port}" : allowedHost;
+            // Preserve the request port only when the host itself is allow-listed (e.g. local
+            // dev on localhost:<port>); never carry an attacker-controlled port onto a fallback host.
+            var authority = matchedHost is not null
+                ? request.Host.Port is { } port ? $"{matchedHost}:{port}" : matchedHost
+                : allowedHosts.FirstOrDefault() ?? "localhost";
 
             // Collapse the scheme to a known constant so a forwarded proto cannot be reflected.
             var scheme = string.Equals(request.Scheme, "https", StringComparison.OrdinalIgnoreCase) ? "https" : "http";
