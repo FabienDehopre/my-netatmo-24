@@ -163,7 +163,31 @@ internal static class Extensions
                 redirectUrl = "/";
             }
 
-            return $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}{redirectUrl}";
+            var request = context.Request;
+
+            // Guard against Host header injection (CWE-601): never echo the raw
+            // incoming Host into a redirect URL. Only reflect a host that is
+            // explicitly allow-listed; otherwise fall back to a known-good host.
+            var allowedHosts = context.RequestServices
+                .GetRequiredService<IConfiguration>()
+                .GetValue<string>("AllowedHosts")?
+                .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Where(host => !string.Equals(host, "*", StringComparison.Ordinal))
+                .ToArray() ?? [];
+
+            var matchedHost = allowedHosts
+                .FirstOrDefault(host => string.Equals(host, request.Host.Host, StringComparison.OrdinalIgnoreCase));
+
+            // Preserve the request port only when the host itself is allow-listed (e.g. local
+            // dev on localhost:<port>); never carry an attacker-controlled port onto a fallback host.
+            var authority = matchedHost is not null
+                ? request.Host.Port is { } port ? $"{matchedHost}:{port}" : matchedHost
+                : allowedHosts.FirstOrDefault() ?? "localhost";
+
+            // Collapse the scheme to a known constant so a forwarded proto cannot be reflected.
+            var scheme = string.Equals(request.Scheme, "https", StringComparison.OrdinalIgnoreCase) ? "https" : "http";
+
+            return $"{scheme}://{authority}{request.PathBase}{redirectUrl}";
         }
     }
 }

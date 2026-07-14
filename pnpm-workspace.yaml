@@ -56,7 +56,7 @@ catalogs:
     eslint-plugin-better-tailwindcss: 4.6.1
     eslint-plugin-erasable-syntax-only: 0.4.2
     eslint-plugin-format: 2.0.1
-    eslint-plugin-playwright: 2.10.4
+    eslint-plugin-playwright: 2.10.5
   ngrx:
     '@ngrx/operators': 21.1.1
     '@ngrx/signals': 21.1.1
