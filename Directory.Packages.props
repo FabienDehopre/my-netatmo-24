@@ -36,7 +36,7 @@
     <PackageVersion Include="Respawn" Version="7.0.0" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.16.11" />
     <PackageVersion Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
-    <PackageVersion Include="TUnit" Version="1.59.0" />
+    <PackageVersion Include="TUnit" Version="1.60.0" />
     <PackageVersion Include="Vogen" Version="8.0.6" />
     <PackageVersion Include="WolverineFx" Version="6.19.0" />
     <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.19.0" />
