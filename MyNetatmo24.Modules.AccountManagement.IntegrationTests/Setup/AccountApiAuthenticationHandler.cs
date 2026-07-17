@@ -11,17 +11,26 @@ public class AccountApiAuthenticationHandler(
     UrlEncoder encoder)
     : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder)
 {
+    public const string SchemeName = "Test";
+    public const string Auth0IdHeaderName = "X-Test-Auth0Id";
+
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
+        var auth0Id = Request.Headers[Auth0IdHeaderName].ToString();
+        if (string.IsNullOrWhiteSpace(auth0Id))
+        {
+            return Task.FromResult(AuthenticateResult.NoResult());
+        }
+
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, "Test"),
-            new Claim(ClaimTypes.NameIdentifier, "test-user-id"),
+            new Claim(ClaimTypes.Name, auth0Id),
+            new Claim(ClaimTypes.NameIdentifier, auth0Id),
         };
 
-        var identity = new ClaimsIdentity(claims, "Test");
+        var identity = new ClaimsIdentity(claims, SchemeName);
         var principal = new ClaimsPrincipal(identity);
-        var ticket = new AuthenticationTicket(principal, "Test");
+        var ticket = new AuthenticationTicket(principal, SchemeName);
 
         return Task.FromResult(AuthenticateResult.Success(ticket));
     }

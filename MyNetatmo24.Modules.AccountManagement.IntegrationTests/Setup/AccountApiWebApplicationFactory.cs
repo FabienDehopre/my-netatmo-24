@@ -1,9 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using ApiServiceSDK;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 using MyNetatmo24.Modules.AccountManagement.Data;
 using MyNetatmo24.SharedKernel.Infrastructure;
 using Npgsql;
@@ -17,9 +14,12 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
 {
     private const string TemplateDatabaseName = "my-netatmo24-api-service-template";
 
-    private readonly Lock _templateInitializationLock = new();
-    private Task? _templateInitializationTask;
-    private bool _templateInitialized;
+    // The factory is instantiated once per test class, but the database container (and therefore
+    // the template database) is shared across the whole test session. The gate must be static so
+    // a second test class does not drop and recreate the template while another class clones from it.
+    private static readonly Lock TemplateInitializationLock = new();
+    private static Task? s_templateInitializationTask;
+    private static volatile bool s_templateInitialized;
 
     [ClassDataSource<DatabaseContainer>(Shared = SharedType.PerTestSession)]
     public DatabaseContainer Database { get; init; } = null!;
@@ -44,27 +44,12 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
 
         builder.ConfigureServices(services =>
         {
-            services.AddAuthentication(defaultScheme: "Test")
-                .AddScheme<AuthenticationSchemeOptions, AccountApiAuthenticationHandler>("Test", options => { });
-
-            // Remove OpenFeature's lifecycle service to prevent teardown errors
-            // when the static Api singleton is shut down multiple times across tests.
-            // var openFeatureLifecycle = services.FirstOrDefault(
-            //     d => d.ImplementationType == typeof(HostedFeatureLifecycleService));
-            // if (openFeatureLifecycle is not null)
-            // {
-            //     services.Remove(openFeatureLifecycle);
-            // }
+            services.AddAuthentication(defaultScheme: AccountApiAuthenticationHandler.SchemeName)
+                .AddScheme<AuthenticationSchemeOptions, AccountApiAuthenticationHandler>(
+                    AccountApiAuthenticationHandler.SchemeName, options => { });
         });
 
         builder.UseEnvironment("IntegrationTest");
-    }
-
-    public static ApiClient CreateApiClient(HttpClient httpClient)
-    {
-        var authProvider = new AnonymousAuthenticationProvider();
-        using var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
-        return new ApiClient(adapter);
     }
 
     internal async Task<string> CreateIsolatedDatabaseAsync(string databaseName, CancellationToken cancellationToken = default)
@@ -93,7 +78,9 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
         await connection.OpenAsync(cancellationToken);
 
         await using var dropCommand = connection.CreateCommand();
-        dropCommand.CommandText = $"DROP DATABASE IF EXISTS {QuoteIdentifier(databaseName)};";
+        // WITH (FORCE): Wolverine's durability agent can still hold connections into the
+        // per-test database when the test tears down; a plain DROP would fail with 55006.
+        dropCommand.CommandText = $"DROP DATABASE IF EXISTS {QuoteIdentifier(databaseName)} WITH (FORCE);";
         await dropCommand.ExecuteNonQueryAsync(cancellationToken);
 
         NpgsqlConnection.ClearAllPools();
@@ -101,15 +88,15 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
 
     private Task EnsureTemplateInitializedAsync(CancellationToken cancellationToken = default)
     {
-        if (_templateInitialized)
+        if (s_templateInitialized)
         {
             return Task.CompletedTask;
         }
 
-        lock (_templateInitializationLock)
+        lock (TemplateInitializationLock)
         {
-            _templateInitializationTask ??= InitializeTemplateAsync(cancellationToken);
-            return _templateInitializationTask;
+            s_templateInitializationTask ??= InitializeTemplateAsync(cancellationToken);
+            return s_templateInitializationTask;
         }
     }
 
@@ -118,7 +105,7 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
         await EnsureTemplateDatabaseAsync(cancellationToken);
         await MigrateAsync(UnpooledTemplateDatabaseConnectionString, cancellationToken);
         NpgsqlConnection.ClearAllPools();
-        _templateInitialized = true;
+        s_templateInitialized = true;
     }
 
     private async Task EnsureTemplateDatabaseAsync(CancellationToken cancellationToken)
