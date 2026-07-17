@@ -136,7 +136,8 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
     {
         var builder = new NpgsqlConnectionStringBuilder(Database.Container.GetConnectionString())
         {
-            Database = databaseName, Pooling = !disablePooling
+            Database = databaseName,
+            Pooling = !disablePooling
         };
 
         return builder.ConnectionString;
