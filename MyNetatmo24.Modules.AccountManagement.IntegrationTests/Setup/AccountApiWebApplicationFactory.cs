@@ -40,7 +40,7 @@ public sealed class AccountApiWebApplicationFactory : TestWebApplicationFactory<
     {
         ArgumentNullException.ThrowIfNull(builder);
         builder.UseSetting($"ConnectionStrings:{Constants.DatabaseName}", Database.Container.GetConnectionString());
-        builder.UseSetting("ConnectionStrings:cache", Cache.Container.GetConnectionString());
+        builder.UseSetting($"ConnectionStrings:{Constants.CacheName}", Cache.Container.GetConnectionString());
 
         builder.ConfigureServices(services =>
         {
