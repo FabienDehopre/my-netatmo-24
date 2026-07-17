@@ -240,7 +240,7 @@ sequenceDiagram
 - **`MyNetatmo24.AppHost`**: Aspire application host for service orchestration.
 - **`MyNetatmo24.Gateway`**: YARP-based API gateway with BFF authentication (Auth0).
 - **`MyNetatmo24.ApiService`**: Main API service, hosting the different domain modules.
-- **`MyNetatmo24.Migrations`**: Database migration service.
+- **`MyNetatmo24.MigrationService`**: Database migration service.
 - **`MyNetatmo24.ServiceDefaults`**: Shared service configuration.
 - **`MyNetatmo24.SharedKernel`**: Domain primitives as value objects (Vogen), shared contracts (messages), common
   utilities.
@@ -260,7 +260,7 @@ sequenceDiagram
 ### Testing Projects
 
 - **`MyNetatmo24.Modules.*.Tests`**: Unit tests for each module (TUnit).
-- **`MyNetatmo24.IntegrationTests`**: Service integration tests (TUnit) in combination with test containers.
+- **`MyNetatmo24.Modules.*.IntegrationTests`**: Service integration tests (TUnit) in combination with test containers.
 - **`MyNetatmo24.EndToEndTests`**: Playwright E2E tests with Auth0 authentication.
 - **`MyNetatmo24.Frontend`**: Vitest unit tests for Angular following the syntax `*.spec.ts`.
 - **`MyNetatmo24.Architectural.Tests`**: Architecture compliance tests (ArchUnitNET).

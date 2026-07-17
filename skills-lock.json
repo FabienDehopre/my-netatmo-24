@@ -199,6 +199,12 @@
       "skillPath": "skills/in-progress/review/SKILL.md",
       "computedHash": "8f98a68bf07ef9b80d5302d863efe896fbf7beb488f01904ad65c76fac394e82"
     },
+    "run-tests": {
+      "source": "dotnet/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/dotnet-test/skills/run-tests/SKILL.md",
+      "computedHash": "075d5b12b7c83a80ef676d1850f71be544823881192ce18f5c24ee17368b7248"
+    },
     "setup-matt-pocock-skills": {
       "source": "mattpocock/skills",
       "sourceType": "github",

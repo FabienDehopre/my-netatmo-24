@@ -109,7 +109,7 @@ public static class Extensions
 
         public WebApplicationBuilder AddCaching()
         {
-            builder.AddRedisDistributedCache(connectionName: "cache");
+            builder.AddRedisDistributedCache(connectionName: Constants.CacheName);
             builder.Services.AddFusionCache()
                 .WithOptions(options =>
                 {
@@ -139,7 +139,7 @@ public static class Extensions
                 .AddFusionCacheSystemTextJsonSerializer()
                 .AddFusionCacheStackExchangeRedisBackplane(options =>
                 {
-                    options.Configuration = builder.Configuration.GetConnectionString("cache");
+                    options.Configuration = builder.Configuration.GetConnectionString(Constants.CacheName);
                 })
                 .AddOpenTelemetry()
                 .WithTracing(tracing => tracing.AddFusionCacheInstrumentation())

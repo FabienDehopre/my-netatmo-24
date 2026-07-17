@@ -1,0 +1,6 @@
+﻿{
+  AvatarUrl: https://example.com/avatar.png,
+  FirstName: John,
+  LastName: Doe,
+  Nickname: johnny
+}
