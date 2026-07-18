@@ -38,8 +38,8 @@ catalog:
 
 catalogs:
   angular:
-    '@angular/build': 22.0.6
-    '@angular/cli': 22.0.6
+    '@angular/build': 22.0.7
+    '@angular/cli': 22.0.7
     '@angular/cdk': 22.0.4
     '@angular/common': 22.0.6
     '@angular/compiler': 22.0.6
