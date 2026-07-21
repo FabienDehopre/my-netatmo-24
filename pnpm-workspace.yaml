@@ -74,7 +74,7 @@ catalogs:
   spartanui:
     '@ng-icons/core': 33.4.0
     '@ng-icons/lucide': 33.4.0
-    '@spartan-ng/brain': 1.1.0
+    '@spartan-ng/brain': 1.1.1
     'class-variance-authority': 0.7.1
     clsx: 2.1.1
   tailwindcss:
