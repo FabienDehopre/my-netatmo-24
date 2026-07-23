@@ -38,7 +38,7 @@
     <PackageVersion Include="Respawn" Version="7.0.0" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.16.16" />
     <PackageVersion Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.4" />
-    <PackageVersion Include="TUnit" Version="1.61.35" />
+    <PackageVersion Include="TUnit" Version="1.61.38" />
     <PackageVersion Include="Vogen" Version="8.0.7" />
     <PackageVersion Include="WolverineFx" Version="6.21.0" />
     <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.21.0" />
@@ -46,7 +46,7 @@
     <PackageVersion Include="WolverineFx.Postgresql" Version="6.21.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.13.0" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.13.0" />
-    <PackageVersion Include="TUnit.AspNetCore" Version="1.61.35" />
+    <PackageVersion Include="TUnit.AspNetCore" Version="1.61.38" />
     <PackageVersion Include="Verify.TUnit" Version="31.27.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
