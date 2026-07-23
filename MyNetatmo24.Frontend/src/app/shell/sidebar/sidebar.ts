@@ -48,7 +48,11 @@ export class Sidebar {
   readonly #sidebarMenu = inject(HlmSidebarService);
   protected readonly menuSide = computed(() => (this.#sidebarMenu.isMobile() ? 'top' : 'right'));
   // protected readonly menuAlign = computed(() => (this.#sidebarMenu.isMobile() ? 'end' : 'start'));
-  protected readonly menuOpen = this.#sidebarMenu.open;
+  protected readonly menuCssClasses = computed(() => {
+    const menuOpen = this.#sidebarMenu.open();
+    return untracked(() => `flex w-full min-w-0 ${menuOpen ? 'gap-1' : 'flex-col gap-0'}`);
+  });
+
   protected readonly userName = computed(() => {
     const user = this.#authentication.user();
     return untracked(() => {

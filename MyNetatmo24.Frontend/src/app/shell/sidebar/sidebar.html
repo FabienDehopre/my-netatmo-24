@@ -59,9 +59,7 @@
         </button>
        </li>
     </ul>
-    <ul *appAnonymous [class]="'flex w-full min-w-0 ' + (menuOpen() ? 'gap-1' : `
-      flex-col gap-0
-    `)">
+    <ul *appAnonymous [class]="menuCssClasses()">
       <li class="grow" hlmSidebarMenuItem>
         <button
           hlmSidebarMenuButton
