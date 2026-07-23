@@ -24,7 +24,7 @@ allowBuilds:
 
 catalog:
   '@ngx-env/builder': 21.0.1
-  '@stoplight/spectral-cli': 6.16.1
+  '@stoplight/spectral-cli': 6.16.2
   '@types/node': 24.13.3
   dotenv: 17.4.2
   jsdom: 29.1.1
@@ -53,7 +53,7 @@ catalogs:
     '@softarc/eslint-plugin-sheriff': 0.19.6
     '@softarc/sheriff-core': 0.19.6
     eslint: 10.7.0
-    eslint-plugin-better-tailwindcss: 4.6.1
+    eslint-plugin-better-tailwindcss: 4.7.0
     eslint-plugin-erasable-syntax-only: 0.4.2
     eslint-plugin-format: 2.0.1
     eslint-plugin-playwright: 2.10.5
