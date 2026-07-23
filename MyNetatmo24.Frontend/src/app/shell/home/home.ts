@@ -5,6 +5,7 @@ import * as z from 'zod/mini';
 
 import { Anonymous } from '@app/shared/ui-auth/anonymous';
 import { Authenticated } from '@app/shared/ui-auth/authenticated';
+import { assertUnreachable } from '@app/shared/util-shared/assert-unreachable';
 import { parse } from '@app/shared/util-shared/parse';
 import { HlmButton } from '@spartan-ng/helm/button';
 
@@ -60,5 +61,16 @@ export class Home {
 
   protected loadWeatherForecast(): void {
     this.#weatherForecasts.reload();
+  }
+
+  protected getTableColumnCssClasses(first: boolean, type: 'body' | 'header'): string {
+    switch (type) {
+      case 'body':
+        return `${first ? 'py-4 pr-3 pl-4 sm:pl-6' : 'px-3 py-4'} text-sm whitespace-nowrap text-gray-500 dark:text-gray-400`;
+      case 'header':
+        return `${first ? 'py-3.5 pr-3 pl-4 sm:pl-6' : 'px-3 py-3.5'} text-left text-sm font-semibold text-gray-900 dark:text-gray-200`;
+      default:
+        return assertUnreachable(type);
+    }
   }
 }
