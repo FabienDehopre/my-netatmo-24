@@ -203,7 +203,13 @@ public static class Extensions
             return s_headerApiPolicy;
         }
 
-        s_headerApiPolicy = new HeaderPolicyCollection()
+        // Build the whole policy in a local variable and only publish it to the static
+        // field once fully constructed. Publishing a partially-built collection (e.g.
+        // assigning to s_headerApiPolicy before the CSP/HSTS directives are added) lets a
+        // concurrent request read the field and enumerate it while this thread is still
+        // mutating it, causing "Collection was modified; enumeration operation may not
+        // execute." under parallel test/request execution.
+        var policy = new HeaderPolicyCollection()
             .AddFrameOptionsDeny()
             .AddContentTypeOptionsNoSniff()
             .AddReferrerPolicyStrictOriginWhenCrossOrigin()
@@ -213,7 +219,7 @@ public static class Extensions
             .RemoveServerHeader()
             .AddPermissionsPolicyWithDefaultSecureDirectives();
 
-        s_headerApiPolicy.AddContentSecurityPolicy(builder =>
+        policy.AddContentSecurityPolicy(builder =>
         {
             builder.AddObjectSrc().None();
             builder.AddBlockAllMixedContent();
@@ -230,9 +236,10 @@ public static class Extensions
 
         if (!isDevelopment)
         {
-            s_headerApiPolicy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
+            policy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
         }
 
+        s_headerApiPolicy = policy;
         return s_headerApiPolicy;
     }
 
@@ -246,7 +253,8 @@ public static class Extensions
             return s_headerScalarPolicy;
         }
 
-        s_headerScalarPolicy = new HeaderPolicyCollection()
+        // See the comment in GetApiHeaderPolicyCollection: build fully before publishing.
+        var policy = new HeaderPolicyCollection()
             .AddFrameOptionsDeny()
             .AddContentTypeOptionsNoSniff()
             .AddReferrerPolicyStrictOriginWhenCrossOrigin()
@@ -254,7 +262,7 @@ public static class Extensions
             .AddCrossOriginResourcePolicy(builder => builder.SameOrigin())
             .RemoveServerHeader();
 
-        s_headerScalarPolicy.AddContentSecurityPolicy(builder =>
+        policy.AddContentSecurityPolicy(builder =>
         {
             builder.AddObjectSrc().None();
             builder.AddBlockAllMixedContent();
@@ -274,6 +282,7 @@ public static class Extensions
             builder.AddFrameAncestors().None();
         });
 
+        s_headerScalarPolicy = policy;
         return s_headerScalarPolicy;
     }
 }
