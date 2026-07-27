@@ -26,21 +26,9 @@ namespace ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint
         public string Summary { get; set; }
 #endif
         /// <summary>The temperatureC property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public UntypedNode? TemperatureC { get; set; }
-#nullable restore
-#else
-        public UntypedNode TemperatureC { get; set; }
-#endif
+        public int? TemperatureC { get; set; }
         /// <summary>The temperatureF property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public UntypedNode? TemperatureF { get; set; }
-#nullable restore
-#else
-        public UntypedNode TemperatureF { get; set; }
-#endif
+        public int? TemperatureF { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast"/> and sets the default values.
         /// </summary>
@@ -68,8 +56,8 @@ namespace ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint
             {
                 { "date", n => { Date = n.GetDateValue(); } },
                 { "summary", n => { Summary = n.GetStringValue(); } },
-                { "temperatureC", n => { TemperatureC = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
-                { "temperatureF", n => { TemperatureF = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
+                { "temperatureC", n => { TemperatureC = n.GetIntValue(); } },
+                { "temperatureF", n => { TemperatureF = n.GetIntValue(); } },
             };
         }
         /// <summary>
@@ -81,8 +69,8 @@ namespace ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteDateValue("date", Date);
             writer.WriteStringValue("summary", Summary);
-            writer.WriteObjectValue<UntypedNode>("temperatureC", TemperatureC);
-            writer.WriteObjectValue<UntypedNode>("temperatureF", TemperatureF);
+            writer.WriteIntValue("temperatureC", TemperatureC);
+            writer.WriteIntValue("temperatureF", TemperatureF);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

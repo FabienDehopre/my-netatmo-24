@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.OpenApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZiggyCreatures.Caching.Fusion;
+using JsonSchemaType = Microsoft.OpenApi.JsonSchemaType;
 using OpenApiContact = Microsoft.OpenApi.OpenApiContact;
 using OpenApiInfo = Microsoft.OpenApi.OpenApiInfo;
 using OpenApiServer = Microsoft.OpenApi.OpenApiServer;
@@ -79,6 +80,20 @@ public static class Extensions
                 });
                 openApi.AddDocumentTransformer<Auth0SecuritySchemeDocumentTransformer>();
                 openApi.AddOperationTransformer<Auth0SecurityRequirementOperationTransformer>();
+                openApi.AddSchemaTransformer((schema, _, _) =>
+                {
+                    // JsonNumberHandling.AllowReadingFromString (the ASP.NET Core default) makes numeric
+                    // properties emit type ["integer"/"number", "string"], which Kiota cannot map to a
+                    // numeric type (it falls back to UntypedNode). Advertise only the numeric type.
+                    const JsonSchemaType numeric = JsonSchemaType.Integer | JsonSchemaType.Number;
+                    if (schema.Type is { } type && (type & numeric) != 0 && (type & JsonSchemaType.String) != 0)
+                    {
+                        schema.Type = type & ~JsonSchemaType.String;
+                        schema.Pattern = null;
+                    }
+
+                    return Task.CompletedTask;
+                });
             });
 
             builder.Services.AddOpenApiExtensions(openApi =>
