@@ -340,3 +340,17 @@ sops set "config/appsettings.encrypted.json" '["Parameters"]["OpenIdConnectSetti
 
 `jq -c '.client_secret'` emits the value already quoted as a JSON string, which is what `sops set` expects. Prefer
 direct injection over storing the secret in an intermediate environment variable.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues for `FabienDehopre/my-netatmo-24`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — one `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
