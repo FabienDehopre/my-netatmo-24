@@ -45,6 +45,7 @@ public class AccountManagementModuleTests
         await Assert.That(provider.GetService<AccountDbContext>()).IsNotNull();
         await Assert.That(provider.GetService<IQueryable<MyNetatmo24.Modules.AccountManagement.Domain.Account>>()).IsNotNull();
         await Assert.That(provider.GetService<IUserInfoService>()).IsNotNull();
+        await Assert.That(provider.GetService<IRegistrationService>()).IsNotNull();
         await Assert.That(provider.GetKeyedService<HybridCache>("Account")).IsNotNull();
     }
 

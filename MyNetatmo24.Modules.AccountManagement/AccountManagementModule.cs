@@ -51,6 +51,13 @@ public sealed class AccountManagementModule : IModule
                 }
             });
 
+        builder.Services.AddSingleton<IRegistrationService, StubRegistrationService>();
+
+        // Turns DataAnnotations on this module's request types into 400 validation ProblemDetails.
+        // The call has to live here rather than in the host: the validation source generator only sees
+        // the [ValidatableType] types of the compilation it intercepts AddValidation() in.
+        builder.Services.AddValidation();
+
         return builder;
     }
 
@@ -62,6 +69,7 @@ public sealed class AccountManagementModule : IModule
             .WithTags("Account Management");
         EnsureAccount.Configure(group);
         MyAccount.Configure(group);
+        Register.Configure(group);
         RestoreAccount.Configure(group);
 
         return app;

@@ -2,6 +2,7 @@
 #pragma warning disable CS0618
 using ApiServiceSDK.Account.Ensure;
 using ApiServiceSDK.Account.Me;
+using ApiServiceSDK.Account.Register;
 using ApiServiceSDK.Account.Restore;
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
@@ -26,6 +27,11 @@ namespace ApiServiceSDK.Account
         public global::ApiServiceSDK.Account.Me.MeRequestBuilder Me
         {
             get => new global::ApiServiceSDK.Account.Me.MeRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The register property</summary>
+        public global::ApiServiceSDK.Account.Register.RegisterRequestBuilder Register
+        {
+            get => new global::ApiServiceSDK.Account.Register.RegisterRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The restore property</summary>
         public global::ApiServiceSDK.Account.Restore.RestoreRequestBuilder Restore

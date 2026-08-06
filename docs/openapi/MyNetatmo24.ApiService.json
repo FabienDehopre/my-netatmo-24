@@ -84,6 +84,41 @@
         ]
       }
     },
+    "/account/register": {
+      "post": {
+        "tags": [
+          "Account Management"
+        ],
+        "summary": "Registers a new identity for a prospective user.",
+        "description": "This endpoint creates the identity of a prospective user with the submitted e-mail, password and profile, and triggers the verification e-mail. It creates no account: the account is provisioned on the first authenticated call. If the submitted data is invalid, a 400 Bad Request response is returned. If the identity is created, a 204 No Content response is returned.",
+        "operationId": "Register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MyNetatmo24.Modules.AccountManagement.Application.Register.RegistrationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "The identity was created and a verification e-mail was sent."
+          },
+          "400": {
+            "description": "The submitted registration data is invalid.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/account/restore": {
       "post": {
         "tags": [
@@ -143,6 +178,51 @@
   },
   "components": {
     "schemas": {
+      "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast": {
         "required": [
           "date",
@@ -215,6 +295,51 @@
             ],
             "description": "The URL of the user's avatar, which may be null if the user has not set an avatar.",
             "format": "uri"
+          }
+        }
+      },
+      "MyNetatmo24.Modules.AccountManagement.Application.Register.RegistrationDto": {
+        "required": [
+          "email",
+          "password",
+          "passwordConfirmation",
+          "nickname",
+          "givenName",
+          "familyName",
+          "avatarUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The e-mail address the identity is created with. Required."
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the new identity. Required, forwarded to the identity provider and never stored locally."
+          },
+          "passwordConfirmation": {
+            "type": "string",
+            "description": "A repeat of Password, so that a typo cannot silently lock the person out. Required."
+          },
+          "nickname": {
+            "type": "string",
+            "description": "The display name the person picked. Required."
+          },
+          "givenName": {
+            "type": "string",
+            "description": "The person's given name. Required."
+          },
+          "familyName": {
+            "type": "string",
+            "description": "The person's family name. Required."
+          },
+          "avatarUrl": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "An optional URL pointing at the person's avatar image."
           }
         }
       }

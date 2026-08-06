@@ -75,6 +75,13 @@ public static partial class LoggerExtensions
         string endpointName);
 
     [LoggerMessage(
+        EventId = 3002,
+        Level = LogLevel.Warning,
+        Message = "Registration is not wired to the identity provider yet; no identity was created.")]
+    public static partial void LogRegistrationNotWiredToIdentityProvider(
+        this ILogger logger);
+
+    [LoggerMessage(
         EventId = 4000,
         Level = LogLevel.Error,
         Message = "Antiforgery token validation failed for request path: {RequestPath}")]

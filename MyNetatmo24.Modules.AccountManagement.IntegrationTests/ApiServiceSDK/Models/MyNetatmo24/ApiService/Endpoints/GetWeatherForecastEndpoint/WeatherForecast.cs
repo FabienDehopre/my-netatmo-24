@@ -6,7 +6,7 @@ using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint
+namespace ApiServiceSDK.Models.MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
@@ -30,7 +30,7 @@ namespace ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint
         /// <summary>The temperatureF property</summary>
         public int? TemperatureF { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast"/> and sets the default values.
+        /// Instantiates a new <see cref="global::ApiServiceSDK.Models.MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast"/> and sets the default values.
         /// </summary>
         public WeatherForecast()
         {
@@ -39,12 +39,12 @@ namespace ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast"/></returns>
+        /// <returns>A <see cref="global::ApiServiceSDK.Models.MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::ApiServiceSDK.Models.MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::ApiServiceSDK.Models.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast();
+            return new global::ApiServiceSDK.Models.MyNetatmo24.ApiService.Endpoints.GetWeatherForecastEndpoint.WeatherForecast();
         }
         /// <summary>
         /// The deserialization information for the current model

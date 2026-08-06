@@ -27,5 +27,14 @@ public static class RouteHandlerBuilderExtensions
             return builder.Produces<T>(statusCode, contentType, additionalContentTypes)
                 .ProducesOpenApiResponse(statusCode, description);
         }
+
+        public RouteHandlerBuilder ProducesValidationProblemWithDescription(
+            string description,
+            int statusCode = StatusCodes.Status400BadRequest,
+            string contentType = "application/problem+json")
+        {
+            return builder.ProducesValidationProblem(statusCode, contentType)
+                .ProducesOpenApiResponse(statusCode, description);
+        }
     }
 }
