@@ -349,9 +349,8 @@ empty; while they are, the API service falls back to a stub registration service
 anywhere else. Fill them the same way, using the M2M application's own client id:
 
 ```bash
-sops set "config/appsettings.encrypted.json" '["Parameters"]["Auth0ManagementClientId"]' '"<m2m-client-id>"'
 sops set "config/appsettings.encrypted.json" '["Parameters"]["Auth0ManagementClientSecret"]' \
-  "$(auth0 apps show <m2m-client-id> -r --json-compact | jq -c '.client_secret')"
+  "$(auth0 apps show nsAYuGbTXBeNOq7LJIxUZNQ6NqgnTCnC -r --json-compact | jq -c '.client_secret')"
 ```
 
 The database connection new identities are created in is `Auth0:DatabaseConnectionName`, defaulting to
