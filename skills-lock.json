@@ -173,7 +173,7 @@
       "source": "dotnet/skills",
       "sourceType": "github",
       "skillPath": "plugins/dotnet-data/skills/optimizing-ef-core-queries/SKILL.md",
-      "computedHash": "265a890a57f60bf55d79fb92483176aca3c6e5c88c23cd75d18911e8354d0e87"
+      "computedHash": "98eb6bb1ab357806cf068908b5b00c3992b898b9428b587a7f357adb3387c8aa"
     },
     "playwright-cli": {
       "source": "microsoft/playwright-cli",
