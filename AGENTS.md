@@ -344,9 +344,14 @@ direct injection over storing the secret in an intermediate environment variable
 #### Auth0 Management API (Registration)
 
 `Parameters:Auth0ManagementClientId` and `Parameters:Auth0ManagementClientSecret` hold the credentials of a dedicated
-machine-to-machine application authorized for the Auth0 Management API with the single `create:users` scope. They ship
-empty; while they are, the API service falls back to a stub registration service in development and refuses to start
-anywhere else. Fill them the same way, using the M2M application's own client id:
+machine-to-machine application authorized for the Auth0 Management API with the single `create:users` scope. The client
+id is a public identifier and is committed as-is; the secret ships **empty**, and while it is, the API service falls
+back to a stub registration service in development and refuses to start anywhere else.
+
+That emptiness is load-bearing: the fallback is chosen by whether the secret is blank, so the placeholder must stay
+empty rather than becoming `"supersecret"` like `OpenIdConnectSettingsClientSecret` above — a non-blank placeholder
+reads as a real credential, binds the live Auth0 adapter, and turns every registration on a fresh checkout into a 502.
+Fill the real secret the same way:
 
 ```bash
 sops set "config/appsettings.encrypted.json" '["Parameters"]["Auth0ManagementClientSecret"]' \

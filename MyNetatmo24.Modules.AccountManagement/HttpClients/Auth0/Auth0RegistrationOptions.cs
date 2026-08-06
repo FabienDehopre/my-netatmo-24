@@ -33,7 +33,8 @@ public sealed class Auth0RegistrationOptions
     public string DatabaseConnectionName { get; set; } = "Username-Password-Authentication";
 
     /// <summary>
-    /// Whether both halves of the machine-to-machine credentials are present.
+    /// Whether everything needed to authenticate against the Management API is present: the tenant to
+    /// call and both halves of the machine-to-machine credentials.
     /// </summary>
     public bool HasManagementCredentials =>
         !string.IsNullOrWhiteSpace(Domain) &&
