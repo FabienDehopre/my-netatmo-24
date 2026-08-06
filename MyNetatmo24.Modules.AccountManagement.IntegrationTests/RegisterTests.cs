@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application.Register;
 using Microsoft.Kiota.Abstractions;
 using MyNetatmo24.Modules.AccountManagement.IntegrationTests.Setup;
@@ -18,6 +19,42 @@ public class RegisterTests : AccountApiIntegrationTest
         FamilyName = "Doe",
         AvatarUrl = "https://example.com/avatar.png",
     };
+
+    /// <summary>
+    /// The same valid registration as <see cref="ValidRegistration"/>, projected onto the wire so that a
+    /// test can mutate one field before it is serialized. The values come from the one fixture; only the
+    /// JSON names are restated, and those are what these tests are about.
+    /// </summary>
+    private static Dictionary<string, object?> ValidRegistrationPayload()
+    {
+        var registration = ValidRegistration();
+
+        return new Dictionary<string, object?>(StringComparer.Ordinal)
+        {
+            ["email"] = registration.Email,
+            ["password"] = registration.Password,
+            ["passwordConfirmation"] = registration.PasswordConfirmation,
+            ["nickname"] = registration.Nickname,
+            ["givenName"] = registration.GivenName,
+            ["familyName"] = registration.FamilyName,
+            ["avatarUrl"] = registration.AvatarUrl,
+        };
+    }
+
+    /// <summary>
+    /// Posts a registration whose payload has been mutated, and hands back the raw answer. The generated
+    /// SDK surfaces the status code but discards the body, and the body is where the validation errors
+    /// name the field they are about.
+    /// </summary>
+    private async Task<(int StatusCode, string Body)> PostRegistrationAsync(Action<Dictionary<string, object?>> mutate)
+    {
+        var payload = ValidRegistrationPayload();
+        mutate(payload);
+
+        using var httpClient = Factory.CreateClient();
+        using var response = await httpClient.PostAsJsonAsync(new Uri("account/register", UriKind.Relative), payload);
+        return ((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+    }
 
     [Test]
     public async Task Register_WhenNotAuthenticated_ReturnsNoContent()
@@ -206,6 +243,42 @@ public class RegisterTests : AccountApiIntegrationTest
         await apiClient.Account.Register.PostAsync(registration);
 
         await Assert.That(RegistrationService.LastRequest?.AvatarUrl).IsNull();
+    }
+
+    [Test]
+    [Arguments("nickname", "")]
+    [Arguments("nickname", "   ")]
+    [Arguments("givenName", "Ada Lovelace-King and then some more characters than fifty")]
+    [Arguments("familyName", "")]
+    [Arguments("email", "not-an-email")]
+    [Arguments("avatarUrl", "http://example.com/avatar.png")]
+    [Arguments("avatarUrl", "/avatar.png")]
+    public async Task Register_WhenAFieldIsRejected_TheProblemDetailsNamesIt(string field, string value)
+    {
+        var (statusCode, body) = await PostRegistrationAsync(payload => payload[field] = value);
+
+        await Assert.That(statusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(body).Contains(field, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Test]
+    public async Task Register_WhenAProfileValueCarriesControlCharacters_TheProblemDetailsNamesIt()
+    {
+        var (statusCode, body) = await PostRegistrationAsync(payload =>
+            payload["nickname"] = "Ja" + char.ConvertFromUtf32(0x200B) + "ne");
+
+        await Assert.That(statusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(body).Contains("nickname", StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Test]
+    public async Task Register_WhenThePasswordConfirmationDiffers_TheProblemDetailsNamesIt()
+    {
+        var (statusCode, body) = await PostRegistrationAsync(payload =>
+            payload["passwordConfirmation"] = Password + "-typo");
+
+        await Assert.That(statusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(body).Contains("passwordConfirmation", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
