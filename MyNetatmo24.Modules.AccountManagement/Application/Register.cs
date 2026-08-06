@@ -150,11 +150,11 @@ public static class Register
             // could disagree about was already settled by validation before the call. Reporting the
             // failure against Password is therefore exact, but it stops being so the moment the seam
             // learns a second 400 - match on the reason rather than the status code if it ever does.
+            // The message is the identity provider's own policy text, carried through unchanged.
             { StatusCode: StatusCodes.Status400BadRequest } weakPassword =>
                 TypedResults.ValidationProblem(new Dictionary<string, string[]>(StringComparer.Ordinal)
                 {
-                    [nameof(RegistrationDto.Password)] =
-                        [weakPassword.GetPasswordPolicyMessage() ?? weakPassword.Message]
+                    [nameof(RegistrationDto.Password)] = [weakPassword.Message]
                 }),
             { StatusCode: StatusCodes.Status502BadGateway } unavailable =>
                 TypedResults.Problem(unavailable.Message, statusCode: StatusCodes.Status502BadGateway),

@@ -87,18 +87,10 @@ public class ErrorsTests
     {
         const string policyMessage = "Password is too common.";
 
-        IReason reason = Errors.PasswordTooWeak(policyMessage);
+        var error = (EndpointError)Errors.PasswordTooWeak(policyMessage);
 
-        await Assert.That(reason.GetPasswordPolicyMessage()).IsEqualTo(policyMessage);
-        await Assert.That(((EndpointError)reason).StatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
-    }
-
-    [Test]
-    public async Task GetPasswordPolicyMessage_ForErrorWithoutMetadata_IsNull()
-    {
-        IReason reason = Errors.AccountNotFound;
-
-        await Assert.That(reason.GetPasswordPolicyMessage()).IsNull();
+        await Assert.That(error.Message).IsEqualTo(policyMessage);
+        await Assert.That(error.StatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
     }
 
     [Test]

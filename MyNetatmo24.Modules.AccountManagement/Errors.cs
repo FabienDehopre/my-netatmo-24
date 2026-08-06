@@ -8,7 +8,6 @@ internal static class Errors
 {
     private const string DeletedAtName = "DeletedAt";
     private const string UserExistsMarker = "UserExists";
-    private const string PasswordPolicyMarker = "PasswordPolicy";
 
     public static readonly Error UserNotAuthenticated = new EndpointError(StatusCodes.Status401Unauthorized, "The user is not authenticated.");
     public static readonly Error UserExists = new EndpointError(StatusCodes.Status204NoContent, "The user already exists.").WithMetadata(UserExistsMarker, true);
@@ -23,17 +22,16 @@ internal static class Errors
     public static readonly Error IdentityProviderUnavailable = new EndpointError(StatusCodes.Status502BadGateway, "The identity provider could not be reached.");
 
     /// <summary>
-    /// The identity provider rejected the password. Its own policy message travels with the error so
-    /// the person is told what a valid password looks like, rather than being left to guess.
+    /// The identity provider rejected the password. Its own policy message is the error's message, so
+    /// the person is told what a valid password looks like rather than being left to guess.
     /// </summary>
     public static Error PasswordTooWeak(string policyMessage) =>
-        new EndpointError(StatusCodes.Status400BadRequest, policyMessage).WithMetadata(PasswordPolicyMarker, policyMessage);
+        new EndpointError(StatusCodes.Status400BadRequest, policyMessage);
 
     extension(IReason reason)
     {
         public bool IsUserExistsError() => reason is IError error && error.Metadata.TryGetValue(UserExistsMarker, out var value) && value is true;
         public DateTimeOffset? GetDeletedAt() => reason is IError error && error.Metadata.TryGetValue(DeletedAtName, out var value) && value is DateTimeOffset deletedAt ? deletedAt : null;
-        public string? GetPasswordPolicyMessage() => reason is IError error && error.Metadata.TryGetValue(PasswordPolicyMarker, out var value) && value is string message ? message : null;
         public bool IsUserInfoNotFound() => reason is EndpointError { StatusCode: StatusCodes.Status404NotFound };
         public bool IsUserNotAuthenticated() => reason is EndpointError { StatusCode: StatusCodes.Status401Unauthorized };
     }
