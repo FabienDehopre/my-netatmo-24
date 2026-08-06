@@ -109,6 +109,16 @@ public static class Extensions
             return builder;
         }
 
+        public WebApplicationBuilder AddRateLimiting()
+        {
+            // Modules declare their own policies; the host only settles what a rejection looks like.
+            // 429 rather than the framework default of 503: the caller was throttled, not failed.
+            builder.Services.AddRateLimiter(options =>
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests);
+
+            return builder;
+        }
+
         public WebApplicationBuilder AddErrorHandling()
         {
             builder.Services.AddExceptionHandler<ExceptionHandler>();

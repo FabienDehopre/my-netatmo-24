@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application.Register;
 using Microsoft.Kiota.Abstractions;
+using MyNetatmo24.Modules.AccountManagement.Application;
 using MyNetatmo24.Modules.AccountManagement.IntegrationTests.Setup;
 
 namespace MyNetatmo24.Modules.AccountManagement.IntegrationTests;
@@ -8,6 +9,7 @@ namespace MyNetatmo24.Modules.AccountManagement.IntegrationTests;
 public class RegisterTests : AccountApiIntegrationTest
 {
     private const string Password = "sup3r-s3cret-passphrase";
+    private const string ForwardedForHeaderName = "X-Forwarded-For";
 
     private static RegistrationDto ValidRegistration() => new()
     {
@@ -313,6 +315,80 @@ public class RegisterTests : AccountApiIntegrationTest
 
         await Assert.That(statusCode).IsEqualTo(StatusCodes.Status400BadRequest);
         await Assert.That(body).Contains("passwordConfirmation", StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Test]
+    public async Task Register_WhenBurstingPastTheRateLimit_ReturnsTooManyRequests()
+    {
+        using var httpClient = Factory.CreateClient();
+        httpClient.DefaultRequestHeaders.Add(ForwardedForHeaderName, "203.0.113.7");
+
+        var statusCodes = await PostRepeatedlyAsync(httpClient, Register.RateLimitPermitLimit + 1);
+
+        await Assert.That(statusCodes.Take(Register.RateLimitPermitLimit))
+            .All().Satisfy(code => code.IsEqualTo(StatusCodes.Status204NoContent));
+        await Assert.That(statusCodes[^1]).IsEqualTo(StatusCodes.Status429TooManyRequests);
+    }
+
+    [Test]
+    public async Task Register_ThrottlesEachForwardedClientSeparately()
+    {
+        using var throttled = Factory.CreateClient();
+        throttled.DefaultRequestHeaders.Add(ForwardedForHeaderName, "203.0.113.7");
+        await PostRepeatedlyAsync(throttled, Register.RateLimitPermitLimit + 1);
+
+        using var other = Factory.CreateClient();
+        other.DefaultRequestHeaders.Add(ForwardedForHeaderName, "198.51.100.9");
+        var statusCodes = await PostRepeatedlyAsync(other, 1);
+
+        await Assert.That(statusCodes[0]).IsEqualTo(StatusCodes.Status204NoContent);
+    }
+
+    [Test]
+    public async Task Register_IgnoresTheProxysOwnAddressWhenPartitioning()
+    {
+        // Both clients share a connection address; only the forwarded address tells them apart.
+        using var first = Factory.CreateClient();
+        first.DefaultRequestHeaders.Add(ForwardedForHeaderName, "203.0.113.7");
+        using var second = Factory.CreateClient();
+        second.DefaultRequestHeaders.Add(ForwardedForHeaderName, "198.51.100.9");
+
+        await PostRepeatedlyAsync(first, Register.RateLimitPermitLimit);
+        var statusCodes = await PostRepeatedlyAsync(second, Register.RateLimitPermitLimit);
+
+        await Assert.That(statusCodes).All().Satisfy(code => code.IsEqualTo(StatusCodes.Status204NoContent));
+    }
+
+    [Test]
+    public async Task OtherEndpoints_AreNotRateLimited()
+    {
+        await SeedAccountAsync();
+        using var httpClient = Factory.CreateClient();
+        httpClient.DefaultRequestHeaders.Add(AccountApiAuthenticationHandler.Auth0IdHeaderName, Auth0Id);
+        httpClient.DefaultRequestHeaders.Add(ForwardedForHeaderName, "203.0.113.7");
+
+        var statusCodes = new List<int>();
+        for (var i = 0; i < Register.RateLimitPermitLimit + 2; i++)
+        {
+            using var response = await httpClient.GetAsync(new Uri("account/me", UriKind.Relative));
+            statusCodes.Add((int)response.StatusCode);
+        }
+
+        await Assert.That(statusCodes).All().Satisfy(code => code.IsEqualTo(StatusCodes.Status200OK));
+    }
+
+    private static async Task<List<int>> PostRepeatedlyAsync(HttpClient httpClient, int count)
+    {
+        var statusCodes = new List<int>(count);
+        for (var i = 0; i < count; i++)
+        {
+            using var response = await httpClient.PostAsJsonAsync(
+                new Uri("account/register", UriKind.Relative),
+                ValidRegistrationPayload());
+            statusCodes.Add((int)response.StatusCode);
+        }
+
+        return statusCodes;
     }
 
     /// <summary>

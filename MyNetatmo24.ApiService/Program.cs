@@ -9,6 +9,7 @@ builder.AddSecurity();
 builder.AddAuthentication();
 builder.AddOpenApi();
 builder.AddErrorHandling();
+builder.AddRateLimiting();
 builder.AddCaching();
 // AddFeatureFlags ??
 builder.AddWolverine();
@@ -24,6 +25,7 @@ app.UseExceptionHandler(
     }
 );
 app.UseAuthentication();
+app.UseRateLimiter();
 app.UseAuthorization();
 app.UseModules();
 // temporary until demo endpoint is removed

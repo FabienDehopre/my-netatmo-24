@@ -58,6 +58,8 @@ public sealed class AccountManagementModule : IModule
         // the [ValidatableType] types of the compilation it intercepts AddValidation() in.
         builder.Services.AddValidation();
 
+        builder.Services.AddRateLimiter(Register.ConfigureRateLimiting);
+
         return builder;
     }
 

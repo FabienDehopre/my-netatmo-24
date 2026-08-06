@@ -119,6 +119,9 @@
               }
             }
           },
+          "429": {
+            "description": "Too many registrations were attempted from this client; try again later."
+          },
           "502": {
             "description": "The identity provider could not be reached, so no identity was created.",
             "content": {

@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Validation;
 using MyNetatmo24.Modules.AccountManagement.Application.Validation;
@@ -15,6 +17,21 @@ namespace MyNetatmo24.Modules.AccountManagement.Application;
 
 public static class Register
 {
+    /// <summary>
+    /// How many registrations a single client may attempt per <see cref="RateLimitWindow"/>.
+    /// </summary>
+    internal const int RateLimitPermitLimit = 5;
+
+    /// <summary>
+    /// The window over which <see cref="RateLimitPermitLimit"/> is counted.
+    /// </summary>
+    internal static TimeSpan RateLimitWindow => TimeSpan.FromMinutes(1);
+
+    /// <summary>
+    /// The name of the rate-limiting policy guarding this endpoint.
+    /// </summary>
+    private const string RateLimitPolicyName = "registration";
+
     /// <param name="Email">
     /// The e-mail address the identity is created with. Required.
     /// </param>
@@ -60,6 +77,9 @@ public static class Register
             .MapPost("register", HandleAsync)
             // The module's only anonymous endpoint: signing up cannot require the session it creates.
             .AllowAnonymous()
+            // Anonymous and backed by an external tenant: without a limit, a bot could fill the
+            // identity provider with junk identities and verification e-mails.
+            .RequireRateLimiting(RateLimitPolicyName)
             .WithName("Register")
             .WithSummary("Registers a new identity for a prospective user.")
             .WithDescription("This endpoint creates the identity of a prospective user with the submitted e-mail, " +
@@ -70,7 +90,46 @@ public static class Register
             .ProducesWithDescription(StatusCodes.Status204NoContent, "The identity was created and a verification e-mail was sent.")
             .ProducesValidationProblemWithDescription("The submitted registration data is invalid, or the password does not satisfy the identity provider's policy.")
             .ProducesWithDescription(StatusCodes.Status409Conflict, "The e-mail address is already registered.")
+            .ProducesWithDescription(StatusCodes.Status429TooManyRequests, "Too many registrations were attempted from this client; try again later.")
             .ProducesProblemWithDescription(StatusCodes.Status502BadGateway, "The identity provider could not be reached, so no identity was created.");
+    }
+
+    /// <summary>
+    /// Registers the rate-limiting policy <see cref="Configure"/> asks for. It lives next to the endpoint
+    /// it guards rather than in the module's wiring, because every number in it - the budget, the window,
+    /// what counts as one client - is part of this endpoint's contract and nothing else's.
+    /// </summary>
+    /// <param name="options">The application's rate-limiter options.</param>
+    internal static void ConfigureRateLimiting(RateLimiterOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        options.AddPolicy(RateLimitPolicyName, GetPartitionFor);
+    }
+
+    /// <summary>
+    /// The rate-limiting partition of the calling client: the address the gateway observed, so that
+    /// one abusive client cannot spend everybody else's budget.
+    /// </summary>
+    internal static string GetClientPartitionKey(HttpContext context)
+    {
+        // The endpoint is only reachable through the gateway, and YARP overwrites X-Forwarded-For
+        // rather than appending to it, so the single entry it carries is the address the gateway
+        // saw. Falling back to the connection address keeps the limiter meaningful when the
+        // endpoint is reached directly.
+        //
+        // The header is trusted as it arrives: nothing here checks that the hop it came from is the
+        // gateway. Through the gateway that is sound, but the API service is also directly addressable
+        // on the internal network, and a caller reaching it that way can rotate its own partition and
+        // spend an unbounded budget. Closing that off means UseForwardedHeaders with an explicit
+        // KnownProxies list, which is a deliberate follow-up rather than part of this endpoint.
+        var forwardedFor = context.Request.Headers["X-Forwarded-For"].ToString();
+        var clientAddress = forwardedFor.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .FirstOrDefault();
+
+        return string.IsNullOrEmpty(clientAddress)
+            ? context.Connection.RemoteIpAddress?.ToString() ?? "unknown"
+            : clientAddress;
     }
 
     public static async Task<Results<NoContent, Conflict, ValidationProblem, ProblemHttpResult>> HandleAsync(
@@ -102,6 +161,17 @@ public static class Register
             _ => throw new InvalidOperationException("Unexpected error while registering an identity.")
         };
     }
+
+    private static RateLimitPartition<string> GetPartitionFor(HttpContext httpContext) =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            GetClientPartitionKey(httpContext),
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = RateLimitPermitLimit,
+                Window = RateLimitWindow,
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 0
+            });
 
     /// <summary>
     /// Normalizes the submitted data on its way to the seam: profile values are trimmed, and a blank
