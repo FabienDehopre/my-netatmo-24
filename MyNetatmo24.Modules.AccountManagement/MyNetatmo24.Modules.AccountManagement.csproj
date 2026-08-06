@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="MyNetatmo24.Modules.AccountManagement.Tests" />
+    <!-- So the fake seam can fail with the module's own errors instead of look-alikes. -->
+    <InternalsVisibleTo Include="MyNetatmo24.Modules.AccountManagement.IntegrationTests" />
   </ItemGroup>
 
 </Project>

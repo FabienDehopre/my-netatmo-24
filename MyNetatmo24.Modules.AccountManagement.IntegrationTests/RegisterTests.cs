@@ -115,6 +115,40 @@ public class RegisterTests : AccountApiIntegrationTest
     }
 
     [Test]
+    public async Task Register_WhenTheEmailIsAlreadyRegistered_ReturnsConflict()
+    {
+        RegistrationService.SetEmailAlreadyRegistered();
+        var apiClient = CreateAnonymousApiClient();
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(ValidRegistration())).Throws<ApiException>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status409Conflict);
+    }
+
+    [Test]
+    public async Task Register_WhenThePasswordFailsTheProviderPolicy_ReturnsBadRequestCarryingThePolicyMessage()
+    {
+        const string policyMessage = "Password is too common; pick at least 12 characters.";
+        RegistrationService.SetPasswordTooWeak(policyMessage);
+
+        var (statusCode, body) = await PostRegistrationAsync(_ => { });
+
+        await Assert.That(statusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(body).Contains(policyMessage);
+    }
+
+    [Test]
+    public async Task Register_WhenTheIdentityProviderIsUnavailable_ReturnsBadGateway()
+    {
+        RegistrationService.SetUnavailable();
+        var apiClient = CreateAnonymousApiClient();
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(ValidRegistration())).Throws<ApiException>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status502BadGateway);
+    }
+
+    [Test]
     [Arguments("")]
     [Arguments("   ")]
     [Arguments("Ada Lovelace-King and then some more characters than fifty")]

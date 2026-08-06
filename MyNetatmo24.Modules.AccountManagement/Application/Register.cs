@@ -9,6 +9,7 @@ using Microsoft.Extensions.Validation;
 using MyNetatmo24.Modules.AccountManagement.Application.Validation;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 using MyNetatmo24.SharedKernel.Endpoints;
+using MyNetatmo24.SharedKernel.Results;
 
 namespace MyNetatmo24.Modules.AccountManagement.Application;
 
@@ -67,16 +68,39 @@ public static class Register
                              "If the submitted data is invalid, a 400 Bad Request response is returned. " +
                              "If the identity is created, a 204 No Content response is returned.")
             .ProducesWithDescription(StatusCodes.Status204NoContent, "The identity was created and a verification e-mail was sent.")
-            .ProducesValidationProblemWithDescription("The submitted registration data is invalid.");
+            .ProducesValidationProblemWithDescription("The submitted registration data is invalid, or the password does not satisfy the identity provider's policy.")
+            .ProducesWithDescription(StatusCodes.Status409Conflict, "The e-mail address is already registered.")
+            .ProducesProblemWithDescription(StatusCodes.Status502BadGateway, "The identity provider could not be reached, so no identity was created.");
     }
 
-    public static async Task<NoContent> HandleAsync(
+    public static async Task<Results<NoContent, Conflict, ValidationProblem, ProblemHttpResult>> HandleAsync(
         [FromBody, NotNull] RegistrationDto registration,
         [FromServices, NotNull] IRegistrationService registrationService,
         CancellationToken ct)
     {
-        await registrationService.RegisterAsync(ToRegistrationRequest(registration), ct);
-        return TypedResults.NoContent();
+        var result = await registrationService.RegisterAsync(ToRegistrationRequest(registration), ct);
+        if (result.IsSuccess)
+        {
+            return TypedResults.NoContent();
+        }
+
+        return result.Reasons.OfType<EndpointError>().FirstOrDefault() switch
+        {
+            { StatusCode: StatusCodes.Status409Conflict } => TypedResults.Conflict(),
+            // The password policy is the only thing the seam can reject with a 400: everything else it
+            // could disagree about was already settled by validation before the call. Reporting the
+            // failure against Password is therefore exact, but it stops being so the moment the seam
+            // learns a second 400 - match on the reason rather than the status code if it ever does.
+            { StatusCode: StatusCodes.Status400BadRequest } weakPassword =>
+                TypedResults.ValidationProblem(new Dictionary<string, string[]>(StringComparer.Ordinal)
+                {
+                    [nameof(RegistrationDto.Password)] =
+                        [weakPassword.GetPasswordPolicyMessage() ?? weakPassword.Message]
+                }),
+            { StatusCode: StatusCodes.Status502BadGateway } unavailable =>
+                TypedResults.Problem(unavailable.Message, statusCode: StatusCodes.Status502BadGateway),
+            _ => throw new InvalidOperationException("Unexpected error while registering an identity.")
+        };
     }
 
     /// <summary>

@@ -36,5 +36,14 @@ public static class RouteHandlerBuilderExtensions
             return builder.ProducesValidationProblem(statusCode, contentType)
                 .ProducesOpenApiResponse(statusCode, description);
         }
+
+        public RouteHandlerBuilder ProducesProblemWithDescription(
+            int statusCode,
+            string description,
+            string contentType = "application/problem+json")
+        {
+            return builder.ProducesProblem(statusCode, contentType)
+                .ProducesOpenApiResponse(statusCode, description);
+        }
     }
 }

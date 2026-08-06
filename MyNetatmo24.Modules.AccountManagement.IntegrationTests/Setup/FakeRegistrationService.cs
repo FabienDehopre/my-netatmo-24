@@ -21,6 +21,14 @@ public sealed class FakeRegistrationService : IRegistrationService
 
     public void SetResult(Result result) => _result = result;
 
+    // The module's own errors, not look-alikes: a fake that hand-rolled equivalent errors would keep
+    // passing if the metadata the handler reads back ever stopped being attached.
+    public void SetEmailAlreadyRegistered() => _result = Result.Fail(Errors.EmailAlreadyRegistered);
+
+    public void SetPasswordTooWeak(string policyMessage) => _result = Result.Fail(Errors.PasswordTooWeak(policyMessage));
+
+    public void SetUnavailable() => _result = Result.Fail(Errors.IdentityProviderUnavailable);
+
     public Task<Result> RegisterAsync(RegistrationRequest request, CancellationToken cancellationToken)
     {
         LastRequest = request;

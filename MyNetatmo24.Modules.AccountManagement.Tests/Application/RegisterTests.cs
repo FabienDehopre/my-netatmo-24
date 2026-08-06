@@ -1,5 +1,6 @@
 using FluentResults;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using MyNetatmo24.Modules.AccountManagement.Application;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 using NSubstitute;
@@ -33,8 +34,7 @@ public class RegisterTests
 
         var response = await Register.HandleAsync(ValidDto(), service, CancellationToken.None);
 
-        await Assert.That(response).IsNotNull();
-        await Assert.That(response.StatusCode).IsEqualTo(StatusCodes.Status204NoContent);
+        await Assert.That(response.Result is NoContent).IsTrue();
     }
 
     [Test]
@@ -53,6 +53,59 @@ public class RegisterTests
                 r.FamilyName == FamilyName &&
                 r.AvatarUrl != null && r.AvatarUrl.ToString() == AvatarUrl),
             Arg.Any<CancellationToken>());
+    }
+
+    private static IRegistrationService FailingService(Error error)
+    {
+        var service = Substitute.For<IRegistrationService>();
+        service.RegisterAsync(Arg.Any<RegistrationRequest>(), Arg.Any<CancellationToken>())
+            .Returns(Result.Fail(error));
+        return service;
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenTheEmailIsAlreadyRegistered_ReturnsConflict()
+    {
+        var service = FailingService(Errors.EmailAlreadyRegistered);
+
+        var response = await Register.HandleAsync(ValidDto(), service, CancellationToken.None);
+
+        await Assert.That(response.Result is Conflict).IsTrue();
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenThePasswordIsTooWeak_ReturnsValidationProblemCarryingThePolicyMessage()
+    {
+        const string policyMessage = "Password is too common; pick at least 12 characters.";
+        var service = FailingService(Errors.PasswordTooWeak(policyMessage));
+
+        var response = await Register.HandleAsync(ValidDto(), service, CancellationToken.None);
+
+        var problem = response.Result as ValidationProblem;
+        await Assert.That(problem).IsNotNull();
+        await Assert.That(problem!.ProblemDetails.Errors[nameof(Register.RegistrationDto.Password)])
+            .Contains(policyMessage);
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenTheIdentityProviderIsUnavailable_ReturnsBadGateway()
+    {
+        var service = FailingService(Errors.IdentityProviderUnavailable);
+
+        var response = await Register.HandleAsync(ValidDto(), service, CancellationToken.None);
+
+        var problem = response.Result as ProblemHttpResult;
+        await Assert.That(problem).IsNotNull();
+        await Assert.That(problem!.StatusCode).IsEqualTo(StatusCodes.Status502BadGateway);
+    }
+
+    [Test]
+    public async Task HandleAsync_WithAnUnmappedError_Throws()
+    {
+        var service = FailingService(Errors.AccountNotFound);
+
+        await Assert.That(async () => { await Register.HandleAsync(ValidDto(), service, CancellationToken.None); })
+            .Throws<InvalidOperationException>();
     }
 
     [Test]

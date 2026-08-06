@@ -67,6 +67,41 @@ public class ErrorsTests
     }
 
     [Test]
+    public async Task EmailAlreadyRegistered_HasConflictStatusCode()
+    {
+        var error = (EndpointError)Errors.EmailAlreadyRegistered;
+
+        await Assert.That(error.StatusCode).IsEqualTo(StatusCodes.Status409Conflict);
+    }
+
+    [Test]
+    public async Task IdentityProviderUnavailable_HasBadGatewayStatusCode()
+    {
+        var error = (EndpointError)Errors.IdentityProviderUnavailable;
+
+        await Assert.That(error.StatusCode).IsEqualTo(StatusCodes.Status502BadGateway);
+    }
+
+    [Test]
+    public async Task PasswordTooWeak_CarriesThePolicyMessage()
+    {
+        const string policyMessage = "Password is too common.";
+
+        IReason reason = Errors.PasswordTooWeak(policyMessage);
+
+        await Assert.That(reason.GetPasswordPolicyMessage()).IsEqualTo(policyMessage);
+        await Assert.That(((EndpointError)reason).StatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+    }
+
+    [Test]
+    public async Task GetPasswordPolicyMessage_ForErrorWithoutMetadata_IsNull()
+    {
+        IReason reason = Errors.AccountNotFound;
+
+        await Assert.That(reason.GetPasswordPolicyMessage()).IsNull();
+    }
+
+    [Test]
     public async Task IsUserInfoNotFound_ForNotFoundError_IsTrue()
     {
         IReason reason = Errors.UserInfoNotFound;
