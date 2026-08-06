@@ -30,6 +30,10 @@ internal static class Extensions
                         .GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
                     builderContext.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
 
+                    // Only routes that carry an authorization policy get a bearer token: a route
+                    // declared without one (the anonymous registration route) is proxied as-is,
+                    // with no token attached. The antiforgery transform above is left in place for
+                    // it too, so the route is not singled out as an exception to the CSRF checks.
                     if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
                     {
                         builderContext.RequestTransforms.Add(builderContext.Services
