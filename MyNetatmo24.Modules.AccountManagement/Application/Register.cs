@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Validation;
+using MyNetatmo24.Modules.AccountManagement.Application.Validation;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 using MyNetatmo24.SharedKernel.Endpoints;
 
@@ -44,11 +45,13 @@ public static class Register
     public sealed record RegistrationDto(
         [property: Required, EmailAddress] string Email,
         [property: Required] string Password,
-        [property: Required] string PasswordConfirmation,
-        [property: Required] string Nickname,
-        [property: Required] string GivenName,
-        [property: Required] string FamilyName,
-        string? AvatarUrl);
+        // The password itself is never judged locally: its strength is the identity provider's policy,
+        // and duplicating the rules here would only let the two drift apart.
+        [property: Required, Compare(nameof(RegistrationDto.Password))] string PasswordConfirmation,
+        [property: Required, ProfileText] string Nickname,
+        [property: Required, ProfileText] string GivenName,
+        [property: Required, ProfileText] string FamilyName,
+        [property: AvatarUrl] string? AvatarUrl);
 
     public static void Configure(IEndpointRouteBuilder builder)
     {
@@ -76,12 +79,16 @@ public static class Register
         return TypedResults.NoContent();
     }
 
+    /// <summary>
+    /// Normalizes the submitted data on its way to the seam: profile values are trimmed, and a blank
+    /// avatar URL becomes no avatar at all.
+    /// </summary>
     private static RegistrationRequest ToRegistrationRequest(RegistrationDto registration) =>
         new(
-            registration.Email,
+            registration.Email.Trim(),
             registration.Password,
-            registration.Nickname,
-            registration.GivenName,
-            registration.FamilyName,
-            Uri.TryCreate(registration.AvatarUrl, UriKind.Absolute, out var avatarUrl) ? avatarUrl : null);
+            registration.Nickname.Trim(),
+            registration.GivenName.Trim(),
+            registration.FamilyName.Trim(),
+            Uri.TryCreate(registration.AvatarUrl?.Trim(), UriKind.Absolute, out var avatarUrl) ? avatarUrl : null);
 }
