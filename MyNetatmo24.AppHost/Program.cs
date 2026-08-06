@@ -3,6 +3,12 @@ var builder = DistributedApplication.CreateBuilder(args);
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", true);
 
+// Dedicated machine-to-machine application, authorized for the Auth0 Management API with the single
+// create:users scope. Placeholders until the owner provisions it; the API service falls back to a
+// stub registration service while they are empty.
+var auth0ManagementClientId = builder.AddParameter("Auth0ManagementClientId", false);
+var auth0ManagementClientSecret = builder.AddParameter("Auth0ManagementClientSecret", true);
+
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume();
 postgres.WithPgWeb(p => p.WithParentRelationship(postgres))
@@ -26,6 +32,8 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     .WithReference(migrations)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
+    .WithEnvironment("Auth0__ManagementClientId", auth0ManagementClientId)
+    .WithEnvironment("Auth0__ManagementClientSecret", auth0ManagementClientSecret)
     .WaitFor(database)
     .WaitForCompletion(migrations)
     .WaitFor(redis)

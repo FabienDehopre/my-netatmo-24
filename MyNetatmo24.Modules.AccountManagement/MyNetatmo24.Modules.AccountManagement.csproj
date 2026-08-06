@@ -8,6 +8,7 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL"/>
+    <PackageReference Include="Auth0.ManagementApi" />
     <PackageReference Include="FluentResults" />
     <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" />
     <PackageReference Include="WolverineFx"/>

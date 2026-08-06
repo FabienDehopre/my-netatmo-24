@@ -341,6 +341,22 @@ sops set "config/appsettings.encrypted.json" '["Parameters"]["OpenIdConnectSetti
 `jq -c '.client_secret'` emits the value already quoted as a JSON string, which is what `sops set` expects. Prefer
 direct injection over storing the secret in an intermediate environment variable.
 
+#### Auth0 Management API (Registration)
+
+`Parameters:Auth0ManagementClientId` and `Parameters:Auth0ManagementClientSecret` hold the credentials of a dedicated
+machine-to-machine application authorized for the Auth0 Management API with the single `create:users` scope. They ship
+empty; while they are, the API service falls back to a stub registration service in development and refuses to start
+anywhere else. Fill them the same way, using the M2M application's own client id:
+
+```bash
+sops set "config/appsettings.encrypted.json" '["Parameters"]["Auth0ManagementClientId"]' '"<m2m-client-id>"'
+sops set "config/appsettings.encrypted.json" '["Parameters"]["Auth0ManagementClientSecret"]' \
+  "$(auth0 apps show <m2m-client-id> -r --json-compact | jq -c '.client_secret')"
+```
+
+The database connection new identities are created in is `Auth0:DatabaseConnectionName`, defaulting to
+`Username-Password-Authentication`.
+
 ## Agent skills
 
 ### Issue tracker

@@ -50,6 +50,33 @@ public class AccountManagementModuleTests
     }
 
     [Test]
+    public async Task AddModule_WithoutManagementCredentials_FallsBackToTheRegistrationStub()
+    {
+        var builder = CreateBuilder();
+
+        new AccountManagementModule().AddModule(builder);
+        await using var provider = builder.Services.BuildServiceProvider();
+
+        await Assert.That(provider.GetService<IRegistrationService>()).IsTypeOf<StubRegistrationService>();
+    }
+
+    [Test]
+    public async Task AddModule_WithManagementCredentials_UsesTheAuth0Adapter()
+    {
+        var builder = CreateBuilder();
+        builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            ["Auth0:ManagementClientId"] = "management-client-id",
+            ["Auth0:ManagementClientSecret"] = "management-client-secret",
+        });
+
+        new AccountManagementModule().AddModule(builder);
+        await using var provider = builder.Services.BuildServiceProvider();
+
+        await Assert.That(provider.GetService<IRegistrationService>()).IsTypeOf<Auth0RegistrationService>();
+    }
+
+    [Test]
     public async Task AddModule_WithNullBuilder_Throws()
     {
         await Assert.That(() => new AccountManagementModule().AddModule(null!))

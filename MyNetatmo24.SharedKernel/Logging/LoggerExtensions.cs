@@ -106,4 +106,12 @@ public static partial class LoggerExtensions
         Message = "Failed to retrieve user info from Auth0.")]
     public static partial void LogCannotRetrieveUserInfo(
         this ILogger logger);
+
+    [LoggerMessage(
+        EventId = 4003,
+        Level = LogLevel.Error,
+        Message = "Failed to create the identity through the identity provider.")]
+    public static partial void LogIdentityCreationFailed(
+        this ILogger logger,
+        Exception ex);
 }

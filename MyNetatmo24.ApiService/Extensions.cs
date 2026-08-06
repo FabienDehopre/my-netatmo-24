@@ -179,8 +179,7 @@ public static class Extensions
             builder.Host.UseWolverine(options =>
             {
                 // Required to generate the OpenAPI document, otherwise this exception is thrown
-                if (Environment.GetCommandLineArgs()
-                    .Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
+                if (HostingContext.IsGeneratingOpenApiDocument)
                 {
                     return;
                 }
