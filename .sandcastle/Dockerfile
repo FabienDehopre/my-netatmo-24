@@ -47,9 +47,12 @@ RUN mkdir -p /home/agent/.claude && cat > /home/agent/.claude/settings.json << '
 }
 EOF
 
+# Install Auth0 CLI
+RUN curl -sSfL https://raw.githubusercontent.com/auth0/auth0-cli/main/install.sh | sh -s -- -b . \
+  && mv ./auth0 /usr/local/bin
+
 # Build-arg for PNPM version
 ARG PNPM_VERSION=11.20.0
-
 
 # Install PNPM CLI
 # RUN curl -fsSL https://get.pnpm.io/install.sh | PNPM_VERSION=${PNPM_VERSION} ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
