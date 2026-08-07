@@ -36,7 +36,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
     <PackageVersion Include="Respawn" Version="7.0.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.16.17" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.16.18" />
     <PackageVersion Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
     <PackageVersion Include="TUnit" Version="1.63.25" />
     <PackageVersion Include="Vogen" Version="8.0.7" />
