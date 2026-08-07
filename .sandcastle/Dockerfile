@@ -1,4 +1,4 @@
-FROM node:22-bookworm
+FROM node:24-bookworm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -22,14 +22,46 @@ ARG AGENT_UID=1000
 ARG AGENT_GID=1000
 
 # Rename the base image's "node" user to "agent" and align UID/GID.
-RUN groupmod -o -g $AGENT_GID node && usermod -o -u $AGENT_UID -g $AGENT_GID -d /home/agent -m -l agent node
+RUN groupmod -o -g ${AGENT_GID} node \
+  && usermod -o -u ${AGENT_UID} -g ${AGENT_GID} -d /home/agent -m -l agent node \
+  && chown -R ${AGENT_UID}:${AGENT_GID} /home/agent
 USER ${AGENT_UID}:${AGENT_GID}
 
 # Install Claude Code CLI
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
-# Add Claude to PATH
-ENV PATH="/home/agent/.local/bin:$PATH"
+# Pre-configure plugins
+RUN mkdir -p /home/agent/.claude && cat > /home/agent/.claude/settings.json << 'EOF'
+{
+  "enabledPlugins": {
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  }
+}
+EOF
+
+# Build-arg for PNPM version
+ARG PNPM_VERSION=11.20.0
+
+
+# Install PNPM CLI
+# RUN curl -fsSL https://get.pnpm.io/install.sh | PNPM_VERSION=${PNPM_VERSION} ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
+RUN curl -fsSL https://get.pnpm.io/install.sh | PNPM_VERSION=${PNPM_VERSION} ENV="$HOME/.shrc" SHELL="$(which sh)" sh -
+
+# Add Claude and PNPM to PATH
+ENV PNPM_HOME=/home/agent/.local/share/pnpm
+ENV PNPM_CONFIG_STORE_DIR="$PNPM_HOME/store"
+ENV PATH="/home/agent/.local/bin:$PNPM_HOME/bin:$PATH"
+
+# Set CI=true to disable interactive prompts in tools that support it (e.g., PNPM)
+ENV CI=true
 
 WORKDIR /home/agent
 

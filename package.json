@@ -10,6 +10,11 @@
   },
   "devDependencies": {
     "@ai-hero/sandcastle": "catalog:",
-    "@stoplight/spectral-cli": "catalog:"
+    "@stoplight/spectral-cli": "catalog:",
+    "tsx": "catalog:"
+  },
+  "scripts": {
+    "run-sandcastle": "tsx .sandcastle/main.mts",
+    "build-sandcastle": ".sandcastle/build.sh"
   }
 }
