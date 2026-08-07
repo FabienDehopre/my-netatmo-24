@@ -3,12 +3,6 @@
     <File Path=".github\copilot-instructions.md" />
     <File Path=".github\renovate.json" />
   </Folder>
-  <Folder Name="/.github/agents/">
-    <File Path=".github\agents\codebase-analyzer.md" />
-  </Folder>
-  <Folder Name="/.github/prompts/">
-    <File Path=".github\prompts\create-architectural-decision-record.prompt.md" />
-  </Folder>
   <Folder Name="/.github/workflows/">
     <File Path=".github\workflows\autofix.yml" />
     <File Path=".github\workflows\ci.yml" />
