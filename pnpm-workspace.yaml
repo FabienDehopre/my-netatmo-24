@@ -24,7 +24,7 @@ allowBuilds:
 
 catalog:
   '@ngx-env/builder': 21.0.1
-  '@stoplight/spectral-cli': 6.16.2
+  '@stoplight/spectral-cli': 6.16.3
   '@types/node': 24.13.3
   dotenv: 17.4.2
   jsdom: 29.1.1
@@ -87,7 +87,7 @@ catalogs:
   testing-library:
     '@testing-library/angular': 19.4.1
     '@testing-library/jest-dom': 6.9.1
-    '@testing-library/user-event': 14.6.1
+    '@testing-library/user-event': 14.6.3
   vitest:
     '@vitest/browser': 4.1.10
     '@vitest/browser-playwright': 4.1.10
