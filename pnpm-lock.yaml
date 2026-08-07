@@ -148,8 +148,8 @@ catalogs:
       specifier: 33.4.0
       version: 33.4.0
     '@spartan-ng/brain':
-      specifier: 1.3.0
-      version: 1.3.0
+      specifier: 1.3.1
+      version: 1.3.1
     class-variance-authority:
       specifier: 0.7.1
       version: 0.7.1
@@ -305,7 +305,7 @@ importers:
         version: 1.43.0
       '@spartan-ng/brain':
         specifier: catalog:spartanui
-        version: 1.3.0(153911b4f9235cfc883a11c02bab773c)
+        version: 1.3.1(153911b4f9235cfc883a11c02bab773c)
       '@tanstack/angular-table':
         specifier: catalog:tanstack
         version: 8.21.4(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))
@@ -2406,8 +2406,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8'
 
-  '@spartan-ng/brain@1.3.0':
-    resolution: {integrity: sha512-uYSaphZZJWY+tma2bWJ4Gqh7lQiQyAk92iiUj3zzVV1F6LtsM81NO1vD5xitN+k93bGjSziCbDlzBRUCX2a8dw==}
+  '@spartan-ng/brain@1.3.1':
+    resolution: {integrity: sha512-dOclAQWrwJ8Ell8myZkF7ZVGX4K0oZt4g8s30FAJwaZ24RXRh4ayk5YOC7Ds6qcAIPOYEmS0/koHwVQZQoPcnQ==}
     peerDependencies:
       '@angular/cdk': '>=21.0.0 <23.0.0'
       '@angular/common': '>=21.0.0 <23.0.0'
@@ -7728,7 +7728,7 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  '@spartan-ng/brain@1.3.0(153911b4f9235cfc883a11c02bab773c)':
+  '@spartan-ng/brain@1.3.1(153911b4f9235cfc883a11c02bab773c)':
     dependencies:
       '@angular/cdk': 22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
       '@angular/common': 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
