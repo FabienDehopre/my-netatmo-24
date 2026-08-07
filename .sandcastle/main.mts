@@ -38,7 +38,7 @@ const hooks = {
   sandbox: {
     onSandboxReady: [
       { command: "pnpm install --frozen-lockfile" },
-      { command: "auth0 login --domain $AUTH0_DOMAIN --client-id $AUTH0_CLIENT_ID --client-secret $AUTH0_CLIENT_SECRET --no-color --no-input" }
+      { command: "auth0 login --domain \"$AUTH0_DOMAIN\" --client-id \"$AUTH0_CLIENT_ID\" --client-secret \"$AUTH0_CLIENT_SECRET\" --no-color --no-input" }
     ]
   },
 };
