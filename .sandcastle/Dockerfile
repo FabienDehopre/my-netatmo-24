@@ -25,7 +25,9 @@ ARG AGENT_GID=1000
 RUN groupmod -o -g ${AGENT_GID} node \
   && usermod -o -u ${AGENT_UID} -g ${AGENT_GID} -d /home/agent -m -l agent node \
   && chown -R ${AGENT_UID}:${AGENT_GID} /home/agent
-USER ${AGENT_UID}:${AGENT_GID}
+# USER ${AGENT_UID}:${AGENT_GID}
+USER agent
+WORKDIR /home/agent
 
 # Install Claude Code CLI
 RUN curl -fsSL https://claude.ai/install.sh | bash
@@ -48,8 +50,8 @@ RUN mkdir -p /home/agent/.claude && cat > /home/agent/.claude/settings.json << '
 EOF
 
 # Install Auth0 CLI
-RUN curl -sSfL https://raw.githubusercontent.com/auth0/auth0-cli/main/install.sh | sh -s -- -b . \
-  && mv ./auth0 /usr/local/bin
+RUN mkdir -p /home/agent/.local/bin \
+  && curl -sSfL https://raw.githubusercontent.com/auth0/auth0-cli/main/install.sh | sh -s -- -b /home/agent/.local/bin
 
 # Build-arg for PNPM version
 ARG PNPM_VERSION=11.20.0
@@ -65,8 +67,6 @@ ENV PATH="/home/agent/.local/bin:$PNPM_HOME/bin:$PATH"
 
 # Set CI=true to disable interactive prompts in tools that support it (e.g., PNPM)
 ENV CI=true
-
-WORKDIR /home/agent
 
 # In worktree sandbox mode, Sandcastle bind-mounts the git worktree at /home/agent/workspace
 # and overrides the working directory to /home/agent/workspace at container start.
