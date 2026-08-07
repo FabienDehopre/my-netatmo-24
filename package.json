@@ -9,6 +9,7 @@
     "pnpm": ">=10"
   },
   "devDependencies": {
+    "@ai-hero/sandcastle": "catalog:",
     "@stoplight/spectral-cli": "catalog:"
   }
 }

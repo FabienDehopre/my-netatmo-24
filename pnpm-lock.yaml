@@ -37,6 +37,9 @@ catalogs:
       specifier: 22.1.0
       version: 22.1.0
   default:
+    '@ai-hero/sandcastle':
+      specifier: 0.12.0
+      version: 0.12.0
     '@ngx-env/builder':
       specifier: 21.0.1
       version: 21.0.1
@@ -198,6 +201,9 @@ importers:
 
   .:
     devDependencies:
+      '@ai-hero/sandcastle':
+        specifier: 'catalog:'
+        version: 0.12.0
       '@stoplight/spectral-cli':
         specifier: 'catalog:'
         version: 6.16.3
@@ -405,6 +411,18 @@ packages:
 
   '@adobe/css-tools@4.5.0':
     resolution: {integrity: sha512-6OzddxPio9UiWTCemp4N8cYLV2ZN1ncRnV1cVGtve7dhPOtRkleRyx32GQCYSwDYgaHU3USMm84tNsvKzRCa1Q==}
+
+  '@ai-hero/sandcastle@0.12.0':
+    resolution: {integrity: sha512-kdQ414rM8t1QiWeqZ3Klz4KSd0PqQG4bRVuqGpRDUomWhojSZkEAc1tbcEcThVmBEaHkCt8LmYR49vqEPNIoYQ==}
+    hasBin: true
+    peerDependencies:
+      '@daytona/sdk': ^0.164.0
+      '@vercel/sandbox': '>=1.0.0'
+    peerDependenciesMeta:
+      '@daytona/sdk':
+        optional: true
+      '@vercel/sandbox':
+        optional: true
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -5999,6 +6017,10 @@ packages:
 snapshots:
 
   '@adobe/css-tools@4.5.0': {}
+
+  '@ai-hero/sandcastle@0.12.0':
+    dependencies:
+      '@clack/prompts': 1.6.0
 
   '@alloc/quick-lru@5.2.0': {}
 
