@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+      <PackageReference Include="TngTech.ArchUnitNET.TUnit" />
+      <PackageReference Include="TUnit" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
+      <ProjectReference Include="..\MyNetatmo24.Modules.AccountManagement\MyNetatmo24.Modules.AccountManagement.csproj" />
+      <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" />
+    </ItemGroup>
+
+</Project>
