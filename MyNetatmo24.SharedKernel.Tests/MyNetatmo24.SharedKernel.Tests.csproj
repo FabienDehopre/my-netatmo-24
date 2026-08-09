@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <!-- CA1707: underscores are idiomatic in test method names. CA2000: test doubles have trivial lifetimes. -->
         <NoWarn>$(NoWarn);CA1303;CA1707;CA2000</NoWarn>
     </PropertyGroup>
