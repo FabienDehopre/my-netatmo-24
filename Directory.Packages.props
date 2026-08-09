@@ -40,7 +40,7 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="2.16.18" />
     <PackageVersion Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
     <PackageVersion Include="TngTech.ArchUnitNET.TUnit" Version="0.13.3" />
-    <PackageVersion Include="TUnit" Version="1.63.25" />
+    <PackageVersion Include="TUnit" Version="1.64.0" />
     <PackageVersion Include="Vogen" Version="8.0.7" />
     <PackageVersion Include="WolverineFx" Version="6.25.1" />
     <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.25.1" />
@@ -48,7 +48,7 @@
     <PackageVersion Include="WolverineFx.Postgresql" Version="6.25.1" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.13.0" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.13.0" />
-    <PackageVersion Include="TUnit.AspNetCore" Version="1.63.25" />
+    <PackageVersion Include="TUnit.AspNetCore" Version="1.64.0" />
     <PackageVersion Include="Verify.TUnit" Version="31.28.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
