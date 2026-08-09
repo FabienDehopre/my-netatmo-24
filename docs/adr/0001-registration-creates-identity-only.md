@@ -6,6 +6,7 @@ Registration (`POST /account/register`, anonymous) creates the user in Auth0 via
 
 - **Registration also inserts the Account row eagerly.** Rejected: two writers of `Account.Create` invite drift between the paths, and nothing needs an Account to exist before first login in a personal dashboard.
 - **No custom endpoint — Auth0 Universal Login signup + JIT provisioning.** Rejected: custom signup UX must capture nickname, name, and avatar at registration time.
+- **Registration publishes an event (e.g. Wolverine) and a handler creates the Account asynchronously.** Rejected: same two-writers drift as the eager insert — the handler can never replace JIT provisioning because identities created outside registration (e.g. directly in the Auth0 dashboard) never fire the event; the registration endpoint has no database transaction to anchor a durable outbox, so the event is best-effort at best; and every bot or never-verified registration would materialize as a local Account row.
 
 ## Consequences
 
