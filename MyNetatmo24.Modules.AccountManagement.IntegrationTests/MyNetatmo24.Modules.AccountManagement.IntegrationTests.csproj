@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <!-- CA1707: underscores are idiomatic in test method names. CA2000: test doubles have trivial lifetimes. -->
         <NoWarn>$(NoWarn);CA1303;CA1707;CA2000</NoWarn>
     </PropertyGroup>
