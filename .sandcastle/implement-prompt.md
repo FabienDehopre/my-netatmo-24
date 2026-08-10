@@ -2,7 +2,7 @@
 
 ## Open issues
 
-!`gh issue list --state open --label Sandcastle --limit 100 --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'`
+!`gh issue list --state open --label Sandcastle,ready-for-agent --limit 100 --json number,title,body,labels,comments --jq '[.[] | {number, title, body, labels: [.labels[].name], comments: [.comments[].body]}]'`
 
 The list above has already been filtered to issues ready for work and is the sole source of truth for what work exists. Do not run your own unfiltered query to find more issues — if the list is empty, there is nothing to do.
 
@@ -33,7 +33,7 @@ Pick the highest-priority open issue that is not blocked by another open issue.
 4. **Verify** — run `dotnet test` and the frontend checks (`pnpm -r lint`, `pnpm --filter='frontend-app' build`, `pnpm --filter='!end-to-end-tests' test --coverage`) before committing. Fix any failures before proceeding.
 5. **Commit** — make a single git commit. The message MUST:
    - follow the conventional commit format (https://www.conventionalcommits.org/en/v1.0.0/)
-   - End with `via RALPH` suffix
+   - first line (title) ends with `via RALPH` suffix
    - Include the task completed and any PRD reference
    - List key decisions made
    - List files changed
