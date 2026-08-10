@@ -54,7 +54,7 @@ catalogs:
     '@fabdeh/eslint-config': 0.12.2
     '@softarc/eslint-plugin-sheriff': 0.19.6
     '@softarc/sheriff-core': 0.19.6
-    eslint: 10.8.0
+    eslint: 10.8.1
     eslint-plugin-better-tailwindcss: 4.7.0
     eslint-plugin-erasable-syntax-only: 0.4.2
     eslint-plugin-format: 2.0.1
