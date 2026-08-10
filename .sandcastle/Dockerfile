@@ -18,6 +18,16 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+# Install Docker CLI (Docker-outside-of-Docker: host socket bind-mounted at container start)
+RUN install -m 0755 -d /etc/apt/keyrings \
+  && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc \
+  && chmod a+r /etc/apt/keyrings/docker.asc \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" \
+  | tee /etc/apt/sources.list.d/docker.list > /dev/null \
+  && apt-get update && apt-get install -y docker-ce-cli \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
 # Build-args for UID/GID alignment: sandcastle docker build-image
 # defaults these to the host user's UID/GID so image-built files
 # and bind-mounted files share an owner without runtime chown.

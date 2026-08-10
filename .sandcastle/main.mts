@@ -62,7 +62,18 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // This gives both agents a real, named branch that persists across phases.
   const sandbox = await sandcastle.createSandbox({
     branch,
-    sandbox: docker(),
+    // Docker-outside-of-Docker: bind-mount the host daemon's socket so `docker`
+    // inside the sandbox talks to the host engine. On Docker Desktop the VM's
+    // socket is owned root:root (gid 0), so the container's agent user needs
+    // group 0 to reach it (checked via `docker run -v /var/run/docker.sock:...
+    // alpine stat -c '%a %U %G' /var/run/docker.sock`; on native Linux hosts
+    // this is usually a "docker" group with a different gid — verify per host).
+    sandbox: docker({
+      mounts: [
+        { hostPath: "/var/run/docker.sock", sandboxPath: "/var/run/docker.sock" },
+      ],
+      groups: [0],
+    }),
     hooks,
     copyToWorktree,
   });
