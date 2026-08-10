@@ -11,7 +11,8 @@
   "devDependencies": {
     "@ai-hero/sandcastle": "catalog:",
     "@stoplight/spectral-cli": "catalog:",
-    "tsx": "catalog:"
+    "tsx": "catalog:",
+    "zod": "catalog:"
   },
   "scripts": {
     "sandcastle:run": "tsx .sandcastle/main.mts",

@@ -213,6 +213,9 @@ importers:
       tsx:
         specifier: 'catalog:'
         version: 4.23.10
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
 
   MyNetatmo24.EndToEndTests:
     devDependencies:
