@@ -35,13 +35,19 @@ If applicable, use RGR to complete the task.
 
 # FEEDBACK LOOPS
 
-Before committing, run `npm run typecheck` and `npm run test` to ensure the tests pass.
+Before committing, run the following commands and make sure they all pass:
+
+- `dotnet test`
+- `dotnet format --severity info`
+- `pnpm --filter=frontend-app test --watch=false --reporter=dot`
+- `pnpm run -r lint`
 
 # COMMIT
 
 Make a git commit. The commit message must:
 
-1. Start with `RALPH:` prefix
+1. Follow the conventional commit format (https://www.conventionalcommits.org/en/v1.0.0/)
+1. First line (title) of message ends with `via RALPH` suffix
 2. Include task completed + PRD reference
 3. Key decisions made
 4. Files changed

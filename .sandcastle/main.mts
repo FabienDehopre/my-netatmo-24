@@ -44,15 +44,20 @@ const planSchema = z.object({
 const MAX_ITERATIONS = 10;
 
 // Hooks run inside the sandbox before the agent starts each iteration.
-// npm install ensures the sandbox always has fresh dependencies.
+// pnpm install ensures the sandbox always has fresh dependencies.
 const hooks = {
-  sandbox: { onSandboxReady: [{ command: "npm install" }] },
+  sandbox: {
+    onSandboxReady: [
+      { command: "pnpm install --frozen-lockfile" },
+      { command: "auth0 login --domain \"$AUTH0_DOMAIN\" --client-id \"$AUTH0_CLIENT_ID\" --client-secret \"$AUTH0_CLIENT_SECRET\" --no-color --no-input" }
+    ]
+  },
 };
 
 // Copy node_modules from the host into the worktree before each sandbox
 // starts. Avoids a full npm install from scratch; the hook above handles
 // platform-specific binaries and any packages added since the last copy.
-const copyToWorktree = ["node_modules"];
+const copyToWorktree: string[] = [];
 
 // ---------------------------------------------------------------------------
 // Main loop
@@ -115,7 +120,12 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     issues.map(async (issue) => {
       const sandbox = await sandcastle.createSandbox({
         branch: issue.branch,
-        sandbox: docker(),
+        sandbox: docker({
+          mounts: [
+            { hostPath: "/var/run/docker.sock", sandboxPath: "/var/run/docker.sock" },
+          ],
+          groups: [0],
+        }),
         hooks,
         copyToWorktree,
       });
