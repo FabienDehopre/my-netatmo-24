@@ -87,7 +87,7 @@ catalogs:
   tanstack:
     '@tanstack/angular-table': 8.21.4
   testing-library:
-    '@testing-library/angular': 19.4.1
+    '@testing-library/angular': 19.4.2
     '@testing-library/jest-dom': 6.9.1
     '@testing-library/user-event': 14.6.3
   vitest:
