@@ -15,7 +15,7 @@ For each branch:
    - `pnpm run -r lint`
 4. If tests fail, fix the issues before proceeding to the next branch
 
-After all branches are merged, make a single commit summarizing the merge.
+After all branches are merged, ensure the working tree is clean (no uncommitted changes) before closing issues.
 
 # CLOSE ISSUES
 
