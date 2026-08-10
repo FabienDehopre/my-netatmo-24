@@ -32,6 +32,7 @@
     <File Path=".sandcastle\.env.example" />
     <File Path=".sandcastle\.gitignore" />
     <File Path=".sandcastle\build.sh" />
+    <File Path=".sandcastle\claude-settings.json" />
     <File Path=".sandcastle\CODING_STANDARDS.md" />
     <File Path=".sandcastle\Dockerfile" />
     <File Path=".sandcastle\implement-prompt.md" />
