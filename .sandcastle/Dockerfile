@@ -36,7 +36,11 @@ RUN curl -fsSL https://claude.ai/install.sh | bash
 RUN mkdir -p /home/agent/.claude && cat > /home/agent/.claude/settings.json << 'EOF'
 {
   "enabledPlugins": {
-    "caveman@caveman": true
+    "caveman@caveman": true,
+    "commit-commands@claude-plugins-official": true,
+    "csharp-lsp@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -45,7 +49,10 @@ RUN mkdir -p /home/agent/.claude && cat > /home/agent/.claude/settings.json << '
         "repo": "JuliusBrussee/caveman"
       }
     }
-  }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "advisorModel": "opus"
 }
 EOF
 

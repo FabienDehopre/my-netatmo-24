@@ -14,7 +14,7 @@
     "tsx": "catalog:"
   },
   "scripts": {
-    "run-sandcastle": "tsx .sandcastle/main.mts",
-    "build-sandcastle": "sh .sandcastle/build.sh"
+    "sandcastle:run": "tsx .sandcastle/main.mts",
+    "sandcastle:build": "sh .sandcastle/build.sh"
   }
 }
