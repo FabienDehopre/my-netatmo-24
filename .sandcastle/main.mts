@@ -217,7 +217,12 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // -------------------------------------------------------------------------
   await sandcastle.run({
     hooks,
-    sandbox: docker(),
+    sandbox: docker({
+      mounts: [
+        { hostPath: "/var/run/docker.sock", sandboxPath: "/var/run/docker.sock" },
+      ],
+      groups: [0],
+    }),
     name: "merger",
     maxIterations: 1,
     agent: sandcastle.claudeCode("claude-opus-4-8"),
