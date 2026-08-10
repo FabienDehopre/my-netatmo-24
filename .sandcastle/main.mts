@@ -31,7 +31,11 @@ import { z } from "zod";
 // https://standardschema.dev.
 const planSchema = z.object({
   issues: z.array(
-    z.object({ id: z.string(), title: z.string(), branch: z.string() }),
+    z.object({
+      id: z.string().regex(/^\d+$/),
+      title: z.string(),
+      branch: z.string().regex(/^sandcastle\/issue-\d+$/),
+    }),
   ),
 });
 
