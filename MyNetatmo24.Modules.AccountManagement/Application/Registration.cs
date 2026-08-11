@@ -7,12 +7,23 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
+using MyNetatmo24.Modules.AccountManagement.Validation;
 using MyNetatmo24.SharedKernel.Endpoints;
 
 namespace MyNetatmo24.Modules.AccountManagement.Application;
 
 public static class Registration
 {
+    /// <summary>
+    /// The maximum number of characters a profile text value may contain once trimmed.
+    /// </summary>
+    private const int MaximumProfileTextLength = 50;
+
+    /// <summary>
+    /// The maximum number of characters the avatar URL may contain.
+    /// </summary>
+    private const int MaximumAvatarUrlLength = 2048;
+
     /// <param name="Email">
     /// The e-mail address of the prospective user, which is required and also acts as their login name.
     /// </param>
@@ -21,30 +32,41 @@ public static class Registration
     /// identity provider, not by this application.
     /// </param>
     /// <param name="PasswordConfirmation">
-    /// A second copy of the password, which is required. It is collected so that a typo cannot
-    /// silently lock the prospective user out of the identity they just created; the check that it
-    /// matches <paramref name="Password"/> is not implemented yet.
+    /// A second copy of the password, which is required and must equal <paramref name="Password"/>.
+    /// It is collected so that a typo cannot silently lock the prospective user out of the identity
+    /// they just created.
     /// </param>
     /// <param name="Nickname">
-    /// The display name chosen by the prospective user, which is required and is not unique.
+    /// The display name chosen by the prospective user, which is required and is not unique. It is
+    /// trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode
+    /// control or format character; every script is accepted.
     /// </param>
     /// <param name="GivenName">
-    /// The given name of the prospective user, which is required.
+    /// The given name of the prospective user, which is required. It is trimmed, must not be empty,
+    /// must be at most 50 characters long and must contain no Unicode control or format character;
+    /// every script is accepted.
     /// </param>
     /// <param name="FamilyName">
-    /// The family name of the prospective user, which is required.
+    /// The family name of the prospective user, which is required. It is trimmed, must not be
+    /// empty, must be at most 50 characters long and must contain no Unicode control or format
+    /// character; every script is accepted.
     /// </param>
     /// <param name="AvatarUrl">
-    /// The URL of the avatar picture of the prospective user, which is optional.
+    /// The URL of the avatar picture of the prospective user, which is optional. When present it
+    /// must be an absolute https URL of at most 2048 characters.
     /// </param>
+    [SuppressMessage("Design", "CA1054:URI-like parameters should not be strings", Justification = "The avatar URL is carried as text on purpose, so that text no URI parser accepts is rejected by validation naming the field rather than by the body reader.")]
+    [SuppressMessage("Design", "CA1056:URI-like properties should not be strings", Justification = "The avatar URL is carried as text on purpose, so that text no URI parser accepts is rejected by validation naming the field rather than by the body reader.")]
     public sealed record RegistrationRequestDto(
         [property: Required] string Email,
         [property: Required] string Password,
-        [property: Required] string PasswordConfirmation,
-        [property: Required] string Nickname,
-        [property: Required] string GivenName,
-        [property: Required] string FamilyName,
-        Uri? AvatarUrl = null)
+        [property: Required, Compare(nameof(RegistrationRequestDto.Password))] string PasswordConfirmation,
+        [property: Required, ProfileText(MaximumProfileTextLength)] string Nickname,
+        [property: Required, ProfileText(MaximumProfileTextLength)] string GivenName,
+        [property: Required, ProfileText(MaximumProfileTextLength)] string FamilyName,
+        // No [Url] next to it: its looser rule (any fully-qualified http, https or ftp URL) would
+        // only add a second, overlapping message to the field the person has to correct.
+        [property: AbsoluteHttpsUrl(MaximumAvatarUrlLength)] string? AvatarUrl = null)
     {
         /// <summary>
         /// Suppresses the compiler-generated member printing, which would put the plaintext
@@ -91,11 +113,23 @@ public static class Registration
         };
     }
 
+    /// <summary>
+    /// Normalizes the submitted registration into the form the seam consumes: every value the
+    /// prospective user typed for display is trimmed, since surrounding whitespace is a typing
+    /// accident and the identity provider would otherwise store it forever, and the avatar URL is
+    /// parsed. The password is the exception -- its whitespace is part of the credential.
+    /// </summary>
+    /// <param name="registration">
+    /// The registration as it was submitted, which validation has already accepted.
+    /// </param>
+    /// <returns>The normalized registration.</returns>
     private static RegistrationData ToRegistrationData(RegistrationRequestDto registration) =>
-        new(registration.Email,
+        new(registration.Email.Trim(),
             registration.Password,
-            registration.Nickname,
-            registration.GivenName,
-            registration.FamilyName,
-            registration.AvatarUrl);
+            registration.Nickname.Trim(),
+            registration.GivenName.Trim(),
+            registration.FamilyName.Trim(),
+            // Validation has already parsed this exact text as an absolute URL, so it cannot throw
+            // here for a request that reached the handler.
+            registration.AvatarUrl is null ? null : new Uri(registration.AvatarUrl, UriKind.Absolute));
 }
