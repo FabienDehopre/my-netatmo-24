@@ -9,13 +9,6 @@
     "pnpm": ">=10"
   },
   "devDependencies": {
-    "@ai-hero/sandcastle": "catalog:",
-    "@stoplight/spectral-cli": "catalog:",
-    "tsx": "catalog:",
-    "zod": "catalog:"
-  },
-  "scripts": {
-    "sandcastle:run": "tsx .sandcastle/main.mts",
-    "sandcastle:build": "sh .sandcastle/build.sh"
+    "@stoplight/spectral-cli": "catalog:"
   }
 }
