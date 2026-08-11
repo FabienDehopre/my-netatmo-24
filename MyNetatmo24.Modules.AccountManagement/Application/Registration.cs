@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
 using MyNetatmo24.Modules.AccountManagement.Validation;
 using MyNetatmo24.SharedKernel.Endpoints;
+using MyNetatmo24.SharedKernel.Results;
 
 namespace MyNetatmo24.Modules.AccountManagement.Application;
 
@@ -81,12 +82,17 @@ public static class Registration
                              "It creates no account: the account is provisioned on the first authenticated call. " +
                              "It requires no authentication. " +
                              "If the registration succeeds, a 204 No Content response is returned. " +
-                             "If the submitted registration is invalid, a 400 Bad Request response is returned.")
+                             "If the submitted registration is invalid, or if the identity provider refuses the " +
+                             "password as too weak, a 400 Bad Request response is returned. " +
+                             "If the e-mail address is already registered, a 409 Conflict response is returned. " +
+                             "If the identity provider is unavailable, a 502 Bad Gateway response is returned.")
             .ProducesWithDescription(StatusCodes.Status204NoContent, "The identity of the prospective user was successfully created.")
-            .ProducesWithDescription<HttpValidationProblemDetails>(StatusCodes.Status400BadRequest, "The submitted registration is invalid, so no identity was created.", "application/problem+json");
+            .ProducesWithDescription<HttpValidationProblemDetails>(StatusCodes.Status400BadRequest, "The submitted registration is invalid, or its password does not satisfy the password policy of the identity provider, so no identity was created.", "application/problem+json")
+            .ProducesWithDescription<ProblemDetails>(StatusCodes.Status409Conflict, "The e-mail address is already registered, so no second identity was created for it.", "application/problem+json")
+            .ProducesWithDescription<ProblemDetails>(StatusCodes.Status502BadGateway, "The identity provider could not be reached, so whether an identity was created is unknown.", "application/problem+json");
     }
 
-    public static async Task<NoContent> HandleAsync(
+    public static async Task<Results<NoContent, ValidationProblem, ProblemHttpResult>> HandleAsync(
         [FromBody, NotNull] RegistrationRequestDto registration,
         [FromServices, NotNull] IUserRegistrationService userRegistrationService,
         CancellationToken ct)
@@ -95,11 +101,35 @@ public static class Registration
         return result switch
         {
             { IsSuccess: true } => TypedResults.NoContent(),
+            // The outcomes are told apart by their identity in the catalogue rather than by their
+            // status code, which several unrelated errors of the module share.
+            { IsSuccess: false } => result.Reasons.OfType<EndpointError>().SingleOrDefault() switch
+            {
+                // Answering 409 tells anyone who asks whether an e-mail address is registered here.
+                // That enumeration is accepted on purpose: for an application at this scale, letting
+                // someone who already has an identity go straight to logging in is worth more than
+                // hiding the membership of an address behind a fake success.
+                { } emailTaken when emailTaken.IsEmailAlreadyRegistered() => TypedResults.Problem(
+                    detail: emailTaken.Message,
+                    statusCode: emailTaken.StatusCode,
+                    title: "E-mail address already registered"),
 
-            // The failure outcomes of the seam (e-mail already registered, password rejected by the
-            // identity provider policy, provider unavailable) get their HTTP mapping in a follow-up
-            // story; no implementation of the seam reports them yet.
-            _ => throw new InvalidOperationException("The user registration service reported a failure that has no HTTP mapping yet.")
+                // The password policy lives with the identity provider, so its verdict is reported
+                // as a validation failure on the field the prospective user has to correct, in the
+                // same shape as the locally-checked ones.
+                { } weakPassword when weakPassword.GetPasswordPolicyMessage() is { } policyMessage =>
+                    TypedResults.ValidationProblem(new Dictionary<string, string[]>(StringComparer.Ordinal)
+                    {
+                        [nameof(RegistrationRequestDto.Password)] = [policyMessage]
+                    }),
+
+                { } unavailable when unavailable.IsIdentityProviderUnavailable() => TypedResults.Problem(
+                    detail: unavailable.Message,
+                    statusCode: unavailable.StatusCode,
+                    title: "Identity provider unavailable"),
+
+                _ => throw new InvalidOperationException("The user registration service reported a failure that has no HTTP mapping.")
+            }
         };
     }
 

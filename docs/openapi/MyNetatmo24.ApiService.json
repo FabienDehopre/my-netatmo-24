@@ -90,7 +90,7 @@
           "Account Management"
         ],
         "summary": "Registers a prospective user with the identity provider.",
-        "description": "This endpoint creates the identity of a prospective user from their e-mail address, password and profile, and triggers the verification of their e-mail address. It creates no account: the account is provisioned on the first authenticated call. It requires no authentication. If the registration succeeds, a 204 No Content response is returned. If the submitted registration is invalid, a 400 Bad Request response is returned.",
+        "description": "This endpoint creates the identity of a prospective user from their e-mail address, password and profile, and triggers the verification of their e-mail address. It creates no account: the account is provisioned on the first authenticated call. It requires no authentication. If the registration succeeds, a 204 No Content response is returned. If the submitted registration is invalid, or if the identity provider refuses the password as too weak, a 400 Bad Request response is returned. If the e-mail address is already registered, a 409 Conflict response is returned. If the identity provider is unavailable, a 502 Bad Gateway response is returned.",
         "operationId": "Registration",
         "requestBody": {
           "content": {
@@ -107,11 +107,31 @@
             "description": "The identity of the prospective user was successfully created."
           },
           "400": {
-            "description": "The submitted registration is invalid, so no identity was created.",
+            "description": "The submitted registration is invalid, or its password does not satisfy the password policy of the identity provider, so no identity was created.",
             "content": {
               "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The e-mail address is already registered, so no second identity was created for it.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "The identity provider could not be reached, so whether an identity was created is unknown.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -220,6 +240,42 @@
                 "type": "string"
               }
             }
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
           }
         }
       },

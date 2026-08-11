@@ -1,4 +1,5 @@
 using FluentResults;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MyNetatmo24.Modules.AccountManagement.Application;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
@@ -25,7 +26,7 @@ public class RegistrationTests
 
         var response = await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None);
 
-        await Assert.That(response).IsTypeOf<NoContent>();
+        await Assert.That(response.Result).IsTypeOf<NoContent>();
     }
 
     [Test]
@@ -113,10 +114,70 @@ public class RegistrationTests
     }
 
     [Test]
-    public async Task HandleAsync_WhenRegistrationFails_Throws()
+    public async Task HandleAsync_WhenEmailIsAlreadyRegistered_ReturnsConflict()
     {
-        // The failure outcomes of the seam have no HTTP mapping yet; the handler must not
-        // silently report success for them.
+        var service = RegistrationServiceReturning(Result.Fail(Errors.EmailAlreadyRegistered));
+
+        var response = await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None);
+
+        var problem = (ProblemHttpResult)response.Result;
+        await Assert.That(problem.StatusCode).IsEqualTo(StatusCodes.Status409Conflict);
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenPasswordIsTooWeak_ReturnsValidationProblemCarryingThePolicyMessage()
+    {
+        const string policyMessage = "Password is too common, and must contain at least 8 characters.";
+        var service = RegistrationServiceReturning(Result.Fail(Errors.PasswordTooWeak(policyMessage)));
+
+        var response = await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None);
+
+        var validationProblem = (ValidationProblem)response.Result;
+        await Assert.That(validationProblem.StatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(validationProblem.ProblemDetails.Errors[nameof(Registration.RegistrationRequestDto.Password)])
+            .Contains(policyMessage);
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenPasswordIsTooWeak_DoesNotLeakThePolicyMessageIntoOtherFields()
+    {
+        var service = RegistrationServiceReturning(Result.Fail(Errors.PasswordTooWeak("too weak")));
+
+        var response = await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None);
+
+        var validationProblem = (ValidationProblem)response.Result;
+        await Assert.That(validationProblem.ProblemDetails.Errors.Keys)
+            .HasSingleItem()
+            .And.Contains(nameof(Registration.RegistrationRequestDto.Password));
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenIdentityProviderIsUnavailable_ReturnsBadGateway()
+    {
+        var service = RegistrationServiceReturning(Result.Fail(Errors.IdentityProviderUnavailable));
+
+        var response = await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None);
+
+        var problem = (ProblemHttpResult)response.Result;
+        await Assert.That(problem.StatusCode).IsEqualTo(StatusCodes.Status502BadGateway);
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenRegistrationFailsWithAnotherErrorOfTheSameStatusCode_Throws()
+    {
+        // UserDeleted is a 409 of the same catalogue: the mapping must recognize the outcome, not
+        // merely the status code that happens to be attached to it.
+        var service = RegistrationServiceReturning(Result.Fail(Errors.UserDeleted(DateTimeOffset.UtcNow)));
+
+        await Assert.That(async () => await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None))
+            .Throws<InvalidOperationException>();
+    }
+
+    [Test]
+    public async Task HandleAsync_WhenRegistrationFailsWithAnUnmappedError_Throws()
+    {
+        // A failure the catalogue does not describe is a defect, not an outcome of the contract;
+        // the handler must not silently report success for it.
         var service = RegistrationServiceReturning(Result.Fail("boom"));
 
         await Assert.That(async () => await Registration.HandleAsync(ValidRequest(), service, CancellationToken.None))
