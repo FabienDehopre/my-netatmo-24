@@ -36,6 +36,13 @@ public sealed class AccountManagementModule : IModule
             .WithCacheKeyPrefixByCacheName()
             .AsKeyedHybridCacheByCacheName();
 
+        // Registers the validation services for the DataAnnotations on the endpoint request
+        // contracts of this module. The source generator behind AddValidation() only discovers
+        // validatable types in the assembly the call sits in, so it has to be this one.
+        builder.Services.AddValidation();
+
+        builder.Services.AddScoped<IUserRegistrationService, StubUserRegistrationService>();
+
         builder.Services.AddHttpContextAccessor();
         builder.Services
             .AddHttpClient<IUserInfoService, UserInfoService>("Auth0", (sp, client) =>
@@ -62,6 +69,7 @@ public sealed class AccountManagementModule : IModule
             .WithTags("Account Management");
         EnsureAccount.Configure(group);
         MyAccount.Configure(group);
+        Registration.Configure(group);
         RestoreAccount.Configure(group);
 
         return app;
