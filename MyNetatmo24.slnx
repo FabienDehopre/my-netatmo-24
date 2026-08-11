@@ -27,18 +27,6 @@
     <File Path="package.json" />
     <File Path="pnpm-workspace.yaml" />
   </Folder>
-  <Folder Name="/Sandcastle/">
-    <File Path=".sandcastle\.env" />
-    <File Path=".sandcastle\.env.example" />
-    <File Path=".sandcastle\.gitignore" />
-    <File Path=".sandcastle\build.sh" />
-    <File Path=".sandcastle\claude-settings.json" />
-    <File Path=".sandcastle\CODING_STANDARDS.md" />
-    <File Path=".sandcastle\Dockerfile" />
-    <File Path=".sandcastle\implement-prompt.md" />
-    <File Path=".sandcastle\main.mts" />
-    <File Path=".sandcastle\review-prompt.md" />
-  </Folder>
   <Project Path="MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
   <Project Path="MyNetatmo24.AppHost/MyNetatmo24.AppHost.csproj" />
   <Project Path="MyNetatmo24.Architectural.Tests/MyNetatmo24.Architectural.Tests.csproj" />
