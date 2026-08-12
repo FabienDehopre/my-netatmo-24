@@ -47,7 +47,7 @@ public sealed class AccountManagementModule : IModule
         builder.Services.AddRateLimiter(options =>
             options.AddPolicy<string, RegistrationRateLimiterPolicy>(RegistrationRateLimiterPolicy.Name));
 
-        builder.Services.AddScoped<IUserRegistrationService, StubUserRegistrationService>();
+        builder.AddUserRegistration();
 
         builder.Services.AddHttpContextAccessor();
         builder.Services

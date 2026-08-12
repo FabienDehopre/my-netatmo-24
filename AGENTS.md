@@ -341,6 +341,21 @@ sops set "config/appsettings.encrypted.json" '["Parameters"]["OpenIdConnectSetti
 `jq -c '.client_secret'` emits the value already quoted as a JSON string, which is what `sops set` expects. Prefer
 direct injection over storing the secret in an intermediate environment variable.
 
+#### Auth0 Management API M2M Client Secret
+
+`Parameters:Auth0ManagementClientSecret` is the secret of the separate machine-to-machine application the Registration
+endpoint creates identities with (`My Netatmo 24 (M2M)`, client id `nsAYuGbTXBeNOq7LJIxUZNQ6NqgnTCnC`). It follows the
+same rule as above -- empty in `MyNetatmo24.AppHost/appsettings.json`, real only in the encrypted config:
+
+```bash
+sops set "config/appsettings.encrypted.json" '["Parameters"]["Auth0ManagementClientSecret"]' \
+  "$(auth0 apps show nsAYuGbTXBeNOq7LJIxUZNQ6NqgnTCnC -r --json-compact | jq -c '.client_secret')"
+```
+
+Note that the Management API is reached on the **canonical** tenant domain (`Auth0:Management:Domain`,
+`fabdeh.eu.auth0.com`), not on the custom login domain the rest of the application uses: the Management API is a
+resource server identified by the canonical domain, and that is the audience the M2M grant is authorized for.
+
 ## Agent skills
 
 ### Issue tracker

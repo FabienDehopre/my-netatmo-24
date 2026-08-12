@@ -81,6 +81,12 @@ public static partial class LoggerExtensions
     public static partial void LogStubbedUserRegistration(this ILogger logger);
 
     [LoggerMessage(
+        EventId = 3003,
+        Level = LogLevel.Warning,
+        Message = "Registration was refused because this host holds no credentials for the identity provider; no identity was created")]
+    public static partial void LogUserRegistrationNotConfigured(this ILogger logger);
+
+    [LoggerMessage(
         EventId = 4000,
         Level = LogLevel.Error,
         Message = "Antiforgery token validation failed for request path: {RequestPath}")]
@@ -105,4 +111,12 @@ public static partial class LoggerExtensions
         Message = "Failed to retrieve user info from Auth0.")]
     public static partial void LogCannotRetrieveUserInfo(
         this ILogger logger);
+
+    [LoggerMessage(
+        EventId = 4003,
+        Level = LogLevel.Error,
+        Message = "The identity provider failed to create the identity of a prospective user; whether one was created is unknown")]
+    public static partial void LogUserRegistrationFailed(
+        this ILogger logger,
+        Exception ex);
 }
