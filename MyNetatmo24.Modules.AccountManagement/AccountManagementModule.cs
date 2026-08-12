@@ -9,6 +9,7 @@ using MyNetatmo24.Modules.AccountManagement.Application;
 using MyNetatmo24.Modules.AccountManagement.Data;
 using MyNetatmo24.Modules.AccountManagement.Domain;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
+using MyNetatmo24.Modules.AccountManagement.RateLimiting;
 using MyNetatmo24.SharedKernel.Endpoints;
 using MyNetatmo24.SharedKernel.Infrastructure;
 using MyNetatmo24.SharedKernel.Modules;
@@ -40,6 +41,11 @@ public sealed class AccountManagementModule : IModule
         // contracts of this module. The source generator behind AddValidation() only discovers
         // validatable types in the assembly the call sits in, so it has to be this one.
         builder.Services.AddValidation();
+
+        // The abuse protection of the only anonymous endpoint of the module. The policy is declared
+        // here, next to the endpoint it guards; the host owns the middleware that enforces it.
+        builder.Services.AddRateLimiter(options =>
+            options.AddPolicy<string, RegistrationRateLimiterPolicy>(RegistrationRateLimiterPolicy.Name));
 
         builder.Services.AddScoped<IUserRegistrationService, StubUserRegistrationService>();
 

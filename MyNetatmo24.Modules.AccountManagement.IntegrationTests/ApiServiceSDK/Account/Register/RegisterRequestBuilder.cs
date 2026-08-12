@@ -36,13 +36,14 @@ namespace ApiServiceSDK.Account.Register
         {
         }
         /// <summary>
-        /// This endpoint creates the identity of a prospective user from their e-mail address, password and profile, and triggers the verification of their e-mail address. It creates no account: the account is provisioned on the first authenticated call. It requires no authentication. If the registration succeeds, a 204 No Content response is returned. If the submitted registration is invalid, or if the identity provider refuses the password as too weak, a 400 Bad Request response is returned. If the e-mail address is already registered, a 409 Conflict response is returned. If the identity provider is unavailable, a 502 Bad Gateway response is returned.
+        /// This endpoint creates the identity of a prospective user from their e-mail address, password and profile, and triggers the verification of their e-mail address. It creates no account: the account is provisioned on the first authenticated call. It requires no authentication. If the registration succeeds, a 204 No Content response is returned. If the submitted registration is invalid, or if the identity provider refuses the password as too weak, a 400 Bad Request response is returned. If the e-mail address is already registered, a 409 Conflict response is returned. If too many registrations are attempted from the same client, a 429 Too Many Requests response is returned. If the identity provider is unavailable, a 502 Bad Gateway response is returned.
         /// </summary>
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
         /// <exception cref="global::ApiServiceSDK.Models.Microsoft.AspNetCore.Http.HttpValidationProblemDetails">When receiving a 400 status code</exception>
         /// <exception cref="global::ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails">When receiving a 409 status code</exception>
+        /// <exception cref="global::ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails">When receiving a 429 status code</exception>
         /// <exception cref="global::ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails">When receiving a 502 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -59,12 +60,13 @@ namespace ApiServiceSDK.Account.Register
             {
                 { "400", global::ApiServiceSDK.Models.Microsoft.AspNetCore.Http.HttpValidationProblemDetails.CreateFromDiscriminatorValue },
                 { "409", global::ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails.CreateFromDiscriminatorValue },
+                { "429", global::ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails.CreateFromDiscriminatorValue },
                 { "502", global::ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails.CreateFromDiscriminatorValue },
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This endpoint creates the identity of a prospective user from their e-mail address, password and profile, and triggers the verification of their e-mail address. It creates no account: the account is provisioned on the first authenticated call. It requires no authentication. If the registration succeeds, a 204 No Content response is returned. If the submitted registration is invalid, or if the identity provider refuses the password as too weak, a 400 Bad Request response is returned. If the e-mail address is already registered, a 409 Conflict response is returned. If the identity provider is unavailable, a 502 Bad Gateway response is returned.
+        /// This endpoint creates the identity of a prospective user from their e-mail address, password and profile, and triggers the verification of their e-mail address. It creates no account: the account is provisioned on the first authenticated call. It requires no authentication. If the registration succeeds, a 204 No Content response is returned. If the submitted registration is invalid, or if the identity provider refuses the password as too weak, a 400 Bad Request response is returned. If the e-mail address is already registered, a 409 Conflict response is returned. If too many registrations are attempted from the same client, a 429 Too Many Requests response is returned. If the identity provider is unavailable, a 502 Bad Gateway response is returned.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

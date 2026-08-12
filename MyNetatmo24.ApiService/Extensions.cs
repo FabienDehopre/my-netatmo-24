@@ -122,6 +122,26 @@ public static class Extensions
             return builder;
         }
 
+        /// <summary>
+        /// Registers the rate limiting the modules attach their own policies to.
+        /// </summary>
+        /// <remarks>
+        /// Only the rejection itself is decided here: which endpoints are limited, how hard and per
+        /// what, belongs with the endpoints, which know what abusing them would cost.
+        /// </remarks>
+        /// <returns>The builder, so that the host configuration reads as one chain.</returns>
+        public WebApplicationBuilder AddRateLimiting()
+        {
+            builder.Services.AddRateLimiter(options =>
+            {
+                // 429 rather than the 503 default: nothing is broken, the client is simply asking
+                // too often, and only it can fix that.
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
+
+            return builder;
+        }
+
         public WebApplicationBuilder AddCaching()
         {
             builder.AddRedisDistributedCache(connectionName: Constants.CacheName);
