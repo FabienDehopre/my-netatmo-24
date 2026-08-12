@@ -2,6 +2,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var openIdConnectSettingsClientId = builder.AddParameter("OpenIdConnectSettingsClientId", false);
 var openIdConnectSettingsClientSecret = builder.AddParameter("OpenIdConnectSettingsClientSecret", true);
+var auth0ManagementClientId = builder.AddParameter("Auth0ManagementClientId", false);
+var auth0ManagementClientSecret = builder.AddParameter("Auth0ManagementClientSecret", true);
 
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume();
@@ -26,6 +28,10 @@ var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice
     .WithReference(migrations)
     .WithEnvironment("Auth0__ClientId", openIdConnectSettingsClientId)
     .WithEnvironment("Auth0__ClientSecret", openIdConnectSettingsClientSecret)
+    // Only the API service registers prospective users, so only it gets the machine-to-machine
+    // credentials of the Management API.
+    .WithEnvironment("Auth0__Management__ClientId", auth0ManagementClientId)
+    .WithEnvironment("Auth0__Management__ClientSecret", auth0ManagementClientSecret)
     .WaitFor(database)
     .WaitForCompletion(migrations)
     .WaitFor(redis)
