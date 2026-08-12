@@ -32,7 +32,8 @@ public class RegistrationTests : AccountApiIntegrationTest
     {
         // The generated SDK swallows the success status code, so the 204 of the contract is pinned
         // with a raw client instead.
-        using var response = await PostValidRegistrationAsync();
+        using var httpClient = Factory.CreateClient();
+        using var response = await PostValidRegistrationAsync(httpClient);
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.NoContent);
     }
@@ -219,7 +220,8 @@ public class RegistrationTests : AccountApiIntegrationTest
         const string policyMessage = "Password is too common, and must contain at least 8 characters.";
         UserRegistrationService.RejectPasswordAsTooWeak(policyMessage);
 
-        using var response = await PostValidRegistrationAsync();
+        using var httpClient = Factory.CreateClient();
+        using var response = await PostValidRegistrationAsync(httpClient);
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
         var problem = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -253,14 +255,14 @@ public class RegistrationTests : AccountApiIntegrationTest
         // ProblemDetails exception handler rather than be reported as any kind of success.
         UserRegistrationService.FailUnexpectedly();
 
-        using var response = await PostValidRegistrationAsync();
+        using var httpClient = Factory.CreateClient();
+        using var response = await PostValidRegistrationAsync(httpClient);
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.InternalServerError);
     }
 
-    private async Task<HttpResponseMessage> PostValidRegistrationAsync()
+    private async Task<HttpResponseMessage> PostValidRegistrationAsync(HttpClient httpClient)
     {
-        using var httpClient = Factory.CreateClient();
         var body = ValidRegistration();
 
         return await httpClient.PostAsJsonAsync(
