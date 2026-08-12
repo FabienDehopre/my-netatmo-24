@@ -75,6 +75,12 @@ public static partial class LoggerExtensions
         string endpointName);
 
     [LoggerMessage(
+        EventId = 3002,
+        Level = LogLevel.Warning,
+        Message = "Registration was accepted by the stubbed user registration service; no identity was created")]
+    public static partial void LogStubbedUserRegistration(this ILogger logger);
+
+    [LoggerMessage(
         EventId = 4000,
         Level = LogLevel.Error,
         Message = "Antiforgery token validation failed for request path: {RequestPath}")]

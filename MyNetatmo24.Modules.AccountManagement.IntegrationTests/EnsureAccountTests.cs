@@ -1,4 +1,4 @@
-using ApiServiceSDK.Models.Modules.AccountManagement.Application.EnsureAccount;
+using ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application.EnsureAccount;
 using Microsoft.Kiota.Abstractions;
 using MyNetatmo24.Modules.AccountManagement.IntegrationTests.Setup;
 

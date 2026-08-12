@@ -27,6 +27,8 @@ public abstract class AccountApiIntegrationTest : WebApplicationTest<AccountApiW
 
     protected FakeUserInfoService UserInfoService { get; } = new();
 
+    protected FakeUserRegistrationService UserRegistrationService { get; } = new();
+
     protected override async Task SetupAsync()
     {
         Auth0Id = GetIsolatedName("auth0");
@@ -46,6 +48,7 @@ public abstract class AccountApiIntegrationTest : WebApplicationTest<AccountApiW
         ArgumentNullException.ThrowIfNull(services);
 
         services.ReplaceService<IUserInfoService>(UserInfoService);
+        services.ReplaceService<IUserRegistrationService>(UserRegistrationService);
     }
 
     protected ApiClient CreateAuthenticatedApiClient()
