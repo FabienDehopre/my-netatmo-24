@@ -9,6 +9,7 @@ builder.AddSecurity();
 builder.AddAuthentication();
 builder.AddOpenApi();
 builder.AddErrorHandling();
+builder.AddRateLimiting();
 builder.AddCaching();
 // AddFeatureFlags ??
 builder.AddWolverine();
@@ -23,6 +24,9 @@ app.UseExceptionHandler(
         SuppressDiagnosticsCallback = context => context.Exception is BadHttpRequestException
     }
 );
+// Before authentication: a rejected request must cost as little as possible, and no endpoint of
+// the application rate-limits per identity.
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseModules();

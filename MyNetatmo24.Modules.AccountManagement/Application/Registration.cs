@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using MyNetatmo24.Modules.AccountManagement.HttpClients.Auth0;
+using MyNetatmo24.Modules.AccountManagement.RateLimiting;
 using MyNetatmo24.Modules.AccountManagement.Validation;
 using MyNetatmo24.SharedKernel.Endpoints;
 using MyNetatmo24.SharedKernel.Results;
@@ -75,6 +76,9 @@ public static class Registration
             // The only anonymous endpoint of the module: Registration cannot require the very
             // session it exists to enable. It opts out of the group's RequireAuthorization().
             .AllowAnonymous()
+            // Anonymous and identity-creating, so it is also the only endpoint a bot has any reason
+            // to flood. No other endpoint of the module carries the policy.
+            .RequireRateLimiting(RegistrationRateLimiterPolicy.Name)
             .WithName("Registration")
             .WithSummary("Registers a prospective user with the identity provider.")
             .WithDescription("This endpoint creates the identity of a prospective user from their e-mail address, " +
@@ -85,10 +89,13 @@ public static class Registration
                              "If the submitted registration is invalid, or if the identity provider refuses the " +
                              "password as too weak, a 400 Bad Request response is returned. " +
                              "If the e-mail address is already registered, a 409 Conflict response is returned. " +
+                             "If too many registrations are attempted from the same client, a 429 Too Many Requests " +
+                             "response is returned. " +
                              "If the identity provider is unavailable, a 502 Bad Gateway response is returned.")
             .ProducesWithDescription(StatusCodes.Status204NoContent, "The identity of the prospective user was successfully created.")
             .ProducesWithDescription<HttpValidationProblemDetails>(StatusCodes.Status400BadRequest, "The submitted registration is invalid, or its password does not satisfy the password policy of the identity provider, so no identity was created.", "application/problem+json")
             .ProducesWithDescription<ProblemDetails>(StatusCodes.Status409Conflict, "The e-mail address is already registered, so no second identity was created for it.", "application/problem+json")
+            .ProducesWithDescription<ProblemDetails>(StatusCodes.Status429TooManyRequests, "Too many registrations were attempted from the same client, so this one was not forwarded to the identity provider. The Retry-After header tells when the next one will be.", "application/problem+json")
             .ProducesWithDescription<ProblemDetails>(StatusCodes.Status502BadGateway, "The identity provider could not be reached, so whether an identity was created is unknown.", "application/problem+json");
     }
 
