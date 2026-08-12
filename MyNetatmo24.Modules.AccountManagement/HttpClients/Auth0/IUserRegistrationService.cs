@@ -18,6 +18,14 @@ public interface IUserRegistrationService
     /// </summary>
     /// <param name="registration">The profile and credentials of the prospective user.</param>
     /// <param name="cancellationToken">A token used to cancel the operation.</param>
-    /// <returns>A successful result when the identity was created; a failed result otherwise.</returns>
+    /// <returns>
+    /// A successful result when the identity was created; otherwise a result failed with exactly
+    /// one error of the module catalogue, telling the three expected outcomes apart:
+    /// <c>Errors.EmailAlreadyRegistered</c> when the e-mail address already identifies someone,
+    /// <c>Errors.PasswordTooWeak</c> when the password policy refused the password (carrying the
+    /// policy message the identity provider worded), and <c>Errors.IdentityProviderUnavailable</c>
+    /// when the provider could not be reached or failed to answer. Anything else is unexpected and
+    /// belongs in an exception, not in the result.
+    /// </returns>
     Task<Result> RegisterAsync(RegistrationData registration, CancellationToken cancellationToken);
 }

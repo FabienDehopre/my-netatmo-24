@@ -1,7 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 using ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application.Registration;
 using MyNetatmo24.Modules.AccountManagement.IntegrationTests.Setup;
+using Problem = ApiServiceSDK.Models.Microsoft.AspNetCore.Mvc.ProblemDetails;
 using ValidationProblem = ApiServiceSDK.Models.Microsoft.AspNetCore.Http.HttpValidationProblemDetails;
 
 namespace MyNetatmo24.Modules.AccountManagement.IntegrationTests;
@@ -31,20 +33,7 @@ public class RegistrationTests : AccountApiIntegrationTest
         // The generated SDK swallows the success status code, so the 204 of the contract is pinned
         // with a raw client instead.
         using var httpClient = Factory.CreateClient();
-        var body = ValidRegistration();
-
-        using var response = await httpClient.PostAsJsonAsync(
-            "account/register",
-            new
-            {
-                email = body.Email,
-                password = body.Password,
-                passwordConfirmation = body.PasswordConfirmation,
-                nickname = body.Nickname,
-                givenName = body.GivenName,
-                familyName = body.FamilyName,
-                avatarUrl = body.AvatarUrl
-            });
+        using var response = await PostValidRegistrationAsync(httpClient);
 
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.NoContent);
     }
@@ -194,6 +183,100 @@ public class RegistrationTests : AccountApiIntegrationTest
         await Assert.That(registration.Nickname).IsEqualTo("janie");
         await Assert.That(registration.GivenName).IsEqualTo("Jane");
         await Assert.That(registration.FamilyName).IsEqualTo("Doe");
+    }
+
+    [Test]
+    public async Task Registration_WhenEmailIsAlreadyRegistered_ReturnsConflict()
+    {
+        var apiClient = CreateAnonymousApiClient();
+        UserRegistrationService.RejectEmailAsAlreadyRegistered();
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(ValidRegistration()))
+            .Throws<Problem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status409Conflict);
+        await Assert.That(exception.Status).IsEqualTo(StatusCodes.Status409Conflict);
+        await Assert.That(exception.Detail).IsNotNullOrEmpty();
+    }
+
+    [Test]
+    public async Task Registration_WhenPasswordIsTooWeak_ReturnsValidationProblemNamingThePasswordField()
+    {
+        var apiClient = CreateAnonymousApiClient();
+        UserRegistrationService.RejectPasswordAsTooWeak("Password is too common, and must contain at least 8 characters.");
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(ValidRegistration()))
+            .Throws<ValidationProblem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(exception.Errors!.AdditionalData).ContainsKey(nameof(RegistrationRequestDto.Password));
+    }
+
+    [Test]
+    public async Task Registration_WhenPasswordIsTooWeak_CarriesThePolicyMessageOfTheIdentityProvider()
+    {
+        // The generated SDK exposes the field names but not their messages, so the policy message
+        // the prospective user has to read is pinned on the raw body.
+        const string policyMessage = "Password is too common, and must contain at least 8 characters.";
+        UserRegistrationService.RejectPasswordAsTooWeak(policyMessage);
+
+        using var httpClient = Factory.CreateClient();
+        using var response = await PostValidRegistrationAsync(httpClient);
+
+        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
+        var problem = await response.Content.ReadFromJsonAsync<JsonElement>();
+        var passwordErrors = problem
+            .GetProperty("errors")
+            .GetProperty(nameof(RegistrationRequestDto.Password))
+            .EnumerateArray()
+            .Select(error => error.GetString())
+            .ToList();
+        await Assert.That(passwordErrors).Contains(policyMessage);
+    }
+
+    [Test]
+    public async Task Registration_WhenIdentityProviderIsUnavailable_ReturnsBadGateway()
+    {
+        var apiClient = CreateAnonymousApiClient();
+        UserRegistrationService.ReportIdentityProviderAsUnavailable();
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(ValidRegistration()))
+            .Throws<Problem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status502BadGateway);
+        await Assert.That(exception.Status).IsEqualTo(StatusCodes.Status502BadGateway);
+        await Assert.That(exception.Detail).IsNotNullOrEmpty();
+    }
+
+    [Test]
+    public async Task Registration_WhenRegistrationFailsUnexpectedly_ReturnsInternalServerError()
+    {
+        // A failure outside the three outcomes of the contract is a defect: it must reach the
+        // ProblemDetails exception handler rather than be reported as any kind of success.
+        UserRegistrationService.FailUnexpectedly();
+
+        using var httpClient = Factory.CreateClient();
+        using var response = await PostValidRegistrationAsync(httpClient);
+
+        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.InternalServerError);
+    }
+
+    private async Task<HttpResponseMessage> PostValidRegistrationAsync(HttpClient httpClient)
+    {
+        var body = ValidRegistration();
+
+        return await httpClient.PostAsJsonAsync(
+            "account/register",
+            new
+            {
+                email = body.Email,
+                password = body.Password,
+                passwordConfirmation = body.PasswordConfirmation,
+                nickname = body.Nickname,
+                givenName = body.GivenName,
+                familyName = body.FamilyName,
+                avatarUrl = body.AvatarUrl
+            });
     }
 
     private static void SetProfileValue(RegistrationRequestDto body, string field, string value)

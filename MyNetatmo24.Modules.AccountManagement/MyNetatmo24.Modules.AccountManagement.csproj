@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="MyNetatmo24.Modules.AccountManagement.Tests" />
+    <!-- The fake registration service has to answer with the error catalogue the real seam uses. -->
+    <InternalsVisibleTo Include="MyNetatmo24.Modules.AccountManagement.IntegrationTests" />
   </ItemGroup>
 
 </Project>
