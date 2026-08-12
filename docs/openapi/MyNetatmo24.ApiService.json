@@ -310,36 +310,36 @@
         "type": "object",
         "properties": {
           "email": {
+            "pattern": ".*\\S.*$",
             "type": "string",
             "description": "The e-mail address of the prospective user, which is required and also acts as their login name."
           },
           "password": {
             "type": "string",
-            "description": "The password chosen by the prospective user, which is required. Its strength is checked by the\nidentity provider, not by this application."
+            "description": "The password chosen by the prospective user, which is required. Its strength is checked by the identity provider, not by this application."
           },
           "passwordConfirmation": {
             "type": "string",
-            "description": "A second copy of the password, which is required. It is collected so that a typo cannot\nsilently lock the prospective user out of the identity they just created; the check that it\nmatches Password is not implemented yet."
+            "description": "A second copy of the password, which is required and must equal Password. It is collected so that a typo cannot silently lock the prospective user out of the identity they just created."
           },
           "nickname": {
             "type": "string",
-            "description": "The display name chosen by the prospective user, which is required and is not unique."
+            "description": "The display name chosen by the prospective user, which is required and is not unique. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted."
           },
           "givenName": {
             "type": "string",
-            "description": "The given name of the prospective user, which is required."
+            "description": "The given name of the prospective user, which is required. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted."
           },
           "familyName": {
             "type": "string",
-            "description": "The family name of the prospective user, which is required."
+            "description": "The family name of the prospective user, which is required. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted."
           },
           "avatarUrl": {
             "type": [
               "null",
               "string"
             ],
-            "description": "The URL of the avatar picture of the prospective user, which is optional.",
-            "format": "uri"
+            "description": "The URL of the avatar picture of the prospective user, which is optional. When present it must be an absolute https URL of at most 2048 characters."
           }
         }
       }

@@ -14,7 +14,7 @@ namespace ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The URL of the avatar picture of the prospective user, which is optional.</summary>
+        /// <summary>The URL of the avatar picture of the prospective user, which is optional. When present it must be an absolute https URL of at most 2048 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? AvatarUrl { get; set; }
@@ -30,7 +30,7 @@ namespace ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application
 #else
         public string Email { get; set; }
 #endif
-        /// <summary>The family name of the prospective user, which is required.</summary>
+        /// <summary>The family name of the prospective user, which is required. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? FamilyName { get; set; }
@@ -38,7 +38,7 @@ namespace ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application
 #else
         public string FamilyName { get; set; }
 #endif
-        /// <summary>The given name of the prospective user, which is required.</summary>
+        /// <summary>The given name of the prospective user, which is required. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? GivenName { get; set; }
@@ -46,7 +46,7 @@ namespace ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application
 #else
         public string GivenName { get; set; }
 #endif
-        /// <summary>The display name chosen by the prospective user, which is required and is not unique.</summary>
+        /// <summary>The display name chosen by the prospective user, which is required and is not unique. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Nickname { get; set; }
@@ -54,7 +54,7 @@ namespace ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application
 #else
         public string Nickname { get; set; }
 #endif
-        /// <summary>The password chosen by the prospective user, which is required. Its strength is checked by theidentity provider, not by this application.</summary>
+        /// <summary>The password chosen by the prospective user, which is required. Its strength is checked by the identity provider, not by this application.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Password { get; set; }
@@ -62,7 +62,7 @@ namespace ApiServiceSDK.Models.MyNetatmo24.Modules.AccountManagement.Application
 #else
         public string Password { get; set; }
 #endif
-        /// <summary>A second copy of the password, which is required. It is collected so that a typo cannotsilently lock the prospective user out of the identity they just created; the check that itmatches Password is not implemented yet.</summary>
+        /// <summary>A second copy of the password, which is required and must equal Password. It is collected so that a typo cannot silently lock the prospective user out of the identity they just created.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? PasswordConfirmation { get; set; }

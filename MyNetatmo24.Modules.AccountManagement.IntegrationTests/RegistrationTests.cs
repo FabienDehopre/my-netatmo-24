@@ -76,6 +76,144 @@ public class RegistrationTests : AccountApiIntegrationTest
         await Assert.That(UserRegistrationService.Registrations).IsEmpty();
     }
 
+    [Test]
+    // Empty once trimmed.
+    [Arguments(nameof(RegistrationRequestDto.Nickname), "   ")]
+    [Arguments(nameof(RegistrationRequestDto.GivenName), "")]
+    [Arguments(nameof(RegistrationRequestDto.FamilyName), "\t\n")]
+    // Longer than 50 characters once trimmed.
+    [Arguments(nameof(RegistrationRequestDto.Nickname), "aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeff")]
+    [Arguments(nameof(RegistrationRequestDto.GivenName), "  aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeff  ")]
+    [Arguments(nameof(RegistrationRequestDto.FamilyName), "aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeff")]
+    // Containing a Unicode control character (Cc).
+    [Arguments(nameof(RegistrationRequestDto.Nickname), "jan\u0007ie")]
+    [Arguments(nameof(RegistrationRequestDto.GivenName), "Ja\u001bne")]
+    // Containing a Unicode format character (Cf).
+    [Arguments(nameof(RegistrationRequestDto.FamilyName), "D\u00ado\u200de")]
+    [Arguments(nameof(RegistrationRequestDto.Nickname), "ja\u202enie")]
+    public async Task Registration_WithInvalidProfileValue_ReturnsValidationProblemNamingTheField(string field, string value)
+    {
+        var apiClient = CreateAnonymousApiClient();
+        var body = ValidRegistration();
+        SetProfileValue(body, field, value);
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(body))
+            .Throws<ValidationProblem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(exception.Errors!.AdditionalData).ContainsKey(field);
+        await Assert.That(UserRegistrationService.Registrations).IsEmpty();
+    }
+
+    [Test]
+    public async Task Registration_WhenPasswordConfirmationDiffers_ReturnsValidationProblem()
+    {
+        var apiClient = CreateAnonymousApiClient();
+        var body = ValidRegistration();
+        body.PasswordConfirmation = "s3cr3t-p4ssw0rd-typo";
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(body))
+            .Throws<ValidationProblem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(exception.Errors!.AdditionalData).ContainsKey(nameof(RegistrationRequestDto.PasswordConfirmation));
+        await Assert.That(UserRegistrationService.Registrations).IsEmpty();
+    }
+
+    [Test]
+    [Arguments("http://example.com/jane.png")] // Not https.
+    [Arguments("ftp://example.com/jane.png")] // Not https.
+    [Arguments("/jane.png")] // Not absolute.
+    [Arguments("https://exa mple.com/jane.png")] // Not a URL any parser accepts.
+    public async Task Registration_WithUnacceptableAvatarUrl_ReturnsValidationProblem(string avatar)
+    {
+        var apiClient = CreateAnonymousApiClient();
+        var body = ValidRegistration();
+        body.AvatarUrl = avatar;
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(body))
+            .Throws<ValidationProblem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(exception.Errors!.AdditionalData).ContainsKey(nameof(RegistrationRequestDto.AvatarUrl));
+        await Assert.That(UserRegistrationService.Registrations).IsEmpty();
+    }
+
+    [Test]
+    public async Task Registration_WithTooLongAvatarUrl_ReturnsValidationProblem()
+    {
+        const string prefix = "https://example.com/";
+        var apiClient = CreateAnonymousApiClient();
+        var body = ValidRegistration();
+        body.AvatarUrl = prefix + new string('a', 2049 - prefix.Length);
+
+        var exception = await Assert.That(() => apiClient.Account.Register.PostAsync(body))
+            .Throws<ValidationProblem>();
+
+        await Assert.That(exception!.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+        await Assert.That(exception.Errors!.AdditionalData).ContainsKey(nameof(RegistrationRequestDto.AvatarUrl));
+        await Assert.That(UserRegistrationService.Registrations).IsEmpty();
+    }
+
+    [Test]
+    [Arguments("やまちゃん", "山田", "太郎")]
+    [Arguments("Оля", "Ольга", "Иванова")]
+    [Arguments("حمودي", "أحمد", "الحسن")]
+    public async Task Registration_WithNonLatinScriptName_ForwardsTheRegistration(string nickname, string givenName, string familyName)
+    {
+        var apiClient = CreateAnonymousApiClient();
+        var body = ValidRegistration();
+        body.Nickname = nickname;
+        body.GivenName = givenName;
+        body.FamilyName = familyName;
+
+        await apiClient.Account.Register.PostAsync(body);
+
+        var registration = UserRegistrationService.LastRegistration;
+        await Assert.That(registration).IsNotNull();
+        await Assert.That(registration!.Nickname).IsEqualTo(nickname);
+        await Assert.That(registration.GivenName).IsEqualTo(givenName);
+        await Assert.That(registration.FamilyName).IsEqualTo(familyName);
+    }
+
+    [Test]
+    public async Task Registration_WithSurroundingWhitespace_ForwardsTheTrimmedValues()
+    {
+        var apiClient = CreateAnonymousApiClient();
+        var body = ValidRegistration();
+        body.Email = "  jane.doe@example.com  ";
+        body.Nickname = "  janie  ";
+        body.GivenName = "\tJane\t";
+        body.FamilyName = " Doe\n";
+
+        await apiClient.Account.Register.PostAsync(body);
+
+        var registration = UserRegistrationService.LastRegistration;
+        await Assert.That(registration).IsNotNull();
+        await Assert.That(registration!.Email).IsEqualTo("jane.doe@example.com");
+        await Assert.That(registration.Nickname).IsEqualTo("janie");
+        await Assert.That(registration.GivenName).IsEqualTo("Jane");
+        await Assert.That(registration.FamilyName).IsEqualTo("Doe");
+    }
+
+    private static void SetProfileValue(RegistrationRequestDto body, string field, string value)
+    {
+        switch (field)
+        {
+            case nameof(RegistrationRequestDto.Nickname):
+                body.Nickname = value;
+                break;
+            case nameof(RegistrationRequestDto.GivenName):
+                body.GivenName = value;
+                break;
+            case nameof(RegistrationRequestDto.FamilyName):
+                body.FamilyName = value;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(field), field, "Unknown profile field.");
+        }
+    }
+
     private static RegistrationRequestDto ValidRegistration() => new()
     {
         Email = "jane.doe@example.com",

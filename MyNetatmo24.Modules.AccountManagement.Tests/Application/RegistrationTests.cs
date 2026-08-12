@@ -8,7 +8,7 @@ namespace MyNetatmo24.Modules.AccountManagement.Tests.Application;
 
 public class RegistrationTests
 {
-    private static Registration.RegistrationRequestDto ValidRequest(Uri? avatarUrl = null) =>
+    private static Registration.RegistrationRequestDto ValidRequest(string? avatarUrl = null) =>
         new("jane.doe@example.com", "s3cr3t-p4ssw0rd", "s3cr3t-p4ssw0rd", "janie", "Jane", "Doe", avatarUrl);
 
     private static IUserRegistrationService RegistrationServiceReturning(Result result)
@@ -34,7 +34,7 @@ public class RegistrationTests
         var service = RegistrationServiceReturning(Result.Ok());
         var avatarUrl = new Uri("https://example.com/jane.png");
 
-        await Registration.HandleAsync(ValidRequest(avatarUrl), service, CancellationToken.None);
+        await Registration.HandleAsync(ValidRequest(avatarUrl.OriginalString), service, CancellationToken.None);
 
         await service.Received(1).RegisterAsync(
             Arg.Is<RegistrationData>(data =>
@@ -56,6 +56,50 @@ public class RegistrationTests
 
         await service.Received(1).RegisterAsync(
             Arg.Is<RegistrationData>(data => data.AvatarUrl == null),
+            Arg.Any<CancellationToken>());
+    }
+
+    [Test]
+    public async Task HandleAsync_ForwardsTheProfileValuesTrimmed()
+    {
+        var service = RegistrationServiceReturning(Result.Ok());
+        var request = new Registration.RegistrationRequestDto(
+            "  jane.doe@example.com  ",
+            "  s3cr3t-p4ssw0rd  ",
+            "  s3cr3t-p4ssw0rd  ",
+            "  janie  ",
+            "\tJane\t",
+            " Doe\n");
+
+        await Registration.HandleAsync(request, service, CancellationToken.None);
+
+        await service.Received(1).RegisterAsync(
+            Arg.Is<RegistrationData>(data =>
+                data.Email == "jane.doe@example.com" &&
+                data.Nickname == "janie" &&
+                data.GivenName == "Jane" &&
+                data.FamilyName == "Doe"),
+            Arg.Any<CancellationToken>());
+    }
+
+    [Test]
+    public async Task HandleAsync_ForwardsThePasswordUntouched()
+    {
+        // Whitespace is significant in a password: trimming one would create an identity the
+        // person cannot log into with what they typed.
+        var service = RegistrationServiceReturning(Result.Ok());
+        var request = new Registration.RegistrationRequestDto(
+            "jane.doe@example.com",
+            "  s3cr3t-p4ssw0rd  ",
+            "  s3cr3t-p4ssw0rd  ",
+            "janie",
+            "Jane",
+            "Doe");
+
+        await Registration.HandleAsync(request, service, CancellationToken.None);
+
+        await service.Received(1).RegisterAsync(
+            Arg.Is<RegistrationData>(data => data.Password == "  s3cr3t-p4ssw0rd  "),
             Arg.Any<CancellationToken>());
     }
 
