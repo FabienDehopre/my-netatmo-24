@@ -20,6 +20,11 @@ public sealed class StubUserRegistrationService(ILogger<StubUserRegistrationServ
     /// <inheritdoc/>
     public Task<Result> RegisterAsync(RegistrationData registration, CancellationToken cancellationToken)
     {
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return Task.FromCanceled<Result>(cancellationToken);
+        }
+
         _logger.LogStubbedUserRegistration();
         return Task.FromResult(Result.Ok());
     }
