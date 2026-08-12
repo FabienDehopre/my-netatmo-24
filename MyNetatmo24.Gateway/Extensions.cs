@@ -198,7 +198,10 @@ internal static class Extensions
             // Collapse the scheme to a known constant so a forwarded proto cannot be reflected.
             var scheme = string.Equals(request.Scheme, "https", StringComparison.OrdinalIgnoreCase) ? "https" : "http";
 
-            return $"{scheme}://{authority}{request.PathBase}{redirectUrl}";
+            // The path base is never echoed back either: it is derived from the request (and from
+            // forwarded prefix headers when a proxy sets them), so it is remote input just like the
+            // host. The gateway is always mounted at the root, so an empty path base is correct.
+            return $"{scheme}://{authority}{redirectUrl}";
         }
     }
 
