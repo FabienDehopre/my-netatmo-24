@@ -5,12 +5,19 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using MyNetatmo24.Gateway.Transformers;
+using Yarp.ReverseProxy.Configuration;
 using Yarp.ReverseProxy.Transforms;
 
 namespace MyNetatmo24.Gateway;
 
 internal static class Extensions
 {
+    /// <summary>
+    /// The pseudo-policy name YARP understands as "this route requires no authorization at all",
+    /// which it turns into <see cref="AllowAnonymousAttribute"/> metadata on the proxied endpoint.
+    /// </summary>
+    private const string AnonymousAuthorizationPolicy = "Anonymous";
+
     extension(IHostApplicationBuilder builder)
     {
         public IHostApplicationBuilder AddReverseProxy()
@@ -30,7 +37,11 @@ internal static class Extensions
                         .GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
                     builderContext.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
 
-                    if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
+                    // Only a route that demands an authenticated user may carry that user's access
+                    // token onwards. A route without a policy, or one that opted out with YARP's
+                    // "Anonymous" pseudo-policy, must reach the API with no Authorization header --
+                    // even when the caller happens to be authenticated already.
+                    if (RequiresAuthenticatedUser(builderContext.Route))
                     {
                         builderContext.RequestTransforms.Add(builderContext.Services
                             .GetRequiredService<AddBearerTokenToHeadersTransform>());
@@ -190,4 +201,18 @@ internal static class Extensions
             return $"{scheme}://{authority}{request.PathBase}{redirectUrl}";
         }
     }
+
+    /// <summary>
+    /// Tells whether a proxied route is one the caller must be authenticated for, and therefore one
+    /// the access token of the authenticated user belongs on.
+    /// </summary>
+    /// <param name="route">The route configuration to inspect.</param>
+    /// <returns>
+    /// <see langword="true"/> when the route names an authorization policy other than the anonymous
+    /// pseudo-policy; otherwise <see langword="false"/>.
+    /// </returns>
+    private static bool RequiresAuthenticatedUser(RouteConfig route) =>
+        !string.IsNullOrEmpty(route.AuthorizationPolicy)
+        && !string.Equals(route.AuthorizationPolicy, AnonymousAuthorizationPolicy,
+            StringComparison.OrdinalIgnoreCase);
 }
