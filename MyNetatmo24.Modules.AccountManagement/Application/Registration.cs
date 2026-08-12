@@ -28,37 +28,27 @@ public static class Registration
     /// The e-mail address of the prospective user, which is required and also acts as their login name.
     /// </param>
     /// <param name="Password">
-    /// The password chosen by the prospective user, which is required. Its strength is checked by the
-    /// identity provider, not by this application.
+    /// The password chosen by the prospective user, which is required. Its strength is checked by the identity provider, not by this application.
     /// </param>
     /// <param name="PasswordConfirmation">
-    /// A second copy of the password, which is required and must equal <paramref name="Password"/>.
-    /// It is collected so that a typo cannot silently lock the prospective user out of the identity
-    /// they just created.
+    /// A second copy of the password, which is required and must equal <paramref name="Password"/>. It is collected so that a typo cannot silently lock the prospective user out of the identity they just created.
     /// </param>
     /// <param name="Nickname">
-    /// The display name chosen by the prospective user, which is required and is not unique. It is
-    /// trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode
-    /// control or format character; every script is accepted.
+    /// The display name chosen by the prospective user, which is required and is not unique. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted.
     /// </param>
     /// <param name="GivenName">
-    /// The given name of the prospective user, which is required. It is trimmed, must not be empty,
-    /// must be at most 50 characters long and must contain no Unicode control or format character;
-    /// every script is accepted.
+    /// The given name of the prospective user, which is required. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted.
     /// </param>
     /// <param name="FamilyName">
-    /// The family name of the prospective user, which is required. It is trimmed, must not be
-    /// empty, must be at most 50 characters long and must contain no Unicode control or format
-    /// character; every script is accepted.
+    /// The family name of the prospective user, which is required. It is trimmed, must not be empty, must be at most 50 characters long and must contain no Unicode control or format character; every script is accepted.
     /// </param>
     /// <param name="AvatarUrl">
-    /// The URL of the avatar picture of the prospective user, which is optional. When present it
-    /// must be an absolute https URL of at most 2048 characters.
+    /// The URL of the avatar picture of the prospective user, which is optional. When present it must be an absolute https URL of at most 2048 characters.
     /// </param>
     [SuppressMessage("Design", "CA1054:URI-like parameters should not be strings", Justification = "The avatar URL is carried as text on purpose, so that text no URI parser accepts is rejected by validation naming the field rather than by the body reader.")]
     [SuppressMessage("Design", "CA1056:URI-like properties should not be strings", Justification = "The avatar URL is carried as text on purpose, so that text no URI parser accepts is rejected by validation naming the field rather than by the body reader.")]
     public sealed record RegistrationRequestDto(
-        [property: Required] string Email,
+        [property: Required, RegularExpression(@".*\S.*$", ErrorMessage = "The {0} field must not be empty.")] string Email,
         [property: Required] string Password,
         [property: Required, Compare(nameof(RegistrationRequestDto.Password))] string PasswordConfirmation,
         [property: Required, ProfileText(MaximumProfileTextLength)] string Nickname,
