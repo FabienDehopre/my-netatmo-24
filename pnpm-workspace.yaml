@@ -49,7 +49,7 @@ catalogs:
     '@angular/platform-browser': 22.1.2
     '@angular/router': 22.1.2
   eslint:
-    '@fabdeh/eslint-config': 0.13.0
+    '@fabdeh/eslint-config': 0.13.1
     '@softarc/eslint-plugin-sheriff': 0.19.6
     '@softarc/sheriff-core': 0.19.6
     eslint: 10.8.1
