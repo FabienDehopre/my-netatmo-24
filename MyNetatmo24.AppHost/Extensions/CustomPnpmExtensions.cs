@@ -8,6 +8,7 @@ namespace MyNetatmo24.AppHost.Extensions;
 
 internal static partial class CustomPnpmExtensions
 {
+    [Obsolete]
     public static IResourceBuilder<JavaScriptAppResource> WithPlaywrightRepeatCommand(this IResourceBuilder<JavaScriptAppResource> resource, int repeatCount = 25)
     {
         ArgumentNullException.ThrowIfNull(resource);
@@ -150,6 +151,7 @@ internal static partial class CustomPnpmExtensions
         }
     }
 
+    [Obsolete]
     private static async Task<ExecuteCommandResult> OnRunCommand(IResourceBuilder<JavaScriptAppResource> builder, ExecuteCommandContext context, string command)
     {
         var loggerService = context.ServiceProvider.GetRequiredService<ResourceLoggerService>();
