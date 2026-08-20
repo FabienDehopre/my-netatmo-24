@@ -24,7 +24,7 @@ internal static partial class CustomPnpmExtensions
             executeCommand: async (context) =>
             {
 #pragma warning disable ASPIREINTERACTION001
-                var interactionService = context.ServiceProvider.GetRequiredService<IInteractionService>();
+                var interactionService = context.Services.GetRequiredService<IInteractionService>();
                 var prompt = await interactionService.PromptInputAsync("Repetition", "How many times do you want to repeat the Playwright tests?", new InteractionInput
                 {
                     Name = "RepetitionCount",
@@ -152,7 +152,7 @@ internal static partial class CustomPnpmExtensions
 
     private static async Task<ExecuteCommandResult> OnRunCommand(IResourceBuilder<JavaScriptAppResource> builder, ExecuteCommandContext context, string command)
     {
-        var loggerService = context.ServiceProvider.GetRequiredService<ResourceLoggerService>();
+        var loggerService = context.Services.GetRequiredService<ResourceLoggerService>();
         var logger = loggerService.GetLogger(context.ResourceName);
 
         var processStartInfo = new ProcessStartInfo()
