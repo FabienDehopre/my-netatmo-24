@@ -87,7 +87,7 @@ catalogs:
   testing-library:
     '@testing-library/angular': 19.4.2
     '@testing-library/jest-dom': 6.9.1
-    '@testing-library/user-event': 14.6.4
+    '@testing-library/user-event': 14.6.5
   vitest:
     '@vitest/browser': 4.1.10
     '@vitest/browser-playwright': 4.1.10
