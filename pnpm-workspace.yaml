@@ -89,8 +89,8 @@ catalogs:
     '@testing-library/jest-dom': 6.9.1
     '@testing-library/user-event': 14.6.5
   vitest:
-    '@vitest/browser': 4.1.10
-    '@vitest/browser-playwright': 4.1.10
-    '@vitest/coverage-v8': 4.1.10
-    '@vitest/ui': 4.1.10
-    vitest: 4.1.10
+    '@vitest/browser': 4.1.11
+    '@vitest/browser-playwright': 4.1.11
+    '@vitest/coverage-v8': 4.1.11
+    '@vitest/ui': 4.1.11
+    vitest: 4.1.11
