@@ -90,8 +90,8 @@ catalogs:
       specifier: 4.7.0
       version: 4.7.0
     eslint-plugin-erasable-syntax-only:
-      specifier: 0.4.2
-      version: 0.4.2
+      specifier: 0.7.1
+      version: 0.7.1
     eslint-plugin-format:
       specifier: 2.0.1
       version: 2.0.1
@@ -206,7 +206,7 @@ importers:
     devDependencies:
       '@fabdeh/eslint-config':
         specifier: catalog:eslint
-        version: 0.13.1(@angular/cli@22.1.4(@types/node@24.13.3)(chokidar@5.0.0)(supports-color@8.1.1))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.11)
+        version: 0.13.1(@angular/cli@22.1.4(@types/node@24.13.3)(chokidar@5.0.0)(supports-color@8.1.1))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.11)
       '@playwright/test':
         specifier: catalog:playwright
         version: 1.62.1
@@ -221,7 +221,7 @@ importers:
         version: 10.8.1(jiti@2.7.0)(supports-color@8.1.1)
       eslint-plugin-erasable-syntax-only:
         specifier: catalog:eslint
-        version: 0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+        version: 0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       eslint-plugin-format:
         specifier: catalog:eslint
         version: 2.0.1(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))
@@ -330,7 +330,7 @@ importers:
         version: 22.1.2(@angular/compiler@22.1.2)(typescript@6.0.3)
       '@fabdeh/eslint-config':
         specifier: catalog:eslint
-        version: 0.13.1(@angular/cli@22.1.4(@types/node@24.13.3)(chokidar@5.0.0)(supports-color@8.1.1))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.11)
+        version: 0.13.1(@angular/cli@22.1.4(@types/node@24.13.3)(chokidar@5.0.0)(supports-color@8.1.1))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.11)
       '@ngx-env/builder':
         specifier: 'catalog:'
         version: 21.0.1(@angular/build@22.1.4(@angular/compiler-cli@22.1.2(@angular/compiler@22.1.2)(typescript@6.0.3))(@angular/compiler@22.1.2)(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.1.2(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)(zone.js@0.16.2)))(@types/node@24.13.3)(chokidar@5.0.0)(jiti@2.7.0)(postcss@8.5.26)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.3)(terser@5.50.0)(tslib@2.8.1)(typescript@6.0.3)(vitest@4.1.11)(yaml@2.9.0))(webpack@5.109.2(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.26))
@@ -375,7 +375,7 @@ importers:
         version: 4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3)
       eslint-plugin-erasable-syntax-only:
         specifier: catalog:eslint
-        version: 0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+        version: 0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       eslint-plugin-format:
         specifier: catalog:eslint
         version: 2.0.1(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))
@@ -3489,8 +3489,8 @@ packages:
       oxlint:
         optional: true
 
-  eslint-plugin-erasable-syntax-only@0.4.2:
-    resolution: {integrity: sha512-eLeg6CgNVY6LYPiPZnDn2JLh1HQVGoqjq1OD2GKGo70EcwbTwpWcqgi1zJJ/PJIKRO87cejCp9lwv5psrdxuKA==}
+  eslint-plugin-erasable-syntax-only@0.7.1:
+    resolution: {integrity: sha512-2zpgLgFq/HmIVQU2KNOsuuQdJQAiRdq23xpCamhatbH4ZlzinqXdDmbxGALj7VSiC9GMBHqmu4Cu7KaSqQfNhw==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
       '@typescript-eslint/parser': '>=8'
@@ -6549,7 +6549,7 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
-  '@fabdeh/eslint-config@0.13.1(@angular/cli@22.1.4(@types/node@24.13.3)(chokidar@5.0.0)(supports-color@8.1.1))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.11)':
+  '@fabdeh/eslint-config@0.13.1(@angular/cli@22.1.4(@types/node@24.13.3)(chokidar@5.0.0)(supports-color@8.1.1))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.11)':
     dependencies:
       '@antfu/install-pkg': 2.0.1
       '@clack/prompts': 1.7.0
@@ -6589,7 +6589,7 @@ snapshots:
       typescript-eslint: 8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
     optionalDependencies:
       eslint-plugin-better-tailwindcss: 4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.3)(typescript@6.0.3)
-      eslint-plugin-erasable-syntax-only: 0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      eslint-plugin-erasable-syntax-only: 0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
     transitivePeerDependencies:
       - '@angular/cli'
       - '@eslint/json'
@@ -9010,7 +9010,7 @@ snapshots:
       - '@eslint/css'
       - typescript
 
-  eslint-plugin-erasable-syntax-only@0.4.2(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3):
+  eslint-plugin-erasable-syntax-only@0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3):
     dependencies:
       '@typescript-eslint/parser': 8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       '@typescript-eslint/utils': 8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
