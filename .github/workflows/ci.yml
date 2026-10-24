@@ -61,7 +61,7 @@ jobs:
       - run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
         if: steps.reportgenerator.outcome != 'skipped'
         name: Publish coverage in build summary
-      - uses: FabienDehopre/crap-gate/backend@v1
+      - uses: FabienDehopre/crap-gate/backend@b31ed69e6265b49261af63392f5e17a1d6d6a35b # v1
         with:
           reports: 'TestResults/*.cobertura.xml'
 #      - uses: stoplightio/spectral-action@6416fd018ae38e60136775066eb3e98172143141 # v0.8.13
@@ -82,7 +82,7 @@ jobs:
       - run: pnpm -r lint
       - run: pnpm --filter='!end-to-end-tests' test --coverage
         name: Unit test all frontend projects
-      - uses: FabienDehopre/crap-gate/frontend@v1
+      - uses: FabienDehopre/crap-gate/frontend@b31ed69e6265b49261af63392f5e17a1d6d6a35b # v1
         with:
           working-directory: MyNetatmo24.Frontend
           coverage-file: coverage/MyNetatmo24.Frontend/coverage-final.json
