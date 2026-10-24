@@ -77,7 +77,9 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "providersFile": "src/test-providers.ts",
-            "runnerConfig": "vitest.config.ts"
+            "runnerConfig": "vitest.config.ts",
+            "include": ["**/*.spec.ts", "../libs/**/*.spec.ts"],
+            "coverageInclude": ["src/**/*.ts", "libs/**/*.ts"]
           }
         }
       }
