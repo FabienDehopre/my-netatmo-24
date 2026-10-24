@@ -1,0 +1,7 @@
+<Project>
+  <!-- One Cobertura file per test project. Without a per-project name every project writes
+       TestResults/coverage.xml and the last one wins. Ignored unless coverage is on. -->
+  <PropertyGroup Condition="'$(IsTestProject)' == 'true'">
+    <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --coverage-output $(MSBuildProjectName).cobertura.xml</TestingPlatformCommandLineArguments>
+  </PropertyGroup>
+</Project>

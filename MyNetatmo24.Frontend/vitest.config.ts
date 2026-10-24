@@ -7,6 +7,8 @@ import { defineConfig } from 'vitest/config';
 // IMPORTANT: While using a custom configuration enables advanced options, the Angular team does not provide support for the contents of the configuration file or for any third-party plugins. The CLI will also override certain properties (test.projects, test.include) to ensure proper integration.
 
 export default defineConfig({
+  // Coverage loads untested files through Vite, which needs the tsconfig path aliases to parse them.
+  resolve: { tsconfigPaths: true },
   test: {
     silent: 'passed-only',
     reporters: process.env['GITHUB_ACTIONS'] === 'true' ? ['dot', 'github-actions'] : ['agent'],

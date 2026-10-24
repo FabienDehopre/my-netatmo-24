@@ -34,7 +34,6 @@ jobs:
       - run: >
           dotnet test --no-build --configuration Release --
           --coverage
-          --coverage-output coverage.xml
           --coverage-output-format cobertura
           --coverage-settings "${{ github.workspace }}/coverage.config"
         env:
@@ -43,7 +42,7 @@ jobs:
       - uses: danielpalme/ReportGenerator-GitHub-Action@d3ebf1f760f7d8ab92cc44d9bcfee7ad73722a31 # v5
         id: reportgenerator
         with:
-          reports: '**/coverage.xml'
+          reports: 'TestResults/*.cobertura.xml'
           targetdir: coveragereport
           reporttypes: 'HtmlInline;Cobertura;MarkdownSummaryGithub'
           tag: '${{ github.run_number }}_${{ github.run_id }}'
@@ -62,6 +61,9 @@ jobs:
       - run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
         if: steps.reportgenerator.outcome != 'skipped'
         name: Publish coverage in build summary
+      - uses: FabienDehopre/crap-gate/backend@b31ed69e6265b49261af63392f5e17a1d6d6a35b # v1
+        with:
+          reports: 'TestResults/*.cobertura.xml'
 #      - uses: stoplightio/spectral-action@6416fd018ae38e60136775066eb3e98172143141 # v0.8.13
 #        with:
 #          file_glob: '**/documentation/*.json'
@@ -80,6 +82,12 @@ jobs:
       - run: pnpm -r lint
       - run: pnpm --filter='!end-to-end-tests' test --coverage
         name: Unit test all frontend projects
+      - uses: FabienDehopre/crap-gate/frontend@b31ed69e6265b49261af63392f5e17a1d6d6a35b # v1
+        with:
+          working-directory: MyNetatmo24.Frontend
+          coverage-file: coverage/MyNetatmo24.Frontend/coverage-final.json
+          exclude: |
+            libs/ui/**
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: ${{ !cancelled() }}
         name: Upload Vitest coverage report artifact

@@ -56,3 +56,4 @@ MyNetatmo24.AppHost/aspire-output/
 .analysis/
 
 config/sops/age/keys.txt
+.crap-gate/

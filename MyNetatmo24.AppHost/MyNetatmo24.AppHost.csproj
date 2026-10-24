@@ -11,6 +11,8 @@
     <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
     <PackageReference Include="Aspire.Hosting.Redis"/>
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio"/>
+    <!-- Pins StreamJsonRpc's transitive MessagePack past GHSA-qhrr-8q5h-9q3h (NU1902) until Aspire ships it. -->
+    <PackageReference Include="MessagePack"/>
   </ItemGroup>
 
   <ItemGroup>
