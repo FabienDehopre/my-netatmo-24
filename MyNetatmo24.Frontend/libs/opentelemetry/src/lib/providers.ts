@@ -1,13 +1,14 @@
 import type { EnvironmentProviders } from '@angular/core';
 
 import { provideAppInitializer } from '@angular/core';
+import { context, propagation, trace } from '@opentelemetry/api';
 import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
 import { ZoneContextManager } from '@opentelemetry/context-zone';
+import { CompositePropagator, W3CBaggagePropagator, W3CTraceContextPropagator } from '@opentelemetry/core';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { resourceFromAttributes } from '@opentelemetry/resources';
-import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
+import { BatchSpanProcessor, TracerProvider } from '@opentelemetry/sdk-trace';
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 
 function parseDelimitedValues(s: string) {
@@ -37,11 +38,11 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
     });
 
     const staticHeaders = parseDelimitedValues(import.meta.env.OTEL_EXPORTER_OTLP_HEADERS ?? '');
-    const provider = new WebTracerProvider({
+    const provider = new TracerProvider({
       resource,
       spanProcessors: [
-        new BatchSpanProcessor(
-          new OTLPTraceExporter({
+        new BatchSpanProcessor({
+          exporter: new OTLPTraceExporter({
             url: `${window.origin}/v1/traces`,
             headers: () => {
               const xsrf = getCookie('__MyNetatmo24-X-XSRF-TOKEN');
@@ -50,14 +51,19 @@ export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
                 ...(xsrf ? { 'X-XSRF-TOKEN': xsrf } : {}),
               });
             },
-          })
-        ),
+          }),
+        }),
       ],
     });
 
-    provider.register({
-      contextManager: new ZoneContextManager(),
-    });
+    // sdk-trace 3.x dropped WebTracerProvider.register(), so wire up the globals it used to set.
+    context.setGlobalContextManager(new ZoneContextManager().enable());
+    propagation.setGlobalPropagator(
+      new CompositePropagator({
+        propagators: [new W3CTraceContextPropagator(), new W3CBaggagePropagator()],
+      })
+    );
+    trace.setGlobalTracerProvider(provider);
 
     registerInstrumentations({
       instrumentations: [
