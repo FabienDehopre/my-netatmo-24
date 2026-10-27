@@ -194,6 +194,9 @@ catalogs:
       specifier: 4.1.12
       version: 4.1.12
 
+overrides:
+  '@angular/compiler-cli>@jridgewell/sourcemap-codec': ^1.6.0
+
 importers:
 
   .:
@@ -6206,7 +6209,7 @@ snapshots:
     dependencies:
       '@angular/compiler': 22.2.3
       '@babel/core': 8.0.1
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
       chokidar: 5.0.0
       convert-source-map: 1.9.0
       reflect-metadata: 0.2.2
