@@ -86,7 +86,6 @@ catalogs:
     '@tanstack/angular-table': 8.21.4
   testing-library:
     '@testing-library/angular': 19.6.0
-    '@testing-library/jest-dom': 6.9.1
     '@testing-library/user-event': 14.6.8
   vitest:
     '@vitest/browser': 4.1.12
