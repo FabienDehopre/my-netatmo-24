@@ -96,7 +96,7 @@ jobs:
           path: MyNetatmo24.Frontend/coverage/MyNetatmo24.Frontend
       - name: Report Vitest Coverage
         if: github.event_name == 'pull_request'
-        uses: davelosert/vitest-coverage-report-action@c4bbc33a89b7ace0e63d35f1f7d4bcee31155a73 # v2
+        uses: davelosert/vitest-coverage-report-action@8f86cfb56ed6d5613ea8cdc5259f207fbfd51ece # v2
         with:
           threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
           json-summary-path: MyNetatmo24.Frontend/coverage/MyNetatmo24.Frontend/coverage-summary.json
