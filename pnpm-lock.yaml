@@ -145,8 +145,8 @@ catalogs:
       specifier: 33.4.0
       version: 33.4.0
     '@spartan-ng/brain':
-      specifier: 1.8.2
-      version: 1.8.2
+      specifier: 1.8.3
+      version: 1.8.3
     class-variance-authority:
       specifier: 0.7.1
       version: 0.7.1
@@ -299,7 +299,7 @@ importers:
         version: 1.43.0
       '@spartan-ng/brain':
         specifier: catalog:spartanui
-        version: 1.8.2(f68f7e904a8e6bd18e25980a0f14034c)
+        version: 1.8.3(f68f7e904a8e6bd18e25980a0f14034c)
       '@tanstack/angular-table':
         specifier: catalog:tanstack
         version: 8.21.4(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))
@@ -2303,8 +2303,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8'
 
-  '@spartan-ng/brain@1.8.2':
-    resolution: {integrity: sha512-7pvMgcjiY/CKCfZ8WEGW763xMzC3jI6mJg4Sj4sgSLe/L//rjq6kiIJKwhXl+XMSuxbFVywM3Vuz5ciHKzDliQ==}
+  '@spartan-ng/brain@1.8.3':
+    resolution: {integrity: sha512-pGBER5pNMhdt0DaNMWHJ5O8ewHz3SFuOkN0dOF4YLLNV8OA7BZAS+nuHG6N9P/j01C/AJ+GQQU2AUw46UqDGnA==}
     peerDependencies:
       '@angular/cdk': '>=21.0.0 <23.0.0'
       '@angular/common': '>=21.0.0 <23.0.0'
@@ -7572,7 +7572,7 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  '@spartan-ng/brain@1.8.2(f68f7e904a8e6bd18e25980a0f14034c)':
+  '@spartan-ng/brain@1.8.3(f68f7e904a8e6bd18e25980a0f14034c)':
     dependencies:
       '@angular/cdk': 22.2.4(@angular/common@22.2.3(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.3(@angular/common@22.2.3(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.3(@angular/common@22.2.3(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.3(@angular/common@22.2.3(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
       '@angular/common': 22.2.3(@angular/core@22.2.3(@angular/compiler@22.2.3)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
