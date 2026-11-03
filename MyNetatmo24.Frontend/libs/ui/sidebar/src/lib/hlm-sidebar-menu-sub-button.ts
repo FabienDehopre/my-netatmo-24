@@ -6,6 +6,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Directive({
   selector: 'a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]',
+  exportAs: 'hlmSidebarMenuSubButton',
   host: {
     'data-slot': 'sidebar-menu-sub-button',
     'data-sidebar': 'menu-sub-button',
@@ -24,7 +25,9 @@ export class HlmSidebarMenuSubButton {
   );
 
   public readonly size = input<'sm' | 'md'>('md');
-  public readonly isActive = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+  public readonly isActive = input<boolean, BooleanInput>(false, {
+    transform: booleanAttribute,
+  });
 
   constructor() {
     classes(

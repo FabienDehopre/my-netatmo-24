@@ -18,9 +18,14 @@ const HlmDropdownMenuConfigToken = new InjectionToken<HlmDropdownMenuConfig>(
 export function provideHlmDropdownMenuConfig(
   config: Partial<HlmDropdownMenuConfig>,
 ): ValueProvider {
-  return { provide: HlmDropdownMenuConfigToken, useValue: { ...defaultConfig, ...config } };
+  return {
+    provide: HlmDropdownMenuConfigToken,
+    useValue: { ...defaultConfig, ...config },
+  };
 }
 
 export function injectHlmDropdownMenuConfig(): HlmDropdownMenuConfig {
-  return inject(HlmDropdownMenuConfigToken, { optional: true }) ?? defaultConfig;
+  return (
+    inject(HlmDropdownMenuConfigToken, { optional: true }) ?? defaultConfig
+  );
 }

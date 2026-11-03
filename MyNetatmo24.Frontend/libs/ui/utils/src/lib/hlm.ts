@@ -6,6 +6,7 @@ import {
   HostAttributeToken,
   inject,
   Injector,
+  NgZone,
   PLATFORM_ID,
   runInInjectionContext,
 } from '@angular/core';
@@ -48,12 +49,17 @@ let sourceCounter = 0;
  * 2. It will also remove any classes that were previously added by this function but are no longer present in the new classes.
  * 3. Multiple calls to this function on the same element will be merged efficiently.
  */
-export function classes(computed: () => ClassValue[] | string, options: ClassesOptions = {}) {
+export function classes(
+  computed: () => ClassValue[] | string,
+  options: ClassesOptions = {},
+) {
   runInInjectionContext(options.injector ?? inject(Injector), () => {
     const elementRef = options.elementRef ?? inject(ElementRef);
     const platformId = inject(PLATFORM_ID);
     const destroyRef = inject(DestroyRef);
-    const baseClasses = inject(new HostAttributeToken('class'), { optional: true });
+    const baseClasses = inject(new HostAttributeToken('class'), {
+      optional: true,
+    });
 
     const element = elementRef.nativeElement;
 
@@ -85,16 +91,19 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
       };
       elementClassManagers.set(element, manager);
 
-      // Setup global observer if needed and register this element
-      setupGlobalObserver(platformId);
+      // Setup global observer if needed and register this element. Created outside the zone so
+      // class mutations don't trigger app-wide change detection (and loop if CD writes a class).
+      inject(NgZone).runOutsideAngular(() => setupGlobalObserver(platformId));
       observedElements.add(element);
 
       // Suppress transitions until the first effect writes correct classes and
       // the browser has painted them. This prevents CSS transition animations
       // during hydration when classes change from SSR state to client state.
       if (isPlatformBrowser(platformId)) {
-        manager.previousTransition = element.style.getPropertyValue('transition');
-        manager.previousTransitionPriority = element.style.getPropertyPriority('transition');
+        manager.previousTransition =
+          element.style.getPropertyValue('transition');
+        manager.previousTransitionPriority =
+          element.style.getPropertyPriority('transition');
         element.style.setProperty('transition', 'none', 'important');
         manager.transitionsSuppressed = true;
       }
@@ -180,7 +189,10 @@ function setupGlobalObserver(platformId: Object): void {
     // Create single global observer that watches the entire document
     globalObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'class'
+        ) {
           const element = mutation.target as HTMLElement;
           const manager = elementClassManagers.get(element);
 

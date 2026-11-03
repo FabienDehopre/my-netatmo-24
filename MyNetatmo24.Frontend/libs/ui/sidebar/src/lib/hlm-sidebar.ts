@@ -1,5 +1,12 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+} from '@angular/core';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
@@ -8,6 +15,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
   selector: 'hlm-sidebar',
+  exportAs: 'hlmSidebar',
   imports: [NgTemplateOutlet, HlmSheetImports],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
@@ -38,6 +46,10 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
           class="bg-sidebar text-sidebar-foreground h-svh w-(--sidebar-width) p-0 [&>button]:hidden"
           [style.--sidebar-width]="sidebarWidthMobile()"
         >
+          <hlm-sheet-header class="sr-only">
+            <h2 hlmSheetTitle>{{ srOnlySheetTitle() }}</h2>
+            <p hlmSheetDescription>{{ srOnlySheetDescription() }}</p>
+          </hlm-sheet-header>
           <div class="flex h-full w-full flex-col">
             <ng-container *ngTemplateOutlet="contentContainer" />
           </div>
@@ -65,11 +77,22 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 export class HlmSidebar {
   protected readonly _sidebarService = inject(HlmSidebarService);
   private readonly _config = injectHlmSidebarConfig();
-  public readonly sidebarWidthMobile = input<string>(this._config.sidebarWidthMobile);
+  public readonly sidebarWidthMobile = input<string>(
+    this._config.sidebarWidthMobile,
+  );
 
   public readonly side = input<'left' | 'right'>('left');
-  public readonly variant = input<SidebarVariant>(this._sidebarService.variant());
-  public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
+  public readonly variant = input<SidebarVariant>(
+    this._sidebarService.variant(),
+  );
+  public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>(
+    'offcanvas',
+  );
+
+  public readonly srOnlySheetTitle = input<string>('Sidebar');
+  public readonly srOnlySheetDescription = input<string>(
+    'Displays the mobile sidebar.',
+  );
 
   protected readonly _sidebarGapComputedClass = computed(() =>
     hlm(
@@ -102,12 +125,16 @@ export class HlmSidebar {
   });
 
   protected readonly _dataState = computed(() => {
-    return this._collapsibleAndNonMobile() ? this._sidebarService.state() : undefined;
+    return this._collapsibleAndNonMobile()
+      ? this._sidebarService.state()
+      : undefined;
   });
 
   protected readonly _dataCollapsible = computed(() => {
     if (this._collapsibleAndNonMobile()) {
-      return this._sidebarService.state() === 'collapsed' ? this.collapsible() : '';
+      return this._sidebarService.state() === 'collapsed'
+        ? this.collapsible()
+        : '';
     }
     return undefined;
   });
@@ -128,7 +155,9 @@ export class HlmSidebar {
 
     classes(() => {
       if (this.collapsible() === 'none') {
-        return hlm('bg-sidebar text-sidebar-foreground flex h-svh w-(--sidebar-width) flex-col');
+        return hlm(
+          'bg-sidebar text-sidebar-foreground flex h-svh w-(--sidebar-width) flex-col',
+        );
       } else if (this._sidebarService.isMobile()) {
         return '';
       } else {

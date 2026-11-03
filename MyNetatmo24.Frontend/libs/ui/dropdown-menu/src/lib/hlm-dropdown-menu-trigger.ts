@@ -1,16 +1,30 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { computed, Directive, effect, forwardRef, inject, input } from '@angular/core';
+import {
+  computed,
+  Directive,
+  effect,
+  forwardRef,
+  inject,
+  input,
+} from '@angular/core';
 import {
   createMenuPosition,
   MENU_SIDE,
   type MenuAlign,
   type MenuSide,
+  updateMenuPosition,
 } from '@spartan-ng/brain/core';
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
 @Directive({
   selector: '[hlmDropdownMenuTrigger]',
-  providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmDropdownMenuTrigger) }],
+  exportAs: 'hlmDropdownMenuTrigger',
+  providers: [
+    {
+      provide: MENU_SIDE,
+      useExisting: forwardRef(() => HlmDropdownMenuTrigger),
+    },
+  ],
   hostDirectives: [
     {
       directive: CdkMenuTrigger,
@@ -18,7 +32,10 @@ import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
         'cdkMenuTriggerFor: hlmDropdownMenuTrigger',
         'cdkMenuTriggerData: hlmDropdownMenuTriggerData',
       ],
-      outputs: ['cdkMenuOpened: hlmDropdownMenuOpened', 'cdkMenuClosed: hlmDropdownMenuClosed'],
+      outputs: [
+        'cdkMenuOpened: hlmDropdownMenuOpened',
+        'cdkMenuClosed: hlmDropdownMenuClosed',
+      ],
     },
   ],
   host: { 'data-slot': 'dropdown-menu-trigger' },
@@ -30,17 +47,20 @@ export class HlmDropdownMenuTrigger {
   public readonly align = input<MenuAlign>(this._config.align);
   public readonly side = input<MenuSide>(this._config.side);
 
-  private readonly _menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
+  private readonly _menuPosition = computed(() =>
+    createMenuPosition(this.align(), this.side()),
+  );
 
   constructor() {
     // CDK sets transform-origin on the menu content from the resolved position; the content reads it to
     // animate from the anchored corner and to derive its data-side. Cast tolerates @angular/cdk < 21.2
     // (we still support >=21.0), where the property is absent and the assignment is a harmless no-op.
-    (this._cdkTrigger as { transformOriginSelector?: string }).transformOriginSelector =
-      '[data-slot="dropdown-menu"]';
+    (
+      this._cdkTrigger as { transformOriginSelector?: string }
+    ).transformOriginSelector = '[data-slot="dropdown-menu"]';
 
     effect(() => {
-      this._cdkTrigger.menuPosition = this._menuPosition();
+      updateMenuPosition(this._cdkTrigger, this._menuPosition());
     });
   }
 }

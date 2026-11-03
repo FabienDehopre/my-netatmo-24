@@ -15,6 +15,7 @@ import { Directive, inject } from '@angular/core';
  */
 @Directive({
   selector: '[hlmDropdownMenuFocusOnHover]',
+  exportAs: 'hlmDropdownMenuFocusOnHover',
   host: {
     '(mouseenter)': '_focusOnHover()',
   },
@@ -27,7 +28,10 @@ export class HlmDropdownMenuFocusOnHover {
   protected _focusOnHover(): void {
     // Only skip synthetic hovers from touch taps; every real hover (mouse, or keyboard-then-hover,
     // which leaves the modality as 'keyboard') should move focus to keep a single highlight.
-    if (this._inputModality.mostRecentModality === 'touch' || this._cdkMenuItem.disabled) {
+    if (
+      this._inputModality.mostRecentModality === 'touch' ||
+      this._cdkMenuItem.disabled
+    ) {
       return;
     }
     this._parentMenu?.setActiveMenuItem(this._cdkMenuItem);
