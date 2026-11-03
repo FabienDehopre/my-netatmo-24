@@ -3,10 +3,11 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmDropdownMenuSeparator],hlm-dropdown-menu-separator',
+  exportAs: 'hlmDropdownMenuSeparator',
   host: { 'data-slot': 'dropdown-menu-separator' },
 })
 export class HlmDropdownMenuSeparator {
   constructor() {
-    classes(() => 'bg-border -mx-1 my-1 h-px block');
+    classes(() => 'bg-border/50 -mx-1 my-1 h-px block');
   }
 }

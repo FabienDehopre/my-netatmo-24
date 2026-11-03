@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmSidebarHeader],hlm-sidebar-header',
+  exportAs: 'hlmSidebarHeader',
   host: {
     'data-slot': 'sidebar-header',
     'data-sidebar': 'header',
@@ -10,6 +11,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmSidebarHeader {
   constructor() {
-    classes(() => 'gap-2 p-2 flex flex-col');
+    classes(() => 'gap-2 p-2 [--radius:var(--radius-xl)] flex flex-col');
   }
 }

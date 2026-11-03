@@ -1,5 +1,9 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
-import { CdkMenuItem, CdkMenuItemRadio, CdkMenuItemSelectable } from '@angular/cdk/menu';
+import {
+  CdkMenuItem,
+  CdkMenuItemRadio,
+  CdkMenuItemSelectable,
+} from '@angular/cdk/menu';
 import { Directive, booleanAttribute, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover';
@@ -7,6 +11,7 @@ import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover'
 /** @internal. Use HlmDropdownMenuRadio instead. */
 @Directive({
   selector: '[hlmDropdownMenuRadioCdk]',
+  exportAs: 'hlmDropdownMenuRadioCdk',
   providers: [
     { provide: CdkMenuItemRadio, useExisting: HlmDropdownMenuRadioCdk },
     { provide: CdkMenuItemSelectable, useExisting: HlmDropdownMenuRadioCdk },
@@ -14,7 +19,9 @@ import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover'
   ],
 })
 export class HlmDropdownMenuRadioCdk extends CdkMenuItemRadio {
-  public readonly keepOpen = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
+  public readonly keepOpen = input<boolean, BooleanInput>(true, {
+    transform: booleanAttribute,
+  });
 
   public override trigger(options?: { keepOpen: boolean }) {
     super.trigger({ ...options, keepOpen: this.keepOpen() });
@@ -23,10 +30,15 @@ export class HlmDropdownMenuRadioCdk extends CdkMenuItemRadio {
 
 @Directive({
   selector: '[hlmDropdownMenuRadio]',
+  exportAs: 'hlmDropdownMenuRadio',
   hostDirectives: [
     {
       directive: HlmDropdownMenuRadioCdk,
-      inputs: ['cdkMenuItemDisabled: disabled', 'cdkMenuItemChecked: checked', 'keepOpen'],
+      inputs: [
+        'cdkMenuItemDisabled: disabled',
+        'cdkMenuItemChecked: checked',
+        'keepOpen',
+      ],
       outputs: ['cdkMenuItemTriggered: triggered'],
     },
     HlmDropdownMenuFocusOnHover,
@@ -43,7 +55,7 @@ export class HlmDropdownMenuRadio {
   constructor() {
     classes(
       () =>
-        "hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:**:text-accent-foreground focus:**:text-accent-foreground gap-1.5 rounded-md py-1 ps-1.5 pe-8 text-sm data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] group/dropdown-menu-radio relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0",
+        "hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:**:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-3 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] group/dropdown-menu-radio relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0",
     );
   }
 }

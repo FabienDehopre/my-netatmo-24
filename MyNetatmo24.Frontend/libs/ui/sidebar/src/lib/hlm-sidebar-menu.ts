@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: 'ul[hlmSidebarMenu]',
+  exportAs: 'hlmSidebarMenu',
   host: {
     'data-slot': 'sidebar-menu',
     'data-sidebar': 'menu',
@@ -10,6 +11,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmSidebarMenu {
   constructor() {
-    classes(() => 'gap-0 flex w-full min-w-0 flex-col');
+    classes(() => 'gap-1 flex w-full min-w-0 flex-col');
   }
 }

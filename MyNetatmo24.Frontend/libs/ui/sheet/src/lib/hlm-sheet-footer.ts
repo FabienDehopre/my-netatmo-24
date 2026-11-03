@@ -3,10 +3,11 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmSheetFooter],hlm-sheet-footer',
+  exportAs: 'hlmSheetFooter',
   host: { 'data-slot': 'sheet-footer' },
 })
 export class HlmSheetFooter {
   constructor() {
-    classes(() => 'gap-2 p-4 mt-auto flex flex-col');
+    classes(() => 'gap-2 p-6 mt-auto flex flex-col');
   }
 }

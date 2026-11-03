@@ -1,17 +1,31 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { computed, Directive, effect, forwardRef, inject, input } from '@angular/core';
+import {
+  computed,
+  Directive,
+  effect,
+  forwardRef,
+  inject,
+  input,
+} from '@angular/core';
 import {
   createMenuPosition,
   MENU_SIDE,
   type MenuAlign,
   type MenuSide,
+  updateMenuPosition,
 } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
 @Directive({
   selector: '[hlmDropdownMenuSubTrigger]',
-  providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmDropdownMenuSubTrigger) }],
+  exportAs: 'hlmDropdownMenuSubTrigger',
+  providers: [
+    {
+      provide: MENU_SIDE,
+      useExisting: forwardRef(() => HlmDropdownMenuSubTrigger),
+    },
+  ],
   hostDirectives: [
     {
       directive: CdkMenuTrigger,
@@ -34,19 +48,24 @@ export class HlmDropdownMenuSubTrigger {
   public readonly align = input<MenuAlign>(this._config.align);
   public readonly side = input<MenuSide>(this._config.side);
 
-  private readonly _menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
+  private readonly _menuPosition = computed(() =>
+    createMenuPosition(this.align(), this.side()),
+  );
 
   constructor() {
     // CDK sets transform-origin on the submenu content from the resolved position; the content reads it
     // to animate from the anchored corner and to derive its data-side. Cast tolerates @angular/cdk < 21.2
     // (we still support >=21.0), where the property is absent and the assignment is a harmless no-op.
-    (this._cdkTrigger as { transformOriginSelector?: string }).transformOriginSelector =
-      '[data-slot="dropdown-menu-sub"]';
+    (
+      this._cdkTrigger as { transformOriginSelector?: string }
+    ).transformOriginSelector = '[data-slot="dropdown-menu-sub"]';
 
     effect(() => {
-      this._cdkTrigger.menuPosition = this._menuPosition();
+      updateMenuPosition(this._cdkTrigger, this._menuPosition());
     });
 
-    classes(() => 'aria-expanded:bg-accent aria-expanded:text-accent-foreground');
+    classes(
+      () => 'aria-expanded:bg-accent aria-expanded:text-accent-foreground',
+    );
   }
 }

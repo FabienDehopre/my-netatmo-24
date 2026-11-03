@@ -10,6 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
   selector: '[hlmDropdownMenuSub],hlm-dropdown-menu-sub',
+  exportAs: 'hlmDropdownMenuSub',
   hostDirectives: [CdkMenu],
   host: {
     'data-slot': 'dropdown-menu-sub',
@@ -24,17 +25,21 @@ export class HlmDropdownMenuSub {
   private readonly _menuSide = inject(MENU_SIDE, { optional: true });
 
   protected readonly _state = signal('open');
-  protected readonly _side = signal<MenuSide>(this._menuSide?.side() ?? 'right');
+  protected readonly _side = signal<MenuSide>(
+    this._menuSide?.side() ?? 'right',
+  );
 
   constructor() {
     this.setSideFromTransformOrigin();
     // this is a best effort, but does not seem to work currently
     // TODO: figure out a way for us to know the host is about to be closed. might not be possible with CDK
-    this._host.closed.pipe(takeUntilDestroyed()).subscribe(() => this._state.set('closed'));
+    this._host.closed
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this._state.set('closed'));
 
     classes(
       () =>
-        'motion-safe:data-open:animate-in motion-safe:data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-24 rounded-lg p-1 shadow-lg ring-1 duration-100 w-auto',
+        'motion-safe:data-open:animate-in motion-safe:data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground min-w-36 rounded-2xl p-1 shadow-2xl ring-1 duration-100 w-auto',
     );
   }
 
