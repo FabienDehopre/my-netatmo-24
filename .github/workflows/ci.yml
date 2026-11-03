@@ -52,13 +52,13 @@ jobs:
         with:
           name: CoverageReport
           path: coveragereport
-      - run: gh pr comment $PR_NUMBER --body-file coveragereport/SummaryGithub.md
+      - run: gh pr comment "$PR_NUMBER" --body-file coveragereport/SummaryGithub.md
         if: github.event_name == 'pull_request' && steps.reportgenerator.outcome != 'skipped'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
         name: Report .NET Coverage
-      - run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+      - run: cat coveragereport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
         if: steps.reportgenerator.outcome != 'skipped'
         name: Publish coverage in build summary
       - uses: FabienDehopre/crap-gate/backend@b31ed69e6265b49261af63392f5e17a1d6d6a35b # v1
@@ -109,13 +109,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [backend, frontend]
+    container:
+      image: mcr.microsoft.com/playwright:1.64.1-noble
+      options: --user 1001
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: ./.github/actions/setup-dotnet
       - uses: ./.github/actions/setup-node-pnpm
-      - run: pnpm --filter='end-to-end-tests' exec playwright install --with-deps chromium firefox
-        timeout-minutes: 10
-        name: Install Playwright Browsers
+      # - run: pnpm --filter='end-to-end-tests' exec playwright install --with-deps chromium firefox
+      #   timeout-minutes: 10
+      #   name: Install Playwright Browsers
       - uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3
         name: OIDC Login to Azure Public Cloud
         with:
