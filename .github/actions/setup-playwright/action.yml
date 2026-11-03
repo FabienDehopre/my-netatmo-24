@@ -1,0 +1,28 @@
+name: Setup Playwright
+description: >
+  Install Playwright browsers, restoring them from the cache when the Playwright version has not changed.
+  Requires Node.js and the pnpm dependencies to be installed first.
+
+inputs:
+  browsers:
+    description: Space-separated list of browsers to install.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: version
+      run: echo "version=$(pnpm --filter='end-to-end-tests' exec playwright --version | sed -n 's/^Version //p')" >> "$GITHUB_OUTPUT"
+      shell: bash
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      id: cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.version.outputs.version }}-${{ inputs.browsers }}
+    - if: steps.cache.outputs.cache-hit != 'true'
+      run: pnpm --filter='end-to-end-tests' exec playwright install --with-deps ${{ inputs.browsers }}
+      shell: bash
+    # The browser binaries come from the cache, but their system dependencies still have to be installed.
+    - if: steps.cache.outputs.cache-hit == 'true'
+      run: pnpm --filter='end-to-end-tests' exec playwright install-deps ${{ inputs.browsers }}
+      shell: bash
