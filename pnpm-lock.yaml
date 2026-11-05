@@ -254,8 +254,8 @@ catalogs:
       specifier: 2.0.1
       version: 2.0.1
     eslint-plugin-playwright:
-      specifier: 2.12.1
-      version: 2.12.1
+      specifier: 2.12.2
+      version: 2.12.2
   ngrx:
     '@ngrx/operators':
       specifier: 21.1.1
@@ -391,7 +391,7 @@ importers:
         version: 2.0.1(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
       eslint-plugin-playwright:
         specifier: catalog:eslint
-        version: 2.12.1(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
+        version: 2.12.2(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -4544,8 +4544,8 @@ packages:
     peerDependencies:
       eslint: ^8.45.0 || ^9.0.0 || ^10.0.0
 
-  eslint-plugin-playwright@2.12.1:
-    resolution: {integrity: sha512-JhavNuYBIq7SE/Zg9Esf9RGHkXoDbzrEKS383cowzMyvZ4JMbmdNCN6CoW+RU1Cjzwcoea1tou0je58uXmT/9A==}
+  eslint-plugin-playwright@2.12.2:
+    resolution: {integrity: sha512-sYRCyAEACD3URVoFTfldZcvZNdlJ1r5414gilOTsDCu26PY7l4dUl/3o9ohIEltZgaDS1VXD1mG5xU1KlIGJSw==}
     engines: {node: '>=16.9.0'}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -8648,7 +8648,7 @@ snapshots:
       eslint-plugin-jsonc: 3.4.1(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
       eslint-plugin-n: 18.3.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(typescript@6.0.3)
       eslint-plugin-perfectionist: 5.10.1(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
-      eslint-plugin-playwright: 2.12.1(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
+      eslint-plugin-playwright: 2.12.2(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
       eslint-plugin-pnpm: 1.8.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
       eslint-plugin-prefer-arrow-functions: 3.10.2(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       eslint-plugin-regexp: 3.2.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
@@ -11490,7 +11490,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-playwright@2.12.1(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1)):
+  eslint-plugin-playwright@2.12.2(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
       eslint: 10.14.0(jiti@2.7.0)(supports-color@8.1.1)
       globals: 17.11.0
@@ -12181,7 +12181,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 26.2.0
+      '@types/node': 24.19.2
       merge-stream: 2.0.0
       supports-color: 8.1.1
     optional: true
