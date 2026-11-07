@@ -217,8 +217,8 @@ catalogs:
       specifier: 7.8.2
       version: 7.8.2
     temporal-polyfill:
-      specifier: 1.0.6
-      version: 1.0.6
+      specifier: 1.0.7
+      version: 1.0.7
     tslib:
       specifier: 2.9.1
       version: 2.9.1
@@ -481,7 +481,7 @@ importers:
         version: 3.7.0
       temporal-polyfill:
         specifier: 'catalog:'
-        version: 1.0.6
+        version: 1.0.7
       tslib:
         specifier: 'catalog:'
         version: 2.9.1
@@ -6541,14 +6541,14 @@ packages:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
     engines: {node: '>=6'}
 
-  temporal-polyfill@1.0.6:
-    resolution: {integrity: sha512-tYyEry1HLGUDbm2356W3iYD0OZdo7rlP7h98Zr/EnjqLZQwTAfcBDUvJnJbfA15v/vQad57hJZScG5O0W2oKEA==}
+  temporal-polyfill@1.0.7:
+    resolution: {integrity: sha512-/qHG5yJUCFRAYrlo/4zgFsV7p+cSnGJjtpd3c3sKB3ayuIln3U0nthfKa9MoMl0nY7NAjrru5/w0BMjcAxg9MA==}
 
   temporal-spec@1.0.1:
     resolution: {integrity: sha512-wxVoanmDeavXie1vu2JaQ3WIc3JZnWAOYFBsJyATaVsXsycKYUflGsyBmrRSnoCpZJpwPyr38VpgSUlQ8CbFxg==}
 
-  temporal-utils@1.0.3:
-    resolution: {integrity: sha512-9jbTSX3HvkOWvDpNpFzwX/d1mkCrgQgwLmVTOEiuocZGKHsrQJtttGZFmybJ2zYP5zCSZuU5ZyeS8+eOEPABiQ==}
+  temporal-utils@1.0.4:
+    resolution: {integrity: sha512-4mAcgbWlaxe+gn23gk8g0iHxCVGVOhKzSCfF5HM3lfvH8BdT+/pBmH/R/E4CrIse+koUgs8ThkPzCLnui6Fi8w==}
 
   terser@5.50.0:
     resolution: {integrity: sha512-CN9BVxWhgS/hRxtUMjtC2uRWSTcSfQFHMDWma6sKKfIivCD91sM+FOPfvwoaRMqCSrUpe1nv3jDamd9eEQ4y+w==}
@@ -13765,14 +13765,14 @@ snapshots:
       inherits: 2.0.4
       readable-stream: 3.6.2
 
-  temporal-polyfill@1.0.6:
+  temporal-polyfill@1.0.7:
     dependencies:
       temporal-spec: 1.0.1
-      temporal-utils: 1.0.3
+      temporal-utils: 1.0.4
 
   temporal-spec@1.0.1: {}
 
-  temporal-utils@1.0.3: {}
+  temporal-utils@1.0.4: {}
 
   terser@5.50.0:
     dependencies:
