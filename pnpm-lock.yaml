@@ -174,26 +174,26 @@ catalogs:
       specifier: 22.2.6
       version: 22.2.6
     '@angular/common':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
     '@angular/compiler':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
     '@angular/compiler-cli':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
     '@angular/core':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
     '@angular/forms':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
     '@angular/platform-browser':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
     '@angular/router':
-      specifier: 22.2.4
-      version: 22.2.4
+      specifier: 22.2.5
+      version: 22.2.5
   default:
     '@ngx-env/builder':
       specifier: 21.0.1
@@ -289,8 +289,8 @@ catalogs:
       specifier: 3.1.0
       version: 3.1.0
     '@opentelemetry/semantic-conventions':
-      specifier: 1.44.0
-      version: 1.44.0
+      specifier: 1.45.0
+      version: 1.45.0
   playwright:
     '@playwright/test':
       specifier: 1.65.0
@@ -316,14 +316,14 @@ catalogs:
       version: 2.1.1
   tailwindcss:
     '@tailwindcss/postcss':
-      specifier: 4.3.4
-      version: 4.3.4
+      specifier: 4.3.5
+      version: 4.3.5
     tailwind-merge:
       specifier: 3.7.0
       version: 3.7.0
     tailwindcss:
-      specifier: 4.3.4
-      version: 4.3.4
+      specifier: 4.3.5
+      version: 4.3.5
     tw-animate-css:
       specifier: 1.4.0
       version: 1.4.0
@@ -370,7 +370,7 @@ importers:
     devDependencies:
       '@fabdeh/eslint-config':
         specifier: catalog:eslint
-        version: 0.13.2(@angular/cli@22.2.6(@types/node@24.19.2)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.4)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.12)
+        version: 0.13.2(@angular/cli@22.2.6(@types/node@24.19.2)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.5)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.12)
       '@playwright/test':
         specifier: catalog:playwright
         version: 1.65.0
@@ -400,28 +400,28 @@ importers:
     dependencies:
       '@angular/cdk':
         specifier: catalog:angular
-        version: 22.2.6(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+        version: 22.2.6(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
       '@angular/common':
         specifier: catalog:angular
-        version: 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+        version: 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
       '@angular/compiler':
         specifier: catalog:angular
-        version: 22.2.4
+        version: 22.2.5
       '@angular/core':
         specifier: catalog:angular
-        version: 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
+        version: 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
       '@angular/forms':
         specifier: catalog:angular
-        version: 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+        version: 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
       '@angular/platform-browser':
         specifier: catalog:angular
-        version: 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))
+        version: 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))
       '@angular/router':
         specifier: catalog:angular
-        version: 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+        version: 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
       '@ng-icons/core':
         specifier: catalog:spartanui
-        version: 33.4.0(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@schematics/angular@22.2.6(chokidar@5.0.0))(rxjs@7.8.2)
+        version: 33.4.0(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@schematics/angular@22.2.6(chokidar@5.0.0))(rxjs@7.8.2)
       '@ng-icons/lucide':
         specifier: catalog:spartanui
         version: 33.4.0
@@ -430,7 +430,7 @@ importers:
         version: 21.1.1(rxjs@7.8.2)
       '@ngrx/signals':
         specifier: catalog:ngrx
-        version: 21.1.1(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+        version: 21.1.1(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
       '@opentelemetry/api':
         specifier: catalog:opentelemetry
         version: 1.10.0
@@ -457,16 +457,16 @@ importers:
         version: 3.1.0(@opentelemetry/api@1.10.0)
       '@opentelemetry/semantic-conventions':
         specifier: catalog:opentelemetry
-        version: 1.44.0
+        version: 1.45.0
       '@spartan-ng/brain':
         specifier: catalog:spartanui
-        version: 1.9.0(40d785810f6aa337aa04117e52066736)
+        version: 1.9.0(d85a7ad25cdb5f049ea2f8ab98183dac)
       '@spartan-ng/cli':
         specifier: catalog:spartanui
-        version: 1.9.0(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@angular/compiler@22.2.4)(@babel/traverse@7.29.12(supports-color@8.1.1))(@zkochan/js-yaml@0.0.7)(chokidar@5.0.0)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(rxjs@7.8.2)(supports-color@8.1.1)(tslib@2.9.1)(zone.js@0.16.3)
+        version: 1.9.0(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@angular/compiler@22.2.5)(@babel/traverse@7.29.12(supports-color@8.1.1))(@zkochan/js-yaml@0.0.7)(chokidar@5.0.0)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(rxjs@7.8.2)(supports-color@8.1.1)(tslib@2.9.1)(zone.js@0.16.3)
       '@tanstack/angular-table':
         specifier: catalog:tanstack
-        version: 8.21.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))
+        version: 8.21.4(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))
       class-variance-authority:
         specifier: catalog:spartanui
         version: 0.7.1
@@ -491,19 +491,19 @@ importers:
     devDependencies:
       '@angular/build':
         specifier: catalog:angular
-        version: 22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)
+        version: 22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)
       '@angular/cli':
         specifier: catalog:angular
         version: 22.2.6(@types/node@24.19.2)(chokidar@5.0.0)
       '@angular/compiler-cli':
         specifier: catalog:angular
-        version: 22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3)
+        version: 22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3)
       '@fabdeh/eslint-config':
         specifier: catalog:eslint
-        version: 0.13.2(@angular/cli@22.2.6(@types/node@24.19.2)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.4)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.12)
+        version: 0.13.2(@angular/cli@22.2.6(@types/node@24.19.2)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.5)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.12)
       '@ngx-env/builder':
         specifier: 'catalog:'
-        version: 21.0.1(@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(webpack@5.109.2(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.32))
+        version: 21.0.1(@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(webpack@5.109.2(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.32))
       '@softarc/eslint-plugin-sheriff':
         specifier: catalog:eslint
         version: 0.20.0(@softarc/sheriff-core@0.20.0(typescript@6.0.3))(@typescript-eslint/utils@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))
@@ -512,10 +512,10 @@ importers:
         version: 0.20.0(typescript@6.0.3)
       '@tailwindcss/postcss':
         specifier: catalog:tailwindcss
-        version: 4.3.4
+        version: 4.3.5
       '@testing-library/angular':
         specifier: catalog:testing-library
-        version: 19.6.0(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/router@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@testing-library/dom@10.4.1)
+        version: 19.6.0(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/router@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@testing-library/dom@10.4.1)
       '@testing-library/user-event':
         specifier: catalog:testing-library
         version: 14.6.8(@testing-library/dom@10.4.1)
@@ -539,7 +539,7 @@ importers:
         version: 10.14.0(jiti@2.7.0)(supports-color@8.1.1)
       eslint-plugin-better-tailwindcss:
         specifier: catalog:eslint
-        version: 4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.4)(typescript@6.0.3)
+        version: 4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.5)(typescript@6.0.3)
       eslint-plugin-erasable-syntax-only:
         specifier: catalog:eslint
         version: 0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
@@ -554,7 +554,7 @@ importers:
         version: 8.5.32
       tailwindcss:
         specifier: catalog:tailwindcss
-        version: 4.3.4
+        version: 4.3.5
       tw-animate-css:
         specifier: catalog:tailwindcss
         version: 1.4.0
@@ -737,33 +737,33 @@ packages:
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
     hasBin: true
 
-  '@angular/common@22.2.4':
-    resolution: {integrity: sha512-i5oosToLSAXumbkOF5pZyti0W0jrfRppj4y6a913f+AY4Em+iHT87JIOKrfybR7vkHs0eceZnpS0CpzylVAvgA==}
+  '@angular/common@22.2.5':
+    resolution: {integrity: sha512-8yRucwXK0pl+Y7d9rjz9Ml5Lp4OliOc+OTqIhy8X14vsQvn3eJ4fhDBL0Nk2YKKYE9j05X2YtARpX783av4odw==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      '@angular/core': 22.2.4
+      '@angular/core': 22.2.5
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/compiler-cli@22.2.4':
-    resolution: {integrity: sha512-Ow6AlIdmidjFxa3v4+uZrbPVSc45jLMUO9ERdFp69z6fv5CP9jd4DhK+wKVCvIlCp5ygelia8admEypdY3p5Hw==}
+  '@angular/compiler-cli@22.2.5':
+    resolution: {integrity: sha512-eNZ+4v67MOvrFkz//zYwbW13MZkIduFxQSZsQr1XlU5QNb24WTzvfkXROvEByGM1z1wgmEXXJvk4kIY7j8XdPQ==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
     hasBin: true
     peerDependencies:
-      '@angular/compiler': 22.2.4
+      '@angular/compiler': 22.2.5
       typescript: '>=6.0 <6.1'
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@angular/compiler@22.2.4':
-    resolution: {integrity: sha512-Az14b7hE1iCMqNhskOjA28+8w3VQDhSkrVUU+2gyucDHey1qw9rX5x45/z3qNanz4VtTBShvqEDsjctkobKJSA==}
+  '@angular/compiler@22.2.5':
+    resolution: {integrity: sha512-rfhQDgjVxCHOkIh47TEYVcPwdyYP5YW0LFDLipH8OTvNLBQR1rS/FIjdKPubYxu+kvw9TFXlrsulKeMIX8qG6w==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
 
-  '@angular/core@22.2.4':
-    resolution: {integrity: sha512-FME4hPQ6+RbOkaRtUHWytwyAFXZYjIQ81TDJ3Dj7tx+vzKs0StpH9g/0AoZwQUDmhPlN84IazBimQ7II7lmwVw==}
+  '@angular/core@22.2.5':
+    resolution: {integrity: sha512-IW0zRxqii+otvrAlDRLhUF+cxSQvJsKy30Yiv2Fz2LXCI9da4bEnHhssNRrLYDz7Otkr4XKdHEXav/kFO5Hj3g==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      '@angular/compiler': 22.2.4
+      '@angular/compiler': 22.2.5
       rxjs: ^6.5.3 || ^7.4.0
       zone.js: ~0.15.0 || ~0.16.0
     peerDependenciesMeta:
@@ -772,33 +772,33 @@ packages:
       zone.js:
         optional: true
 
-  '@angular/forms@22.2.4':
-    resolution: {integrity: sha512-siFy9s0p4PjPUeDX7zI7bo5x3YstBnFfBGqO/obL0TdR2rBxrmW8iR11TxbGh41NKYc5GvbZezVKsN8WEW2ooA==}
+  '@angular/forms@22.2.5':
+    resolution: {integrity: sha512-oQorgl0POezji2mSFIBhr0lscmnAFnV5jU3aLjOKwL1XsADS6+bQvaNjxGnW1qMkyZUvuhJcM2KlXpDrmI714w==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      '@angular/common': 22.2.4
-      '@angular/core': 22.2.4
-      '@angular/platform-browser': 22.2.4
+      '@angular/common': 22.2.5
+      '@angular/core': 22.2.5
+      '@angular/platform-browser': 22.2.5
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/platform-browser@22.2.4':
-    resolution: {integrity: sha512-NAQ8/Zcl8nRlNqxlXQGrQJ/c5V8lN5vJSlc8qkD3OUN+ClyNuS6UCXffYtKvvbovpyb/q1uYSQjqiEctz+5niw==}
+  '@angular/platform-browser@22.2.5':
+    resolution: {integrity: sha512-q5xjwutXUNL3qiW2GGBdWIK5OVd7gquGIIWWkr9kgQaSG+0+nbMbmqqOpAWDbnDNv2Jw6ADdFRrZMMXk+71Ovg==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      '@angular/animations': 22.2.4
-      '@angular/common': 22.2.4
-      '@angular/core': 22.2.4
+      '@angular/animations': 22.2.5
+      '@angular/common': 22.2.5
+      '@angular/core': 22.2.5
     peerDependenciesMeta:
       '@angular/animations':
         optional: true
 
-  '@angular/router@22.2.4':
-    resolution: {integrity: sha512-HKe2lqHbeCxczwiRoUlGfNLcJWi/VWGCF3a2v2w3qCBBGUBqed0RghbjdEQzl13led8PsLgse7U1ZC8zlz+BMw==}
+  '@angular/router@22.2.5':
+    resolution: {integrity: sha512-/EdOotFyE/cg++A5gFNuAPxIJVS7uadjPm2kyndEMCmvVwSzlzBifWog+L2meIE7F8jaAuJjU9Y+L3nlgRGd5Q==}
     engines: {node: ^22.22.3 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      '@angular/common': 22.2.4
-      '@angular/core': 22.2.4
-      '@angular/platform-browser': 22.2.4
+      '@angular/common': 22.2.5
+      '@angular/core': 22.2.5
+      '@angular/platform-browser': 22.2.5
       rxjs: ^6.5.3 || ^7.4.0
 
   '@antfu/install-pkg@2.0.1':
@@ -826,10 +826,6 @@ packages:
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/code-frame@8.0.0':
-    resolution: {integrity: sha512-dYYg153EyN2Ekbqw2zAsbd6/JR+9N2SEoC7YV2GyyqMM7x9bLDTjBD6XBhSMLH0wtIVyJj03jWNriQhaN+eoCw==}
-    engines: {node: ^22.18.0 || >=24.11.0}
-
   '@babel/code-frame@8.0.6':
     resolution: {integrity: sha512-uMHhvmDmwFiLuiozaoRYTZHqMFuu3fem/X9JY78lohAuLoh8LSGGC8JqUzo2cVuBsBxkjMZNk56CE7ock8Xxkw==}
     engines: {node: ^22.18.0 || >=24.11.0}
@@ -837,10 +833,6 @@ packages:
   '@babel/compat-data@7.29.7':
     resolution: {integrity: sha512-locTkQyKvwIEgBzVrn8693ebc97F2U8ZHjbXwDXJ5Fn2TCpNwTlKcaKLkdHop5c/icOFE7qt7Q9JC5hnKNa6Gg==}
     engines: {node: '>=6.9.0'}
-
-  '@babel/compat-data@8.0.0':
-    resolution: {integrity: sha512-DOjnob/cXOUgDOozCDeq/aK2p5y8dUIVdf6tNhEV1HQRd6I8aQ4f4fbtHRVEvb6lP3BGomrKHiS8ICAASSVQSw==}
-    engines: {node: ^22.18.0 || >=24.11.0}
 
   '@babel/compat-data@8.0.5':
     resolution: {integrity: sha512-YLsYoQMvL8l8WrGpN3Zj7O1wK5LEBN+cQtux7BcuHyxIXve724XG+zuJ1n3U1cUweRtTzQOA4IHbuQw3N34SZw==}
@@ -862,10 +854,6 @@ packages:
     resolution: {integrity: sha512-2W76mhjrpQFO1lK5e8IvGYB2D0YZ7S2R1Z2BjO2ZUYuW+amcpK/z60U6ZZmzskwoa7sJ6XohP/Wg8H5KxXI/IA==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/generator@8.0.0':
-    resolution: {integrity: sha512-NT9NrVwJsbSV6Y2FSstWa71EETOnzrjkL5/wX3D2mYHtKM+qvqB1DvR4D0Setb/gDBsHzRICifwEWMO8CnTF6g==}
-    engines: {node: ^22.18.0 || >=24.11.0}
-
   '@babel/generator@8.0.6':
     resolution: {integrity: sha512-/pcanjdRsonCexCuxgGD8fKnBLLzk2i9uM4kmcmGyyev2R5YDs+rafMYZ89RvaGY1mW8T7C5au0TyYaEeHBGng==}
     engines: {node: ^22.18.0 || >=24.11.0}
@@ -877,10 +865,6 @@ packages:
   '@babel/helper-compilation-targets@7.29.7':
     resolution: {integrity: sha512-wem6WaBj4NaVYVdNhLPPVacES6ZJ+KBBfSkTMD3YZxbP3rm3Di85tJU5ljaUNhaOynt+Aj0xruhYuzQBt8n71g==}
     engines: {node: '>=6.9.0'}
-
-  '@babel/helper-compilation-targets@8.0.0':
-    resolution: {integrity: sha512-JwculLABZvyPvyLBpwU/E/IbH2uM3mnxNtIJpxnIfb24y1PrdVxK5Dqjle4DpgqpGRnwgC7G8IkzPdSXZrO1Ew==}
-    engines: {node: ^22.18.0 || >=24.11.0}
 
   '@babel/helper-compilation-targets@8.0.7':
     resolution: {integrity: sha512-ilAZCdOOlOVA7dQbaFNw2f/59p6GW33NxTopc3DvEE3efp3ZXTrGX/yZScaKw8/vd9bq31Ag0EcXiLw32bAgJg==}
@@ -906,10 +890,6 @@ packages:
   '@babel/helper-globals@7.29.7':
     resolution: {integrity: sha512-3nQVUAtvkKH9zahfWgw96Jc/uFOmjACE1kQz82E2lqWmHBgjzbNlsC22nuQTfahmWeQtTq5nQ/4Nnd2A1wj4zA==}
     engines: {node: '>=6.9.0'}
-
-  '@babel/helper-globals@8.0.0':
-    resolution: {integrity: sha512-lLozHOM6sWWlxNo8CYqHy4MBZeTvHXNgVPBfPOGsjPKUzHC2Az9QwB6gxdQmpwHl6GlQtbGgS+lj5887guDiLw==}
-    engines: {node: ^22.18.0 || >=24.11.0}
 
   '@babel/helper-globals@8.0.6':
     resolution: {integrity: sha512-OdnA/N52LhzFpeUuVz5YGuSWjc7TPHiFmVYZbPlSgExocO2GwbxVpSni9MVs5wwW+wZ4kPuwBEBN9pIPDYz1mA==}
@@ -961,10 +941,6 @@ packages:
     resolution: {integrity: sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-string-parser@8.0.0':
-    resolution: {integrity: sha512-6mJgmFFFIIO82vvoLt9XtRC7/TkzXfts1t/SpRX4IHSzMgqoPYCWesVu1udUPUWioAE/2fcG6WuI8zrkE1gwrg==}
-    engines: {node: ^22.18.0 || >=24.11.0}
-
   '@babel/helper-string-parser@8.0.8':
     resolution: {integrity: sha512-fVM+gSuKbdv9cpmyRNh5EvsDHUZCdxQH3FdnFKSkNYHpbsn95bbrxm+ES3MVeQjcqwi2O5ur/DjLfmTQaO60ng==}
     engines: {node: ^22.18.0 || >=24.11.0}
@@ -972,10 +948,6 @@ packages:
   '@babel/helper-validator-identifier@7.29.7':
     resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==}
     engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@8.0.4':
-    resolution: {integrity: sha512-4wFaiLd0bVo4cIoTXI3zKI038NIWE/cr3jvBjejOVYVxV/m8Ltav1USiGzG1fmS5J2RhgEOgXNNK46cRPnRsrg==}
-    engines: {node: ^22.18.0 || >=24.11.0}
 
   '@babel/helper-validator-identifier@8.0.6':
     resolution: {integrity: sha512-HYx0YmuchRxRSpnjvcNffnPS8DCauKNmnumIuHG3jnQAVewRA7kfJGwF13ayEpSZs7s4R/oBH4eppuXcAQd5JQ==}
@@ -997,10 +969,6 @@ packages:
     resolution: {integrity: sha512-EMCx3AGZ3WfAl6ht7AyQoPm2Lh+BGYEMdc4Q6Hf7uSCDOZFuLq44qNwL+iaim8VlyYhRAo4X43+weadK8ZB4Yg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helpers@8.0.0':
-    resolution: {integrity: sha512-wfbi91pM3py96oIiJEz7qIpyXDytgr9zQC1HEWwlGNVRAEmItuU/0a41ZUKu1sJGyhhOIpc4t5vk4PYzt8wpsg==}
-    engines: {node: ^22.18.0 || >=24.11.0}
-
   '@babel/helpers@8.0.8':
     resolution: {integrity: sha512-FBmhiDWs625wHg03OKiLQDeT6LOc2lWBbW97Yqs2iI1tZcucjpmYnO29NHsQ83XxKvredcvUymW/AAn2UtnakA==}
     engines: {node: ^22.18.0 || >=24.11.0}
@@ -1013,11 +981,6 @@ packages:
   '@babel/parser@7.29.8':
     resolution: {integrity: sha512-E8lTAYNB1KW+FH+VGJuZM1ioAx2E6oVlvQFRrf5P8ZZmsiJXYAD9vTFV7yyEURNzgh1dFqMZuO6tUwcARbqFCA==}
     engines: {node: '>=6.0.0'}
-    hasBin: true
-
-  '@babel/parser@8.0.4':
-    resolution: {integrity: sha512-srpptsAkEbbNIC/q8nT7o+m6CQe8CJUTV/t7MYc9NnWlgYVtHOb7JH6SorxMhN0kuRJjVqXbKClG6xSbPtzz+g==}
-    engines: {node: ^22.18.0 || >=24.11.0}
     hasBin: true
 
   '@babel/parser@8.0.8':
@@ -1460,10 +1423,6 @@ packages:
     resolution: {integrity: sha512-MscXe/NAZcOkYEsRajHZFt3ynsb22PUi6CTrp5U7+RYycR9By84mn9mFN54YgfITiqK4hFx3Ju3tZSyzfpS5ew==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/traverse@8.0.4':
-    resolution: {integrity: sha512-bZnmqzGG8UZneG1lLxBoWIH0G6Gr1D846Yu4/3XnY6FhCndMR49u26nTY08u/dAxWmLWF9vGQOuC+84FfIUoeg==}
-    engines: {node: ^22.18.0 || >=24.11.0}
-
   '@babel/traverse@8.0.7':
     resolution: {integrity: sha512-bVV0brinsTWgc6ptSIoQo3GbITtl0VZAqEUJbHHcyfDPEu+q/fEvlYEa+6H85HoK8IdksKBFtKJbJFZ6Kff+zg==}
     engines: {node: ^22.18.0 || >=24.11.0}
@@ -1475,10 +1434,6 @@ packages:
   '@babel/types@7.29.8':
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
-
-  '@babel/types@8.0.4':
-    resolution: {integrity: sha512-eY+Yn3dCqTGmyiq2QRU66lA5FL8lqqqvecHt0fF3uHONIa7ToYsaCiWV8lOKqAs0Rb2SjixiKFROngnulPtt2g==}
-    engines: {node: ^22.18.0 || >=24.11.0}
 
   '@babel/types@8.0.8':
     resolution: {integrity: sha512-iXSSZAKQWmaeAwGtFw10v9fg5hUiUs0L+w+Z2K11kym3pDNK+SF0VcAQPsEFvWcTSZ7LMgClMXDBvTbH0IlICg==}
@@ -2558,8 +2513,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': '>=1.10.0 <1.11.0'
 
-  '@opentelemetry/semantic-conventions@1.44.0':
-    resolution: {integrity: sha512-E3JkOlMBi3N8OGGkbl7tFyqk2MAS6/lySRZBK3Mu7AzjF1fT8oIChH9ChE48SUWzDn9Kdwta+G/p5LJ4xW4CLQ==}
+  '@opentelemetry/semantic-conventions@1.45.0':
+    resolution: {integrity: sha512-aOP45mbcOKbQVvFWfQmgoOPT8R2iwbbbgl83k4CujGV9BrJhFr3qG55MFpwFs4YLabpuW3HhzUY9eQxPlDqaZw==}
     engines: {node: '>=14'}
 
   '@opentelemetry/web-common@0.301.0':
@@ -3192,69 +3147,69 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  '@tailwindcss/node@4.3.4':
-    resolution: {integrity: sha512-b7QK/QG04v3j04NbpG82XLCedRyulnkuwUDwRa9oK/ypnJIzMapz2Wg+0TltVczjUzDaJJHIa1+jj9aMUOFMTQ==}
+  '@tailwindcss/node@4.3.5':
+    resolution: {integrity: sha512-yT53FzV4ke0cr/BguDxhWMpm5MJu1O2muzk+tKw6lKHjODAsYArBbWwFbJiaksfzFv1tpkO9QHGzmfs1hJT66g==}
 
-  '@tailwindcss/oxide-android-arm64@4.3.4':
-    resolution: {integrity: sha512-qkjxt+EFocOi3mtsUS3ndlj6yj4SHubwBdvBynLnS8T4mvSzX0Enn0CpypJKmBEtczUAXOHVZKA2zTGzSNU2Sg==}
+  '@tailwindcss/oxide-android-arm64@4.3.5':
+    resolution: {integrity: sha512-Se0z5xMqcSQanJD1IYmO0cGpK3iv0fp3ZsIT7xRJZ1Da5PghvNoc46zz4jIQn+aan3dV9T8AermFNN9QPmsh0Q==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [android]
 
-  '@tailwindcss/oxide-darwin-arm64@4.3.4':
-    resolution: {integrity: sha512-i/awUA/7mJQAbA3AzCW8aQtUh5goMieUdF1zOoclLaJUCxDvsXQ8VJqpQZY3dfcHS6PJjd3tw25nNneD/mEviQ==}
+  '@tailwindcss/oxide-darwin-arm64@4.3.5':
+    resolution: {integrity: sha512-UPrgTDuUbvmqGMZuCnmI3FKee/tYKzKdp00/kuB4oSGB213VYg8QTdF7lVhnPoBXq/mIfJ+ILoBFqNOboWcMwQ==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [darwin]
 
-  '@tailwindcss/oxide-darwin-x64@4.3.4':
-    resolution: {integrity: sha512-q56V9U6AnoYz/yj/alkDLhSQ9AZoXQSEl93f7WETa0+32CudbqM57BXdYXfMYPKudueXKaA+MG6L/0KRseF7Jg==}
+  '@tailwindcss/oxide-darwin-x64@4.3.5':
+    resolution: {integrity: sha512-E+p7HEtjI0b8D7kbbWxH067cGui6d4c79COGko9fAPVE3rwc1E7ld2HFCbaG86AOGWS5VKQYqZOaf38ya4uxTQ==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [darwin]
 
-  '@tailwindcss/oxide-freebsd-x64@4.3.4':
-    resolution: {integrity: sha512-r0W7A+Z9HTHh7bwihJl45E/zZKLjxD50/jToVF/E/RZHSl8+EWO+4yKKJpPMcUooT9hdoip3Zx1uWnbMg4N79g==}
+  '@tailwindcss/oxide-freebsd-x64@4.3.5':
+    resolution: {integrity: sha512-yWEWcWyAG7rWOcTpJTjdhQ3pcaFY2h+0bqTRfgU3G2fz87ZU3AKdvdZKhslD+kyHnjBUWKvNdRYwIYC5dI1tIg==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [freebsd]
 
-  '@tailwindcss/oxide-linux-arm-gnueabihf@4.3.4':
-    resolution: {integrity: sha512-3aih/sRxzeYfi2Bkh+bGYNf2YU9Llamb2mpA7BNF1obYzdgEeWDAMQzK6BSwzLhs/eTdOaSur92qrGfchagUtQ==}
+  '@tailwindcss/oxide-linux-arm-gnueabihf@4.3.5':
+    resolution: {integrity: sha512-WmeVjtJhZlr+smpqcdR2kQkkn6arHIJnUIBxTO2EJcTLGY1ecVXNo2hbSn8xc0IH2aEtys936iMWKGyj0GaKnA==}
     engines: {node: '>= 20'}
     cpu: [arm]
     os: [linux]
 
-  '@tailwindcss/oxide-linux-arm64-gnu@4.3.4':
-    resolution: {integrity: sha512-ktJSrPGQou4OqL88rDEx5CkeM9BjzrwZvYo8u7B7VL1zkBa2XBm351o4MQrek95qikb2M++26Y7w7vbH6Mgl8g==}
+  '@tailwindcss/oxide-linux-arm64-gnu@4.3.5':
+    resolution: {integrity: sha512-DTCSyucc6ShMp1QMqV5R94Z7xlgNgUzkGmFF1rL5HH2Qjy4eSmEqy+YLGkqqYvWa4sILtgrBt1JjRKbneQtiFQ==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@tailwindcss/oxide-linux-arm64-musl@4.3.4':
-    resolution: {integrity: sha512-rt3hjUxT7utAtcB+df6wHyaXDyxhE7Zd1x7L/nvB5Jb2qBb8dZwFUoWqeRja1BaF5OlSqkKSjBmVXj9OsevmCQ==}
+  '@tailwindcss/oxide-linux-arm64-musl@4.3.5':
+    resolution: {integrity: sha512-H9lsvO4x9E4nE4Hi8h7NHHw0O/kcVSu+iOyFHNGdYzazGgDjFHZbE6S3hQ8kMcbNXSBlMdNi67LV5EVqtpaJtw==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@tailwindcss/oxide-linux-x64-gnu@4.3.4':
-    resolution: {integrity: sha512-XE3jO2yOOWjttpeGvpwf3/b274NMi3QapQSAI/EzsgrmYNan1Tw8dXT9JQkN7K0OgvuqiC8mcCyNvGzEkpVJPQ==}
+  '@tailwindcss/oxide-linux-x64-gnu@4.3.5':
+    resolution: {integrity: sha512-4uxQvtBvPuIdl13WfUBj9xMZHH14PtHZ8OZdtLmdyDtG66sCa1t599NZT+jagkUzRtWhuul1qRZQ1nAJscXN5g==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@tailwindcss/oxide-linux-x64-musl@4.3.4':
-    resolution: {integrity: sha512-PaAZ2FjJaZk9SQLYtKIfQWiFm/xtl7pX2MKPgCzn0mS/VU54yu+vP457AJdB2XFLxU3gO2abLCt8N7Lg4EbKNg==}
+  '@tailwindcss/oxide-linux-x64-musl@4.3.5':
+    resolution: {integrity: sha512-0JQAzs7jwbA7O6+z/adU+Jk3AXwsu3npAhtr5escXS7TqEqWcaDV7qHuI+0Vy/KQRuVGnLQREcSJWYauyV3oqg==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@tailwindcss/oxide-wasm32-wasi@4.3.4':
-    resolution: {integrity: sha512-bjO9WmoM687p8AoCIyw1DUqzpAs4JICLvNmIPxIWDmhw8IOsdubtWQLShyJmISnDKtRy1BBApHVOUl6sNFQQJA==}
+  '@tailwindcss/oxide-wasm32-wasi@4.3.5':
+    resolution: {integrity: sha512-OJhFmlEfdzMr+avACdi40RPtnkW0B6hXyxL/8r+tnEHBWZji36CYRjEXrrvgBmaYsD3oEOBqwYFRKsYvzFe7Bw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=23.5.0}
     bundledDependencies:
       - '@napi-rs/wasm-runtime'
@@ -3264,24 +3219,24 @@ packages:
       - '@emnapi/wasi-threads'
       - tslib
 
-  '@tailwindcss/oxide-win32-arm64-msvc@4.3.4':
-    resolution: {integrity: sha512-jCrwCvWVtt7ruMXp6dFPd5KBNU8o1tWtEdZbTL/w/hvD3lUYZA0E2mmfvTzW4QLHIx5wGQU9HeY7997R1QTrEg==}
+  '@tailwindcss/oxide-win32-arm64-msvc@4.3.5':
+    resolution: {integrity: sha512-9o8jgthi+QE5eandnboiJT64VQfnIArfZzSTdgbhEK5aafdiu2jTW9Honi/mwYHxBZuH1vAC57IFyrh+0iK5Gg==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [win32]
 
-  '@tailwindcss/oxide-win32-x64-msvc@4.3.4':
-    resolution: {integrity: sha512-cge1wcedn1FrRSXL22lF5sNDYr8c9+VImk7zFYLPs12jkDmchSrZNfzWqOKub+5Hb/aYRdDEqERGGDKONBlOzQ==}
+  '@tailwindcss/oxide-win32-x64-msvc@4.3.5':
+    resolution: {integrity: sha512-XiKFfIy1RWe7qK4WqByxNW7Oz1/nkOy8o/BWhHminyV1PmpUd8Eedj5v2A8h2kpqeVlz6xRnwk9Fr/ZXNLcZfg==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [win32]
 
-  '@tailwindcss/oxide@4.3.4':
-    resolution: {integrity: sha512-riqsRw2sLF7B1sNCCkTl3KYXEqvhTiABzZ/4oxxHfZ3c3Td60bCBfOrUuUGOiHagd3E7V+zG46c+XBDWZGFBcg==}
+  '@tailwindcss/oxide@4.3.5':
+    resolution: {integrity: sha512-PynqGLZsZvwM9tqD/CUxkOIfyd6K5elZ2MooauzJryP/UqXYgi3yYbtt3N0Xe+MHV/eFKPFQCEfIKAqlAS1CBg==}
     engines: {node: '>= 20'}
 
-  '@tailwindcss/postcss@4.3.4':
-    resolution: {integrity: sha512-6O0QLY+1CseO8ivlYK2Y7IxNPaQ8D5ypxrV+ws34mbxknWH824J+gEWtJ0gyFiYAudmdEeXdF8kqwgXIaZRyHw==}
+  '@tailwindcss/postcss@4.3.5':
+    resolution: {integrity: sha512-FAV37Tlx9wBiT/hkfgVD0Q6CWsP2oUX3lf28nrfjW8+ksILjnpuFulUqWDfNR4/ZiEHHDRBX8DUTzD1Rys687A==}
 
   '@tanstack/angular-table@8.21.4':
     resolution: {integrity: sha512-djyuJFvIB/pBuBIqny8b7+5ozeXJSElaxYRZyyKLpYrXn4xQSysBT//X51eDT/mi3kS0spcjIHhoObjk3iCjcQ==}
@@ -6520,8 +6475,8 @@ packages:
   tailwind-merge@3.7.0:
     resolution: {integrity: sha512-XPPUyAc+cvspz3lHTcR/QgPfW2A0lv/xQNIjX3HGhLR+Nq2lHaLq5MtTesHn8GUr3W3DguT2KT5x3NVgRtYwmA==}
 
-  tailwindcss@4.3.4:
-    resolution: {integrity: sha512-PCJZTFFdG+sL3gvnP1Do9o6GbkvH2q0p04xSs3f7cSvmAeK+sttG+/7ncK1fdRwKFfC7n+wDDJaOMBSefkI9ow==}
+  tailwindcss@4.3.5:
+    resolution: {integrity: sha512-FcQk9BuffmEHJP2G0XmB2SplU1aLTI7j07Kunk+U74Ny+XiWOtzXz9aujFZ/avntw1e2cOv/3PkgzflQ7gX2vQ==}
 
   tapable@2.3.3:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
@@ -7193,12 +7148,12 @@ snapshots:
       eslint: 10.14.0(jiti@2.7.0)(supports-color@8.1.1)
       typescript: 6.0.3
 
-  '@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)':
+  '@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2202.6(chokidar@5.0.0)
-      '@angular/compiler': 22.2.4
-      '@angular/compiler-cli': 22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3)
+      '@angular/compiler': 22.2.5
+      '@angular/compiler-cli': 22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3)
       '@babel/core': 8.0.5
       '@inquirer/confirm': 6.3.2(@types/node@24.19.2)
       '@parcel/watcher': 2.6.0
@@ -7227,13 +7182,13 @@ snapshots:
       vite: 8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.1)(sass@1.104.1)(terser@5.50.0)(yaml@2.9.0)
       xxhash-wasm: 1.1.0
     optionalDependencies:
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@angular/platform-browser': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/platform-browser': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))
       '@oxc-parser/binding-wasm32-wasi': 0.156.0
       lmdb: 3.5.6
       postcss: 8.5.32
       rollup: 2.80.0
-      tailwindcss: 4.3.4
+      tailwindcss: 4.3.5
       vitest: 4.1.12(@opentelemetry/api@1.10.0)(@types/node@24.19.2)(@vitest/browser-playwright@4.1.12)(@vitest/coverage-v8@4.1.12)(@vitest/ui@4.1.12)(jsdom@29.1.1)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.1)(sass@1.104.1)(terser@5.50.0)(yaml@2.9.0))
     transitivePeerDependencies:
       - '@types/node'
@@ -7247,12 +7202,12 @@ snapshots:
       - tsx
       - yaml
 
-  '@angular/cdk@22.2.6(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)':
+  '@angular/cdk@22.2.6(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)':
     dependencies:
-      '@angular/common': 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@angular/forms': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
-      '@angular/platform-browser': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))
+      '@angular/common': 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/forms': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+      '@angular/platform-browser': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))
       parse5: 8.0.1
       rxjs: 7.8.2
       tslib: 2.9.1
@@ -7277,15 +7232,15 @@ snapshots:
       - '@types/node'
       - chokidar
 
-  '@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)':
+  '@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)':
     dependencies:
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
       rxjs: 7.8.2
       tslib: 2.9.1
 
-  '@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3)':
+  '@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3)':
     dependencies:
-      '@angular/compiler': 22.2.4
+      '@angular/compiler': 22.2.5
       '@babel/core': 8.0.1
       '@jridgewell/sourcemap-codec': 1.6.0
       chokidar: 5.0.0
@@ -7297,39 +7252,39 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  '@angular/compiler@22.2.4':
+  '@angular/compiler@22.2.5':
     dependencies:
       tslib: 2.9.1
 
-  '@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)':
+  '@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)':
     dependencies:
       rxjs: 7.8.2
       tslib: 2.9.1
     optionalDependencies:
-      '@angular/compiler': 22.2.4
+      '@angular/compiler': 22.2.5
       zone.js: 0.16.3
 
-  '@angular/forms@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)':
+  '@angular/forms@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)':
     dependencies:
-      '@angular/common': 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@angular/platform-browser': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))
+      '@angular/common': 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/platform-browser': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))
       '@standard-schema/spec': 1.1.0
       rxjs: 7.8.2
       tslib: 2.9.1
       zod: 4.6.7
 
-  '@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))':
+  '@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))':
     dependencies:
-      '@angular/common': 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/common': 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
       tslib: 2.9.1
 
-  '@angular/router@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)':
+  '@angular/router@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)':
     dependencies:
-      '@angular/common': 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@angular/platform-browser': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))
+      '@angular/common': 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/platform-browser': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))
       rxjs: 7.8.2
       tslib: 2.9.1
 
@@ -7368,19 +7323,12 @@ snapshots:
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
-  '@babel/code-frame@8.0.0':
-    dependencies:
-      '@babel/helper-validator-identifier': 8.0.4
-      js-tokens: 10.0.0
-
   '@babel/code-frame@8.0.6':
     dependencies:
       '@babel/helper-validator-identifier': 8.0.6
       js-tokens: 10.0.0
 
   '@babel/compat-data@7.29.7': {}
-
-  '@babel/compat-data@8.0.0': {}
 
   '@babel/compat-data@8.0.5': {}
 
@@ -7406,14 +7354,14 @@ snapshots:
 
   '@babel/core@8.0.1':
     dependencies:
-      '@babel/code-frame': 8.0.0
-      '@babel/generator': 8.0.0
-      '@babel/helper-compilation-targets': 8.0.0
-      '@babel/helpers': 8.0.0
-      '@babel/parser': 8.0.4
+      '@babel/code-frame': 8.0.6
+      '@babel/generator': 8.0.6
+      '@babel/helper-compilation-targets': 8.0.7
+      '@babel/helpers': 8.0.8
+      '@babel/parser': 8.0.8
       '@babel/template': 8.0.0
-      '@babel/traverse': 8.0.4
-      '@babel/types': 8.0.4
+      '@babel/traverse': 8.0.7
+      '@babel/types': 8.0.8
       '@types/gensync': 1.0.5
       convert-source-map: 2.0.0
       empathic: 2.0.1
@@ -7450,15 +7398,6 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
       jsesc: 3.1.0
 
-  '@babel/generator@8.0.0':
-    dependencies:
-      '@babel/parser': 8.0.4
-      '@babel/types': 8.0.4
-      '@jridgewell/gen-mapping': 0.3.13
-      '@jridgewell/trace-mapping': 0.3.31
-      '@types/jsesc': 2.5.1
-      jsesc: 3.1.0
-
   '@babel/generator@8.0.6':
     dependencies:
       '@babel/parser': 8.0.8
@@ -7479,14 +7418,6 @@ snapshots:
       browserslist: 4.28.8
       lru-cache: 5.1.1
       semver: 6.3.1
-
-  '@babel/helper-compilation-targets@8.0.0':
-    dependencies:
-      '@babel/compat-data': 8.0.0
-      '@babel/helper-validator-option': 8.0.0
-      browserslist: 4.28.8
-      lru-cache: 11.5.2
-      semver: 7.8.5
 
   '@babel/helper-compilation-targets@8.0.7':
     dependencies:
@@ -7528,8 +7459,6 @@ snapshots:
       - supports-color
 
   '@babel/helper-globals@7.29.7': {}
-
-  '@babel/helper-globals@8.0.0': {}
 
   '@babel/helper-globals@8.0.6': {}
 
@@ -7591,13 +7520,9 @@ snapshots:
 
   '@babel/helper-string-parser@7.29.7': {}
 
-  '@babel/helper-string-parser@8.0.0': {}
-
   '@babel/helper-string-parser@8.0.8': {}
 
   '@babel/helper-validator-identifier@7.29.7': {}
-
-  '@babel/helper-validator-identifier@8.0.4': {}
 
   '@babel/helper-validator-identifier@8.0.6': {}
 
@@ -7618,11 +7543,6 @@ snapshots:
       '@babel/template': 7.29.7
       '@babel/types': 7.29.8
 
-  '@babel/helpers@8.0.0':
-    dependencies:
-      '@babel/template': 8.0.0
-      '@babel/types': 8.0.4
-
   '@babel/helpers@8.0.8':
     dependencies:
       '@babel/template': 8.0.0
@@ -7635,10 +7555,6 @@ snapshots:
   '@babel/parser@7.29.8':
     dependencies:
       '@babel/types': 7.29.8
-
-  '@babel/parser@8.0.4':
-    dependencies:
-      '@babel/types': 8.0.4
 
   '@babel/parser@8.0.8':
     dependencies:
@@ -8208,16 +8124,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/traverse@8.0.4':
-    dependencies:
-      '@babel/code-frame': 8.0.0
-      '@babel/generator': 8.0.0
-      '@babel/helper-globals': 8.0.0
-      '@babel/parser': 8.0.4
-      '@babel/template': 8.0.0
-      '@babel/types': 8.0.4
-      obug: 2.1.4
-
   '@babel/traverse@8.0.7':
     dependencies:
       '@babel/code-frame': 8.0.6
@@ -8237,11 +8143,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
-
-  '@babel/types@8.0.4':
-    dependencies:
-      '@babel/helper-string-parser': 8.0.0
-      '@babel/helper-validator-identifier': 8.0.4
 
   '@babel/types@8.0.8':
     dependencies:
@@ -8535,7 +8436,7 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
-  '@fabdeh/eslint-config@0.13.2(@angular/cli@22.2.6(@types/node@24.19.2)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.4)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.12)':
+  '@fabdeh/eslint-config@0.13.2(@angular/cli@22.2.6(@types/node@24.19.2)(chokidar@5.0.0))(@testing-library/dom@10.4.1)(chokidar@5.0.0)(eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.5)(typescript@6.0.3))(eslint-plugin-erasable-syntax-only@0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)(vitest@4.1.12)':
     dependencies:
       '@antfu/install-pkg': 2.0.1
       '@clack/prompts': 1.7.0
@@ -8574,7 +8475,7 @@ snapshots:
       local-pkg: 1.2.1
       typescript-eslint: 8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
     optionalDependencies:
-      eslint-plugin-better-tailwindcss: 4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.4)(typescript@6.0.3)
+      eslint-plugin-better-tailwindcss: 4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.5)(typescript@6.0.3)
       eslint-plugin-erasable-syntax-only: 0.7.2(@typescript-eslint/parser@8.67.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
     transitivePeerDependencies:
       - '@angular/cli'
@@ -8947,11 +8848,11 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@ng-icons/core@33.4.0(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@schematics/angular@22.2.6(chokidar@5.0.0))(rxjs@7.8.2)':
+  '@ng-icons/core@33.4.0(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@schematics/angular@22.2.6(chokidar@5.0.0))(rxjs@7.8.2)':
     dependencies:
       '@angular-devkit/schematics': 22.2.6(chokidar@5.0.0)
-      '@angular/common': 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/common': 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
       '@schematics/angular': 22.2.6(chokidar@5.0.0)
       rxjs: 7.8.2
       tslib: 2.9.1
@@ -8973,16 +8874,16 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.9.1
 
-  '@ngrx/signals@21.1.1(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)':
+  '@ngrx/signals@21.1.1(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)':
     dependencies:
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
       tslib: 2.9.1
     optionalDependencies:
       rxjs: 7.8.2
 
-  '@ngx-env/builder@21.0.1(@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(webpack@5.109.2(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.32))':
+  '@ngx-env/builder@21.0.1(@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(webpack@5.109.2(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.32))':
     dependencies:
-      '@angular/build': 22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)
+      '@angular/build': 22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)
       glob: 10.5.0
     optionalDependencies:
       '@dotenv-run/webpack': 1.5.2(webpack@5.109.2(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.32))
@@ -9001,7 +8902,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@nx/angular@24.0.3(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@babel/traverse@7.29.12(supports-color@8.1.1))(@schematics/angular@21.2.14(chokidar@5.0.0))(@zkochan/js-yaml@0.0.7)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(nx@24.0.3)(rxjs@7.8.2)(supports-color@8.1.1)(typescript@6.0.3)':
+  '@nx/angular@24.0.3(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@babel/traverse@7.29.12(supports-color@8.1.1))(@schematics/angular@21.2.14(chokidar@5.0.0))(@zkochan/js-yaml@0.0.7)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(nx@24.0.3)(rxjs@7.8.2)(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@angular-devkit/core': 22.2.6(chokidar@5.0.0)
       '@angular-devkit/schematics': 22.2.6(chokidar@5.0.0)
@@ -9019,7 +8920,7 @@ snapshots:
       semver: 7.8.5
       tslib: 2.9.1
     optionalDependencies:
-      '@angular/build': 22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)
+      '@angular/build': 22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@nx/jest'
@@ -9171,7 +9072,7 @@ snapshots:
   '@opentelemetry/core@3.1.0(@opentelemetry/api@1.10.0)':
     dependencies:
       '@opentelemetry/api': 1.10.0
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
 
   '@opentelemetry/exporter-trace-otlp-http@0.301.0(@opentelemetry/api@1.10.0)':
     dependencies:
@@ -9185,7 +9086,7 @@ snapshots:
       '@opentelemetry/api': 1.10.0
       '@opentelemetry/core': 3.1.0(@opentelemetry/api@1.10.0)
       '@opentelemetry/instrumentation': 0.301.0(@opentelemetry/api@1.10.0)(supports-color@8.1.1)
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
       '@opentelemetry/web-common': 0.301.0(@opentelemetry/api@1.10.0)
     transitivePeerDependencies:
       - supports-color
@@ -9195,7 +9096,7 @@ snapshots:
       '@opentelemetry/api': 1.10.0
       '@opentelemetry/core': 3.1.0(@opentelemetry/api@1.10.0)
       '@opentelemetry/instrumentation': 0.301.0(@opentelemetry/api@1.10.0)(supports-color@8.1.1)
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
       '@opentelemetry/web-common': 0.301.0(@opentelemetry/api@1.10.0)
     transitivePeerDependencies:
       - supports-color
@@ -9215,7 +9116,7 @@ snapshots:
       '@opentelemetry/api': 1.10.0
       '@opentelemetry/core': 3.1.0(@opentelemetry/api@1.10.0)
       '@opentelemetry/instrumentation': 0.301.0(@opentelemetry/api@1.10.0)(supports-color@8.1.1)
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
       '@opentelemetry/web-common': 0.301.0(@opentelemetry/api@1.10.0)
     transitivePeerDependencies:
       - supports-color
@@ -9247,14 +9148,14 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.10.0
       '@opentelemetry/core': 3.1.0(@opentelemetry/api@1.10.0)
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
 
   '@opentelemetry/sdk-logs@3.1.0(@opentelemetry/api@1.10.0)':
     dependencies:
       '@opentelemetry/api': 1.10.0
       '@opentelemetry/core': 3.1.0(@opentelemetry/api@1.10.0)
       '@opentelemetry/resources': 3.1.0(@opentelemetry/api@1.10.0)
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
 
   '@opentelemetry/sdk-metrics@3.1.0(@opentelemetry/api@1.10.0)':
     dependencies:
@@ -9267,9 +9168,9 @@ snapshots:
       '@opentelemetry/api': 1.10.0
       '@opentelemetry/core': 3.1.0(@opentelemetry/api@1.10.0)
       '@opentelemetry/resources': 3.1.0(@opentelemetry/api@1.10.0)
-      '@opentelemetry/semantic-conventions': 1.44.0
+      '@opentelemetry/semantic-conventions': 1.45.0
 
-  '@opentelemetry/semantic-conventions@1.44.0': {}
+  '@opentelemetry/semantic-conventions@1.45.0': {}
 
   '@opentelemetry/web-common@0.301.0(@opentelemetry/api@1.10.0)':
     dependencies:
@@ -9573,22 +9474,22 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  '@spartan-ng/brain@1.9.0(40d785810f6aa337aa04117e52066736)':
+  '@spartan-ng/brain@1.9.0(d85a7ad25cdb5f049ea2f8ab98183dac)':
     dependencies:
-      '@angular/cdk': 22.2.6(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
-      '@angular/common': 22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@angular/forms': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+      '@angular/cdk': 22.2.6(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/forms@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+      '@angular/common': 22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/forms': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
       clsx: 2.1.1
       rxjs: 7.8.2
-      tailwindcss: 4.3.4
+      tailwindcss: 4.3.5
       tslib: 2.9.1
       tw-animate-css: 1.4.0
 
-  '@spartan-ng/cli@1.9.0(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@angular/compiler@22.2.4)(@babel/traverse@7.29.12(supports-color@8.1.1))(@zkochan/js-yaml@0.0.7)(chokidar@5.0.0)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(rxjs@7.8.2)(supports-color@8.1.1)(tslib@2.9.1)(zone.js@0.16.3)':
+  '@spartan-ng/cli@1.9.0(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@angular/compiler@22.2.5)(@babel/traverse@7.29.12(supports-color@8.1.1))(@zkochan/js-yaml@0.0.7)(chokidar@5.0.0)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(rxjs@7.8.2)(supports-color@8.1.1)(tslib@2.9.1)(zone.js@0.16.3)':
     dependencies:
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@nx/angular': 24.0.3(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.4(@angular/compiler@22.2.4)(typescript@6.0.3))(@angular/compiler@22.2.4)(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.4)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@babel/traverse@7.29.12(supports-color@8.1.1))(@schematics/angular@21.2.14(chokidar@5.0.0))(@zkochan/js-yaml@0.0.7)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(nx@24.0.3)(rxjs@7.8.2)(supports-color@8.1.1)(typescript@6.0.3)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@nx/angular': 24.0.3(@angular-devkit/core@22.2.6(chokidar@5.0.0))(@angular-devkit/schematics@22.2.6(chokidar@5.0.0))(@angular/build@22.2.6(@angular/compiler-cli@22.2.5(@angular/compiler@22.2.5)(typescript@6.0.3))(@angular/compiler@22.2.5)(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(@types/node@24.19.2)(jiti@2.7.0)(postcss@8.5.32)(rollup@2.80.0)(supports-color@8.1.1)(tailwindcss@4.3.5)(terser@5.50.0)(tslib@2.9.1)(typescript@6.0.3)(vitest@4.1.12)(yaml@2.9.0))(@babel/traverse@7.29.12(supports-color@8.1.1))(@schematics/angular@21.2.14(chokidar@5.0.0))(@zkochan/js-yaml@0.0.7)(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(nx@24.0.3)(rxjs@7.8.2)(supports-color@8.1.1)(typescript@6.0.3)
       '@nx/devkit': 24.0.3(nx@24.0.3)
       '@nx/js': 24.0.3(@babel/traverse@7.29.12(supports-color@8.1.1))(nx@24.0.3)(supports-color@8.1.1)
       '@nx/workspace': 24.0.3
@@ -9902,7 +9803,7 @@ snapshots:
       estraverse: 5.3.0
       picomatch: 4.0.5
 
-  '@tailwindcss/node@4.3.4':
+  '@tailwindcss/node@4.3.5':
     dependencies:
       '@jridgewell/remapping': 2.3.5
       enhanced-resolve: 5.24.5
@@ -9910,79 +9811,79 @@ snapshots:
       lightningcss: 1.33.0
       magic-string: 1.4.1
       source-map-js: 1.2.2
-      tailwindcss: 4.3.4
+      tailwindcss: 4.3.5
 
-  '@tailwindcss/oxide-android-arm64@4.3.4':
+  '@tailwindcss/oxide-android-arm64@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-darwin-arm64@4.3.4':
+  '@tailwindcss/oxide-darwin-arm64@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-darwin-x64@4.3.4':
+  '@tailwindcss/oxide-darwin-x64@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-freebsd-x64@4.3.4':
+  '@tailwindcss/oxide-freebsd-x64@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-arm-gnueabihf@4.3.4':
+  '@tailwindcss/oxide-linux-arm-gnueabihf@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-arm64-gnu@4.3.4':
+  '@tailwindcss/oxide-linux-arm64-gnu@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-arm64-musl@4.3.4':
+  '@tailwindcss/oxide-linux-arm64-musl@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-x64-gnu@4.3.4':
+  '@tailwindcss/oxide-linux-x64-gnu@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-linux-x64-musl@4.3.4':
+  '@tailwindcss/oxide-linux-x64-musl@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-wasm32-wasi@4.3.4':
+  '@tailwindcss/oxide-wasm32-wasi@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-win32-arm64-msvc@4.3.4':
+  '@tailwindcss/oxide-win32-arm64-msvc@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide-win32-x64-msvc@4.3.4':
+  '@tailwindcss/oxide-win32-x64-msvc@4.3.5':
     optional: true
 
-  '@tailwindcss/oxide@4.3.4':
+  '@tailwindcss/oxide@4.3.5':
     optionalDependencies:
-      '@tailwindcss/oxide-android-arm64': 4.3.4
-      '@tailwindcss/oxide-darwin-arm64': 4.3.4
-      '@tailwindcss/oxide-darwin-x64': 4.3.4
-      '@tailwindcss/oxide-freebsd-x64': 4.3.4
-      '@tailwindcss/oxide-linux-arm-gnueabihf': 4.3.4
-      '@tailwindcss/oxide-linux-arm64-gnu': 4.3.4
-      '@tailwindcss/oxide-linux-arm64-musl': 4.3.4
-      '@tailwindcss/oxide-linux-x64-gnu': 4.3.4
-      '@tailwindcss/oxide-linux-x64-musl': 4.3.4
-      '@tailwindcss/oxide-wasm32-wasi': 4.3.4
-      '@tailwindcss/oxide-win32-arm64-msvc': 4.3.4
-      '@tailwindcss/oxide-win32-x64-msvc': 4.3.4
+      '@tailwindcss/oxide-android-arm64': 4.3.5
+      '@tailwindcss/oxide-darwin-arm64': 4.3.5
+      '@tailwindcss/oxide-darwin-x64': 4.3.5
+      '@tailwindcss/oxide-freebsd-x64': 4.3.5
+      '@tailwindcss/oxide-linux-arm-gnueabihf': 4.3.5
+      '@tailwindcss/oxide-linux-arm64-gnu': 4.3.5
+      '@tailwindcss/oxide-linux-arm64-musl': 4.3.5
+      '@tailwindcss/oxide-linux-x64-gnu': 4.3.5
+      '@tailwindcss/oxide-linux-x64-musl': 4.3.5
+      '@tailwindcss/oxide-wasm32-wasi': 4.3.5
+      '@tailwindcss/oxide-win32-arm64-msvc': 4.3.5
+      '@tailwindcss/oxide-win32-x64-msvc': 4.3.5
 
-  '@tailwindcss/postcss@4.3.4':
+  '@tailwindcss/postcss@4.3.5':
     dependencies:
       '@alloc/quick-lru': 5.2.0
-      '@tailwindcss/node': 4.3.4
-      '@tailwindcss/oxide': 4.3.4
+      '@tailwindcss/node': 4.3.5
+      '@tailwindcss/oxide': 4.3.5
       postcss: 8.5.32
-      tailwindcss: 4.3.4
+      tailwindcss: 4.3.5
 
-  '@tanstack/angular-table@8.21.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))':
+  '@tanstack/angular-table@8.21.4(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))':
     dependencies:
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
       '@tanstack/table-core': 8.21.3
       tslib: 2.9.1
 
   '@tanstack/table-core@8.21.3': {}
 
-  '@testing-library/angular@19.6.0(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/router@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@testing-library/dom@10.4.1)':
+  '@testing-library/angular@19.6.0(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/router@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2))(@testing-library/dom@10.4.1)':
     dependencies:
-      '@angular/core': 22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)
-      '@angular/router': 22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.4(@angular/common@22.2.4(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.4(@angular/compiler@22.2.4)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
+      '@angular/core': 22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)
+      '@angular/router': 22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(@angular/platform-browser@22.2.5(@angular/common@22.2.5(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3))(rxjs@7.8.2))(@angular/core@22.2.5(@angular/compiler@22.2.5)(rxjs@7.8.2)(zone.js@0.16.3)))(rxjs@7.8.2)
       '@testing-library/dom': 10.4.1
       tslib: 2.9.1
 
@@ -11264,7 +11165,7 @@ snapshots:
 
   eslint-parser-plain@0.1.1: {}
 
-  eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.4)(typescript@6.0.3):
+  eslint-plugin-better-tailwindcss@4.10.0(eslint@10.14.0(jiti@2.7.0)(supports-color@8.1.1))(tailwindcss@4.3.5)(typescript@6.0.3):
     dependencies:
       '@eslint/css-tree': 4.0.5
       '@valibot/to-json-schema': 1.7.1(valibot@1.4.2(typescript@6.0.3))
@@ -11272,7 +11173,7 @@ snapshots:
       jiti: 2.7.0
       synckit: 0.12.3
       tailwind-csstree: 0.3.3
-      tailwindcss: 4.3.4
+      tailwindcss: 4.3.5
       tsconfig-paths-webpack-plugin: 4.2.0
       valibot: 1.4.2(typescript@6.0.3)
     optionalDependencies:
@@ -13732,7 +13633,7 @@ snapshots:
 
   tailwind-merge@3.7.0: {}
 
-  tailwindcss@4.3.4: {}
+  tailwindcss@4.3.5: {}
 
   tapable@2.3.3: {}
 
