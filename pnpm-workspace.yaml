@@ -25,7 +25,7 @@ allowBuilds:
 
 catalog:
   '@ngx-env/builder': 21.0.1
-  '@stoplight/spectral-cli': 6.17.0
+  '@stoplight/spectral-cli': 6.17.1
   '@types/node': 24.19.2
   dotenv: 17.4.2
   jsdom: 29.1.1
