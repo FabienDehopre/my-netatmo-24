@@ -63,7 +63,7 @@ catalogs:
     '@ngrx/signals': 21.1.1
   opentelemetry:
     '@opentelemetry/api': 1.10.0
-    '@opentelemetry/auto-instrumentations-web': 0.69.0
+    '@opentelemetry/auto-instrumentations-web': 0.70.0
     '@opentelemetry/context-zone': 3.1.0
     '@opentelemetry/core': 3.1.0
     '@opentelemetry/exporter-trace-otlp-http': 0.301.0
