@@ -199,8 +199,8 @@ catalogs:
       specifier: 21.0.1
       version: 21.0.1
     '@stoplight/spectral-cli':
-      specifier: 6.17.0
-      version: 6.17.0
+      specifier: 6.17.1
+      version: 6.17.1
     '@types/node':
       specifier: 24.19.2
       version: 24.19.2
@@ -364,7 +364,7 @@ importers:
     devDependencies:
       '@stoplight/spectral-cli':
         specifier: 'catalog:'
-        version: 6.17.0
+        version: 6.17.1
 
   MyNetatmo24.EndToEndTests:
     devDependencies:
@@ -3115,8 +3115,8 @@ packages:
     resolution: {integrity: sha512-lyIc6JUlUA8Ve5ELywPC8I2Sdnh1zc1zmbYgVarhXIp9YeAB0ReeqmGEOWNtlHkbP2DAA1AL65Wfn2ncjK/jtQ==}
     engines: {node: '>=8'}
 
-  '@stoplight/spectral-cli@6.17.0':
-    resolution: {integrity: sha512-9OTHNYqfF99hjHsh5aCjNHRZgocJBaHa6uaQTBUOsgAA19jaLaT8xB6/SBGC+GA7Wpzu4t9MMIOXPLj0ZbL5UA==}
+  '@stoplight/spectral-cli@6.17.1':
+    resolution: {integrity: sha512-/eeJ8z4nh7TbYfO0qwJC+y/Z6fHisMs3obbsUa9YW52skfUcAo0O9gLctIcQ6DBs04Rk94ErPDlI/7vOO0TbRw==}
     engines: {node: ^22.0 || >= 24.0}
     hasBin: true
 
@@ -9673,7 +9673,7 @@ snapshots:
 
   '@stoplight/path@1.3.2': {}
 
-  '@stoplight/spectral-cli@6.17.0':
+  '@stoplight/spectral-cli@6.17.1':
     dependencies:
       '@scarf/scarf': 1.4.0
       '@stoplight/json': 3.21.7
