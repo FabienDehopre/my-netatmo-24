@@ -167,7 +167,7 @@ internal static class Extensions
         public string BuildRedirectUrl(string? redirectUrl)
         {
             if (string.IsNullOrEmpty(redirectUrl)
-                || !redirectUrl.StartsWith('/')
+                || !redirectUrl.StartsWith('/', StringComparison.Ordinal)
                 || redirectUrl.StartsWith("//", StringComparison.Ordinal)
                 || redirectUrl.Contains('\\', StringComparison.Ordinal))
             {

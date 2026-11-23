@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.1",
+  "openapi": "3.1.2",
   "info": {
     "title": "My Netatmo 24 API",
     "description": "API for My Netatmo 24 application",
@@ -27,6 +27,9 @@
           "204": {
             "description": "The authenticated user already has an account."
           },
+          "401": {
+            "description": "The user is not authenticated, so an account cannot be ensured."
+          },
           "404": {
             "description": "The user's information could not be retrieved from Auth0, so an account could not be created."
           },
@@ -39,9 +42,6 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "The user is not authenticated, so an account cannot be ensured."
           }
         },
         "security": [
@@ -70,11 +70,11 @@
               }
             }
           },
-          "404": {
-            "description": "The user's account could not be found, so their account information cannot be retrieved."
-          },
           "401": {
             "description": "The user is not authenticated, so their account information cannot be retrieved."
+          },
+          "404": {
+            "description": "The user's account could not be found, so their account information cannot be retrieved."
           }
         },
         "security": [
@@ -161,11 +161,11 @@
           "204": {
             "description": "The user's account was successfully restored."
           },
-          "404": {
-            "description": "The user's account could not be found, so it cannot be restored."
-          },
           "401": {
             "description": "The user is not authenticated, so their account cannot be restored."
+          },
+          "404": {
+            "description": "The user's account could not be found, so it cannot be restored."
           }
         },
         "security": [

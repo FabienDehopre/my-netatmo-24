@@ -3,6 +3,9 @@
     <PropertyGroup>
         <!-- CA1707: underscores are idiomatic in test method names. CA2000: test doubles have trivial lifetimes. -->
         <NoWarn>$(NoWarn);CA1303;CA1707;CA2000</NoWarn>
+        <!-- SDK 11 emits Hot Reload browser-tools JS modules for Web SDK projects; in a test project that references
+             another Web project they end up without endpoints and fail the build. Tests never use Hot Reload. -->
+        <EnableHotReloadInRuntimeConfigDevFile>false</EnableHotReloadInRuntimeConfigDevFile>
     </PropertyGroup>
 
     <ItemGroup>

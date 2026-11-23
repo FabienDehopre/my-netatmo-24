@@ -48,7 +48,7 @@ internal static class HttpContextExtensions
                 ArgumentNullException.ThrowIfNull(context);
 
                 var forwardedFor = context.Request.Headers[ForwardedForHeaderName].ToString();
-                var lastSeparator = forwardedFor.LastIndexOf(',');
+                var lastSeparator = forwardedFor.LastIndexOf(',', StringComparison.Ordinal);
                 var lastForwarded = lastSeparator < 0 ? forwardedFor : forwardedFor[(lastSeparator + 1)..];
                 if (TryParseAddress(lastForwarded.Trim(), out var forwardedAddress))
                 {
