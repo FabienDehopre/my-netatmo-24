@@ -54,7 +54,7 @@
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.17.0" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.17.0" />
     <PackageVersion Include="TUnit.AspNetCore" Version="1.87.12" />
-    <PackageVersion Include="Verify.TUnit" Version="32.0.1" />
+    <PackageVersion Include="Verify.TUnit" Version="33.7.2" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="11.0.0" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.10.0" />
