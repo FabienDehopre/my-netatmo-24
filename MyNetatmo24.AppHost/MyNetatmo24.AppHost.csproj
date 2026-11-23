@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.6.5">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,20 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost"/>
-    <PackageReference Include="Aspire.Hosting.JavaScript"/>
-    <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
-    <PackageReference Include="Aspire.Hosting.Redis"/>
-    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio"/>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.Dotnet" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.Redis" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
     <!-- Pins StreamJsonRpc's transitive MessagePack past GHSA-qhrr-8q5h-9q3h (NU1902) until Aspire ships it. -->
-    <PackageReference Include="MessagePack"/>
+    <PackageReference Include="MessagePack" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj"/>
-    <ProjectReference Include="..\MyNetatmo24.Gateway\MyNetatmo24.Gateway.csproj"/>
+    <ProjectReference Include="..\MyNetatmo24.ApiService\MyNetatmo24.ApiService.csproj" />
+    <ProjectReference Include="..\MyNetatmo24.Gateway\MyNetatmo24.Gateway.csproj" />
     <ProjectReference Include="..\MyNetatmo24.MigrationService\MyNetatmo24.MigrationService.csproj" />
-    <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" IsAspireProjectResource="false"/>
+    <ProjectReference Include="..\MyNetatmo24.SharedKernel\MyNetatmo24.SharedKernel.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
 </Project>

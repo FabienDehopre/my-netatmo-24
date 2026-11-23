@@ -17,12 +17,12 @@ var redis = builder.AddRedis(Constants.CacheName)
 redis
     .WithRedisInsight(p => p.WithParentRelationship(redis));
 
-var migrations = builder.AddProject<Projects.MyNetatmo24_MigrationService>("migrations")
+var migrations = builder.AddDotnetProject("migrations", "../MyNetatmo24.MigrationService/MyNetatmo24.MigrationService.csproj")
     .WithReference(database)
     .WaitFor(database)
     .WithParentRelationship(database);
 
-var apiService = builder.AddProject<Projects.MyNetatmo24_ApiService>("apiservice")
+var apiService = builder.AddDotnetProject("apiservice", "../MyNetatmo24.ApiService/MyNetatmo24.ApiService.csproj")
     .WithReference(database)
     .WithReference(redis)
     .WithReference(migrations)
@@ -53,7 +53,7 @@ var frontend = builder.AddJavaScriptApp("angular-frontend", "../MyNetatmo24.Fron
             .WithBuildArg("OTEL_RESOURCE_ATTRIBUTES", "")
             .WithBuildArg("OTEL_EXPORTER_OTLP_HEADERS", ""));
 
-var gateway = builder.AddProject<Projects.MyNetatmo24_Gateway>("gateway")
+var gateway = builder.AddDotnetProject("gateway", "../MyNetatmo24.Gateway/MyNetatmo24.Gateway.csproj")
     .WithReference(redis)
     .WithReference(apiService)
     .WithReference(frontend)
