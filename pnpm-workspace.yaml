@@ -26,7 +26,7 @@ allowBuilds:
 catalog:
   '@ngx-env/builder': 21.0.1
   '@stoplight/spectral-cli': 6.17.1
-  '@types/node': 24.19.2
+  '@types/node': 24.19.4
   dotenv: 17.4.2
   jsdom: 29.1.1
   postcss: 8.5.33
@@ -55,7 +55,7 @@ catalogs:
     '@softarc/sheriff-core': 0.20.1
     eslint: 10.15.0
     eslint-plugin-better-tailwindcss: 4.11.0
-    eslint-plugin-erasable-syntax-only: 0.7.2
+    eslint-plugin-erasable-syntax-only: 0.7.3
     eslint-plugin-format: 2.0.1
     eslint-plugin-playwright: 2.12.2
   ngrx:
@@ -76,8 +76,8 @@ catalogs:
   spartanui:
     '@ng-icons/core': 33.4.0
     '@ng-icons/lucide': 33.4.0
-    '@spartan-ng/brain': 1.10.0
-    '@spartan-ng/cli': 1.10.0
+    '@spartan-ng/brain': 1.10.1
+    '@spartan-ng/cli': 1.10.1
     'class-variance-authority': 0.7.1
     clsx: 2.1.1
   tailwindcss:
